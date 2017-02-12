@@ -16,7 +16,7 @@ class Organizer extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * 取得主辦單位帳號。
+     * 取得主辦單位的帳號資訊。
      */
     public function account()
     {

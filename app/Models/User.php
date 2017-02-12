@@ -16,7 +16,7 @@ class User extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * 取得使用者帳號。
+     * 取得使用者的帳號資訊。
      */
     public function account()
     {

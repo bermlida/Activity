@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Account;
+use App\Models\Role;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -49,9 +50,9 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:accounts',
             'password' => 'required|min:6|confirmed',
+            'is_organizer' => 'required'
         ]);
     }
 
@@ -63,10 +64,19 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $account = new Account([
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => bcrypt($data['password'])
         ]);
+        
+        if ($data['is_organizer'] == '1') {
+            $account->role_id = 2;
+        } else {
+            $account->role_id = 1;
+        }
+
+        $account->save();
+        
+        return $account;
     }
 }

@@ -37,29 +37,27 @@
                     <li>
                         <a href="services.html">Services</a>
                     </li>
-                    <li>
-                        <a href="contact.html">Contact</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="portfolio-1-col.html">1 Column Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-2-col.html">2 Column Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-3-col.html">3 Column Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-4-col.html">4 Column Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-item.html">Single Portfolio Item</a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if(Auth::guest())
+                        <li><a href="{{url('/login')}}">登入</a></li>
+                        <li><a href="{{url('/register')}}">註冊</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                會員功能
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="portfolio-1-col.html">1 Column Portfolio</a></li>
+                                <li><a href="portfolio-2-col.html">2 Column Portfolio</a></li>
+                                <li><a href="portfolio-3-col.html">3 Column Portfolio</a></li>
+                                <li><a href="portfolio-4-col.html">4 Column Portfolio</a></li>
+                                <li><a href="portfolio-item.html">Single Portfolio Item</a></li>
+                                <li><a href="{{ url('/logout') }}">
+                                    <i class="fa fa-btn fa-sign-out"></i>Logout
+                                </a></li>
+                            </ul>
+                        </li>
+                    @endif
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
                         <ul class="dropdown-menu">
