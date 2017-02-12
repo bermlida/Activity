@@ -47,13 +47,18 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
+                                <li><a href="{{url('/account/info')}}">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                    帳戶資訊
+                                </a></li>
                                 <li><a href="portfolio-1-col.html">1 Column Portfolio</a></li>
                                 <li><a href="portfolio-2-col.html">2 Column Portfolio</a></li>
                                 <li><a href="portfolio-3-col.html">3 Column Portfolio</a></li>
                                 <li><a href="portfolio-4-col.html">4 Column Portfolio</a></li>
                                 <li><a href="portfolio-item.html">Single Portfolio Item</a></li>
-                                <li><a href="{{ url('/logout') }}">
-                                    <i class="fa fa-btn fa-sign-out"></i>Logout
+                                <li><a href="{{url('/logout')}}">
+                                    <i class="fa fa-btn fa-sign-out"></i>
+                                    登出
                                 </a></li>
                             </ul>
                         </li>
