@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Organizer extends Model
 {
@@ -16,10 +17,25 @@ class Organizer extends Model
     protected $dates = ['deleted_at'];
 
     /**
+     * 可以被批量賦值的屬性。
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'address', 'phone', 'fax', 'mobile_phone', 'intro'];
+
+    /**
      * 取得主辦單位的帳號資訊。
      */
     public function account()
     {
         return $this->morphMany('App\Models\Account', 'profile');
+    }
+    
+    /**
+     * 取得主辦單位舉辦的活動。
+     */
+    public function activities()
+    {
+        return $this->hasMany('App\Models\Activity');
     }
 }

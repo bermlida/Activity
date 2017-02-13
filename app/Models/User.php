@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model
 {
@@ -14,6 +15,13 @@ class User extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * 可以被批量賦值的屬性。
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'mobile_phone'];
 
     /**
      * 取得使用者的帳號資訊。

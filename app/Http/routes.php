@@ -19,4 +19,15 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/account/info', 'Account\InfoController@index');
+Route::group([
+    'prefix' => 'account',
+    'namespace' => 'Account',
+    'middleware' => 'auth'
+], function() {
+    Route::get('/info', 'InfoController@index');
+    Route::post('/info', 'InfoController@save');
+
+    Route::get('/organise/activities', 'OrganiseController@index');
+    Route::get('/organise/activity', 'OrganiseController@edit');
+    // Route::get('/organise/activities', 'OrganiseController@index');
+});

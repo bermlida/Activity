@@ -51,6 +51,10 @@
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                     帳戶資訊
                                 </a></li>
+                                <li><a href="{{url('/account/organise/activities')}}">
+                                    <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+                                    舉辦的活動
+                                </a></li>
                                 <li><a href="portfolio-1-col.html">1 Column Portfolio</a></li>
                                 <li><a href="portfolio-2-col.html">2 Column Portfolio</a></li>
                                 <li><a href="portfolio-3-col.html">3 Column Portfolio</a></li>

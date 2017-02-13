@@ -9,13 +9,40 @@
             <div class="panel panel-default">
                 <div class="panel-heading">帳戶資訊</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{url('/account/info/save')}}">
+                    @if (isset($save_result))
+                        @if ($save_result['result'])
+                            <div class="alert alert-success" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                                {{ $save_result['message']}}
+                            </div>
+                        @else
+                            <div class="alert alert-info" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                                {{ $save_result['message'] }}
+                            </div>
+                        @endif
+                    @endif
+
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/account/info') }}">
                         {{ csrf_field() }}
+                        <input type="hidden" name="role_id" value="{{ isset($info->role_id) ? $info->role_id : old('role_id') }}">
+                        <input type="hidden" name="info_id" value="{{ isset($info->id) ? $info->id : old('info_id') }}">
+                        
+                        @if (count((array)$profile) > 0 || !is_null(old('profile_id')))
+                            <input type="hidden" name="profile_id" value="{{ isset($profile->id) ? $profile->id : old('profile_id') }}">
+                        @endif
+                        
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">電子郵件</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{isset($info->email) ? $info->email : old('email')}}">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ isset($info->email) ? $info->email : old('email') }}" disabled>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -59,7 +86,7 @@
                             <label for="name" class="col-md-4 control-label">名稱</label>
 
                             <div class="col-md-6">
-                                <input id="name" class="form-control" name="name" value="{{isset($profile->name) ? $profile->name : old('name')}}">
+                                <input id="name" class="form-control" name="name" value="{{ isset($profile->name) ? $profile->name : old('name') }}">
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -70,28 +97,28 @@
                         </div>
 
 
-                        @if($info->role_id == '1')
+                        @if ($info->role_id == '1')
                             <div class="form-group{{ $errors->has('mobile_phone') ? ' has-error' : '' }}">
                                 <label for="mobile_phone" class="col-md-4 control-label">手機號碼</label>
                                 <div class="col-md-6">
-                                    <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{isset($profile->mobile_phone) ? $profile->mobile_phone : old('mobile_phone')}}">
+                                    <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{ isset($profile->mobile_phone) ? $profile->mobile_phone : old('mobile_phone')}} ">
                                 
                                     @if ($errors->has('mobile_phone'))
                                         <span class="help-block">
-                                            <strong>{{$errors->first('mobile_phone')}}</strong>
+                                            <strong>{{ $errors->first('mobile_phone') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                             </div>
-                        @elseif($info->role_id == 2)
+                        @elseif ($info->role_id == 2)
                             <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                                 <label for="address" class="col-md-4 control-label">地址</label>
                                 <div class="col-md-6">
-                                    <input id="address" class="form-control" name="address" value="{{isset($profile->address) ? $profile->address : old('address')}}">
+                                    <input id="address" class="form-control" name="address" value="{{ isset($profile->address) ? $profile->address : old('address') }}">
                                 
                                     @if ($errors->has('address'))
                                         <span class="help-block">
-                                            <strong>{{$errors->first('address')}}</strong>
+                                            <strong>{{ $errors->first('address') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -100,11 +127,11 @@
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                 <label for="phone" class="col-md-4 control-label">電話</label>
                                 <div class="col-md-6">
-                                    <input id="phone" class="form-control" name="phone" value="{{isset($profile->phone) ? $profile->phone : old('phone')}}">
+                                    <input id="phone" class="form-control" name="phone" value="{{ isset($profile->phone) ? $profile->phone : old('phone') }}">
                                 
                                     @if ($errors->has('phone'))
                                         <span class="help-block">
-                                            <strong>{{$errors->first('phone')}}</strong>
+                                            <strong>{{ $errors->first('phone') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -113,11 +140,11 @@
                             <div class="form-group{{ $errors->has('fax') ? ' has-error' : '' }}">
                                 <label for="fax" class="col-md-4 control-label">傳真</label>
                                 <div class="col-md-6">
-                                    <input id="fax" class="form-control" name="fax" value="{{isset($profile->fax) ? $profile->fax : old('fax')}}">
+                                    <input id="fax" class="form-control" name="fax" value="{{ isset($profile->fax) ? $profile->fax : old('fax') }}">
                                 
                                     @if ($errors->has('fax'))
                                         <span class="help-block">
-                                            <strong>{{$errors->first('fax')}}</strong>
+                                            <strong>{{ $errors->first('fax') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -126,11 +153,24 @@
                             <div class="form-group{{ $errors->has('mobile_phone') ? ' has-error' : '' }}">
                                 <label for="mobile_phone" class="col-md-4 control-label">手機號碼</label>
                                 <div class="col-md-6">
-                                    <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{isset($profile->mobile_phone) ? $profile->mobile_phone : old('mobile_phone')}}">
+                                    <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{ isset($profile->mobile_phone) ? $profile->mobile_phone : old('mobile_phone') }}">
                                 
                                     @if ($errors->has('mobile_phone'))
                                         <span class="help-block">
-                                            <strong>{{$errors->first('mobile_phone')}}</strong>
+                                            <strong>{{ $errors->first('mobile_phone') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('intro') ? ' has-error' : '' }}">
+                                <label for="intro" class="col-md-4 control-label">介紹</label>
+                                <div class="col-md-6">
+                                    <textarea id="intro" class="form-control" name="intro">{{ isset($profile->intro) ? $profile->intro : old('intro') }}</textarea>
+                                
+                                    @if ($errors->has('intro'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('intro') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -140,7 +180,8 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> 存檔
+                                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                                    存檔
                                 </button>
                             </div>
                         </div>
