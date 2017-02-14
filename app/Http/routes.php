@@ -20,14 +20,14 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::group([
-    'prefix' => 'account',
     'namespace' => 'Account',
     'middleware' => 'auth'
 ], function() {
-    Route::get('/info', 'InfoController@index');
-    Route::post('/info', 'InfoController@save');
+    Route::get('/account/info', 'InfoController@index');
+    Route::post('/account/info', 'InfoController@save');
 
     Route::get('/organise/activities', 'OrganiseController@index');
-    Route::get('/organise/activity', 'OrganiseController@edit');
-    // Route::get('/organise/activities', 'OrganiseController@index');
+    Route::get('/organise/activity/{activity?}', 'OrganiseController@edit');
+    Route::post('/organise/activity', 'OrganiseController@create');
+    Route::put('/organise/activity', 'OrganiseController@update');
 });

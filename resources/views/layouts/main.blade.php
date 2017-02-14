@@ -51,7 +51,7 @@
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                     帳戶資訊
                                 </a></li>
-                                <li><a href="{{url('/account/organise/activities')}}">
+                                <li><a href="{{url('/organise/activities')}}">
                                     <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
                                     舉辦的活動
                                 </a></li>

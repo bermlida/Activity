@@ -23,7 +23,7 @@ class Activity extends Model
      */
     protected $fillable = [
         'name', 'start_time', 'end_time', 'venue', 'venue_intro',
-        'summary', 'intro'
+        'summary', 'intro', 'status'
     ];
 
     /**
