@@ -43,4 +43,14 @@ class Activity extends Model
     {
         return $query->where('organizer_id', $organizer);
     }
+
+    /**
+     * 限制查詢只包括給定狀態的活動。
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
 }

@@ -31,3 +31,9 @@ Route::group([
     Route::post('/organise/activity', 'OrganiseController@create');
     Route::put('/organise/activity', 'OrganiseController@update');
 });
+
+Route::get('/activities', 'ActivityController@index');
+Route::get('/activity/{activity}', 'ActivityController@info');
+
+Route::get('/organizers', 'OrganizerController@index');
+Route::get('/organizer/{organizer}', 'OrganizerController@info');

@@ -33,6 +33,8 @@
                         <th>活動時間起迄</th>
                         <th>活動地點</th>
                         <th>活動概要</th>
+                        <th>狀態</th>
+                        <th>功能</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +53,22 @@
                             </td>
                             <td>{{ $activity->venue }}</td>
                             <td>{{ $activity->summary }}</td>
+                            <td>
+                                @if ($activity->status == '0')
+                                    草稿
+                                @elseif ($activity->status == '1')
+                                    已發佈
+                                @endif
+                            </td>
+                            <td>
+                                @if ($activity->status == '0')
+                                    <button type="button" class="btn btn-info" onclick="window.location.href='{{url('/organise/activity/' . $activity->id)}}'">編輯</button>
+                                @else
+                                    <button type="button" class="btn btn-info" disabled>
+                                        編輯
+                                    </button>
+                                @endif
+                            </td>
                         </tr>
                     @empty
                         <tr>
