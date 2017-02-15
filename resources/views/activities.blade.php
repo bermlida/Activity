@@ -23,6 +23,22 @@
         <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
         <div class="row">
             @forelse ($activities as $activity)
+                <div class="col-md-4 img-portfolio">
+                    <a href="portfolio-item.html">
+                        <img class="img-responsive img-hover" src="http://placehold.it/700x400" alt="">
+                    </a>
+                    <h3><a href="{{ url('/activity/' . $activity->id) }}">
+                        {{ $activity->name }}
+                    </a></h3>
+                    <p>{{ $activity->summary }}</p>
+                </div>
+            @empty
+                <div class="col-md-12">
+                    目前這裡還沒有活動
+                </div>
+            @endforelse
+{{--
+            @forelse ($activities as $activity)
                 <div class="col-md-3 col-sm-6">
                     <div class="panel panel-default text-center">
                         <div class="panel-heading">
@@ -37,6 +53,39 @@
                 </div>
             @empty
             @endforelse
+--}}
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Pagination -->
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <ul class="pagination">
+                    <li>
+                        @if (!is_null($activities->previousPageUrl()))
+                            <a href="{{ $activities->previousPageUrl() }}">&laquo;</a>
+                        @else
+                            <a href="#">&laquo;</a>
+                        @endif
+                    </li>
+                    @for ($i = 1 ; $i <= $activities->lastPage() ; $i++)
+                        @if ($i == $activities->currentPage())
+                            <li class="active"><a href="#">{{ $i }}</a></li>
+                        @else
+                            <li><a href="{{ $activities->url($i) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                    <li>
+                        @if (!is_null($activities->nextPageUrl()))
+                            <a href="{{ $activities->nextPageUrl() }}">&raquo;</a>
+                        @else
+                            <a href="#">&raquo;</a>
+                        @endif
+                    </li>
+                </ul>
+            </div>
         </div>
         <!-- /.row -->
 

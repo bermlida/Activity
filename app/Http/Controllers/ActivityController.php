@@ -25,8 +25,8 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $data['activities'] = Activity::ofStatus(1)->get();
-
+        $data['activities'] = Activity::ofStatus(1)->paginate(1);
+        
         return view('activities', $data);
     }
 
