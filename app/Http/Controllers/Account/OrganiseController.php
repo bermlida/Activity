@@ -93,7 +93,7 @@ class OrganiseController extends Controller
         }
         
         $save_result['result'] = $update_result;
-        $save_result['message'] = $update_result ? '更新失敗' : '更新成功';
+        $save_result['message'] = $update_result ? '更新成功' : '更新失敗';
         $page_method = 'PUT';
 
         $data = compact('organizer', 'activity', 'page_method', 'save_result');

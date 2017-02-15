@@ -3,10 +3,38 @@
 
 @extends('layouts.main')
 
+@section('style')
+
+    <!-- Summernote CSS -->
+    <link href="{{ asset('/assets/summernote/summernote.css') }}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
     <!-- Page Content -->
     <div class="container">
+
+        <!-- For success/fail messages -->
+        @if (isset($save_result))
+            @if ($save_result['result'])
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    {{ $save_result['message']}}
+                </div>
+            @else
+                <div class="alert alert-info" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    {{ $save_result['message'] }}
+                </div>
+            @endif
+        @endif
 
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
@@ -19,9 +47,8 @@
             </div>
         </div>
         <!-- /.row -->
-
-        <!-- Contact Form -->
-        <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+        
+        <!-- Activity Form -->
         <div class="row">
             <div class="col-md-8">
                 <h3></h3>
@@ -143,10 +170,7 @@
                             </div>
                         </div>
                     </div><br><br><br>
-{{--
-                    <div id="success">123456</div>
---}}
-                    <!-- For success/fail messages -->
+
                     <div class="form-group">
                         <div class="controls"> 
                             <div class="col-md-5 col-md-offset-2 col-xs-5 col-xs-offset-2">
@@ -187,9 +211,18 @@
     <!-- Contact Form JavaScript -->
     <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
     <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
+
+    <!-- Summernote JavaScript -->
+    <script src="{{ asset('/assets/summernote/summernote.min.js') }}"></script>
 
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#intro").summernote({
+                height: 500,
+                focus: true
+            });
+        });
+
         $("button[name]").click(function () {
             var action = $(this).attr("name");
 
@@ -201,6 +234,7 @@
 
             $("form").submit();
         });
+
     </script>
 
 @endsection

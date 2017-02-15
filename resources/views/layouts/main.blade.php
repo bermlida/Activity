@@ -11,6 +11,8 @@
     <title>精進之門 - 佛教活動平台</title>
 
     @include('layouts.style')
+
+    @yield('style')
 </head>
 
 <body>

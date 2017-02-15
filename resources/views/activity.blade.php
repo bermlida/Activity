@@ -57,7 +57,7 @@
                 <h2 class="page-header">活動介紹</h2>
             </div>
             <div class="col-md-12">
-                {{ $activity->intro }}
+                {!! $activity->intro !!}
             </div>
         </div>
         <!-- /.row -->
