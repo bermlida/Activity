@@ -12,7 +12,7 @@
         <div class="row">
             <br>
             <div class="col-lg-12">
-                <img class="img-responsive" src="http://placehold.it/1200x300" alt="">
+                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
             </div>
         </div>
         <!-- /.row -->

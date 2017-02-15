@@ -35,3 +35,7 @@ Route::get('/activity/{activity}', 'ActivityController@info');
 
 Route::get('/organizers', 'OrganizerController@index');
 Route::get('/organizer/{organizer}', 'OrganizerController@info');
+
+Route::get('/sign-up/fill-form', function () {
+    return view('sign-up.fill-form');
+});

@@ -49,10 +49,12 @@
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                     帳戶資訊
                                 </a></li>
-                                <li><a href="{{url('/organise/activities')}}">
-                                    <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
-                                    舉辦的活動
-                                </a></li>
+                                @if (Auth::user()->role_id == '2')
+                                    <li><a href="{{url('/organise/activities')}}">
+                                        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+                                        舉辦的活動
+                                    </a></li>
+                                @endif
 {{--
                                 <li><a href="portfolio-1-col.html">1 Column Portfolio</a></li>
                                 <li><a href="portfolio-4-col.html">4 Column Portfolio</a></li>

@@ -30,4 +30,13 @@ class User extends Model
     {
         return $this->morphMany('App\Models\Account', 'profile');
     }
+
+    /**
+     * 取得使用者參加的活動。
+     */
+    public function activities()
+    {
+        return $this->belongsToMany('App\Models\Activity', 'user_activity')
+                    ->withTimestamps();
+    }
 }

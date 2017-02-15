@@ -22,7 +22,7 @@ class InfoController extends Controller
     public function index()
     {
         $data['info'] = Auth::user();
-
+        
         $data['profile'] = $data['info']->profile ?? (object)[];
         
         return view('account.info', $data);

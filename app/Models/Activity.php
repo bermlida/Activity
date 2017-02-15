@@ -35,6 +35,15 @@ class Activity extends Model
     }
 
     /**
+     * 取得參加活動的使用者。
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'user_activity')
+                    ->withTimestamps();
+    }
+
+    /**
      * 限制查詢只包括給定主辦單位的活動。
      *
      * @return \Illuminate\Database\Eloquent\Builder
