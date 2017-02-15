@@ -22,15 +22,12 @@
         <!-- Team Members -->
         <div class="row">
             @forelse ($organizers as $organizer)
-                <div class="col-md-4 text-center">
-                    <div class="thumbnail">
-                        <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                        <div class="caption">
-                            <h3>{{ $organizer->name }}</h3><br>
-                            <a href="{{ url('/organizer/' . $organizer->id) }}" class="btn btn-primary btn-lg btn-block">查看</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-6 img-portfolio text-center">
+                <a href="{{ url('/organizer/' . $organizer->id) }}">
+                    <img class="img-responsive img-hover" src="http://placehold.it/750x450" alt="{{ $organizer->name }}">
+                </a>
+                <h3><a href="portfolio-item.html">{{ $organizer->name }}</a></h3>
+            </div>
             @empty
                 <div class="col-md-12 text-center">
                     <h2>目前無主辦單位可供查詢</h2>

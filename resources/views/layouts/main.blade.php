@@ -53,8 +53,6 @@
                                 </a></li>
 {{--
                                 <li><a href="portfolio-1-col.html">1 Column Portfolio</a></li>
-                                <li><a href="portfolio-2-col.html">2 Column Portfolio</a></li>
-                                <li><a href="portfolio-3-col.html">3 Column Portfolio</a></li>
                                 <li><a href="portfolio-4-col.html">4 Column Portfolio</a></li>
                                 <li><a href="portfolio-item.html">Single Portfolio Item</a></li>
 --}}

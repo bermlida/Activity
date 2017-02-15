@@ -25,7 +25,7 @@
             @forelse ($activities as $activity)
                 <div class="col-md-4 img-portfolio">
                     <a href="portfolio-item.html">
-                        <img class="img-responsive img-hover" src="http://placehold.it/700x400" alt="">
+                        <img class="img-responsive img-hover" src="http://placehold.it/750x450" alt="">
                     </a>
                     <h3><a href="{{ url('/activity/' . $activity->id) }}">
                         {{ $activity->name }}
@@ -37,23 +37,6 @@
                     目前這裡還沒有活動
                 </div>
             @endforelse
-{{--
-            @forelse ($activities as $activity)
-                <div class="col-md-3 col-sm-6">
-                    <div class="panel panel-default text-center">
-                        <div class="panel-heading">
-                            <img class="img-responsive" src="http://placehold.it/1200x300" alt="">
-                        </div>
-                        <div class="panel-body">
-                            <h4>{{ $activity->name }}</h4>
-                            <p>{{ $activity->summary }}</p>
-                            <a href="{{ url('/activity/' . $activity->id) }}" class="btn btn-primary">了解詳情</a>
-                        </div>
-                    </div>
-                </div>
-            @empty
-            @endforelse
---}}
         </div>
         <!-- /.row -->
 

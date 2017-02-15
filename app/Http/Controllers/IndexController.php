@@ -25,6 +25,10 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $data['activities'] = Activity::ofStatus(1)->take(6)->get();
+
+        $data['organizers'] = Organizer::take(6)->get();
+
+        return view('index', $data);
     }
 }
