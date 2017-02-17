@@ -15,6 +15,10 @@ class CreateUserActivityTable extends Migration
         Schema::create('user_activity', function (Blueprint $table) {
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('activity_id')->unsigned();
+            $table->json('build_order_result')->nullable();
+            $table->json('payment_result')->nullable();
+            $table->integer('status');
+            $table->string('status_info')->nullable();
 
             $table->foreign('user_id')
                 ->references('id')->on('users')
