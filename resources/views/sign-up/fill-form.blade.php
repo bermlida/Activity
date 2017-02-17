@@ -1,4 +1,6 @@
 
+@inject('carbon', 'Carbon\Carbon')
+
 @extends('layouts.main')
 
 @section('content')
@@ -29,7 +31,17 @@
                             </h4>
                         </div>
                         <div class="panel-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <p>活動名稱：{{ $activity->name }}</p>
+                            <p>活動時間：
+                                @if ($carbon->parse($activity->start_time)->toDateString() != $carbon->parse($activity->end_time)->toDateString())
+                                    {{ $carbon->parse($activity->start_time)->toDateString() }}
+                                     ~ 
+                                    {{ $carbon->parse($activity->end_time)->toDateString() }}
+                                @else
+                                    {{ $carbon->parse($activity->start_time)->toDateString() }}
+                                @endif
+                            </p>
+                            <p>活動地點：{{ $activity->venue }}</p>
                         </div>
                     </div>
                     
@@ -41,33 +53,55 @@
                             </h4>
                         </div>
                         <div class="panel-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <p>電子郵件：{{ $user_account->email }}</p>
+                            <p>姓名：{{ $user_profile->name }}</p>
+                            <p>手機：{{ $user_profile->mobile_phone }}</p>
                         </div>
                     </div>
 
                     <!-- /.panel -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                報名費用或隨喜贊助
-                            </h4>
+                    @if ($activity->apply_fee > 0 || $activity->can_sponsored)
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">報名費用或隨喜贊助</h4>
+                            </div>
+                            <div class="panel-body">
+                                @if ($activity->apply_fee > 0)
+                                    <p>報名費用：{{ $activity->apply_fee }}</p>
+                                @endif
+                                @if ($activity->can_sponsored)
+                                    <p>您可隨喜贊助本活動，<p>
+                                    <p>
+                                        如欲贊助本活動，請輸入欲贊助的金額：
+                                        <input id="" type="number" name="" value="">
+                                        @if ($errors->has(''))
+                                            <span class="help-block" style="color:red">
+                                                {{ $errors->first('') }}
+                                            </span>
+                                        @endif
+                                    <p>
+                                @endif
+                            </div>
                         </div>
-                        <div class="panel-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
 
-                    <!-- /.panel -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                付款方式
-                            </h4>
+                        <!-- /.panel -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    付款方式
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <select name="">
+                                    <option value="" disabled selected>請選擇付款方式</option>
+                                    <option value="">信用卡</option>
+                                    <option value="">網路ATM轉帳</option>
+                                    <option value="">ATM轉帳</option>
+                                    <option value="">超商代碼</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
+                    @endif
                 </div>
                 <!-- /.panel-group -->
             </div>

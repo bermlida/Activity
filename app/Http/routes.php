@@ -36,6 +36,10 @@ Route::get('/activity/{activity}', 'ActivityController@info');
 Route::get('/organizers', 'OrganizerController@index');
 Route::get('/organizer/{organizer}', 'OrganizerController@info');
 
-Route::get('/sign-up/fill-form', function () {
-    return view('sign-up.fill-form');
+Route::group([
+    'prefix' => '/sign-up/{activity}',
+    'namespace' => 'SignUp',
+    'middleware' => 'auth'
+], function () {
+    Route::get('/fill-form', 'FillFormController@index');
 });

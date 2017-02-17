@@ -24,7 +24,7 @@
         <div class="row">
             @forelse ($activities as $activity)
                 <div class="col-md-4 img-portfolio">
-                    <a href="portfolio-item.html">
+                    <a href="{{ url('/activity/' . $activity->id) }}">
                         <img class="img-responsive img-hover" src="http://placehold.it/750x450" alt="">
                     </a>
                     <h3><a href="{{ url('/activity/' . $activity->id) }}">

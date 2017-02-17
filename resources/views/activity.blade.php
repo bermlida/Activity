@@ -40,6 +40,12 @@
                 @endif
                 </h3>
                 <h3>活動地點：{{ $activity->venue }}</h3>
+                @if (Auth::check())
+                    <a href="{{ url('/sign-up/' . $activity->id . '/fill-form') }}" class="btn btn-primary">
+                        報名
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                    </a>
+                @endif
             </div>
             <div class="col-md-6">
                 @if (!empty($activity->venue_intro))

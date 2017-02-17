@@ -29,6 +29,7 @@ class CreateActivityRequest extends Request
             'end_time' => 'required|date',
             'venue' => 'required|string|max:512',
             'venue_intro' => 'sometimes|string|max:255',
+            'apply_fee' => 'required|numeric',
             'summary' => 'required|string|max:255',
             'intro' => 'required|string',
             'status' => 'required|numeric'

@@ -128,13 +128,30 @@
 
                     <div class="form-group">
                         <div class="controls">
-                            <label for="venue_intro" class="col-md-2 col-xs-4 control-label">補充說明：</label>
+                            <label for="venue_intro" class="col-md-2 col-xs-4 control-label">地點補充說明：</label>
 
                             <div class="col-md-10 col-xs-8">
                             <textarea id="venue_intro" class="form-control" name="venue_intro">{{ isset($activity->venue_intro) ? $activity->venue_intro : old('venue_intro') }}</textarea>
                              @if ($errors->has('venue_intro'))
                                 <span class="help-block" style="color:red">
                                     {{ $errors->first('venue_intro') }}
+                                </span>
+                            @endif
+                            </div>
+                        </div>
+                    </div><br><br><br>
+
+                    <div class="form-group">
+                        <div class="controls">
+                            <label for="apply_fee" class="col-md-2 col-xs-4 control-label">
+                                參加費用：
+                            </label>
+
+                            <div class="col-md-10 col-xs-8">
+                            <input id="apply_fee" type="number" class="form-control" name="apply_fee" value="{{ isset($activity->apply_fee) ? $activity->apply_fee : old('apply_fee') }}">
+                             @if ($errors->has('apply_fee'))
+                                <span class="help-block" style="color:red">
+                                    {{ $errors->first('apply_fee') }}
                                 </span>
                             @endif
                             </div>
