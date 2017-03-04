@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 
-class FillFormController extends Controller
+class StepController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,7 +25,7 @@ class FillFormController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($activity)
+    public function showApplyForm($activity)
     {
         $data['activity'] = Activity::find($activity);
 
@@ -33,15 +33,27 @@ class FillFormController extends Controller
 
         $data['user_profile'] = $data['user_account']->profile;
         
-        return view('sign-up.fill-form', $data);
+        return view('sign-up.apply-form', $data);
     }
 
     /**
-     * 顯示已發佈活動的資訊畫面。
+     * 顯示填選付款設定的表單畫面。
      *
      * @return \Illuminate\Http\Response
      */
-    public function info($activity)
+    public function showPayment($activity)
+    {
+        $data['activity'] = Activity::find($activity);
+
+        return view('activity', $data);
+    }
+
+    /**
+     * 顯示填選付款設定的表單畫面。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showConfirm($activity)
     {
         $data['activity'] = Activity::find($activity);
 

@@ -41,5 +41,5 @@ Route::group([
     'namespace' => 'SignUp',
     'middleware' => 'auth'
 ], function () {
-    Route::get('/fill-form', 'FillFormController@index');
+    Route::get('/fill-apply-form', 'StepController@showApplyForm');
 });

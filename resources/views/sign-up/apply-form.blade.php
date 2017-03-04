@@ -60,17 +60,17 @@
                     </div>
 
                     <!-- /.panel -->
-                    @if ($activity->apply_fee > 0 || $activity->can_sponsored)
+                    @if ($activity->is_free || $activity->can_sponsored)
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">報名費用或隨喜贊助</h4>
                             </div>
                             <div class="panel-body">
-                                @if ($activity->apply_fee > 0)
+                                @if (!$activity->is_free)
                                     <p>報名費用：{{ $activity->apply_fee }}</p>
                                 @endif
                                 @if ($activity->can_sponsored)
-                                    <p>您可隨喜贊助本活動，<p>
+                                    <p>另外，您可隨喜贊助本活動，<p>
                                     <p>
                                         如欲贊助本活動，請輸入欲贊助的金額：
                                         <input id="" type="number" name="" value="">
@@ -108,6 +108,22 @@
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
+
+        <div class="row">
+            <div class="col-md-6 col-xs-6">
+                <a href="javascript:history.back(-1);" class="btn btn-danger">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    取消
+                </a>
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <button type="submit" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-ok"></i>
+                    下一步
+                </button>
+            </div>
+        </div>
+                        
 
         <hr>
 

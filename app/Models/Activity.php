@@ -27,6 +27,24 @@ class Activity extends Model
     ];
 
     /**
+     * 建立中介資料表的模型。
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $parent
+     * @param  array  $attributes
+     * @param  string  $table
+     * @param  bool  $exists
+     * @return \Illuminate\Database\Eloquent\Relations\Pivot
+     */
+    public function newPivot(Model $parent, array $attributes, $table, $exists)
+    {
+        if ($parent instanceof User) {
+            return new Order($parent, $attributes, $table, $exists);
+        }
+
+        return parent::newPivot($parent, $attributes, $table, $exists);
+    }
+
+    /**
      * 取得舉辦此活動的主辦單位。
      */
     public function organizer()

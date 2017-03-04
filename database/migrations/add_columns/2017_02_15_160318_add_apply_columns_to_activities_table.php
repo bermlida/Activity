@@ -16,6 +16,7 @@ class AddApplyColumnsToActivitiesTable extends Migration
             $table->dateTime('apply_start_time');
             $table->dateTime('apply_end_time');
             $table->integer('apply_fee');
+            $table->boolean('is_free');
             $table->boolean('can_sponsored');
         });
     }
@@ -31,6 +32,7 @@ class AddApplyColumnsToActivitiesTable extends Migration
             $table->dropColumn('apply_start_time');
             $table->dropColumn('apply_end_time');
             $table->dropColumn('apply_fee');
+            $table->dropColumn('is_free');
             $table->dropColumn('can_sponsored');
         });
     }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserActivityTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class CreateUserActivityTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_activity', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
+            $table->bigIncrements('id')->unsigned();
+            $table->string('serial_number')->unique();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('activity_id')->unsigned();
-            $table->json('build_order_result')->nullable();
-            $table->json('payment_result')->nullable();
             $table->integer('status');
             $table->string('status_info')->nullable();
 
@@ -39,6 +39,6 @@ class CreateUserActivityTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_activity');
+        Schema::drop('orders');
     }
 }

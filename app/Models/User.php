@@ -24,6 +24,24 @@ class User extends Model
     protected $fillable = ['name', 'mobile_phone'];
 
     /**
+     * 建立中介資料表的模型。
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $parent
+     * @param  array  $attributes
+     * @param  string  $table
+     * @param  bool  $exists
+     * @return \Illuminate\Database\Eloquent\Relations\Pivot
+     */
+    public function newPivot(Model $parent, array $attributes, $table, $exists)
+    {
+        if ($parent instanceof Activity) {
+            return new Order($parent, $attributes, $table, $exists);
+        }
+
+        return parent::newPivot($parent, $attributes, $table, $exists);
+    }
+
+    /**
      * 取得使用者的帳號資訊。
      */
     public function account()
