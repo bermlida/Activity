@@ -15,6 +15,22 @@ class Order extends Pivot
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * 取得購買此訂單的用戶。
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    /**
+     * 取得此訂單購買的活動。
+     */
+    public function activity()
+    {
+        return $this->belongsTo('App\Models\Activity');
+    }
     
     /**
      * 取得此訂單的交易紀錄。

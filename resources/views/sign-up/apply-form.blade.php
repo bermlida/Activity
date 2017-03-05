@@ -7,6 +7,9 @@
 
     <!-- Page Content -->
     <div class="container">
+    
+    <form role="form" method="POST" action="{{ url('/sign-up/' . $activity->id . '/fill-apply-form') }}">
+        {{ csrf_field() }}
 
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
@@ -60,7 +63,7 @@
                     </div>
 
                     <!-- /.panel -->
-                    @if ($activity->is_free || $activity->can_sponsored)
+                    @if (!$activity->is_free || $activity->can_sponsored)
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">報名費用或隨喜贊助</h4>
@@ -73,10 +76,10 @@
                                     <p>另外，您可隨喜贊助本活動，<p>
                                     <p>
                                         如欲贊助本活動，請輸入欲贊助的金額：
-                                        <input id="" type="number" name="" value="">
-                                        @if ($errors->has(''))
+                                        <input id="sponsorship_amount" type="number" name="sponsorship_amount" value="{{ old('sponsorship_amount') }}">
+                                        @if ($errors->has('sponsorship_amount'))
                                             <span class="help-block" style="color:red">
-                                                {{ $errors->first('') }}
+                                                {{ $errors->first('sponsorship_amount') }}
                                             </span>
                                         @endif
                                     <p>
@@ -92,13 +95,18 @@
                                 </h4>
                             </div>
                             <div class="panel-body">
-                                <select name="">
-                                    <option value="" disabled selected>請選擇付款方式</option>
-                                    <option value="">信用卡</option>
-                                    <option value="">網路ATM轉帳</option>
-                                    <option value="">ATM轉帳</option>
-                                    <option value="">超商代碼</option>
+                                <select id="payment_method" name="payment_method">
+                                    <option value="0" selected>請選擇付款方式</option>
+                                    <option value="1">信用卡</option>
+                                    <option value="2">網路ATM轉帳</option>
+                                    <option value="3">ATM轉帳</option>
+                                    <option value="4">超商代碼</option>
                                 </select>
+                                @if ($errors->has('payment_method'))
+                                    <span class="help-block" style="color:red">
+                                        {{ $errors->first('payment_method') }}
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     @endif
@@ -123,7 +131,8 @@
                 </button>
             </div>
         </div>
-                        
+        
+        </form>
 
         <hr>
 

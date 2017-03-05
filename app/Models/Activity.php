@@ -57,7 +57,8 @@ class Activity extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\Models\User', 'user_activity')
+        return $this->belongsToMany('App\Models\User', 'orders')
+                    ->withPivot('serial_number', 'status', 'status_info')
                     ->withTimestamps();
     }
 

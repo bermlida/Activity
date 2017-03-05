@@ -49,14 +49,19 @@ class StepController extends Controller
     }
 
     /**
-     * 顯示填選付款設定的表單畫面。
+     * 。
      *
      * @return \Illuminate\Http\Response
      */
-    public function showConfirm($activity)
+    public function showConfirm()
     {
-        $data['activity'] = Activity::find($activity);
+        $serial_number = session('serial_number');
 
-        return view('activity', $data);
+        $user = Auth::user()->profile;
+        
+        $order = $user->activities()->where('serial_number', $serial_number)->first()->pivot;
+        // $data['activity'] = Activity::find($activity);
+        
+        return view('sign-up.confirm', ['order' => $order]);
     }
 }
