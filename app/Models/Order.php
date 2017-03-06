@@ -17,6 +17,13 @@ class Order extends Pivot
     protected $dates = ['deleted_at'];
 
     /**
+     * 可以被批量賦值的屬性。
+     *
+     * @var array
+     */
+    protected $fillable = ['serial_number', 'status', 'status_info'];
+
+    /**
      * 取得購買此訂單的用戶。
      */
     public function user()

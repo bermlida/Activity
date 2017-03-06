@@ -59,8 +59,14 @@ class StepController extends Controller
 
         $user = Auth::user()->profile;
         
-        $order = $user->activities()->where('serial_number', $serial_number)->first()->pivot;
-        // $data['activity'] = Activity::find($activity);
+        $order = $user->activities()
+            ->wherePivot('serial_number', $serial_number)
+            ->update(['status' => 1, 'status_info' => '已完成報名'])
+            ->updateExistingPivot();
+        // var_dump($order->serial_number);exit();
+        // $order->fill(['status' => 1, 'status_info' => '已完成報名']);
+        
+        // $order->save();
         
         return view('sign-up.confirm', ['order' => $order]);
     }

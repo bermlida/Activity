@@ -30,15 +30,15 @@ class ActionController extends Controller
         }
 
         $serial_number = ($payment_amount > 0 ? 'P' : 'F');
-        $serial_number .= str_replace('-', '', Carbon::now()->toDateString());
-        $serial_number .= strtoupper(str_random(5));
+        $serial_number .= str_replace(['-', ' ', ':'], '', Carbon::now()->toDateTimeString());
+        $serial_number .= strtoupper(str_random(3));
 
         $user->activities()->attach(
             $activity->id,
             [
                 'serial_number' => $serial_number,
                 'status' => 0,
-                'status_info' => '訂購未完成'
+                'status_info' => '報名未完成'
             ]
         );
         
