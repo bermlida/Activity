@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SignUp;
 
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -57,17 +58,23 @@ class StepController extends Controller
     {
         $serial_number = session('serial_number');
 
-        $user = Auth::user()->profile;
-        
-        $order = $user->activities()
+        DB::table('orders')
+            ->where('serial_number', $serial_number)
+            ->update(['status' => 1, 'status_info' => '已完成報名']);
+
+        $order = Auth::user()
+            ->profile->activities()
             ->wherePivot('serial_number', $serial_number)
-            ->update(['status' => 1, 'status_info' => '已完成報名'])
-            ->updateExistingPivot();
-        // var_dump($order->serial_number);exit();
-        // $order->fill(['status' => 1, 'status_info' => '已完成報名']);
+            ->first()->pivot;
         
-        // $order->save();
+        $data['order'] = $order;
         
-        return view('sign-up.confirm', ['order' => $order]);
+        $data['user_account'] = $order->user->account()->first();
+
+        $data['user_profile'] = $order->user;
+        
+        $data['activity'] = $order->activity;
+        
+        return view('sign-up.confirm', $data);
     }
 }

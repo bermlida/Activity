@@ -56,8 +56,8 @@
                             </h4>
                         </div>
                         <div class="panel-body">
-                            <p>電子郵件：{{ $user_account->email }}</p>
                             <p>姓名：{{ $user_profile->name }}</p>
+                            <p>電子郵件：{{ $user_account->email }}</p>
                             <p>手機：{{ $user_profile->mobile_phone }}</p>
                         </div>
                     </div>

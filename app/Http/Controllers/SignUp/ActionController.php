@@ -30,8 +30,8 @@ class ActionController extends Controller
         }
 
         $serial_number = ($payment_amount > 0 ? 'P' : 'F');
-        $serial_number .= str_replace(['-', ' ', ':'], '', Carbon::now()->toDateTimeString());
-        $serial_number .= strtoupper(str_random(3));
+        $serial_number .= str_replace('-', '', Carbon::now()->toDateString());
+        $serial_number .= strtoupper(str_random(6));
 
         $user->activities()->attach(
             $activity->id,
