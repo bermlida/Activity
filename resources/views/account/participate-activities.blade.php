@@ -11,12 +11,8 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">舉辦的活動
+                <h1 class="page-header">參加的活動
                     <small></small>
-                    <button type="button" class="btn btn-default" aria-label="Left Align" onclick="window.location.href='{{ url('/organise/activity')}}'">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        新增活動
-                    </button>
                 </h1>
             </div>
         </div>
@@ -32,9 +28,9 @@
                         <th>活動名稱</th>
                         <th>活動時間起迄</th>
                         <th>活動地點</th>
-                        <th>活動概要</th>
                         <th>狀態</th>
-                        <th>功能</th>
+                        <th>報名資訊</th>
+                        <th>取消報名</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,31 +48,31 @@
                                 @endif
                             </td>
                             <td>{{ $activity->venue }}</td>
-                            <td>{{ $activity->summary }}</td>
                             <td>
-                                @if ($activity->status == '0')
-                                    草稿
-                                @elseif ($activity->status == '1')
-                                    已發佈
+                                @if ($activity->pivot->status == '0')
+                                    報名未完成
+                                @elseif ($activity->pivot->status == '1')
+                                    已完成報名
                                 @endif
                             </td>
                             <td>
-                                @if ($activity->status == '0')
-                                    <button type="button" class="btn btn-info" onclick="window.location.href='{{url('/organise/activity/' . $activity->id)}}'">編輯</button>
-                                @else
-                                    <button type="button" class="btn btn-info" disabled>
-                                        編輯
-                                    </button>
-                                @endif
+                                <button type="button" class="btn btn-info" onclick="window.location.href='{{ url('/participate/activities/' . $activity->id) }}'">
+                                    檢視
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='{{ url('/participate/activities/' . $activity->id . '/cancel') }}'">
+                                    取消
+                                </button>
                             </td>
                         </tr>
                     @empty
                         <tr>
                             <td>
-                                目前這裡沒有活動，不如開始辦一個吧 ! 
+                                目前你還沒有參加任何活動，不如就此開始吧 ! 
                                 <br><br><br>
-                                <a href="{{ url('/organise/activity') }}">
-                                    立刻新增活動
+                                <a href="{{ url('/activities') }}">
+                                    開始找活動
                                 </a>
                             </td>
                         </tr>

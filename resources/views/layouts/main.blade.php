@@ -36,8 +36,8 @@
                     <li><a href="{{ url('/activities') }}">找活動</a></li>
                     <li><a href="{{ url('/organizers') }}">找主辦單位</a></li>
                     @if(Auth::guest())
-                        <li><a href="{{url('/login')}}">登入</a></li>
-                        <li><a href="{{url('/register')}}">註冊</a></li>
+                        <li><a href="{{ url('/login') }}">登入</a></li>
+                        <li><a href="{{ url('/register') }}">註冊</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -45,22 +45,27 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{url('/account/info')}}">
+                                <li><a href="{{ url('/account/info') }}">
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                     帳戶資訊
                                 </a></li>
-                                @if (Auth::user()->role_id == '2')
-                                    <li><a href="{{url('/organise/activities')}}">
+                                @if (Auth::user()->role_id == '1')
+                                    <li><a href="{{ url('/participate/activities') }}">
+                                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                        參加的活動
+                                    </a></li>
+                                @elseif (Auth::user()->role_id == '2')
+                                    <li><a href="{{ url('/organise/activities') }}">
                                         <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
                                         舉辦的活動
                                     </a></li>
                                 @endif
 {{--
-                                <li><a href="portfolio-1-col.html">1 Column Portfolio</a></li>
+                                
                                 <li><a href="portfolio-4-col.html">4 Column Portfolio</a></li>
                                 <li><a href="portfolio-item.html">Single Portfolio Item</a></li>
 --}}
-                                <li><a href="{{url('/logout')}}">
+                                <li><a href="{{ url('/logout') }}">
                                     <i class="fa fa-btn fa-sign-out"></i>
                                     登出
                                 </a></li>

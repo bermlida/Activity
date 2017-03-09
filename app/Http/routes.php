@@ -28,6 +28,8 @@ Route::group([
     Route::get('/organise/activity/{activity?}', 'OrganiseController@edit');
     Route::post('/organise/activity', 'OrganiseController@create');
     Route::put('/organise/activity', 'OrganiseController@update');
+
+    Route::get('/participate/activities', 'ParticipateController@index');
 });
 
 Route::get('/activities', 'ActivityController@index');
@@ -47,9 +49,7 @@ Route::group([
     Route::post('/fill-apply-form', 'ActionController@submitApplyForm');
 });
 
-Route::get('/test', function () {
-    print 'test get success';
-})->name('test_get');
+
 
 Route::post('/test', function () {
     print 'test post success';

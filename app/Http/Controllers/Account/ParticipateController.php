@@ -11,10 +11,10 @@ use App\Http\Requests\CreateActivityRequest;
 use App\Http\Requests\UpdateActivityRequest;
 use App\Models\Activity;
 
-class OrganiseController extends Controller
+class ParticipateController extends Controller
 {
     /**
-     * 顯示主辦單位舉辦活動的列表畫面。
+     * 顯示使用者參加活動的列表畫面。
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,7 +22,7 @@ class OrganiseController extends Controller
     {
         $data['activities'] = (Auth::user())->profile->activities;
         
-        return view('account.organise-activities', $data);
+        return view('account.participate-activities', $data);
     }
 
     /**
