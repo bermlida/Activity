@@ -11,7 +11,8 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">參加的活動
+                <h1 class="page-header">
+                    參加的活動
                     <small></small>
                 </h1>
             </div>
@@ -53,6 +54,8 @@
                                     報名未完成
                                 @elseif ($activity->pivot->status == '1')
                                     已完成報名
+                                @elseif ($activity->pivot->status == '-1')
+                                    已取消報名
                                 @endif
                             </td>
                             <td>
@@ -61,9 +64,11 @@
                                 </button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger" onclick="window.location.href='{{ url('/participate/activities/' . $activity->id . '/cancel') }}'">
-                                    取消
-                                </button>
+                                @if ($activity->pivot->status != '-1')
+                                    <button type="button" class="btn btn-danger" onclick="window.location.href='{{ url('/participate/activities/' . $activity->id . '/cancel') }}'">
+                                        取消
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @empty

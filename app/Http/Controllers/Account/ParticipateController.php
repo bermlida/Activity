@@ -26,6 +26,39 @@ class ParticipateController extends Controller
     }
 
     /**
+     * 取消特定活動的報名紀錄。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel($activity)
+    {
+        $user = (Auth::user())->profile;
+
+        $result = $user->activities()->updateExistingPivot(
+            $activity,
+            [
+                'status' => -1,
+                'status_info' => '使用者取消'
+            ]
+        );
+
+        // if ($organizer->activities()->save($activity)) {
+        //     $save_result['result'] = true;
+        //     $save_result['message'] = '新增成功';
+        //     $page_method = 'PUT';
+        // } else {
+        //     $save_result['result'] = false;
+        //     $save_result['message'] = '新增失敗';
+        //     $page_method = 'POST';
+        // }
+        
+        // $data = compact('organizer', 'activity', 'page_method', 'save_result');
+        $data['activities'] = (Auth::user())->profile->activities;
+
+        return view('account.participate-activities', $data);
+    }
+
+    /**
      * 顯示單一活動的新增 / 編輯畫面。
      *
      * @return \Illuminate\Http\Response
@@ -43,32 +76,6 @@ class ParticipateController extends Controller
         }
 
         $data['page_method'] = isset($data['activity']) ? 'PUT' : 'POST';
-
-        return view('account.organise-activity', $data);
-    }
-
-    /**
-     * 新增單一活動。
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(CreateActivityRequest $request)
-    {
-        $organizer = (Auth::user())->profile;
-
-        $activity = new Activity($request->all());
-
-        if ($organizer->activities()->save($activity)) {
-            $save_result['result'] = true;
-            $save_result['message'] = '新增成功';
-            $page_method = 'PUT';
-        } else {
-            $save_result['result'] = false;
-            $save_result['message'] = '新增失敗';
-            $page_method = 'POST';
-        }
-        
-        $data = compact('organizer', 'activity', 'page_method', 'save_result');
 
         return view('account.organise-activity', $data);
     }

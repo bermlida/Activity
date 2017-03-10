@@ -40,11 +40,20 @@
                 @endif
                 </h3>
                 <h3>活動地點：{{ $activity->venue }}</h3>
-                @if (Auth::check())
-                    <a href="{{ url('/sign-up/' . $activity->id . '/fill-apply-form') }}" class="btn btn-primary">
-                        報名
-                        <i class="glyphicon glyphicon-arrow-right"></i>
-                    </a>
+                @if (Auth::check() && Auth::user()->role_id == 1)
+                    @if (Auth::user()->profile->activities()
+                            ->where('activity_id', $activity->id)
+                            ->wherePivot('status', 1)
+                            ->count() == 0)
+                        <a href="{{ url('/sign-up/' . $activity->id . '/fill-apply-form') }}" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                            報名
+                        </a>
+                    @else
+                        <a href="{{ url('/sign-up/' . $activity->id . '/fill-apply-form') }}" class="btn btn-primary" disabled>
+                            您已報名本活動，請至「參加的活動」查詢報名紀錄
+                        </a>
+                    @endif
                 @endif
             </div>
             <div class="col-md-6">
