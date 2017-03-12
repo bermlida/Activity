@@ -45,6 +45,7 @@ Route::group([
     'middleware' => 'auth'
 ], function () {
     Route::get('/fill-apply-form', 'StepController@showApplyForm');
+    Route::get('/payment', 'StepController@showPayment')->name('payment');
     Route::get('/confirm', 'StepController@showConfirm')->name('confirm');
 
     Route::post('/fill-apply-form', 'ActionController@submitApplyForm');
@@ -52,6 +53,4 @@ Route::group([
 
 
 
-Route::post('/test', function () {
-    print 'test post success';
-})->name('test_post');
+

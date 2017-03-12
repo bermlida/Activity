@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <h1 class="page-header">
                     活動報名
-                    <small>填寫報名資料</small>
+                    <small>確認報名資料</small>
                 </h1>
             </div>
         </div>
@@ -52,7 +52,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                報名者資料填寫
+                                報名者資料
                             </h4>
                         </div>
                         <div class="panel-body">

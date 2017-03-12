@@ -44,7 +44,13 @@ class ActionController extends Controller
         
         $data['serial_number'] = $serial_number;
         if ($payment_amount > 0) {
-            $data['payment_amount'] = $payment_amount;
+            $route = 'payment';
+            if (!$activity->is_free) {
+                $data['apply_fee'] = $activity->apply_fee;
+            }
+            if ($request->has('sponsorship_amount')) {
+                $data['sponsorship_amount'] = $request->input('sponsorship_amount');
+            }
             $data['payment_method'] = $request->input('payment_method');
         } else {
             $route = 'confirm';

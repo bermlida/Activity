@@ -149,12 +149,20 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * Other Service Providers...
+         */
+        // Recca0120\LaravelPayum\LaravelPayumServiceProvider::class,
+        Howtomakeaturn\Allpay\AllpayServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        // App\Providers\AllpayPayumServiceProvider::class,
 
     ],
 
@@ -201,6 +209,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'Allpay' => Howtomakeaturn\Allpay\Facade\Allpay::class,
 
     ],
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\SignUp;
 
+use Allpay;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
+use Howtomakeaturn\Allpay\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
@@ -44,9 +46,42 @@ class StepController extends Controller
      */
     public function showPayment($activity)
     {
-        $data['activity'] = Activity::find($activity);
+        $serial_number = session('serial_number');
 
-        return view('activity', $data);
+        $order = Auth::user()
+            ->profile->activities()
+            ->wherePivot('serial_number', $serial_number)
+            ->first()->pivot;
+        
+        $data = session()->all();
+
+        $data['user_account'] = $order->user->account()->first();
+
+        $data['user_profile'] = $order->user;
+        
+        $data['activity'] = $order->activity;
+
+        $manager = (new Manager());
+
+        $manager->loadTestingConfigs();
+
+        $allpay = $manager->instance();
+
+        $allpay->Send['ChoosePayment'] = \PaymentMethod::Credit;
+
+        $szHtml = $allpay->CheckOutString('submit', '_self');
+
+        $data['post_form'] = $szHtml;
+
+        // // print '<textarea>';
+
+        // print $szHtml;
+
+        // // print '</textarea>';
+
+        // // exit;
+
+        return view('sign-up.payment', $data);
     }
 
     /**
