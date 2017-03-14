@@ -9,7 +9,7 @@ return [
     | 介接網址
     |
     */
-    'ServiceURL' => 'https://payment.allpay.com.tw/Cashier/AioCheckOut/V2',
+    'ServiceURL' => 'https://payment-stage.allpay.com.tw/Cashier/AioCheckOut/V2',
 
     /*
     |--------------------------------------------------------------------------

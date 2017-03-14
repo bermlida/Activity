@@ -5,8 +5,8 @@ namespace App\Http\Controllers\SignUp;
 use Allpay;
 use Auth;
 use DB;
+use PaymentMethod;
 use Illuminate\Http\Request;
-use Howtomakeaturn\Allpay\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
@@ -52,6 +52,42 @@ class StepController extends Controller
             ->profile->activities()
             ->wherePivot('serial_number', $serial_number)
             ->first()->pivot;
+
+        $allpay = app('allpay')->instance();
+        $allpay->Send['MerchantTradeNo'] = $serial_number . strtoupper(str_random(5));
+        $allpay->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');
+        $allpay->Send['TotalAmount'] = session('payment_amount');
+        $allpay->Send['TradeDesc'] = $order->activity->name;
+        $allpay->Send['ChoosePayment'] = PaymentMethod::ALL;
+
+        $allpay->Send['ReturnURL'] = 'http://activity.app/payment?page=return_url';
+        $allpay->Send['OrderResultURL'] = 'http://activity.app/payment?page=order_result_url';
+        $allpay->SendExtend['ClientRedirectURL'] = 'http://activity.app/payment?page=client_redirect_url';
+
+        if (session()->has('apply_fee')) {
+            $allpay->Send['Items'][] = [
+                'Name' => $order->activity->name . ' 報名費用',
+                'Price' => session('apply_fee'),
+                'Currency' => '元',
+                'Quantity' => 1,
+                'URL' => 'localhost'
+            ];
+        }
+
+        if (session()->has('sponsorship_amount')) {
+            $allpay->Send['Items'][] = [
+                'Name' => $order->activity->name . ' 贊助金額',
+                'Price' => session('sponsorship_amount'),
+                'Currency' => '元',
+                'Quantity' => 1,
+                'URL' => 'localhost'
+            ];
+        }
+
+        $order = Auth::user()
+            ->profile->activities()
+            ->wherePivot('serial_number', $serial_number)
+            ->first()->pivot;
         
         $data = session()->all();
 
@@ -61,25 +97,7 @@ class StepController extends Controller
         
         $data['activity'] = $order->activity;
 
-        $manager = (new Manager());
-
-        $manager->loadTestingConfigs();
-
-        $allpay = $manager->instance();
-
-        $allpay->Send['ChoosePayment'] = \PaymentMethod::Credit;
-
-        $szHtml = $allpay->CheckOutString('submit', '_self');
-
-        $data['post_form'] = $szHtml;
-
-        // // print '<textarea>';
-
-        // print $szHtml;
-
-        // // print '</textarea>';
-
-        // // exit;
+        $data['post_form'] = $allpay->CheckOutString('submit', '_self');
 
         return view('sign-up.payment', $data);
     }

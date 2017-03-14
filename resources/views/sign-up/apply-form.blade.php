@@ -86,7 +86,7 @@
                                 @endif
                             </div>
                         </div>
-
+{{--
                         <!-- /.panel -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -109,6 +109,7 @@
                                 @endif
                             </div>
                         </div>
+--}}
                     @endif
                 </div>
                 <!-- /.panel-group -->

@@ -151,7 +151,6 @@ return [
         /*
          * Other Service Providers...
          */
-        // Recca0120\LaravelPayum\LaravelPayumServiceProvider::class,
         Howtomakeaturn\Allpay\AllpayServiceProvider::class,
 
         /*
@@ -161,8 +160,6 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        // App\Providers\AllpayPayumServiceProvider::class,
 
     ],
 

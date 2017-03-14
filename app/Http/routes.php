@@ -51,6 +51,6 @@ Route::group([
     Route::post('/fill-apply-form', 'ActionController@submitApplyForm');
 });
 
-
+Route::post('/payment', 'SignUp\ActionController@updatePaymentResult');
 
 

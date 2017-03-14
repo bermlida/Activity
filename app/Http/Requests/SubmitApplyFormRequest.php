@@ -24,8 +24,7 @@ class SubmitApplyFormRequest extends Request
     public function rules()
     {
         return [
-            'sponsorship_amount' => 'sometimes|integer|min:0',
-            'payment_method' => 'sometimes|integer|min:1'
+            'sponsorship_amount' => 'sometimes|integer|min:0'
         ];
     }
 }

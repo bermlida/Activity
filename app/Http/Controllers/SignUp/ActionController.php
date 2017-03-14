@@ -51,7 +51,7 @@ class ActionController extends Controller
             if ($request->has('sponsorship_amount')) {
                 $data['sponsorship_amount'] = $request->input('sponsorship_amount');
             }
-            $data['payment_method'] = $request->input('payment_method');
+            $data['payment_amount'] = $payment_amount;
         } else {
             $route = 'confirm';
         }
@@ -59,5 +59,12 @@ class ActionController extends Controller
         return redirect()
             ->route($route, ['activity' => $activity->id])
             ->with($data);
+    }
+
+    public function updatePaymentResult(Request $request)
+    {
+        print_r($request->all());
+
+        exit;
     }
 }
