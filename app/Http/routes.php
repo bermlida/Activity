@@ -41,16 +41,16 @@ Route::get('/organizer/{organizer}', 'OrganizerController@info');
 
 Route::group([
     'prefix' => '/sign-up/{activity}',
-    'namespace' => 'SignUp',
-    'middleware' => 'auth'
+    'namespace' => 'SignUp'
+    // 'middleware' => 'auth',
 ], function () {
     Route::get('/fill-apply-form', 'StepController@showApplyForm');
     Route::get('/payment', 'StepController@showPayment')->name('payment');
     Route::get('/confirm', 'StepController@showConfirm')->name('confirm');
 
     Route::post('/fill-apply-form', 'ActionController@submitApplyForm');
+    Route::post('/payment-info', 'ActionController@savePaymentInfo');
+    Route::post('/payment', 'ActionController@savePaymentResult');
 });
-
-Route::post('/payment', 'SignUp\ActionController@updatePaymentResult');
 
 

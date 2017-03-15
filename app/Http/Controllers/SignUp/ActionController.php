@@ -61,8 +61,19 @@ class ActionController extends Controller
             ->with($data);
     }
 
-    public function updatePaymentResult(Request $request)
+    public function savePaymentInfo(Request $request)
     {
+        print 'show payment info:<pre>';
+
+        print_r($request->all());
+
+        exit;
+    }
+
+    public function savePaymentResult(Request $request)
+    {
+        print 'show payment result:<pre>';
+
         print_r($request->all());
 
         exit;
