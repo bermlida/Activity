@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubmitApplyFormRequest;
 use App\Models\Activity;
+use App\Models\Transaction;
 
 class ActionController extends Controller
 {
@@ -63,19 +64,31 @@ class ActionController extends Controller
 
     public function savePaymentInfo(Request $request)
     {
-        print 'show payment info:<pre>';
+        $serial_number = $request->input('MerchantTradeNo');
 
-        print_r($request->all());
+        $transation = Transaction::where('serial_number', $serial_number)->first();
+        
+        $transation->payment_info = json_encode($request->all());
 
-        exit;
+        $transation->save();
+
+        return redirect()
+            ->route('confirm', ['activity' => $transation->order->activity->id])
+            ->with(['serial_number' => $transation->order->serial_number]);
     }
 
     public function savePaymentResult(Request $request)
     {
-        print 'show payment result:<pre>';
+        $serial_number = $request->input('MerchantTradeNo');
+        
+        $transation = Transaction::where('serial_number', $serial_number)->first();
 
-        print_r($request->all());
+        $transation->payment_result = json_encode($request->all());
 
-        exit;
+        $transation->save();
+
+        return redirect()
+            ->route('confirm', ['activity' => $transation->order->activity->id])
+            ->with(['serial_number' => $transation->order->serial_number]);
     }
 }

@@ -4,11 +4,10 @@ namespace App\Services;
 
 // use Allpay;
 // use DB;
-// use PaymentMethod;
-// use Illuminate\Http\Request;
+// use PaymentMethod\Controller;
 
-// use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Transaction;
 
 class AllpayService
 {
@@ -27,12 +26,12 @@ class AllpayService
      *
      * @return string
      */
-    public function getCheckOutForm(Order $order)
+    public function getCheckOutForm(Order $order, Transaction $transation)
     {
         $allpay = app('allpay')->instance();
-        $allpay->Send['MerchantTradeNo'] = $order->serial_number . strtoupper(str_random(5));
+        $allpay->Send['MerchantTradeNo'] = $transation->serial_number;
         $allpay->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');
-        $allpay->Send['TotalAmount'] = session('payment_amount');
+        $allpay->Send['TotalAmount'] = $transation->apply_fee + $transation->sponsorship_amount;
         $allpay->Send['TradeDesc'] = $order->activity->name;
         $allpay->Send['ChoosePayment'] = \PaymentMethod::ALL;
 
@@ -40,20 +39,20 @@ class AllpayService
         $allpay->Send['OrderResultURL'] = url('/sign-up/' . $order->activity->id . '/payment');
         $allpay->SendExtend['ClientRedirectURL'] = url('/sign-up/' . $order->activity->id . '/payment-info');
 
-        if (session()->has('apply_fee')) {
+        if ($transation->apply_fee > 0) {
             $allpay->Send['Items'][] = [
-                'Name' => $order->activity->name . ' 報名費用',
-                'Price' => session('apply_fee'),
+                'Name' => $order->activity->name . ' 報名費',
+                'Price' => $transation->apply_fee,
                 'Currency' => '元',
                 'Quantity' => 1,
                 'URL' => 'localhost'
             ];
         }
 
-        if (session()->has('sponsorship_amount')) {
+        if ($transation->sponsorship_amount > 0) {
             $allpay->Send['Items'][] = [
                 'Name' => $order->activity->name . ' 贊助金額',
-                'Price' => session('sponsorship_amount'),
+                'Price' => $transation->sponsorship_amount,
                 'Currency' => '元',
                 'Quantity' => 1,
                 'URL' => 'localhost'

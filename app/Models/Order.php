@@ -42,8 +42,12 @@ class Order extends Pivot
     /**
      * 取得此訂單的交易紀錄。
      */
-    public function transations()
+    public function transactions()
     {
-        return $this->hasMany('App\Models\Transation');
+        return $this->hasMany(
+            'App\Models\Transaction',
+            'order_serial_number',
+            'serial_number'
+        );
     }
 }
