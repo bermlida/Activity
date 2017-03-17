@@ -24,6 +24,7 @@ class Transaction extends Model
     protected $fillable = [
         'serial_number',
         'apply_fee', 'sponsorship_amount',
+        'payment_info', 'payment_result',
         'status', 'status_info'
     ];
 

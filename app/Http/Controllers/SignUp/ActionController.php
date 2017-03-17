@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SignUp;
 
 use Auth;
+use DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubmitApplyFormRequest;
 use App\Models\Activity;
+use App\Models\Order;
 use App\Models\Transaction;
 
 class ActionController extends Controller
@@ -66,29 +68,40 @@ class ActionController extends Controller
     {
         $serial_number = $request->input('MerchantTradeNo');
 
-        $transation = Transaction::where('serial_number', $serial_number)->first();
-        
-        $transation->payment_info = json_encode($request->all());
+        $transaction = Transaction::where('serial_number', $serial_number)->first();
+        $transaction->payment_info = json_encode($request->all());
+        $transaction->save();
 
-        $transation->save();
+        $order = DB::table('orders')->where('serial_number', $transaction->order_serial_number)->first();
 
         return redirect()
-            ->route('confirm', ['activity' => $transation->order->activity->id])
-            ->with(['serial_number' => $transation->order->serial_number]);
+            ->route('confirm', ['activity' => $order->activity->id])
+            ->with(['serial_number' => $order->serial_number]);
     }
 
     public function savePaymentResult(Request $request)
     {
         $serial_number = $request->input('MerchantTradeNo');
         
-        $transation = Transaction::where('serial_number', $serial_number)->first();
+        $transaction = Transaction::where('serial_number', $serial_number)->first();
+        $transaction->payment_result = json_encode($request->all());
+        $transaction->status = 1;
+        $transaction->status_info = '已完成付款';
+        $transaction->save();
 
-        $transation->payment_result = json_encode($request->all());
+        // $order = Auth::user()
+        //     ->profile->activities()
+        //     ->wherePivot('serial_number', $serial_number)
+        //     ->first()->pivot;
 
-        $transation->save();
+        DB::table('orders')
+            ->where('serial_number', $transaction->order_serial_number)
+            ->update(['status' => 1, 'status_info' => '已完成報名']);
 
+        $order = DB::table('orders')->where('serial_number', $transaction->order_serial_number)->first();
+        var_dump($order); exit;
         return redirect()
-            ->route('confirm', ['activity' => $transation->order->activity->id])
-            ->with(['serial_number' => $transation->order->serial_number]);
+            ->route('confirm', ['activity' => $order->activity->id])
+            ->with(['serial_number' => $order->serial_number]);
     }
 }

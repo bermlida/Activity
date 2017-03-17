@@ -87,9 +87,9 @@ class StepController extends Controller
     {
         $serial_number = session('serial_number');
 
-        DB::table('orders')
-            ->where('serial_number', $serial_number)
-            ->update(['status' => 1, 'status_info' => '已完成報名']);
+        // DB::table('orders')
+        //     ->where('serial_number', $serial_number)
+        //     ->update(['status' => 1, 'status_info' => '已完成報名']);
 
         $order = Auth::user()
             ->profile->activities()
