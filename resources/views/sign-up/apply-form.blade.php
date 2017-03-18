@@ -1,5 +1,6 @@
 
 @inject('carbon', 'Carbon\Carbon')
+@inject('request', 'Illuminate\Http\Request')
 
 @extends('layouts.main')
 
@@ -8,7 +9,8 @@
     <!-- Page Content -->
     <div class="container">
     
-    <form role="form" method="POST" action="{{ url('/sign-up/' . $activity->id . '/fill-apply-form') }}">
+    <form role="form" method="POST" action="{{ '/' . $request->path() }}">
+        {{ method_field($form_method) }}
         {{ csrf_field() }}
 
         <!-- Page Heading/Breadcrumbs -->
@@ -86,30 +88,6 @@
                                 @endif
                             </div>
                         </div>
-{{--
-                        <!-- /.panel -->
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    付款方式
-                                </h4>
-                            </div>
-                            <div class="panel-body">
-                                <select id="payment_method" name="payment_method">
-                                    <option value="0" selected>請選擇付款方式</option>
-                                    <option value="1">信用卡</option>
-                                    <option value="2">網路ATM轉帳</option>
-                                    <option value="3">ATM轉帳</option>
-                                    <option value="4">超商代碼</option>
-                                </select>
-                                @if ($errors->has('payment_method'))
-                                    <span class="help-block" style="color:red">
-                                        {{ $errors->first('payment_method') }}
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
---}}
                     @endif
                 </div>
                 <!-- /.panel-group -->

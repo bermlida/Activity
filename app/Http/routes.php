@@ -44,11 +44,12 @@ Route::group([
     'namespace' => 'SignUp'
     // 'middleware' => 'auth',
 ], function () {
-    Route::get('/fill-apply-form', 'StepController@showApplyForm');
+    Route::get('/fill-apply-form/{serial_number?}', 'StepController@showApplyForm');
     Route::get('/payment', 'StepController@showPayment')->name('payment');
     Route::get('/confirm', 'StepController@showConfirm')->name('confirm');
 
-    Route::post('/fill-apply-form', 'ActionController@submitApplyForm');
+    Route::post('/fill-apply-form', 'ActionController@postApplyForm');
+    Route::put('/fill-apply-form/{serial_number}', 'ActionController@putApplyForm');
     Route::post('/payment-info', 'ActionController@savePaymentInfo');
     Route::post('/payment', 'ActionController@savePaymentResult');
 });

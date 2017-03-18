@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\SignUp;
 
 use Auth;
-use DB;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
+use App\Models\Order;
 use App\Models\Transaction;
 use App\Services\AllpayService;
 
@@ -30,13 +30,24 @@ class StepController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showApplyForm($activity)
+    public function showApplyForm($activity, $serial_number = null)
     {
-        $data['activity'] = Activity::find($activity);
+        if (!is_null($serial_number)) {
+            $order = Auth::user()
+                ->profile->activities()
+                ->wherePivot('serial_number', $serial_number)
+                ->first()->pivot;
 
-        $data['user_account'] = Auth::user();
-
-        $data['user_profile'] = $data['user_account']->profile;
+            $data['activity'] = $order->activity;
+            $data['user_account'] = $order->user->account()->first();
+            $data['user_profile'] = $order->user;
+            $data['form_method'] = 'PUT';
+        } else {
+            $data['activity'] = Activity::find($activity);
+            $data['user_account'] = Auth::user();
+            $data['user_profile'] = $data['user_account']->profile;
+            $data['form_method'] = 'POST';
+        }
         
         return view('sign-up.apply-form', $data);
     }

@@ -21,7 +21,7 @@ class ActionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function submitApplyForm($activity, SubmitApplyFormRequest $request)
+    public function postApplyForm($activity, SubmitApplyFormRequest $request)
     {
         $user = Auth::user()->profile;
         $activity = Activity::find($activity);
@@ -43,6 +43,38 @@ class ActionController extends Controller
                 'status_info' => ($payment_amount > 0 ? '報名未完成' : '已完成報名')
             ]
         );
+        
+        $data['serial_number'] = $serial_number;
+        if ($payment_amount > 0) {
+            $route = 'payment';
+            if (!$activity->is_free) {
+                $data['apply_fee'] = $activity->apply_fee;
+            }
+            if ($request->has('sponsorship_amount')) {
+                $data['sponsorship_amount'] = $request->input('sponsorship_amount');
+            }
+        } else {
+            $route = 'confirm';
+        }
+        
+        return redirect()
+            ->route($route, ['activity' => $activity->id])
+            ->with($data);
+    }
+
+    /**
+     * 。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function putApplyForm($activity, $serial_number, SubmitApplyFormRequest $request)
+    {
+        $activity = Activity::find($activity);
+        
+        $payment_amount = !$activity->is_free ? $activity->apply_fee : 0;
+        if ($request->has('sponsorship_amount')) {
+            $payment_amount += $request->input('sponsorship_amount');
+        }
         
         $data['serial_number'] = $serial_number;
         if ($payment_amount > 0) {

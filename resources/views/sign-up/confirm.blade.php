@@ -59,7 +59,7 @@
                             @endif
                         </div>
                     </div>
-                    @if (!is_null($transaction->payment_info))
+                    @if (isset($transaction) && !is_null($transaction->payment_info))
                         <!-- /.panel -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     @endif
-                    @if (!is_null($transaction->payment_result))
+                    @if (isset($transaction) && !is_null($transaction->payment_result))
                         <!-- /.panel -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -96,12 +96,6 @@
                                 <p>交易金額：{{ $transaction->payment_result->TradeAmt }}</p>
                                 <p>付款金額：{{ $transaction->payment_result->PayAmt }}</p>
                                 <p>付款時間：{{ $transaction->payment_result->PaymentDate }}</p>
-{{--
-                                @if (isset($transaction->payment_info->vAccount))
-                                    <p>繳費虛擬帳號：{{ $transaction->payment_info->vAccount }}</p>
-                                @endif
-                                <p>繳費期限：{{ $transaction->payment_info->ExpireDate }}</p>
---}}
                             </div>
                         </div>
                     @endif
@@ -109,6 +103,17 @@
             </div>
         </div>
         <!-- /.row -->
+
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <h3>看看現在報名了那些活動</h3>
+                <a href="{{ url('/participate/activities') }}" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                    立刻查看
+                </a>
+            </div>
+        </div>
+        <!-- /.row -->        
 
         <hr>
 

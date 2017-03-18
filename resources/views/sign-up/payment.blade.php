@@ -77,7 +77,7 @@
 
         <div class="row">
             <div class="col-md-6 col-xs-6">
-                <a href="" class="btn btn-danger">
+                <a href="{{ url('/sign-up/' . $activity->id . '/fill-apply-form/' . $serial_number) }}" class="btn btn-danger">
                     <i class="glyphicon glyphicon-pencil"></i>
                     上一步
                 </a>
@@ -90,7 +90,13 @@
             </div>
             {!! $post_form !!}
         </div>
-                        
+        
+{{--
+                                @if (isset($transaction->payment_info->vAccount))
+                                    <p>繳費虛擬帳號：{{ $transaction->payment_info->vAccount }}</p>
+                                @endif
+                                <p>繳費期限：{{ $transaction->payment_info->ExpireDate }}</p>
+--}}
 
         <hr>
 
