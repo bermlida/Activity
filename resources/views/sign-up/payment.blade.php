@@ -68,7 +68,6 @@
                             @if (isset($sponsorship_amount))
                                 <p>贊助金額：{{ $sponsorship_amount }}</p>
                             @endif
-                            {{--<p>報名者手機：{{ $user_profile->mobile_phone }}</p>--}}
                         </div>
                     </div>
                 </div>

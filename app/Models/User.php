@@ -35,7 +35,7 @@ class User extends Model
     public function newPivot(Model $parent, array $attributes, $table, $exists)
     {
         if ($parent instanceof Activity) {
-            return new Order($parent, $attributes, $table, $exists);
+            return new OrderPivot($parent, $attributes, $table, $exists);
         }
 
         return parent::newPivot($parent, $attributes, $table, $exists);
@@ -57,5 +57,13 @@ class User extends Model
         return $this->belongsToMany('App\Models\Activity', 'orders')
                     ->withPivot('serial_number', 'status', 'status_info')
                     ->withTimestamps();
+    }
+    
+    /**
+     * 取得使用者購買的訂單。
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
     }
 }

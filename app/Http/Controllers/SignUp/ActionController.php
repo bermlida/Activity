@@ -24,7 +24,6 @@ class ActionController extends Controller
     public function submitApplyForm($activity, SubmitApplyFormRequest $request)
     {
         $user = Auth::user()->profile;
-
         $activity = Activity::find($activity);
         
         $payment_amount = !$activity->is_free ? $activity->apply_fee : 0;
@@ -32,7 +31,7 @@ class ActionController extends Controller
             $payment_amount += $request->input('sponsorship_amount');
         }
 
-        $serial_number = ($payment_amount > 0 ? 'P' : 'F');
+        $serial_number = ($payment_amount > 0) ? 'P' : 'F';
         $serial_number .= str_replace('-', '', Carbon::now()->toDateString());
         $serial_number .= strtoupper(str_random(6));
 
@@ -40,8 +39,8 @@ class ActionController extends Controller
             $activity->id,
             [
                 'serial_number' => $serial_number,
-                'status' => 0,
-                'status_info' => '報名未完成'
+                'status' => ($payment_amount > 0 ? 0 : 1),
+                'status_info' => ($payment_amount > 0 ? '報名未完成' : '已完成報名')
             ]
         );
         
@@ -54,7 +53,6 @@ class ActionController extends Controller
             if ($request->has('sponsorship_amount')) {
                 $data['sponsorship_amount'] = $request->input('sponsorship_amount');
             }
-            $data['payment_amount'] = $payment_amount;
         } else {
             $route = 'confirm';
         }
@@ -72,11 +70,12 @@ class ActionController extends Controller
         $transaction->payment_info = json_encode($request->all());
         $transaction->save();
 
-        $order = DB::table('orders')->where('serial_number', $transaction->order_serial_number)->first();
-
         return redirect()
-            ->route('confirm', ['activity' => $order->activity->id])
-            ->with(['serial_number' => $order->serial_number]);
+            ->route('confirm', ['activity' => $transaction->order->activity->id])
+            ->with([
+                'serial_number' => $transaction->order->serial_number,
+                'transaction_serial_number' => $serial_number
+            ]);
     }
 
     public function savePaymentResult(Request $request)
@@ -89,19 +88,16 @@ class ActionController extends Controller
         $transaction->status_info = '已完成付款';
         $transaction->save();
 
-        // $order = Auth::user()
-        //     ->profile->activities()
-        //     ->wherePivot('serial_number', $serial_number)
-        //     ->first()->pivot;
-
-        DB::table('orders')
-            ->where('serial_number', $transaction->order_serial_number)
-            ->update(['status' => 1, 'status_info' => '已完成報名']);
-
-        $order = DB::table('orders')->where('serial_number', $transaction->order_serial_number)->first();
-        var_dump($order); exit;
+        $order = $transaction->order;
+        $order->status = 1;
+        $order->status_info = '已完成報名';
+        $order->save();
+        
         return redirect()
             ->route('confirm', ['activity' => $order->activity->id])
-            ->with(['serial_number' => $order->serial_number]);
+            ->with([
+                'serial_number' => $order->serial_number,
+                'transaction_serial_number' => $serial_number
+            ]);
     }
 }

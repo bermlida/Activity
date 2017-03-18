@@ -25,7 +25,7 @@ class AllpayService
      *
      * @return string
      */
-    public function getCheckOutForm(Order $order, Transaction $transation)
+    public function getCheckOutForm($order, Transaction $transation)
     {
         $allpay = app('allpay')->instance();
         $allpay->Send['MerchantTradeNo'] = $transation->serial_number;

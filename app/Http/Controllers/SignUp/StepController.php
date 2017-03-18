@@ -62,7 +62,7 @@ class StepController extends Controller
             'status' => 0,
             'status_info' => '未完成付款'
         ]);
-        // var_dump($order->transactions()->toSql()); exit;
+        
         $order->transactions()->save($transaction);
         
         $data = session()->all();
@@ -87,22 +87,31 @@ class StepController extends Controller
     {
         $serial_number = session('serial_number');
 
-        // DB::table('orders')
-        //     ->where('serial_number', $serial_number)
-        //     ->update(['status' => 1, 'status_info' => '已完成報名']);
-
-        $order = Auth::user()
+        $data['order'] = Auth::user()
             ->profile->activities()
             ->wherePivot('serial_number', $serial_number)
             ->first()->pivot;
-        
-        $data['order'] = $order;
-        
-        $data['user_account'] = $order->user->account()->first();
 
-        $data['user_profile'] = $order->user;
+        if (session()->has('transaction_serial_number')) {
+            $data['transaction'] = $data['order']
+                ->transactions()
+                ->where('serial_number', session('transaction_serial_number'))
+                ->first();
+
+            if (!is_null($data['transaction']->payment_info)) {
+                $data['transaction']->payment_info = json_decode($data['transaction']->payment_info);
+            }
+
+            if (!is_null($data['transaction']->payment_result)) {
+                $data['transaction']->payment_result = json_decode($data['transaction']->payment_result);
+            }
+        }
         
-        $data['activity'] = $order->activity;
+        $data['activity'] = $data['order']->activity;
+        
+        $data['user_account'] = $data['order']->user->account()->first();
+
+        $data['user_profile'] = $data['order']->user;
         
         return view('sign-up.confirm', $data);
     }
