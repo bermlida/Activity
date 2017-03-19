@@ -83,19 +83,24 @@
                 </a>
             </div>
             <div class="col-md-6 col-xs-6">
-                <a href="javascript::void(0)" class="btn btn-primary" onClick="$('#__paymentButton').click();">
-                    <i class="glyphicon glyphicon-usd"></i>
-                    付款
-                </a>
+                <form role="form" method="POST" action="{{ url('/sign-up/' . $activity->id . '/payment/' . $serial_number) }}">
+                    @if (isset($apply_fee))
+                        <input type="text" name="apply_fee" value="{{ $apply_fee }}">
+                    @endif
+                    @if (isset($sponsorship_amount))
+                        <input type="text" name="sponsorship_amount" value="{{ $sponsorship_amount }}">
+                    @endif
+                    <button type="submit" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-usd"></i>
+                        付款
+                    </button>
+                </form>
             </div>
-            {!! $post_form !!}
         </div>
         
-{{--
-                                @if (isset($transaction->payment_info->vAccount))
-                                    <p>繳費虛擬帳號：{{ $transaction->payment_info->vAccount }}</p>
-                                @endif
-                                <p>繳費期限：{{ $transaction->payment_info->ExpireDate }}</p>
+{{--$transaction->payment->vAccount->vAccount
+                                    
+                                <p>繳費期限：{{ $transaction->->ExpireDate }}</p>
 --}}
 
         <hr>
@@ -111,5 +116,11 @@
 
     </div>
     <!-- /.container -->
+
+@endsection
+
+@section('script')
+
+    $()
 
 @endsection

@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\Order;
 use App\Models\Transaction;
-use App\Services\AllpayService;
 
 class StepController extends Controller
 {
@@ -65,16 +64,6 @@ class StepController extends Controller
             ->profile->activities()
             ->wherePivot('serial_number', $serial_number)
             ->first()->pivot;
-
-        $transaction = new Transaction([
-            'serial_number' => $order->serial_number . strtoupper(str_random(5)),
-            'apply_fee' => session()->has('apply_fee') ? session('apply_fee') : 0,
-            'sponsorship_amount' => session()->has('sponsorship_amount') ? session('sponsorship_amount') : 0,
-            'status' => 0,
-            'status_info' => '未完成付款'
-        ]);
-        
-        $order->transactions()->save($transaction);
         
         $data = session()->all();
 
@@ -83,8 +72,6 @@ class StepController extends Controller
         $data['user_profile'] = $order->user;
         
         $data['activity'] = $order->activity;
-
-        $data['post_form'] = app(AllpayService::class)->getCheckOutForm($order, $transaction);
 
         return view('sign-up.payment', $data);
     }

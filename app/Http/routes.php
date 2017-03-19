@@ -50,6 +50,7 @@ Route::group([
 
     Route::post('/fill-apply-form', 'ActionController@postApplyForm');
     Route::put('/fill-apply-form/{serial_number}', 'ActionController@putApplyForm');
+    Route::post('/payment/{serial_number}', 'ActionController@postTransaction');
     Route::post('/payment-info', 'ActionController@savePaymentInfo');
     Route::post('/payment', 'ActionController@savePaymentResult');
 });

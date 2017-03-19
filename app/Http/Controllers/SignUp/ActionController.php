@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\SignUp;
 
 use Auth;
-use DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubmitApplyFormRequest;
+use App\Http\Requests\PostTransactionRequest;
 use App\Models\Activity;
 use App\Models\Order;
 use App\Models\Transaction;
+use App\Services\AllpayService;
+// use Allpay;
+// use DB;
 
 class ActionController extends Controller
 {
@@ -92,6 +95,32 @@ class ActionController extends Controller
         return redirect()
             ->route($route, ['activity' => $activity->id])
             ->with($data);
+    }
+    /**
+     * 。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function postTransaction($activity, $serial_number, PostTransactionRequest $request)
+    {
+        $order = Auth::user()
+            ->profile->activities()
+            ->wherePivot('serial_number', $serial_number)
+            ->first()->pivot;
+        
+        $order->transactions()->delete();
+
+        $transaction = new Transaction([
+            'serial_number' => $order->serial_number . strtoupper(str_random(5)),
+            'apply_fee' => $request->apply_fee,
+            'sponsorship_amount' => $request->sponsorship_amount,
+            'status' => 0,
+            'status_info' => '未完成付款'
+        ]);
+        
+        $order->transactions()->save($transaction);
+
+        print app(AllpayService::class)->getCheckOut($order, $transaction);
     }
 
     public function savePaymentInfo(Request $request)
