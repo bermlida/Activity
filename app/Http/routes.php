@@ -30,7 +30,7 @@ Route::group([
     Route::put('/organise/activity', 'OrganiseController@update');
 
     Route::get('/participate/activities', 'ParticipateController@index');
-    Route::get('/participate/activities/{activity}/cancel', 'ParticipateController@cancel');
+    Route::get('/participate/activities/{activity}/cancel/{serial_number}', 'ParticipateController@cancel');
 });
 
 Route::get('/activities', 'ActivityController@index');

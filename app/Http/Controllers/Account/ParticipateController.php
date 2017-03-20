@@ -20,7 +20,13 @@ class ParticipateController extends Controller
      */
     public function index()
     {
-        $data['activities'] = (Auth::user())->profile->activities;
+        $user = (Auth::user())->profile;
+
+        $data['registered_activities'] = $user->activities()->wherePivot('status', 1)->get();
+
+        $data['undone_activities'] = $user->activities()->wherePivot('status', 0)->get();
+
+        $data['cancelled_activities'] = $user->activities()->wherePivot('status', -1)->get();
         
         return view('account.participate-activities', $data);
     }
@@ -43,15 +49,12 @@ class ParticipateController extends Controller
         );
 
         // if ($organizer->activities()->save($activity)) {
-        //     $save_result['result'] = true;
-        //     $save_result['message'] = '新增成功';
         //     $page_method = 'PUT';
         // } else {
         //     $save_result['result'] = false;
         //     $save_result['message'] = '新增失敗';
         //     $page_method = 'POST';
         // }
-        
         // $data = compact('organizer', 'activity', 'page_method', 'save_result');
         $data['activities'] = (Auth::user())->profile->activities;
 
