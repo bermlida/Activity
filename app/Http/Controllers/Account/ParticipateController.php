@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateActivityRequest;
-use App\Http\Requests\UpdateActivityRequest;
-use App\Models\Activity;
+use App\Models\Order;
 
 class ParticipateController extends Controller
 {
@@ -32,55 +30,43 @@ class ParticipateController extends Controller
     }
 
     /**
+     * 顯示特定活動的報名紀錄。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function info($activity, $serial_number)
+    {
+        $order = Order::where('serial_number', $serial_number)->first();
+
+        $data['order'] = $order;
+
+        $data['activity'] = $order->activity;
+
+        $data['user_account'] = $order->user->account()->first();
+
+        $data['user_profile'] = $order->user;
+
+        return view('account.participate-activity', $data);
+    }
+
+    /**
      * 取消特定活動的報名紀錄。
      *
      * @return \Illuminate\Http\Response
      */
-    public function cancel($activity)
+    public function cancel($activity, $serial_number)
     {
-        $user = (Auth::user())->profile;
+        $order = Order::where('serial_number', $serial_number)->first();
 
-        $result = $user->activities()->updateExistingPivot(
-            $activity,
-            [
-                'status' => -1,
-                'status_info' => '使用者取消'
-            ]
-        );
+        $order->status = -1;
 
-        // if ($organizer->activities()->save($activity)) {
-        //     $page_method = 'PUT';
-        // } else {
-        //     $save_result['result'] = false;
-        //     $save_result['message'] = '新增失敗';
-        //     $page_method = 'POST';
-        // }
-        // $data = compact('organizer', 'activity', 'page_method', 'save_result');
-        $data['activities'] = (Auth::user())->profile->activities;
+        $order->status_info = '使用者取消';
 
-        return view('account.participate-activities', $data);
-    }
+        $data['result'] = $order->save();
 
-    /**
-     * 顯示單一活動的新增 / 編輯畫面。
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($activity = null)
-    {
-        $data['organizer'] = (Auth::user())->profile;
-        
-        if (!is_null($activity)) {
-            $activity = $data['organizer']->activities()->find($activity);
+        $data['message'] = $data['result'] ? '取消成功' : '取消失敗';
 
-            if (!is_null($activity)) {
-                $data['activity'] = $activity;
-            }
-        }
-
-        $data['page_method'] = isset($data['activity']) ? 'PUT' : 'POST';
-
-        return view('account.organise-activity', $data);
+        return response()->json($data);
     }
 
     /**

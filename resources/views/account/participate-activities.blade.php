@@ -18,10 +18,6 @@
             </div>
         </div>
         <!-- /.row -->
-{{--
-        <!-- Content Row -->
-        <div class="row">
---}}
 
         <!-- Service Tabs -->
         <div class="row">
@@ -83,13 +79,13 @@
                                 </td>
                                 <td>{{ $activity->venue }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-info" onclick="window.location.href='{{ url('/participate/activities/' . $activity->id) }}'">
+                                    <a class="btn btn-info" href="{{ url('/participate/activities/' . $activity->id . '/info/' . $activity->pivot->serial_number) }}">
                                         檢視
-                                    </button>
+                                    </a>
                                 </td>
                                 <td>已完成報名</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger" onclick="window.location.href='{{ url('/participate/activities/' . $activity->id . '/cancel/' . $activity->pivot->serial_number) }}'">
+                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ $activity->pivot->serial_number }}')">
                                         取消
                                     </button>
                                 </td>
@@ -138,9 +134,9 @@
                                 </td>
                                 <td>{{ $activity->venue }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-info" onclick="window.location.href='{{ url('/participate/activities/' . $activity->id) }}'">
+                                    <a class="btn btn-info" href="{{ url('/participate/activities/' . $activity->id . '/info/' . $activity->pivot->serial_number) }}">
                                         檢視
-                                    </button>
+                                    </a>
                                 </td>
                                 <td>
                                     @php
@@ -160,11 +156,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($activity->pivot->status != '-1')
-                                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ url('/participate/activities/' . $activity->id . '/cancel') }}'">
-                                            取消
-                                        </button>
-                                    @endif
+                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ $activity->pivot->serial_number }}')">
+                                        取消
+                                    </button>
                                 </td>
                             </tr>
                             @endforeach
@@ -200,9 +194,9 @@
                                 </td>
                                 <td>{{ $activity->venue }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-info" onclick="window.location.href='{{ url('/participate/activities/' . $activity->id) }}'">
+                                    <a class="btn btn-info" href="{{ url('/participate/activities/' . $activity->id . '/info/' . $activity->pivot->serial_number) }}">
                                         檢視
-                                    </button>
+                                    </a>
                                 </td>
                                 <td>已取消報名</td>
                             </tr>
@@ -216,12 +210,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae repudiandae fugiat illo cupiditate excepturi esse officiis consectetur, laudantium qui voluptatem. Ad necessitatibus velit, accusantium expedita debitis impedit rerum totam id. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus quibusdam recusandae illum, nesciunt, architecto, saepe facere, voluptas eum incidunt dolores magni itaque autem neque velit in. At quia quaerat asperiores.</p>
                     </div>
                 </div>
-
             </div>
-{{--
-        </div>
---}}
-            
         </div>
         <!-- /.row -->
 
@@ -238,5 +227,31 @@
 
     </div>
     <!-- /.container -->
+
+@endsection
+
+@section('script')
+
+    <script>
+
+    function cancel(serial_number)
+    {
+        var url = "{{ url('/participate/activities/' . $activity->id . '/cancel/') }}";
+        
+        jQuery.ajax({
+            url: url + "/" + serial_number,
+            type: "PUT",
+            dataType: "json",
+            success: function (data) {
+                alert(data.message);
+
+                if (data.result) {
+                    window.location.href = "{{ url('/participate/activities/') }}";
+                }
+            }
+        });
+    }
+
+    </script>
 
 @endsection
