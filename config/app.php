@@ -152,6 +152,7 @@ return [
          * Other Service Providers...
          */
         Howtomakeaturn\Allpay\AllpayServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -208,6 +209,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Allpay' => Howtomakeaturn\Allpay\Facade\Allpay::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 
