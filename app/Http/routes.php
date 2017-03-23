@@ -15,7 +15,8 @@ Route::get('/', 'IndexController@index');
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/social-auth/{social_provider}', 'Auth\AuthController@redirectToProvider');
+Route::get('/social-auth/{social_provider}/callback', 'Auth\AuthController@handleProviderCallback');
 
 Route::group([
     'namespace' => 'Account',

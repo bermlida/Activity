@@ -1,5 +1,12 @@
 @extends('layouts.main')
 
+@section('style')
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{asset('assets/bootstrap-social/bootstrap-social.css')}}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
 <div class="container">
@@ -10,21 +17,22 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
-{{--
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2">
+                                <a class="btn btn-block btn-social btn-facebook" href="{{ url('/social-auth/facebook') }}">
+                                    <span class="fa fa-facebook"></span>
+                                    以 Facebook 登入
+                                </a>
+                                <a class="btn btn-block btn-social btn-google" href="{{ url('/social-auth/google') }}">
+                                    <span class="fa fa-google"></span>
+                                    以 Google+ 登入
+                                </a>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
                             </div>
                         </div>
---}}
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">電子郵件</label>
 

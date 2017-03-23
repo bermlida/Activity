@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Socialite;
 use Validator;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
@@ -78,5 +79,41 @@ class AuthController extends Controller
         $account->save();
         
         return $account;
+    }
+
+    /**
+     * 重導使用者到社群認證頁面。
+     *
+     * @return Response
+     */
+    public function redirectToProvider($social_provider)
+    {
+        session()->put('social_provider', $social_provider);
+
+        return Socialite::driver($social_provider)->redirect();
+    }
+
+    /**
+     * 從社群認證提供者取得使用者資訊
+     *
+     * @return Response
+     */
+    public function handleProviderCallback($social_provider)
+    {
+        $user = Socialite::driver($social_provider)->user();
+
+        // OAuth Two 提供者
+        // $token = $user->token;
+
+        // OAuth One 提供者
+        // $token = $user->token;
+        // $tokenSecret = $user->tokenSecret;
+
+        // 所有提供者
+        print $user->getId(); print '<br>';
+        print $user->getNickname(); print '<br>';
+        print $user->getName(); print '<br>';
+        print $user->getEmail(); print '<br>';
+        print $user->getAvatar();
     }
 }
