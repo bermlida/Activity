@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use Socialite;
 use Validator;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Role;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
@@ -98,10 +100,10 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function handleProviderCallback($social_provider)
+    public function handleProviderCallback($social_provider, Request $request)
     {
         $user = Socialite::driver($social_provider)->user();
-
+        // var_dump($request->all()); exit;
         // OAuth Two 提供者
         // $token = $user->token;
 
@@ -110,6 +112,16 @@ class AuthController extends Controller
         // $tokenSecret = $user->tokenSecret;
 
         // 所有提供者
+        //if () ;
+        if (!Account::where('email', $user->getEmail())->count() > 0) {
+            $account = Account::create([
+                'email' => $user->getEmail(),
+                'password' => bcrypt('1234567890'),
+                'role_id' => 1
+            ]);
+        } else {
+            $account = Account::where('email', $user->getEmail())->first();
+        }
         print $user->getId(); print '<br>';
         print $user->getNickname(); print '<br>';
         print $user->getName(); print '<br>';
