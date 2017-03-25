@@ -152,6 +152,7 @@ return [
          * Other Service Providers...
          */
         Howtomakeaturn\Allpay\AllpayServiceProvider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
@@ -209,6 +210,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Allpay' => Howtomakeaturn\Allpay\Facade\Allpay::class,
+        'Curl' => Ixudra\Curl\Facades\Curl::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],

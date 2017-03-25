@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Role;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -71,7 +72,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
         ]);
-        
+
         if ($data['is_organizer'] == '1') {
             $account->role_id = 2;
         } else {
@@ -90,8 +91,6 @@ class AuthController extends Controller
      */
     public function redirectToProvider($social_provider)
     {
-        session()->put('social_provider', $social_provider);
-
         return Socialite::driver($social_provider)->redirect();
     }
 
@@ -103,29 +102,34 @@ class AuthController extends Controller
     public function handleProviderCallback($social_provider, Request $request)
     {
         $user = Socialite::driver($social_provider)->user();
-        // var_dump($request->all()); exit;
-        // OAuth Two 提供者
-        // $token = $user->token;
 
-        // OAuth One 提供者
-        // $token = $user->token;
-        // $tokenSecret = $user->tokenSecret;
+        if (Account::where('email', $user->getEmail())->count() == 0) {
+            $profile = User::create(['name' => $user->getName(), 'mobile_phone' => '']);
 
-        // 所有提供者
-        //if () ;
-        if (!Account::where('email', $user->getEmail())->count() > 0) {
-            $account = Account::create([
-                'email' => $user->getEmail(),
-                'password' => bcrypt('1234567890'),
-                'role_id' => 1
-            ]);
+            $result = $profile->account()->save(
+                (new Account)->forceFill([
+                    'email' => $user->getEmail(),
+                    'password' => bcrypt('1234567890'),
+                    'role_id' => 1
+                ])
+            );
         } else {
-            $account = Account::where('email', $user->getEmail())->first();
+            $result = true;
         }
-        print $user->getId(); print '<br>';
-        print $user->getNickname(); print '<br>';
-        print $user->getName(); print '<br>';
-        print $user->getEmail(); print '<br>';
-        print $user->getAvatar();
+
+        if ($result) {
+            $account = Account::where('email', $user->getEmail())->first();
+
+            return '
+                <form style="display:none" id="__form" method="POST" action="' . url('/login') . '">
+                    <input name="email" value="' . $account->email . '">
+                    <input name="password" value="1234567890">
+                    <input name="remeber">
+                </form>
+                <script type="text/javascript">
+                    document.getElementById("__form").submit();
+                </script>
+            ';
+        }
     }
 }

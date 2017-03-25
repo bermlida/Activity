@@ -15,8 +15,15 @@ Route::get('/', 'IndexController@index');
 
 Route::auth();
 
-Route::get('/social-auth/{social_provider}', 'Auth\AuthController@redirectToProvider');
-Route::get('/social-auth/{social_provider}/callback', 'Auth\AuthController@handleProviderCallback');
+Route::get('/social-auth/{social_provider}', [
+    'as' => 'social-auth',
+    'uses' => 'Auth\AuthController@redirectToProvider'
+]);
+
+Route::get('/social-auth/{social_provider}/callback', [
+    'as' => 'social-auth-callback',
+    'uses' => 'Auth\AuthController@handleProviderCallback'
+]);
 
 Route::group([
     'namespace' => 'Account',

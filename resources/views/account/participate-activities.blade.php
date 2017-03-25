@@ -85,7 +85,7 @@
                                 </td>
                                 <td>已完成報名</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ $activity->pivot->serial_number }}')">
+                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ url('/participate/activities/' . $activity->id . '/cancel/' . $activity->pivot->serial_number) }}')">
                                         取消
                                     </button>
                                 </td>
@@ -156,7 +156,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ $activity->pivot->serial_number }}')">
+                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ url('/participate/activities/' . $activity->id . '/cancel/' . $activity->pivot->serial_number) }}')">
                                         取消
                                     </button>
                                 </td>
@@ -234,12 +234,10 @@
 
     <script>
 
-    function cancel(serial_number)
+    function cancel(url)
     {
-        var url = "{{ url('/participate/activities/' . $activity->id . '/cancel/') }}";
-        
         jQuery.ajax({
-            url: url + "/" + serial_number,
+            url: url,
             type: "PUT",
             dataType: "json",
             success: function (data) {
