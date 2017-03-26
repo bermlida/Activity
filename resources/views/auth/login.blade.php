@@ -2,8 +2,8 @@
 
 @section('style')
 
-    <!-- Bootstrap Core CSS -->
-    <link href="{{asset('assets/bootstrap-social/bootstrap-social.css')}}" rel="stylesheet">
+    <!-- Bootstrap Social CSS -->
+    <link href="{{ asset('bower_components/bootstrap-social/bootstrap-social.css') }}" rel="stylesheet">
 
 @endsection
 

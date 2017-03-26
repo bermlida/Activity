@@ -55,7 +55,7 @@
             </div>
 
             @forelse ($activities as $activity)
-                <div class="col-md-4 text-center">
+                <div class="col-md-4">
                     <div class="panel-heading">
                         <h3>
                             <a href="{{ url('/activity/' . $activity->id) }}">
@@ -63,7 +63,7 @@
                             </a>
                         </h3>
                     </div>
-                    <div class="panel panel-default text-center">
+                    <div class="panel panel-default">
                         <a href="{{ url('/activity/' . $activity->id) }}">
                             <img class="img-responsive" src="http://placehold.it/750x450" alt="">
                         </a>
@@ -89,7 +89,7 @@
             </div>
 
             @forelse ($organizers as $organizer)
-                <div class="col-md-4 text-center">
+                <div class="col-md-4">
                     <div class="panel-heading">
                         <h3>
                             <a href="{{ url('/organizer/' . $organizer->id) }}">
@@ -97,18 +97,18 @@
                             </a>
                         </h3>
                     </div>
-                    <div class="panel panel-default text-center">
+                    <div class="panel panel-default">
                         <a href="{{ url('/organizer/' . $organizer->id) }}">
                             <img class="img-responsive" src="http://placehold.it/750x450" alt="">
                         </a>
-                        <div class="caption">
+                        <div class="panel-body">
                             <p>電話：{{ $organizer->phone }}</p>
                             <p>住址：{{ $organizer->address }}</p>
                         </div>
                     </div>
                 </div>
             @empty
-                <div class="col-md-12 text-center">
+                <div class="col-md-12">
                     <h2>目前無主辦單位可供檢索</h2>
                 </div>
             @endforelse
@@ -120,7 +120,7 @@
         <!-- Call to Action Section -->
         <div class="well">
             <div class="row">
-                <div class="col-md-8 text-center">
+                <div class="col-md-8">
                     <h2>需要協助或洽談合作 ? </h2>
                 </div>
                 <div class="col-md-4">

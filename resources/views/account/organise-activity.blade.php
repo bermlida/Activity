@@ -6,7 +6,11 @@
 @section('style')
 
     <!-- Summernote CSS -->
-    <link href="{{ asset('/assets/summernote/summernote.css') }}" rel="stylesheet">
+    <link href="{{ asset('bower_components/summernote/dist/summernote.css') }}" rel="stylesheet">
+
+    <!-- Bootstrap Datetime Picker CSS -->
+    <link href="{{ asset('bower_components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bower_components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker-standalone.css') }}" rel="stylesheet">
 
 @endsection
 
@@ -14,7 +18,6 @@
 
     <!-- Page Content -->
     <div class="container">
-
         <!-- For success/fail messages -->
         @if (isset($save_result))
             @if ($save_result['result'])
@@ -52,7 +55,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h3></h3>
-                <form role="form" method="POST" action="{{ url('/organise/activity') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ url('/organise/activity') }}">
                     {{ csrf_field() }}
                     {{ method_field($page_method) }}
                     <input type="hidden" name="status" value="{{ old('status') }}">
@@ -67,8 +70,8 @@
                     @endif
 
                     <div class="form-group">
-                        <div class="controls">
-                            <label for="name" class="col-md-2 col-xs-4 control-label">活動名稱：</label>
+                        {{-- <div class="controls"> --}}
+                            <label for="name" class="col-md-2 col-xs-4">活動名稱：</label>
 
                             <div class="col-md-10 col-xs-8">
                             <input id="name" type="text" class="form-control" name="name" value="{{ isset($activity->name) ? $activity->name : old('name') }}">
@@ -78,42 +81,45 @@
                                 </span>
                             @endif
                             </div>
-                        </div>
-                    </div><br><br><br>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        <div class="controls">
-                            <label for="start_time" class="col-md-2 col-xs-4 control-label">開始時間：</label>
+                        {{-- <div class="controls"> --}}
+                            <label for="start_time" class="col-md-2 col-xs-4">開始時間：</label>
 
                             <div class="col-md-10 col-xs-8">
-                            <input id="start_time" type="date" class="form-control" name="start_time" value="{{ isset($activity->start_time) ? $carbon->parse($activity->start_time)->toDateString() : old('start_time') }}">
+                            <input id="start_time" type="text" class="datetime-picker" name="start_time" value="{{ isset($activity->start_time) ? $activity->start_time : old('start_time') }}">
                              @if ($errors->has('start_time'))
                                 <span class="help-block" style="color:red">
                                     {{ $errors->first('start_time') }}
                                 </span>
                             @endif
                             </div>
-                        </div>
-                    </div><br><br><br>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        <div class="controls">
-                            <label for="end_time" class="col-md-2 col-xs-4 control-label">結束時間：</label>
+                        {{-- <div class="controls"> --}}
+                            <label for="end_time" class="col-md-2 col-xs-4">結束時間：</label>
 
                             <div class="col-md-10 col-xs-8">
-                            <input id="end_time" type="date" class="form-control" name="end_time" value="{{ isset($activity->end_time) ? $carbon->parse($activity->end_time)->toDateString() : old('end_time') }}">
+                            <input id="end_time" type="text" class="datetime-picker" name="end_time" value="{{ isset($activity->end_time) ? $activity->end_time : old('end_time') }}">
                              @if ($errors->has('end_time'))
                                 <span class="help-block" style="color:red">
                                     {{ $errors->first('end_time') }}
                                 </span>
                             @endif
                             </div>
-                        </div>
-                    </div><br><br><br>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        <div class="controls">
-                            <label for="venue" class="col-md-2 col-xs-4 control-label">地點：</label>
+                        {{-- <div class="controls"> --}}
+                            <label for="venue" class="col-md-2 col-xs-4">地點：</label>
 
                             <div class="col-md-10 col-xs-8">
                             <input id="venue" type="text" class="form-control" name="venue" value="{{ isset($activity->venue) ? $activity->venue : old('venue') }}">
@@ -123,14 +129,15 @@
                                 </span>
                             @endif
                             </div>
-                        </div>
-                    </div><br><br><br>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        <div class="controls">
-                            <label for="venue_intro" class="col-md-2 col-xs-4 control-label">地點補充說明：</label>
+                        {{-- <div class="controls"> --}}
+                            <label for="venue_intro" class="col-md-3 col-xs-4">地點補充說明：</label>
 
-                            <div class="col-md-10 col-xs-8">
+                            <div class="col-md-9 col-xs-8">
                             <textarea id="venue_intro" class="form-control" name="venue_intro">{{ isset($activity->venue_intro) ? $activity->venue_intro : old('venue_intro') }}</textarea>
                              @if ($errors->has('venue_intro'))
                                 <span class="help-block" style="color:red">
@@ -138,29 +145,13 @@
                                 </span>
                             @endif
                             </div>
-                        </div>
-                    </div><br><br><br>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        <div class="controls">
-                            <label for="apply_fee" class="col-md-2 col-xs-4 control-label">
-                                參加費用：
-                            </label>
-
-                            <div class="col-md-10 col-xs-8">
-                            <input id="apply_fee" type="number" class="form-control" name="apply_fee" value="{{ isset($activity->apply_fee) ? $activity->apply_fee : old('apply_fee') }}">
-                             @if ($errors->has('apply_fee'))
-                                <span class="help-block" style="color:red">
-                                    {{ $errors->first('apply_fee') }}
-                                </span>
-                            @endif
-                            </div>
-                        </div>
-                    </div><br><br><br>
-
-                    <div class="form-group">
-                        <div class="controls">
-                            <label for="summary" class="col-md-2 col-xs-4 control-label">活動概要：</label>
+                        {{-- <div class="controls"> --}}
+                            <label for="summary" class="col-md-2 col-xs-4">活動概要：</label>
 
                             <div class="col-md-10 col-xs-8">
                             <textarea id="summary" class="form-control" name="summary">{{ isset($activity->summary) ? $activity->summary : old('summary') }}</textarea>
@@ -170,12 +161,113 @@
                                 </span>
                             @endif
                             </div>
-                        </div>
-                    </div><br><br><br>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        <div class="controls">
-                            <label for="intro" class="col-md-2 col-xs-4 control-label">活動介紹：</label>
+                        {{-- <div class="controls"> --}}
+                        <label for="apply_start_time" class="col-md-3 col-xs-4">報名開始時間：</label>
+
+                        <div class="col-md-9 col-xs-8">
+                            <input id="apply_start_time" type="text" class="datetime-picker" name="apply_start_time" value="{{ isset($activity->apply_start_time) ? $activity->apply_start_time : old('apply_start_time') }}">
+                            @if ($errors->has('apply_start_time'))
+                                <span class="help-block" style="color:red">
+                                    {{ $errors->first('apply_start_time') }}
+                                </span>
+                            @endif
+                        </div>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
+
+                    <div class="form-group">
+                        {{-- <div class="controls"> --}}
+                        <label for="apply_end_time" class="col-md-3 col-xs-4">報名結束時間：</label>
+
+                        <div class="col-md-9 col-xs-8">
+                            <input id="apply_end_time" type="text" class="datetime-picker" name="apply_end_time" value="{{ isset($activity->apply_end_time) ? $activity->apply_end_time : old('apply_end_time') }}">
+                            @if ($errors->has('apply_end_time'))
+                                <span class="help-block" style="color:red">
+                                    {{ $errors->first('apply_end_time') }}
+                                </span>
+                            @endif
+                        </div>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
+
+                    <div class="form-group">
+                        {{-- <div class="controls"> --}}
+                        {{-- <div class="col-md-9 col-xs-8"> --}}
+                            @php
+                                $is_free = isset($activity->is_free)
+                                            ? $activity->is_free
+                                            : old('is_free');
+                            @endphp
+                            <label class="radio-inline"><b>是否為免費活動：</b></label>
+                            <label class="radio-inline">
+                                <input type="radio" name="is_free" value="1" {{$is_free == 1 ? 'checked' : '' }}>是
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="is_free" value="0" {{$is_free === 0 ? 'checked' : '' }}>否
+                            </label>
+                            @if ($errors->has('is_free'))
+                                <span class="help-block" style="color:red">
+                                    {{ $errors->first('is_free') }}
+                                </span>
+                            @endif
+                        {{-- </div> --}}
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
+
+                    <div class="form-group">
+                        {{-- <div class="controls"> --}}
+                            <label for="apply_fee" class="col-md-2 col-xs-4">
+                                報名費用：
+                            </label>
+                            <div class="col-md-10 col-xs-8">
+                            <input id="apply_fee" type="number" class="form-control" name="apply_fee" value="{{ isset($activity->apply_fee) ? $activity->apply_fee : old('apply_fee') }}">
+                            <span class="help-block">(非免費活動必填)</span>
+                            @if ($errors->has('apply_fee'))
+                                <span class="help-block" style="color:red">
+                                    {{ $errors->first('apply_fee') }}
+                                </span>
+                            @endif
+                            </div>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
+
+                    <div class="form-group">
+                        {{-- <div class="controls"> --}}
+                        {{-- <div class="col-md-9 col-xs-8"> --}}
+                            @php
+                                $can_sponsored = isset($activity->can_sponsored)
+                                            ? $activity->can_sponsored
+                                            : old('can_sponsored');
+                            @endphp
+                            <label class="radio-inline"><b>是否可付費贊助活動：</b></label>
+                            <label class="radio-inline">
+                                <input type="radio" name="can_sponsored" value="1" {{ $can_sponsored == 1 ? 'checked' : '' }}>是
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="can_sponsored" value="0" {{$can_sponsored === 0 ? 'checked' : '' }}>否
+                            </label>
+                            @if ($errors->has('can_sponsored'))
+                                <span class="help-block" style="color:red">
+                                    {{ $errors->first('can_sponsored') }}
+                                </span>
+                            @endif
+                        {{-- </div> --}}
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
+
+                    <div class="form-group">
+                        {{-- <div class="controls"> --}}
+                            <label for="intro" class="col-md-2 col-xs-4">活動介紹：</label>
 
                             <div class="col-md-10 col-xs-8">
                             <textarea id="intro" class="form-control" name="intro">{{ isset($activity->intro) ? $activity->intro : old('intro') }}</textarea>
@@ -185,11 +277,12 @@
                                 </span>
                             @endif
                             </div>
-                        </div>
-                    </div><br><br><br>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        <div class="controls"> 
+                        {{-- <div class="controls">  --}}
                             <div class="col-md-5 col-md-offset-2 col-xs-5 col-xs-offset-2">
                                 <button type="button" class="btn btn-primary" name="draft">
                                     儲存為草稿
@@ -200,7 +293,7 @@
                                     儲存後發佈
                                 </button>
                             </div>
-                        </div>
+                        {{-- </div> --}}
                     </div>
                 </form>
             </div>
@@ -227,10 +320,16 @@
 
     <!-- Contact Form JavaScript -->
     <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-    <script src="js/jqBootstrapValidation.js"></script>
+    {{-- <script src="js/jqBootstrapValidation.js"></script> --}}
 
     <!-- Summernote JavaScript -->
-    <script src="{{ asset('/assets/summernote/summernote.min.js') }}"></script>
+    <script src="{{ asset('bower_components/summernote/dist/summernote.min.js') }}"></script>
+
+    <!-- Moment JavaScript -->
+    <script src="{{ asset('bower_components/moment/min/moment-with-locales.min.js') }}"></script>
+
+    <!-- Bootstrap Datetime Picker JavaScript -->
+    <script src="{{ asset('bower_components/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -238,6 +337,17 @@
                 height: 500,
                 focus: true
             });
+
+            $("input.datetime-picker").datetimepicker({
+                format: "YYYY-MM-DD HH:mm:ss",
+                locale: 'zh-tw'
+            });
+
+            // $("input.datetime-picker").datetimepicker({
+            //     todayBtn: true,
+            //     minuteStep: 5,
+            //     language: 'zh-TW'
+            // });
         });
 
         $("button[name]").click(function () {
