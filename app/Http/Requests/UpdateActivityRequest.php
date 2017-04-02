@@ -44,8 +44,7 @@ class UpdateActivityRequest extends Request
             'is_free' => 'required|integer|between:0,1',
             'apply_fee' => 'required_if:is_free,0|integer|min:1',
             'intro' => 'required|string',
-            'status' => 'required|integer',
-            'activity_id' => 'required|exists:activities,id,organizer_id,' . $organizer_id
+            'status' => 'required|integer'
         ];
     }
 }

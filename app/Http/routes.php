@@ -32,10 +32,17 @@ Route::group([
     Route::get('/account/info', 'InfoController@index');
     Route::post('/account/info', 'InfoController@save');
 
-    Route::get('/organise/activities', 'OrganiseController@index');
-    Route::get('/organise/activity/{activity?}', 'OrganiseController@edit');
-    Route::post('/organise/activity', 'OrganiseController@create');
-    Route::put('/organise/activity', 'OrganiseController@update');
+    Route::group([
+        'prefix' => '/organise',
+        'as' => 'organise::'
+    ], function () {
+        Route::get('/activities', 'OrganiseController@index')->name('activities');
+        Route::get('/activity/new', 'OrganiseController@edit')->name('new-activity');
+        Route::get('/activity/edit/{activity}', 'OrganiseController@edit')->name('activity');
+
+        Route::post('/activity/save', 'OrganiseController@create')->name('new-activity::save');
+        Route::put('/activity/save/{activity}', 'OrganiseController@update')->name('activity::save');
+    });
 
     Route::get('/participate/activities', 'ParticipateController@index');
     Route::get('/participate/activities/{activity}/info/{serial_number}', 'ParticipateController@info');

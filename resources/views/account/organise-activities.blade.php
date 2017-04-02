@@ -13,10 +13,10 @@
             <div class="col-lg-12">
                 <h1 class="page-header">舉辦的活動
                     <small></small>
-                    <button type="button" class="btn btn-default" aria-label="Left Align" onclick="window.location.href='{{ url('/organise/activity')}}'">
+                    <a class="btn btn-default" href="{{ route('organise::new-activity') }}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         新增活動
-                    </button>
+                    </a>
                 </h1>
             </div>
         </div>
@@ -62,7 +62,9 @@
                             </td>
                             <td>
                                 @if ($activity->status == '0')
-                                    <button type="button" class="btn btn-info" onclick="window.location.href='{{url('/organise/activity/' . $activity->id)}}'">編輯</button>
+                                    <a class="btn btn-info" href="{{ route('organise::activity', ['id' => $activity->id]) }}">
+                                        編輯
+                                    </a>
                                 @else
                                     <button type="button" class="btn btn-info" disabled>
                                         編輯

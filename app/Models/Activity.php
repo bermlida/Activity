@@ -73,6 +73,14 @@ class Activity extends Model
     }
 
     /**
+     * 取得此活動的附件。
+     */
+    public function attachments()
+    {
+        return $this->morphMany('App\Models\Attachment', 'attached');
+    }
+
+    /**
      * 限制查詢只包括給定主辦單位的活動。
      *
      * @return \Illuminate\Database\Eloquent\Builder

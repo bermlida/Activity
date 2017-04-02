@@ -19,24 +19,14 @@
     <!-- Page Content -->
     <div class="container">
         <!-- For success/fail messages -->
-        @if (isset($save_result))
-            @if ($save_result['result'])
-                <div class="alert alert-success" role="alert">
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    {{ $save_result['message']}}
-                </div>
-            @else
-                <div class="alert alert-info" role="alert">
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    {{ $save_result['message'] }}
-                </div>
-            @endif
+        @if (!is_null(session('message_type')) && !is_null(session('message_body')))
+            <div class="alert alert-{{ session('message_type') }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                {{ session('message_body') }}
+            </div>
         @endif
 
         <!-- Page Heading/Breadcrumbs -->
@@ -54,20 +44,10 @@
         <!-- Activity Form -->
         <div class="row">
             <div class="col-md-8">
-                <h3></h3>
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('/organise/activity') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ !isset($activity->id) ? route('organise::new-activity::save') : route('organise::activity::save', ['id' => $activity->id]) }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field($page_method) }}
                     <input type="hidden" name="status" value="{{ old('status') }}">
-
-                    @if (isset($activity->id))
-                        <input type="hidden" name="activity_id" value="{{ $activity->id }}">
-                        @if ($errors->has('activity_id'))
-                            <span class="help-block" style="color:red">
-                                {{ $errors->first('activity_id') }}
-                            </span>
-                        @endif
-                    @endif
 
                     <div class="form-group">
                         {{-- <div class="controls"> --}}
@@ -206,6 +186,7 @@
                                             : old('is_free');
                             @endphp
                             <label class="radio-inline"><b>是否為免費活動：</b></label>
+
                             <label class="radio-inline">
                                 <input type="radio" name="is_free" value="1" {{$is_free == 1 ? 'checked' : '' }}>是
                             </label>
@@ -227,6 +208,7 @@
                             <label for="apply_fee" class="col-md-2 col-xs-4">
                                 報名費用：
                             </label>
+
                             <div class="col-md-10 col-xs-8">
                             <input id="apply_fee" type="number" class="form-control" name="apply_fee" value="{{ isset($activity->apply_fee) ? $activity->apply_fee : old('apply_fee') }}">
                             <span class="help-block">(非免費活動必填)</span>
@@ -249,6 +231,7 @@
                                             : old('can_sponsored');
                             @endphp
                             <label class="radio-inline"><b>是否可付費贊助活動：</b></label>
+
                             <label class="radio-inline">
                                 <input type="radio" name="can_sponsored" value="1" {{ $can_sponsored == 1 ? 'checked' : '' }}>是
                             </label>
@@ -264,16 +247,32 @@
                         {{-- </div> --}}
                     </div>
                     {{-- <br><br><br> --}}
-
+                    
                     <div class="form-group">
                         {{-- <div class="controls"> --}}
                             <label for="intro" class="col-md-2 col-xs-4">活動介紹：</label>
 
                             <div class="col-md-10 col-xs-8">
-                            <textarea id="intro" class="form-control" name="intro">{{ isset($activity->intro) ? $activity->intro : old('intro') }}</textarea>
-                             @if ($errors->has('intro'))
+                                <textarea id="intro" class="form-control" name="intro">{{ isset($activity->intro) ? $activity->intro : old('intro') }}</textarea>
+                                @if ($errors->has('intro'))
+                                    <span class="help-block" style="color:red">
+                                        {{ $errors->first('intro') }}
+                                    </span>
+                                @endif
+                            </div>
+                        {{-- </div> --}}
+                    </div>
+                    {{-- <br><br><br> --}}
+
+                    <div class="form-group">
+                        {{-- <div class="controls"> --}}
+                            <label for="photo" class="col-md-2 col-xs-4">宣傳圖片：</label>
+
+                            <div class="col-md-10 col-xs-8">
+                            <input type="file" id="photo" class="form-control" name="photo">
+                             @if ($errors->has('photo'))
                                 <span class="help-block" style="color:red">
-                                    {{ $errors->first('intro') }}
+                                    {{ $errors->first('photo') }}
                                 </span>
                             @endif
                             </div>

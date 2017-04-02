@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use Auth;
+use Storage;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -59,18 +60,29 @@ class OrganiseController extends Controller
         $activity = new Activity($request->all());
 
         if ($organizer->activities()->save($activity)) {
-            $save_result['result'] = true;
-            $save_result['message'] = '新增成功';
-            $page_method = 'PUT';
-        } else {
-            $save_result['result'] = false;
-            $save_result['message'] = '新增失敗';
-            $page_method = 'POST';
-        }
-        
-        $data = compact('organizer', 'activity', 'page_method', 'save_result');
+            $this->storeBanner($activity, $request);
 
-        return view('account.organise-activity', $data);
+            return redirect()
+                ->route('organise::activity', [$activity])
+                ->with([
+                    'message_type' => 'success',
+                    'message_body' => '新增成功'
+                ]);
+        } else {
+            $request->flash();
+
+            $request->session()->flash('message_type', 'warning');
+
+            $request->session()->flash('message_body', '新增失敗');
+
+            $data = [
+                'orgznizer' => $organizer,
+                'page_method' => 'POST'
+            ];
+            
+            return view('account.organise-activity', $data);
+        }
+
     }
 
     /**
@@ -78,26 +90,71 @@ class OrganiseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateActivityRequest $request)
+    public function update($activity, UpdateActivityRequest $request)
     {
         $organizer = (Auth::user())->profile;
 
-        $activity = $organizer->activities()->find($request->activity_id);
+        $activity = $organizer->activities()->find($activity);
 
-        if (is_null($activity)) {
-            $activity = new Activity($request->all());
-
-            $update_result = $organizer->activities()->save($activity);
-        } else {
-            $update_result = $activity->fill($request->all())->save();
-        }
+        $update_result = $activity->fill($request->all())->save();
+            
+        $store_banner_result = $this->storeBanner($activity, $request);
         
-        $save_result['result'] = $update_result;
-        $save_result['message'] = $update_result ? '更新成功' : '更新失敗';
-        $page_method = 'PUT';
+        if ($update_result && $store_banner_result) {
+            return redirect()
+                ->route('organise::activity', [$activity])
+                ->with([
+                    'message_type' => 'success',
+                    'message_body' => '更新成功'
+                ]);
+        } else {
+            $request->flash();
 
-        $data = compact('organizer', 'activity', 'page_method', 'save_result');
+            $request->session()->flash('message_type', 'warning');
 
-        return view('account.organise-activity', $data);
+            $request->session()->flash('message_body', '更新失敗');
+
+            $data = [
+                'organizer' => $organizer,
+                'activity' => $activity,
+                'page_method' => 'PUT'
+            ];
+
+            return view('account.organise-activity', $data);
+        }
+    }
+
+    protected function storeBanner(Activity $activity, $request)
+    {
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $file = $request->file('photo');
+            $stored_path = public_path('storage/banners/');
+            $stored_filename = 'activity-' . $activity->id . '.' . $file->getClientOriginalExtension();
+
+            $data = [
+                'name' => $stored_filename,
+                'type' => $file->getMimeType(),
+                'size' => $file->getClientSize(),
+                'path' => $stored_path . $stored_filename,
+                'category' => 'banner',
+                'description' => ''
+            ];
+            
+            if ($activity->attachments()->where('category', 'banner')->count() > 0) {
+                $attachment = $activity->attachments()
+                    ->where('category', 'banner')
+                    ->first();
+
+                $attachment->update($data);
+            } else {
+                $activity->attachments()->create($data);
+            }
+
+            $file->move($stored_path, $stored_filename);
+
+            return true;
+        }
+
+        return !$request->hasFile('photo');
     }
 }

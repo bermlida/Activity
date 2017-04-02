@@ -71,7 +71,7 @@
                                         參加的活動
                                     </a></li>
                                 @elseif (Auth::user()->role_id == '2')
-                                    <li><a href="{{ url('/organise/activities') }}">
+                                    <li><a href="{{ route('organise::activities') }}">
                                         <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
                                         舉辦的活動
                                     </a></li>
