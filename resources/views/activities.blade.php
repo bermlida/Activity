@@ -25,11 +25,20 @@
             @forelse ($activities as $activity)
                 <div class="col-md-4 img-portfolio">
                     <a href="{{ url('/activity/' . $activity->id) }}">
-                        <img class="img-responsive img-hover" src="http://placehold.it/750x450" alt="">
+                        @php
+                            $banner = $activity->attachments()->where('category', 'banner')->first();
+
+                            $banner_path = !is_null($banner)
+                                ? asset('storage/banners/' . $banner->name)
+                                : 'http://placehold.it/750x450';
+                        @endphp
+                        <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
                     </a>
-                    <h3><a href="{{ url('/activity/' . $activity->id) }}">
-                        {{ $activity->name }}
-                    </a></h3>
+                    <h3>
+                        <a href="{{ url('/activity/' . $activity->id) }}">
+                            {{ $activity->name }}
+                        </a>
+                    </h3>
                     <p>{{ $activity->summary }}</p>
                 </div>
             @empty

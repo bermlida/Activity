@@ -12,7 +12,11 @@
         <div class="row">
             <br>
             <div class="col-lg-12">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
+                @if (!is_null($activity_banner))
+                    <img class="img-responsive" src="{{ asset('/storage/banners/' . $activity_banner->name) }}" alt="{{ $activity->name }}">
+                @else
+                    <img class="img-responsive" src="http://placehold.it/1080x768" alt="{{ $activity->name }}">
+                @endif
             </div>
         </div>
         <!-- /.row -->

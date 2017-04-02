@@ -37,7 +37,14 @@ class ActivityController extends Controller
      */
     public function info($activity)
     {
-        $data['activity'] = Activity::find($activity);
+        $activity = Activity::find($activity);
+
+        $activity_banner = $activity->attachments()->where('category', 'banner')->first();
+
+        $data = [
+            'activity' => $activity,
+            'activity_banner' => $activity_banner
+        ];
 
         return view('activity', $data);
     }

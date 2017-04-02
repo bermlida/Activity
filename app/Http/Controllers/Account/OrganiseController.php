@@ -38,8 +38,12 @@ class OrganiseController extends Controller
         if (!is_null($activity)) {
             $activity = $data['organizer']->activities()->find($activity);
 
+            $activity_banner = $activity->attachments()->where('category', 'banner')->first();
+
             if (!is_null($activity)) {
                 $data['activity'] = $activity;
+
+                $data['activity_banner'] = $activity_banner;
             }
         }
 

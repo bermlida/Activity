@@ -162,7 +162,6 @@
                     {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        {{-- <div class="controls"> --}}
                         <label for="apply_end_time" class="col-md-3 col-xs-4">報名結束時間：</label>
 
                         <div class="col-md-9 col-xs-8">
@@ -173,7 +172,6 @@
                                 </span>
                             @endif
                         </div>
-                        {{-- </div> --}}
                     </div>
                     {{-- <br><br><br> --}}
 
@@ -249,36 +247,50 @@
                     {{-- <br><br><br> --}}
                     
                     <div class="form-group">
-                        {{-- <div class="controls"> --}}
-                            <label for="intro" class="col-md-2 col-xs-4">活動介紹：</label>
+                        <label for="intro" class="col-md-2 col-xs-4">活動介紹：</label>
 
-                            <div class="col-md-10 col-xs-8">
-                                <textarea id="intro" class="form-control" name="intro">{{ isset($activity->intro) ? $activity->intro : old('intro') }}</textarea>
-                                @if ($errors->has('intro'))
-                                    <span class="help-block" style="color:red">
-                                        {{ $errors->first('intro') }}
-                                    </span>
-                                @endif
-                            </div>
-                        {{-- </div> --}}
+                        <div class="col-md-10 col-xs-8">
+                            <textarea id="intro" class="form-control" name="intro">{{ isset($activity->intro) ? $activity->intro : old('intro') }}</textarea>
+                            @if ($errors->has('intro'))
+                                <span class="help-block" style="color:red">
+                                    {{ $errors->first('intro') }}
+                                </span>
+                            @endif
+                        </div>
                     </div>
                     {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        {{-- <div class="controls"> --}}
-                            <label for="photo" class="col-md-2 col-xs-4">宣傳圖片：</label>
+                        @if (isset($activity_banner) && !is_null($activity_banner))
+                            <label for="photo" class="col-md-2 col-xs-4">
+                                更換宣傳圖片：
+                            </label>
+                        @else
+                            <label for="photo" class="col-md-4 col-xs-4">
+                                宣傳圖片：
+                            </label>
+                        @endif
 
-                            <div class="col-md-10 col-xs-8">
+                        <div class="col-md-8 col-xs-8">
                             <input type="file" id="photo" class="form-control" name="photo">
-                             @if ($errors->has('photo'))
+                            @if ($errors->has('photo'))
                                 <span class="help-block" style="color:red">
                                     {{ $errors->first('photo') }}
                                 </span>
                             @endif
-                            </div>
-                        {{-- </div> --}}
+                        </div>
                     </div>
                     {{-- <br><br><br> --}}
+
+                    @if (isset($activity_banner) && !is_null($activity_banner))
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-4">宣傳圖片預覽</label>
+                        
+                            <div class="col-md-9 col-xs-8">
+                                <img class="img-responsive" src="{{ asset('storage/banners/' . $activity_banner->name) }}" alt="{{ $activity->name }}">
+                            </div>
+                        </div>
+                    @endif
 
                     <div class="form-group">
                         {{-- <div class="controls">  --}}
