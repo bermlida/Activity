@@ -99,13 +99,13 @@
         <div class="row">
             <div class="col-md-6 col-xs-6">
                 <a href="javascript:history.back(-1);" class="btn btn-danger">
-                    <i class="glyphicon glyphicon-remove"></i>
+                    <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
                     取消
                 </a>
             </div>
             <div class="col-md-6 col-xs-6">
                 <button type="submit" class="btn btn-primary">
-                    <i class="glyphicon glyphicon-ok"></i>
+                    <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
                     下一步
                 </button>
             </div>

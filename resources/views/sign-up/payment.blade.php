@@ -78,7 +78,7 @@
         <div class="row">
             <div class="col-md-6 col-xs-6">
                 <a href="{{ url('/sign-up/' . $activity->id . '/fill-apply-form/' . $serial_number) }}" class="btn btn-danger">
-                    <i class="glyphicon glyphicon-pencil"></i>
+                    <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                     上一步
                 </a>
             </div>
@@ -91,7 +91,7 @@
                         <input type="text" name="sponsorship_amount" value="{{ $sponsorship_amount }}">
                     @endif
                     <button type="submit" class="btn btn-primary">
-                        <i class="glyphicon glyphicon-usd"></i>
+                        <i class="glyphicon glyphicon-usd" aria-hidden="true"></i>
                         付款
                     </button>
                 </form>

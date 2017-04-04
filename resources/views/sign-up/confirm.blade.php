@@ -108,7 +108,7 @@
             <div class="col-md-12 col-xs-12">
                 <h3>看看現在報名了那些活動</h3>
                 <a href="{{ url('/participate/activities') }}" class="btn btn-primary">
-                    <i class="glyphicon glyphicon-list-alt"></i>
+                    <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>
                     立刻查看
                 </a>
             </div>

@@ -29,6 +29,9 @@ Route::group([
     'namespace' => 'Account',
     'middleware' => 'auth'
 ], function() {
+    Route::get('/account/setting', 'SettingController@index');
+    Route::post('/account/setting', 'SettingController@save');
+    
     Route::get('/account/info', 'InfoController@index');
     Route::post('/account/info', 'InfoController@save');
 
