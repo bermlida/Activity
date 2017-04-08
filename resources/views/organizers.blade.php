@@ -1,6 +1,4 @@
 
-@inject('carbon', 'Carbon\Carbon')
-
 @extends('layouts.main')
 
 @section('content')
@@ -22,12 +20,25 @@
         <!-- Team Members -->
         <div class="row">
             @forelse ($organizers as $organizer)
-            <div class="col-md-6 img-portfolio text-center">
-                <a href="{{ url('/organizer/' . $organizer->id) }}">
-                    <img class="img-responsive img-hover" src="http://placehold.it/750x450" alt="{{ $organizer->name }}">
-                </a>
-                <h3><a href="portfolio-item.html">{{ $organizer->name }}</a></h3>
-            </div>
+                <div class="col-md-6 img-portfolio text-center">
+                    <a href="{{ url('/organizer/' . $organizer->id) }}">
+                        @php
+                            $banner = $organizer->attachments->first(function ($key, $value) {
+                                return $value->category == 'banner';
+                            });
+
+                            $banner_path = !is_null($banner)
+                                ? asset('storage/banners/' . $banner->name)
+                                : 'http://placehold.it/750x450';
+                        @endphp
+                        <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $organizer->name }}">
+                    </a>
+                    <h3>
+                        <a href="{{ url('/organizer/' . $organizer->id) }}">
+                            {{ $organizer->name }}
+                        </a>
+                    </h3>
+                </div>
             @empty
                 <div class="col-md-12 text-center">
                     <h2>目前無主辦單位可供查詢</h2>

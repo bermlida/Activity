@@ -33,4 +33,14 @@ class Attachment extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * 限制查詢類別為宣傳圖片的附件。
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsBanner($query)
+    {
+        return $query->where('category', 'banner');
+    }
 }

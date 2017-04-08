@@ -52,11 +52,15 @@ Route::group([
     Route::put('/participate/activities/{activity}/cancel/{serial_number}', 'ParticipateController@cancel');
 });
 
-Route::get('/activities', 'ActivityController@index');
-Route::get('/activity/{activity}', 'ActivityController@info');
+Route::group([
+    'as' => 'visit::'
+], function () {
+    Route::get('/activities', 'ActivityController@index')->name('activities');
+    Route::get('/activity/{activity}', 'ActivityController@info')->name('activity');
 
-Route::get('/organizers', 'OrganizerController@index');
-Route::get('/organizer/{organizer}', 'OrganizerController@info');
+    Route::get('/organizers', 'OrganizerController@index')->name('organizers');
+    Route::get('/organizer/{organizer}', 'OrganizerController@info')->name('organizer');
+});
 
 Route::group([
     'prefix' => '/sign-up/{activity}',

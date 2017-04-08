@@ -27,7 +27,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('/account/info') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ url('/account/info') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    @if ($info->role_id == '1')
+                    @if ($account->role_id == '1')
                         <div class="form-group{{ $errors->has('mobile_phone') ? ' has-error' : '' }}">
                             <label for="mobile_phone" class="col-md-4 control-label">手機號碼</label>
                             <div class="col-md-6">
@@ -57,7 +57,7 @@
                                 @endif
                             </div>
                         </div>
-                    @elseif ($info->role_id == 2)
+                    @elseif ($account->role_id == 2)
                         <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                             <label for="address" class="col-md-4 control-label">地址</label>
                             <div class="col-md-6">
@@ -122,6 +122,31 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="photo" class="col-md-4 control-label">
+                                {{ isset($banner) && !is_null($banner) ? '更換宣傳圖片' : '宣傳圖片'}}
+                            </label>
+
+                            <div class="col-md-6">
+                                <input type="file" id="photo" class="form-control" name="photo">
+                                @if ($errors->has('photo'))
+                                    <span class="help-block" style="color:red">
+                                        {{ $errors->first('photo') }}
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        @if (isset($banner) && !is_null($banner))
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">宣傳圖片預覽</label>
+
+                                <div class="col-md-9 col-xs-8">
+                                    <img class="img-responsive" src="{{ asset('storage/banners/' . $banner->name) }}" alt="{{ $profile->name }}">
+                                </div>
+                            </div>
+                        @endif
                     @endif
                         
                     <div class="form-group">
@@ -135,28 +160,6 @@
                 </form>
             </div>
         </div>
-        {{-- <div class="col-md-8 col-md-offset-2">
-
-            <div class="panel panel-default">
-                <div class="panel-heading">帳戶資訊</div>
-                <div class="panel-body">
-
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/account/info') }}">
-                        
-                        <input type="hidden" name="role_id" value="{{ isset($info->role_id) ? $info->role_id : old('role_id') }}">
-                        <input type="hidden" name="info_id" value="{{ isset($info->id) ? $info->id : old('info_id') }}">
-                        
-                        @if (count((array)$profile) > 0 || !is_null(old('profile_id')))
-                            <input type="hidden" name="profile_id" value="{{ isset($profile->id) ? $profile->id : old('profile_id') }}">
-                        @endif
-                        
-
-                        
-
-                    </form>
-                </div>
-            </div>
-        </div> --}}
     </div>
 
     <hr>

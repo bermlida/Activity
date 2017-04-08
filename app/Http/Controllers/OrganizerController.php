@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Models\Organizer;
@@ -15,9 +16,11 @@ class OrganizerController extends Controller
      */
     public function index()
     {
-        $data['organizers'] = Organizer::all();
+        $organizers = Organizer::with('attachments')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return view('organizers', $data);
+        return view('organizers', ['organizers' => $organizers]);
     }
 
     /**
@@ -27,7 +30,19 @@ class OrganizerController extends Controller
      */
     public function info($organizer)
     {
-        $data['organizer'] = Organizer::find($organizer);
+        $data['info'] = Organizer::find($organizer);
+
+        $data['banner'] = $data['info']->attachments()->isBanner()->first();
+        
+        $data['activities'] = $data['info']->activities()
+            ->with('attachments')
+            ->where('end_time', '>=', Carbon::now())
+            ->get();
+
+        $data['histories'] = $data['info']->activities()
+            ->with('attachments')
+            ->where('end_time', '<', Carbon::now())
+            ->get();
 
         return view('organizer', $data);
     }

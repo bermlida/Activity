@@ -30,6 +30,14 @@ class Organizer extends Model
     {
         return $this->morphMany('App\Models\Account', 'profile');
     }
+
+    /**
+     * 取得與主辦單位有關的附件。
+     */
+    public function attachments()
+    {
+        return $this->morphMany('App\Models\Attachment', 'attached');
+    }
     
     /**
      * 取得主辦單位舉辦的活動。

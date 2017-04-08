@@ -130,23 +130,20 @@
                     {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        {{-- <div class="controls"> --}}
-                            <label for="summary" class="col-md-2 col-xs-4">活動概要：</label>
+                        <label for="summary" class="col-md-2 col-xs-4">活動概要：</label>
 
-                            <div class="col-md-10 col-xs-8">
+                        <div class="col-md-10 col-xs-8">
                             <textarea id="summary" class="form-control" name="summary">{{ isset($activity->summary) ? $activity->summary : old('summary') }}</textarea>
                              @if ($errors->has('summary'))
                                 <span class="help-block" style="color:red">
                                     {{ $errors->first('summary') }}
                                 </span>
                             @endif
-                            </div>
-                        {{-- </div> --}}
+                        </div>
                     </div>
                     {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        {{-- <div class="controls"> --}}
                         <label for="apply_start_time" class="col-md-3 col-xs-4">報名開始時間：</label>
 
                         <div class="col-md-9 col-xs-8">
@@ -157,7 +154,6 @@
                                 </span>
                             @endif
                         </div>
-                        {{-- </div> --}}
                     </div>
                     {{-- <br><br><br> --}}
 
@@ -177,7 +173,6 @@
 
                     <div class="form-group">
                         {{-- <div class="controls"> --}}
-                        {{-- <div class="col-md-9 col-xs-8"> --}}
                             @php
                                 $is_free = isset($activity->is_free)
                                             ? $activity->is_free
@@ -196,7 +191,6 @@
                                     {{ $errors->first('is_free') }}
                                 </span>
                             @endif
-                        {{-- </div> --}}
                         {{-- </div> --}}
                     </div>
                     {{-- <br><br><br> --}}
@@ -221,8 +215,6 @@
                     {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        {{-- <div class="controls"> --}}
-                        {{-- <div class="col-md-9 col-xs-8"> --}}
                             @php
                                 $can_sponsored = isset($activity->can_sponsored)
                                             ? $activity->can_sponsored
@@ -241,8 +233,6 @@
                                     {{ $errors->first('can_sponsored') }}
                                 </span>
                             @endif
-                        {{-- </div> --}}
-                        {{-- </div> --}}
                     </div>
                     {{-- <br><br><br> --}}
                     

@@ -21,9 +21,16 @@ class InfoController extends Controller
      */
     public function index()
     {
-        $data['info'] = Auth::user();
-        
-        $data['profile'] = $data['info']->profile ?? (object)[];
+        $data['account'] = Auth::user();
+
+        $data['profile'] = $data['account']->profile;
+
+        if (!is_null($data['profile']) && $data['account']->role_id == 2) {
+            $data['banner'] = $data['profile']
+                ->attachments()
+                ->where('category', 'banner')
+                ->first();
+        }
         
         return view('account.info', $data);
     }
@@ -95,6 +102,10 @@ class InfoController extends Controller
 
         if ($profile->save()) {
             if (!is_null($account->profile) || $profile->account()->save($account)) {
+                if (Auth::user()->role_id == 2) {
+                    $this->storeBanner($profile, $request);
+                }
+
                 return redirect('/account/info')->with([
                     'message_type' => 'success',
                     'message_body' => '儲存成功'
@@ -107,5 +118,44 @@ class InfoController extends Controller
         $request->session()->flash('message_body', '儲存失敗');
 
         return view('account.info');
+    }
+
+    /**
+     * 儲存主辦單位宣傳圖片
+     *
+     * @return \Illuminate\Http\Response
+     */
+    protected function storeBanner(Organizer $organizer, $request)
+    {
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $file = $request->file('photo');
+            $stored_path = public_path('storage/banners/');
+            $stored_filename = 'organizer-' . $organizer->id . '.' . $file->getClientOriginalExtension();
+
+            $data = [
+                'name' => $stored_filename,
+                'type' => $file->getMimeType(),
+                'size' => $file->getClientSize(),
+                'path' => $stored_path . $stored_filename,
+                'category' => 'banner',
+                'description' => ''
+            ];
+            
+            if ($organizer->attachments()->where('category', 'banner')->count() > 0) {
+                $attachment = $organizer->attachments()
+                    ->where('category', 'banner')
+                    ->first();
+
+                $attachment->update($data);
+            } else {
+                $organizer->attachments()->create($data);
+            }
+
+            $file->move($stored_path, $stored_filename);
+
+            return true;
+        }
+
+        return !$request->hasFile('photo');
     }
 }
