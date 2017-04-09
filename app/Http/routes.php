@@ -47,9 +47,20 @@ Route::group([
         Route::put('/activity/save/{activity}', 'OrganiseController@update')->name('activity::save');
     });
 
-    Route::get('/participate/activities', 'ParticipateController@index');
-    Route::get('/participate/activities/{activity}/info/{serial_number}', 'ParticipateController@info');
-    Route::put('/participate/activities/{activity}/cancel/{serial_number}', 'ParticipateController@cancel');
+    Route::group([
+        'prefix' => '/participate/activities',
+        'as' => 'participate::'
+    ], function () {
+        Route::get('/', 'ParticipateController@index')->name('activities');
+
+        Route::group([
+            'prefix' => '/{activity}',
+            'as' => 'activity::'
+        ], function () {
+            Route::get('/info/{serial_number}', 'ParticipateController@info')->name('info');
+            Route::put('/cancel/{serial_number}', 'ParticipateController@cancel')->name('cancel');
+        });
+    });
 });
 
 Route::group([

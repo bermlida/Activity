@@ -128,7 +128,7 @@
                                 {{ isset($banner) && !is_null($banner) ? '更換宣傳圖片' : '宣傳圖片'}}
                             </label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <input type="file" id="photo" class="form-control" name="photo">
                                 @if ($errors->has('photo'))
                                     <span class="help-block" style="color:red">
@@ -142,7 +142,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">宣傳圖片預覽</label>
 
-                                <div class="col-md-9 col-xs-8">
+                                <div class="col-md-9">
                                     <img class="img-responsive" src="{{ asset('storage/banners/' . $banner->name) }}" alt="{{ $profile->name }}">
                                 </div>
                             </div>

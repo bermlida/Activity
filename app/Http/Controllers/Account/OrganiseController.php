@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateActivityRequest;
-use App\Http\Requests\UpdateActivityRequest;
+use App\Http\Requests\StoreActivityRequest;
+// use App\Http\Requests\UpdateActivityRequest;
 use App\Models\Activity;
 
 class OrganiseController extends Controller
@@ -36,18 +36,14 @@ class OrganiseController extends Controller
         $data['organizer'] = (Auth::user())->profile;
         
         if (!is_null($activity)) {
-            $activity = $data['organizer']->activities()->find($activity);
+            $data['activity'] = $data['organizer']->activities()->find($activity);
 
-            $activity_banner = $activity->attachments()->where('category', 'banner')->first();
+            $data['activity_banner'] = $data['activity']->attachments()->IsBanner()->first();
 
-            if (!is_null($activity)) {
-                $data['activity'] = $activity;
-
-                $data['activity_banner'] = $activity_banner;
-            }
+            $data['page_method'] = 'PUT';
+        } else {
+            $data['page_method'] = 'POST';
         }
-
-        $data['page_method'] = isset($data['activity']) ? 'PUT' : 'POST';
 
         return view('account.organise-activity', $data);
     }
@@ -57,21 +53,21 @@ class OrganiseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(CreateActivityRequest $request)
+    public function create(StoreActivityRequest $request)
     {
         $organizer = (Auth::user())->profile;
 
         $activity = new Activity($request->all());
 
         if ($organizer->activities()->save($activity)) {
-            $this->storeBanner($activity, $request);
-
-            return redirect()
-                ->route('organise::activity', [$activity])
-                ->with([
-                    'message_type' => 'success',
-                    'message_body' => '新增成功'
-                ]);
+            if ($this->storeBanner($activity, $request)) {
+                return redirect()
+                    ->route('organise::activity', [$activity])
+                    ->with([
+                        'message_type' => 'success',
+                        'message_body' => '新增成功'
+                    ]);
+            }
         } else {
             $request->flash();
 
@@ -94,7 +90,7 @@ class OrganiseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update($activity, UpdateActivityRequest $request)
+    public function update($activity, StoreActivityRequest $request)
     {
         $organizer = (Auth::user())->profile;
 

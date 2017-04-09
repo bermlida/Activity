@@ -197,19 +197,19 @@
 
                     <div class="form-group">
                         {{-- <div class="controls"> --}}
-                            <label for="apply_fee" class="col-md-2 col-xs-4">
-                                報名費用：
-                            </label>
+                        <label for="apply_fee" class="col-md-2 col-xs-4">
+                            報名費用：
+                        </label>
 
-                            <div class="col-md-10 col-xs-8">
-                            <input id="apply_fee" type="number" class="form-control" name="apply_fee" value="{{ isset($activity->apply_fee) ? $activity->apply_fee : old('apply_fee') }}">
+                        <div class="col-md-10 col-xs-8">
+                            <input id="apply_fee" type="number" class="form-control" name="apply_fee" value="{{ isset($activity->apply_fee) ? ($activity->apply_fee > 0 ? $activity->apply_fee : '') : old('apply_fee') }}">
                             <span class="help-block">(非免費活動必填)</span>
                             @if ($errors->has('apply_fee'))
                                 <span class="help-block" style="color:red">
                                     {{ $errors->first('apply_fee') }}
                                 </span>
                             @endif
-                            </div>
+                        </div>
                         {{-- </div> --}}
                     </div>
                     {{-- <br><br><br> --}}
@@ -251,8 +251,8 @@
                     {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        @if (isset($activity_banner) && !is_null($activity_banner))
-                            <label for="photo" class="col-md-2 col-xs-4">
+                        @if (!is_null($activity_banner))
+                            <label for="photo" class="col-md-4 col-xs-4">
                                 更換宣傳圖片：
                             </label>
                         @else
@@ -272,9 +272,9 @@
                     </div>
                     {{-- <br><br><br> --}}
 
-                    @if (isset($activity_banner) && !is_null($activity_banner))
+                    @if (!is_null($activity_banner))
                         <div class="form-group">
-                            <label class="col-md-3 col-xs-4">宣傳圖片預覽</label>
+                            <label class="col-md-3 col-xs-4">宣傳圖片預覽：</label>
                         
                             <div class="col-md-9 col-xs-8">
                                 <img class="img-responsive" src="{{ asset('storage/banners/' . $activity_banner->name) }}" alt="{{ $activity->name }}">

@@ -26,10 +26,7 @@ class InfoController extends Controller
         $data['profile'] = $data['account']->profile;
 
         if (!is_null($data['profile']) && $data['account']->role_id == 2) {
-            $data['banner'] = $data['profile']
-                ->attachments()
-                ->where('category', 'banner')
-                ->first();
+            $data['banner'] = $data['profile']->attachments()->IsBanner()->first();
         }
         
         return view('account.info', $data);
@@ -58,7 +55,8 @@ class InfoController extends Controller
                     'phone' => 'required|string|max:30',
                     'fax' => 'sometimes|string|max:30',
                     'mobile_phone' => 'sometimes|string|max:30',
-                    'intro' => 'required|string'
+                    'intro' => 'required|string',
+                    'photo' => 'sometimes|image|mimes:jpeg,bmp,png,gif,svg|dimensions:width=750,height=450'
                 ];
                 break;
             default:

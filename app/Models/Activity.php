@@ -14,7 +14,11 @@ class Activity extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'start_time', 'end_time',
+        'apply_start_time', 'apply_end_time',
+        'deleted_at'
+    ];
 
     /**
      * 可以被批量賦值的屬性。

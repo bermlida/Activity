@@ -19,26 +19,36 @@
         </div>
         <!-- /.row -->
 
-        <!-- Service Panels -->
-        <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
         <div class="row">
             @forelse ($activities as $activity)
                 <div class="col-md-4 img-portfolio">
-                    <a href="{{ url('/activity/' . $activity->id) }}">
+                    <a href="{{ route('visit::activity', [$activity]) }}">
                         @php
-                            $banner = $activity->attachments()->where('category', 'banner')->first();
+                            $banner = $activity->attachments->first(function ($key, $value) {
+                                return $value->category == 'banner';
+                            });
 
                             $banner_path = !is_null($banner)
                                 ? asset('storage/banners/' . $banner->name)
-                                : 'http://placehold.it/750x450';
+                                : 'http://placehold.it/1050x450';
                         @endphp
                         <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
                     </a>
                     <h3>
-                        <a href="{{ url('/activity/' . $activity->id) }}">
+                        <a href="{{ route('visit::activity', [$activity]) }}">
                             {{ $activity->name }}
                         </a>
                     </h3>
+                    <p>
+                        活動時間：
+                        @if ($carbon->parse($activity->start_time)->toDateString() != $carbon->parse($activity->end_time)->toDateString())
+                            {{ $carbon->parse($activity->start_time)->toDateString() }}
+                             ~ 
+                            {{ $carbon->parse($activity->end_time)->toDateString() }}
+                        @else
+                            {{ $carbon->parse($activity->start_time)->toDateString() }}
+                        @endif
+                    </p>
                     <p>{{ $activity->summary }}</p>
                 </div>
             @empty

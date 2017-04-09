@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class CreateActivityRequest extends Request
+class StoreActivityRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -42,6 +42,7 @@ class CreateActivityRequest extends Request
             'is_free' => 'required|integer|between:0,1',
             'apply_fee' => 'required_if:is_free,0|integer|min:1',
             'intro' => 'required|string',
+            'photo' => 'sometimes|image|mimes:jpeg,bmp,png,gif,svg|dimensions:width=1050,height=450',
             'status' => 'required|integer'
         ];
     }

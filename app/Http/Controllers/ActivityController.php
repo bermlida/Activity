@@ -25,7 +25,9 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $data['activities'] = Activity::ofStatus(1)->paginate(1);
+        $data['activities'] = Activity::with('attachments')
+            ->ofStatus(1)
+            ->paginate(12);
         
         return view('activities', $data);
     }
@@ -37,14 +39,9 @@ class ActivityController extends Controller
      */
     public function info($activity)
     {
-        $activity = Activity::find($activity);
+        $data['info'] = Activity::find($activity);
 
-        $activity_banner = $activity->attachments()->where('category', 'banner')->first();
-
-        $data = [
-            'activity' => $activity,
-            'activity_banner' => $activity_banner
-        ];
+        $data['banner'] = $data['info']->attachments()->IsBanner()->first();
 
         return view('activity', $data);
     }

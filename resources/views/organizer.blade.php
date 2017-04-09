@@ -11,8 +11,8 @@
         <!-- Image Header -->
         <div class="row">
             <br>
-            <div class="col-lg-12">
-                <img class="img-responsive" src="{{ !is_null($banner) ? asset('storage/banners/' . $banner->name) : 'http://placehold.it/1200x300' }}" alt="{{ $info->name }}">
+            <div class="col-md-10 col-md-offset-2">
+                <img class="img-responsive" src="{{ !is_null($banner) ? asset('storage/banners/' . $banner->name) : 'http://placehold.it/750x450' }}" alt="{{ $info->name }}">
             </div>
         </div>
         <!-- /.row -->
@@ -59,8 +59,9 @@
 
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade" id="activities">
+                        <br>
                         @forelse ($activities as $activity)
-                            <div class="col-md-3 img-portfolio">
+                            <div class="col-md-4 img-portfolio">
                                 @php
                                     $banner = $activity->attachments->first(function ($key, $value) {
                                         return $value->category == 'banner';
@@ -68,16 +69,16 @@
 
                                     $banner_path = !is_null($banner)
                                         ? asset('storage/banners/' . $banner->name)
-                                        : 'http://placehold.it/750x450';
+                                        : 'http://placehold.it/1050x450';
                                 @endphp
                                 <a href="{{ route('visit::activity', [$activity]) }}">
-                                    <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
+                                        <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
                                 </a>
-                                <p>
+                                <h3>
                                     <a href="{{ route('visit::activity', [$activity]) }}">
                                         {{ $activity->name }}
                                     </a>
-                                </p>
+                                </h3>
                                 <p>
                                     活動時間：
                                     @if ($carbon->parse($activity->start_time)->toDateString() != $carbon->parse($activity->end_time)->toDateString())
@@ -88,6 +89,7 @@
                                         {{ $carbon->parse($activity->start_time)->toDateString() }}
                                     @endif
                                 </p>
+                                <p>{{ $activity->summary }}</p>
                             </div>
                         @empty
                             <h3>目前沒有正在舉辦的活動</h3>
@@ -98,8 +100,9 @@
                         @endforelse
                     </div>
                     <div class="tab-pane fade" id="histories">
+                        <br>
                         @forelse ($histories as $history)
-                            <div class="col-md-3 img-portfolio">
+                            <div class="col-md-4 img-portfolio">
                                 @php
                                     $banner = $history->attachments->first(function ($key, $value) {
                                         return $value->category == 'banner';
@@ -107,16 +110,16 @@
 
                                     $banner_path = !is_null($banner)
                                         ? asset('storage/banners/' . $banner->name)
-                                        : 'http://placehold.it/750x450';
+                                        : 'http://placehold.it/1050x450';
                                 @endphp
                                 <a href="{{ route('visit::activity', [$history]) }}">
                                     <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $history->name }}">
                                 </a>
-                                <p>
+                                <h3>
                                     <a href="{{ route('visit::activity', [$history]) }}">
                                         {{ $history->name }}
                                     </a>
-                                </p>
+                                </h3>
                                 <p>
                                     活動時間：
                                     @if ($carbon->parse($history->start_time)->toDateString() != $carbon->parse($history->end_time)->toDateString())
@@ -127,12 +130,14 @@
                                         {{ $carbon->parse($history->start_time)->toDateString() }}
                                     @endif
                                 </p>
+                                <p>{{ $history->summary }}</p>
                             </div>
                         @empty
                             <h3>目前沒有舉辦過的活動</h3>
                         @endforelse
                     </div>
                     <div class="tab-pane fade active in" id="about">
+                        <br>
                         {{ $info->intro }}
                     </div>
                     <div class="tab-pane fade" id="map">

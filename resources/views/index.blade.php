@@ -14,24 +14,23 @@
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
-            <div class="item active">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div>
-                <div class="carousel-caption">
-                    <h2>Caption 1</h2>
+            @foreach ($random_activities as $key => $activity)
+                <div class="item {{ $key == 0 ? 'active' : '' }}">
+                    @php
+                        $banner = $activity->attachments->first(function ($key, $value) {
+                            return $value->category == 'banner';
+                        });
+
+                        $banner_path = !is_null($banner)
+                            ? asset('storage/banners/' . $banner->name)
+                            : 'http://placehold.it/1050x450';
+                    @endphp
+                    <div class="fill" style="background-image:url('{{ $banner_path }}');"></div>
+                    <div class="carousel-caption">
+                        <h2>{{ $activity->name }}</h2>
+                    </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
-                <div class="carousel-caption">
-                    <h2>Caption 2</h2>
-                </div>
-            </div>
-            <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
-                <div class="carousel-caption">
-                    <h2>Caption 3</h2>
-                </div>
-            </div>
+            @endforeach
         </div>
 
         <!-- Controls -->
@@ -64,10 +63,26 @@
                         </h3>
                     </div>
                     <div class="panel panel-default">
+                        @php
+                            $banner = $activity->attachments->first(function ($key, $value) {
+                                return $value->category == 'banner';
+                            });
+
+                            $banner_path = !is_null($banner)
+                                ? asset('storage/banners/' . $banner->name)
+                                : 'http://placehold.it/1050x450';
+                        @endphp
                         <a href="{{ url('/activity/' . $activity->id) }}">
-                            <img class="img-responsive" src="http://placehold.it/750x450" alt="">
+                            <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
                         </a>
                         <div class="panel-body">
+                            <p>
+                                活動時間：
+                                {{ $activity->start_time->format('Y-m-d H:i') }}
+                                 ~ 
+                                {{ $activity->end_time->format('Y-m-d H:i') }}
+                            </p>
+                            <p>活動地點：{{ $activity->venue }}</p>
                             <p>{{ $activity->summary }}</p>
                         </div>
                     </div>
@@ -98,11 +113,21 @@
                         </h3>
                     </div>
                     <div class="panel panel-default">
+                        @php
+                            $banner = $activity->attachments->first(function ($key, $value) {
+                                return $value->category == 'banner';
+                            });
+
+                            $banner_path = !is_null($banner)
+                                ? asset('storage/banners/' . $banner->name)
+                                : 'http://placehold.it/750x450';
+                        @endphp
                         <a href="{{ url('/organizer/' . $organizer->id) }}">
-                            <img class="img-responsive" src="http://placehold.it/750x450" alt="">
+                            <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $organizer->name }}">
                         </a>
                         <div class="panel-body">
                             <p>電話：{{ $organizer->phone }}</p>
+                            <p>電子郵件：{{ $organizer->account->first()->email }}</p>
                             <p>住址：{{ $organizer->address }}</p>
                         </div>
                     </div>
@@ -124,7 +149,7 @@
                     <h2>需要協助或洽談合作 ? </h2>
                 </div>
                 <div class="col-md-4">
-                    <a class="btn btn-lg btn-default btn-block" href="#">
+                    <a class="btn btn-lg btn-default btn-block" href="mailto:admin@test.com">
                         聯絡客服人員
                     </a>
                 </div>

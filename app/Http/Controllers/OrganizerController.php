@@ -37,11 +37,13 @@ class OrganizerController extends Controller
         $data['activities'] = $data['info']->activities()
             ->with('attachments')
             ->where('end_time', '>=', Carbon::now())
+            ->ofStatus(1)
             ->get();
 
         $data['histories'] = $data['info']->activities()
             ->with('attachments')
             ->where('end_time', '<', Carbon::now())
+            ->ofStatus(1)
             ->get();
 
         return view('organizer', $data);
