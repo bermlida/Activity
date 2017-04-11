@@ -13,7 +13,7 @@
             <div class="col-lg-12">
                 <h1 class="page-header">舉辦的活動
                     <small></small>
-                    <a class="btn btn-default" href="{{ route('organise::new-activity') }}">
+                    <a class="btn btn-default" href="{{ route('organise::activity::create') }}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         新增活動
                     </a>
@@ -62,7 +62,7 @@
                             </td>
                             <td>
                                 @if ($activity->status == '0')
-                                    <a class="btn btn-info" href="{{ route('organise::activity', ['id' => $activity->id]) }}">
+                                    <a class="btn btn-info" href="{{ route('organise::activity::edit', ['id' => $activity->id]) }}">
                                         編輯
                                     </a>
                                 @else
@@ -77,7 +77,7 @@
                             <td>
                                 目前這裡沒有活動，不如開始辦一個吧 ! 
                                 <br><br><br>
-                                <a href="{{ url('/organise/activity') }}">
+                                <a href="{{ route('organise::activity::create') }}">
                                     立刻新增活動
                                 </a>
                             </td>

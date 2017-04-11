@@ -62,7 +62,7 @@ class OrganiseController extends Controller
         if ($organizer->activities()->save($activity)) {
             if ($this->storeBanner($activity, $request)) {
                 return redirect()
-                    ->route('organise::activity', [$activity])
+                    ->route('organise::activity::edit', [$activity])
                     ->with([
                         'message_type' => 'success',
                         'message_body' => '新增成功'
@@ -102,7 +102,7 @@ class OrganiseController extends Controller
         
         if ($update_result && $store_banner_result) {
             return redirect()
-                ->route('organise::activity', [$activity])
+                ->route('organise::activity::edit', [$activity])
                 ->with([
                     'message_type' => 'success',
                     'message_body' => '更新成功'

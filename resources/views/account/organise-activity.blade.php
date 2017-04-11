@@ -44,7 +44,7 @@
         <!-- Activity Form -->
         <div class="row">
             <div class="col-md-8">
-                <form class="form-horizontal" role="form" method="POST" action="{{ !isset($activity->id) ? route('organise::new-activity::save') : route('organise::activity::save', ['id' => $activity->id]) }}" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" method="POST" action="{{ !isset($activity->id) ? route('organise::activity::store') : route('organise::activity::update', ['id' => $activity->id]) }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field($page_method) }}
                     <input type="hidden" name="status" value="{{ old('status') }}">
@@ -251,7 +251,7 @@
                     {{-- <br><br><br> --}}
 
                     <div class="form-group">
-                        @if (!is_null($activity_banner))
+                        @if (isset($activity_banner) && !is_null($activity_banner))
                             <label for="photo" class="col-md-4 col-xs-4">
                                 更換宣傳圖片：
                             </label>
@@ -272,7 +272,7 @@
                     </div>
                     {{-- <br><br><br> --}}
 
-                    @if (!is_null($activity_banner))
+                    @if (isset($activity_banner) && !is_null($activity_banner))
                         <div class="form-group">
                             <label class="col-md-3 col-xs-4">宣傳圖片預覽：</label>
                         

@@ -27,7 +27,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('/account/info') }}" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('account::info::save') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

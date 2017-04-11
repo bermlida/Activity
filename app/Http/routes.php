@@ -13,80 +13,92 @@
 
 Route::get('/', 'IndexController@index');
 
-Route::auth();
-
-Route::get('/social-auth/{social_provider}', [
-    'as' => 'social-auth',
-    'uses' => 'Auth\AuthController@redirectToProvider'
-]);
-
-Route::get('/social-auth/{social_provider}/callback', [
-    'as' => 'social-auth-callback',
-    'uses' => 'Auth\AuthController@handleProviderCallback'
-]);
-
-Route::group([
-    'namespace' => 'Account',
-    'middleware' => 'auth'
-], function() {
-    Route::get('/account/setting', 'SettingController@index');
-    Route::post('/account/setting', 'SettingController@save');
-    
-    Route::get('/account/info', 'InfoController@index');
-    Route::post('/account/info', 'InfoController@save');
-
-    Route::group([
-        'prefix' => '/organise',
-        'as' => 'organise::'
-    ], function () {
-        Route::get('/activities', 'OrganiseController@index')->name('activities');
-        Route::get('/activity/new', 'OrganiseController@edit')->name('new-activity');
-        Route::get('/activity/edit/{activity}', 'OrganiseController@edit')->name('activity');
-
-        Route::post('/activity/save', 'OrganiseController@create')->name('new-activity::save');
-        Route::put('/activity/save/{activity}', 'OrganiseController@update')->name('activity::save');
-    });
-
-    Route::group([
-        'prefix' => '/participate/activities',
-        'as' => 'participate::'
-    ], function () {
-        Route::get('/', 'ParticipateController@index')->name('activities');
-
-        Route::group([
-            'prefix' => '/{activity}',
-            'as' => 'activity::'
-        ], function () {
-            Route::get('/info/{serial_number}', 'ParticipateController@info')->name('info');
-            Route::put('/cancel/{serial_number}', 'ParticipateController@cancel')->name('cancel');
-        });
-    });
-});
-
 Route::group([
     'as' => 'visit::'
 ], function () {
     Route::get('/activities', 'ActivityController@index')->name('activities');
-    Route::get('/activity/{activity}', 'ActivityController@info')->name('activity');
+    Route::get('/activities/{activity}', 'ActivityController@info')->name('activity');
 
     Route::get('/organizers', 'OrganizerController@index')->name('organizers');
-    Route::get('/organizer/{organizer}', 'OrganizerController@info')->name('organizer');
+    Route::get('/organizers/{organizer}', 'OrganizerController@info')->name('organizer');
+});
+
+Route::auth();
+
+Route::group([
+    'prefix' => '/social-auth/{social_provider}',
+    'as' => 'social-auth::',
+    'namespace' => 'Auth'
+], function () {
+    Route::get('/ask', 'AuthController@redirectToProvider')->name('ask');
+    Route::get('/reply', 'AuthController@handleProviderCallback')->name('reply');
+});
+
+Route::group([
+    'namespace' => 'Account',
+    'middleware' => 'auth'
+], function () {
+    Route::group([
+        'prefix' => '/account',
+        'as' => 'account::'
+    ], function () {
+        Route::get('/setting', 'SettingController@index')->name('setting');
+        Route::post('/setting', 'SettingController@save')->name('setting::save');
+    
+        Route::get('/info', 'InfoController@index')->name('info');
+        Route::post('/info', 'InfoController@save')->name('info::save');
+    });
+
+    Route::group([
+        'prefix' => '/organise/activities',
+        'as' => 'organise::activity::'
+    ], function () {
+        Route::get('/', 'OrganiseController@index')->name('list');
+        Route::get('/new/edit', 'OrganiseController@edit')->name('create');
+        Route::get('/{activity}/edit', 'OrganiseController@edit')->name('modify');
+        
+        Route::post('/', 'OrganiseController@create')->name('store');
+        Route::put('/{activity}', 'OrganiseController@update')->name('update');
+    });
+
+    Route::group([
+        'prefix' => '/participate/records',
+        'as' => 'participate::record::'
+    ], function () {
+        Route::get('/', 'ParticipateController@index')->name('list');
+        Route::get('/{serial_number}/view', 'ParticipateController@info')->name('view');
+
+        Route::put('/{serial_number}/cancel', 'ParticipateController@cancel')->name('cancel');
+    });
 });
 
 Route::group([
     'prefix' => '/sign-up/{activity}',
+    'as' => 'sign-up::',
     'namespace' => 'SignUp'
-    // 'middleware' => 'auth',
 ], function () {
-    Route::get('/fill-apply-form/{serial_number?}', 'StepController@showApplyForm');
-    Route::get('/payment', 'StepController@showPayment')->name('payment');
-    Route::get('/confirm', 'StepController@showConfirm')->name('confirm');
+    Route::group([
+        'prefix' => '/fill-apply-form',
+        'as' => 'fill-apply-form::'
+    ], function () {
+        Route::get('/{serial_number?}', 'StepController@showApplyForm')->name('edit');
 
-    Route::post('/fill-apply-form', 'ActionController@postApplyForm');
-    Route::put('/fill-apply-form/{serial_number}', 'ActionController@putApplyForm');
-    Route::post('/payment/{serial_number}', 'ActionController@postTransaction');
-    Route::post('/payment-info', 'ActionController@savePaymentInfo');
-    Route::post('/payment', 'ActionController@savePaymentResult');
+        Route::post('/', 'ActionController@postApplyForm')->name('store');
+        Route::put('/{serial_number}', 'ActionController@putApplyForm')->name('update');
+    });
+
+    Route::group([
+        'prefix' => '/payment',
+        'as' => 'payment::'
+    ], function () {
+        Route::get('/', 'StepController@showPayment')->name('confirm');
+
+        Route::post('/', 'ActionController@postTransaction')->name('deal');
+        Route::post('/deal-info', 'ActionController@savePaymentInfo')->name('deal-info');
+        Route::post('/deal-result', 'ActionController@savePaymentResult')->name('deal-result');
+    });
+    
+    Route::get('/confirm', 'StepController@showConfirm')->name('confirm');
 });
 
 
