@@ -49,8 +49,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url('/activities') }}">找活動</a></li>
-                    <li><a href="{{ url('/organizers') }}">找主辦單位</a></li>
+                    <li><a href="{{ route('visit::activities') }}">找活動</a></li>
+                    <li><a href="{{ route('visit::organizers') }}">找主辦單位</a></li>
                     @if(Auth::guest())
                         <li><a href="{{ url('/login') }}">登入</a></li>
                         <li><a href="{{ url('/register') }}">註冊</a></li>
@@ -61,21 +61,21 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url('/account/setting') }}">
+                                <li><a href="{{ route('account::setting') }}">
                                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                     帳戶設定
                                 </a></li>
-                                <li><a href="{{ url('/account/info') }}">
+                                <li><a href="{{ route('account::info') }}">
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                     基本資料
                                 </a></li>
                                 @if (Auth::user()->role_id == '1')
-                                    <li><a href="{{ url('/participate/activities') }}">
+                                    <li><a href="{{ route('participate::record::list') }}">
                                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                         參加的活動
                                     </a></li>
                                 @elseif (Auth::user()->role_id == '2')
-                                    <li><a href="{{ route('organise::activities') }}">
+                                    <li><a href="{{ route('organise::activity::list') }}">
                                         <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
                                         舉辦的活動
                                     </a></li>

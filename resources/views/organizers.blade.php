@@ -21,7 +21,7 @@
         <div class="row">
             @forelse ($organizers as $organizer)
                 <div class="col-md-6 img-portfolio text-center">
-                    <a href="{{ url('/organizer/' . $organizer->id) }}">
+                    <a href="{{ route('visit::organizer', [$organizer]) }}">
                         @php
                             $banner = $organizer->attachments->first(function ($key, $value) {
                                 return $value->category == 'banner';
@@ -34,7 +34,7 @@
                         <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $organizer->name }}">
                     </a>
                     <h3>
-                        <a href="{{ url('/organizer/' . $organizer->id) }}">
+                        <a href="{{ route('visit::organizer', [$organizer]) }}">
                             {{ $organizer->name }}
                         </a>
                     </h3>

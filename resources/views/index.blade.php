@@ -57,7 +57,7 @@
                 <div class="col-md-4">
                     <div class="panel-heading">
                         <h3>
-                            <a href="{{ url('/activity/' . $activity->id) }}">
+                            <a href="{{ route('visit::activity', [$activity]) }}">
                                 {{ $activity->name }}
                             </a>
                         </h3>
@@ -72,7 +72,7 @@
                                 ? asset('storage/banners/' . $banner->name)
                                 : 'http://placehold.it/1050x450';
                         @endphp
-                        <a href="{{ url('/activity/' . $activity->id) }}">
+                        <a href="{{ route('visit::activity', [$activity]) }}">
                             <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
                         </a>
                         <div class="panel-body">
@@ -107,7 +107,7 @@
                 <div class="col-md-4">
                     <div class="panel-heading">
                         <h3>
-                            <a href="{{ url('/organizer/' . $organizer->id) }}">
+                            <a href="{{ route('visit::organizer', [$organizer]) }}">
                                 {{ $organizer->name }}
                             </a>
                         </h3>
@@ -122,7 +122,7 @@
                                 ? asset('storage/banners/' . $banner->name)
                                 : 'http://placehold.it/750x450';
                         @endphp
-                        <a href="{{ url('/organizer/' . $organizer->id) }}">
+                        <a href="{{ route('visit::organizer', [$organizer]) }}">
                             <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $organizer->name }}">
                         </a>
                         <div class="panel-body">

@@ -49,7 +49,7 @@ class ActionController extends Controller
         
         $data['serial_number'] = $serial_number;
         if ($payment_amount > 0) {
-            $route = 'payment';
+            $route = 'sign-up::payment::confirm';
             if (!$activity->is_free) {
                 $data['apply_fee'] = $activity->apply_fee;
             }
@@ -57,7 +57,7 @@ class ActionController extends Controller
                 $data['sponsorship_amount'] = $request->input('sponsorship_amount');
             }
         } else {
-            $route = 'confirm';
+            $route = 'sign-up::confirm';
         }
         
         return redirect()
@@ -81,7 +81,7 @@ class ActionController extends Controller
         
         $data['serial_number'] = $serial_number;
         if ($payment_amount > 0) {
-            $route = 'payment';
+            $route = 'sign-up::payment::confirm';
             if (!$activity->is_free) {
                 $data['apply_fee'] = $activity->apply_fee;
             }
@@ -89,7 +89,7 @@ class ActionController extends Controller
                 $data['sponsorship_amount'] = $request->input('sponsorship_amount');
             }
         } else {
-            $route = 'confirm';
+            $route = 'sign-up::confirm';
         }
         
         return redirect()
@@ -132,7 +132,7 @@ class ActionController extends Controller
         $transaction->save();
 
         return redirect()
-            ->route('confirm', ['activity' => $transaction->order->activity->id])
+            ->route('sign-up::confirm', ['activity' => $transaction->order->activity->id])
             ->with([
                 'serial_number' => $transaction->order->serial_number,
                 'transaction_serial_number' => $serial_number
@@ -155,7 +155,7 @@ class ActionController extends Controller
         $order->save();
         
         return redirect()
-            ->route('confirm', ['activity' => $order->activity->id])
+            ->route('sign-up::confirm', ['activity' => $order->activity->id])
             ->with([
                 'serial_number' => $order->serial_number,
                 'transaction_serial_number' => $serial_number

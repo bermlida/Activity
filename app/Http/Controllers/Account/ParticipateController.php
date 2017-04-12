@@ -34,7 +34,7 @@ class ParticipateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function info($activity, $serial_number)
+    public function info($serial_number)
     {
         $order = Order::where('serial_number', $serial_number)->first();
 
@@ -54,7 +54,7 @@ class ParticipateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function cancel($activity, $serial_number)
+    public function cancel($serial_number)
     {
         $order = Order::where('serial_number', $serial_number)->first();
 
@@ -67,33 +67,5 @@ class ParticipateController extends Controller
         $data['message'] = $data['result'] ? '取消成功' : '取消失敗';
 
         return response()->json($data);
-    }
-
-    /**
-     * 更新單一活動。
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateActivityRequest $request)
-    {
-        $organizer = (Auth::user())->profile;
-
-        $activity = $organizer->activities()->find($request->activity_id);
-
-        if (is_null($activity)) {
-            $activity = new Activity($request->all());
-
-            $update_result = $organizer->activities()->save($activity);
-        } else {
-            $update_result = $activity->fill($request->all())->save();
-        }
-        
-        $save_result['result'] = $update_result;
-        $save_result['message'] = $update_result ? '更新成功' : '更新失敗';
-        $page_method = 'PUT';
-
-        $data = compact('organizer', 'activity', 'page_method', 'save_result');
-
-        return view('account.organise-activity', $data);
     }
 }

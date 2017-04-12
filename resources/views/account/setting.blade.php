@@ -32,7 +32,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('/account/setting') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('account::setting::save') }}">
                     {{ csrf_field() }}
                         
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

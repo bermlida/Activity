@@ -31,9 +31,9 @@ class AllpayService
         $allpay->Send['TradeDesc'] = $order->activity->name;
         $allpay->Send['ChoosePayment'] = \PaymentMethod::ALL;
 
-        $allpay->Send['ReturnURL'] = url('/sign-up/' . $order->activity->id . '/payment');
-        $allpay->Send['OrderResultURL'] = url('/sign-up/' . $order->activity->id . '/payment');
-        $allpay->SendExtend['ClientRedirectURL'] = url('/sign-up/' . $order->activity->id . '/payment-info');
+        $allpay->Send['ReturnURL'] = route('sign-up::payment::deal-result', [$order->activity]);
+        $allpay->Send['OrderResultURL'] = route('sign-up::payment::deal-result', [$order->activity]);
+        $allpay->SendExtend['ClientRedirectURL'] = route('sign-up::payment::deal-info', [$order->activity]);
 
         if ($transation->apply_fee > 0) {
             $allpay->Send['Items'][] = [
@@ -72,9 +72,9 @@ class AllpayService
         $allpay->Send['TradeDesc'] = $order->activity->name;
         $allpay->Send['ChoosePayment'] = \PaymentMethod::ALL;
 
-        $allpay->Send['ReturnURL'] = url('/sign-up/' . $order->activity->id . '/payment');
-        $allpay->Send['OrderResultURL'] = url('/sign-up/' . $order->activity->id . '/payment');
-        $allpay->SendExtend['ClientRedirectURL'] = url('/sign-up/' . $order->activity->id . '/payment-info');
+        $allpay->Send['ReturnURL'] = route('sign-up::payment::deal-result', [$order->activity]);
+        $allpay->Send['OrderResultURL'] = route('sign-up::payment::deal-result', [$order->activity]);
+        $allpay->SendExtend['ClientRedirectURL'] = route('sign-up::payment::deal-info', [$order->activity]);
 
         if ($transation->apply_fee > 0) {
             $allpay->Send['Items'][] = [

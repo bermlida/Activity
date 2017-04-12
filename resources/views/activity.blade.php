@@ -45,12 +45,12 @@
                             ->where('activity_id', $info->id)
                             ->wherePivot('status', 1)
                             ->count() == 0)
-                        <a href="{{ url('/sign-up/' . $info->id . '/fill-apply-form') }}" class="btn btn-primary">
+                        <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $info->id]) }}" class="btn btn-primary">
                             <i class="glyphicon glyphicon-pencil"></i>
                             報名
                         </a>
                     @else
-                        <a href="{{ url('/sign-up/' . $info->id . '/fill-apply-form') }}" class="btn btn-primary" disabled>
+                        <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
                             您已報名本活動，請至「參加的活動」查詢報名紀錄
                         </a>
                     @endif

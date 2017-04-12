@@ -104,10 +104,12 @@ class InfoController extends Controller
                     $this->storeBanner($profile, $request);
                 }
 
-                return redirect('/account/info')->with([
-                    'message_type' => 'success',
-                    'message_body' => '儲存成功'
-                ]);
+                return redirect()
+                    ->route('account::info')
+                    ->with([
+                        'message_type' => 'success',
+                        'message_body' => '儲存成功'
+                    ]);
             }
         }
 

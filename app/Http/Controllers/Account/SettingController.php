@@ -68,9 +68,11 @@ class SettingController extends Controller
             }
         }
         
-        return redirect('/account/setting')->with([
-            'message_type' => 'success',
-            'message_body' => '儲存成功'
-        ]);
+        return redirect()
+            ->route('account::setting')
+            ->with([
+                'message_type' => 'success',
+                'message_body' => '儲存成功'
+            ]);
     }
 }

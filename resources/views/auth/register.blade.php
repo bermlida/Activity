@@ -20,11 +20,11 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-2">
-                                <a class="btn btn-block btn-social btn-facebook" href="{{ url('/social-auth/facebook') }}">
+                                <a class="btn btn-block btn-social btn-facebook" href="{{ route('social-auth::ask', ['social_provider' => 'facebook']) }}">
                                     <span class="fa fa-facebook"></span>
                                     以 Facebook 登入
                                 </a>
-                                <a class="btn btn-block btn-social btn-google" href="{{ url('/social-auth/google') }}">
+                                <a class="btn btn-block btn-social btn-google" href="{{ route('social-auth::ask', ['social_provider' => 'google']) }}">
                                     <span class="fa fa-google"></span>
                                     以 Google+ 登入
                                 </a>

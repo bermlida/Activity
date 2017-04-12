@@ -79,13 +79,13 @@
                                 </td>
                                 <td>{{ $activity->venue }}</td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ url('/participate/activities/' . $activity->id . '/info/' . $activity->pivot->serial_number) }}">
+                                    <a class="btn btn-info" href="{{ route('participate::record::view', ['serial_number' => $activity->pivot->serial_number]) }}">
                                         檢視
                                     </a>
                                 </td>
                                 <td>已完成報名</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ url('/participate/activities/' . $activity->id . '/cancel/' . $activity->pivot->serial_number) }}')">
+                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ route('participate::record::cancel', ['serial_number' => $activity->pivot->serial_number]) }}')">
                                         取消
                                     </button>
                                 </td>
@@ -95,7 +95,7 @@
                                 <td>
                                     目前你還沒有參加任何活動，不如就此開始吧 ! 
                                     <br><br><br>
-                                    <a href="{{ url('/activities') }}">
+                                    <a href="{{ route('visit::activities') }}">
                                         開始找活動
                                     </a>
                                 </td>
@@ -134,7 +134,7 @@
                                 </td>
                                 <td>{{ $activity->venue }}</td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ url('/participate/activities/' . $activity->id . '/info/' . $activity->pivot->serial_number) }}">
+                                    <a class="btn btn-info" href="{{ route('participate::record::view', ['serial_number' => $activity->pivot->serial_number]) }}">
                                         檢視
                                     </a>
                                 </td>
@@ -147,8 +147,8 @@
                                             ->whereNull('payment_result')
                                             ->get();
                                     @endphp
-                                    @if (count($no_interfacing) > 0 || count($interfacing_cashflow_error) > 0)
-                                        <a href="{{ url('/sign-up/' . $activity->id . '/fill-apply-form/' . $activity->pivot->serial_number) }}">
+                                    @if (count($no_interfacing) == 0 || count($interfacing_cashflow_error) > 0)
+                                        <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $activity->id, 'serial_number' => $activity->pivot->serial_number]) }}">
                                             報名未完成
                                         </a>
                                     @else
@@ -156,7 +156,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ url('/participate/activities/' . $activity->id . '/cancel/' . $activity->pivot->serial_number) }}')">
+                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ route('participate::record::cancel', ['serial_number' => $activity->pivot->serial_number]) }}')">
                                         取消
                                     </button>
                                 </td>
@@ -194,7 +194,7 @@
                                 </td>
                                 <td>{{ $activity->venue }}</td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ url('/participate/activities/' . $activity->id . '/info/' . $activity->pivot->serial_number) }}">
+                                    <a class="btn btn-info" href="{{ route('participate::record::view', ['serial_number' => $activity->pivot->serial_number]) }}">
                                         檢視
                                     </a>
                                 </td>

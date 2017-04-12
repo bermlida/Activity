@@ -77,13 +77,13 @@
 
         <div class="row">
             <div class="col-md-6 col-xs-6">
-                <a href="{{ url('/sign-up/' . $activity->id . '/fill-apply-form/' . $serial_number) }}" class="btn btn-danger">
+                <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $activity->id, 'serial_number' => $serial_number]) }}" class="btn btn-danger">
                     <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                     上一步
                 </a>
             </div>
             <div class="col-md-6 col-xs-6">
-                <form role="form" method="POST" action="{{ url('/sign-up/' . $activity->id . '/payment/' . $serial_number) }}">
+                <form role="form" method="POST" action="{{ route('sign-up::payment::deal', [$activity]) }}">
                     @if (isset($apply_fee))
                         <input type="text" name="apply_fee" value="{{ $apply_fee }}">
                     @endif
@@ -98,9 +98,9 @@
             </div>
         </div>
         
-{{--$transaction->payment->vAccount->vAccount
+{{--
                                     
-                                <p>繳費期限：{{ $transaction->->ExpireDate }}</p>
+                                <p>繳費期限：{{ $transaction$transaction->->ExpireDate->vAccount->vAccount->payment }}</p>
 --}}
 
         <hr>
@@ -121,6 +121,6 @@
 
 @section('script')
 
-    $()
+    
 
 @endsection

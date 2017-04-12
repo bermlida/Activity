@@ -62,7 +62,7 @@
                             </td>
                             <td>
                                 @if ($activity->status == '0')
-                                    <a class="btn btn-info" href="{{ route('organise::activity::edit', ['id' => $activity->id]) }}">
+                                    <a class="btn btn-info" href="{{ route('organise::activity::modify', ['id' => $activity->id]) }}">
                                         編輯
                                     </a>
                                 @else
