@@ -53,7 +53,7 @@
                                     <p>贊助金額：{{ $transaction->sponsorship_amount }}</p>
                                 @endif
                                 <p>
-                                    報名費用總額：
+                                    支付費用總額：
                                     {{ $transaction->apply_fee + $transaction->sponsorship_amount }}
                                 </p>
                             @endif
@@ -107,7 +107,7 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <h3>看看現在報名了那些活動</h3>
-                <a href="{{ url('/participate/activities') }}" class="btn btn-primary">
+                <a href="{{ route('participate::record::list') }}" class="btn btn-primary">
                     <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>
                     立刻查看
                 </a>

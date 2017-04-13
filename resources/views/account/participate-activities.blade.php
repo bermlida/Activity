@@ -239,15 +239,16 @@
         jQuery.ajax({
             url: url,
             type: "PUT",
-            dataType: "json",
-            success: function (data) {
+            dataType: "json"
+        }).done(
+            function (data) {
                 alert(data.message);
 
                 if (data.result) {
-                    window.location.href = "{{ url('/participate/activities/') }}";
+                    window.location.href = "{{ route('participate::record::list') }}";
                 }
             }
-        });
+        );
     }
 
     </script>

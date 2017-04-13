@@ -64,7 +64,7 @@ class StepController extends Controller
             ->profile->activities()
             ->wherePivot('serial_number', $serial_number)
             ->first()->pivot;
-        
+
         $data = session()->all();
 
         $data['user_account'] = $order->user->account()->first();
@@ -72,6 +72,8 @@ class StepController extends Controller
         $data['user_profile'] = $order->user;
         
         $data['activity'] = $order->activity;
+
+        session()->keep('serial_number');
 
         return view('sign-up.payment', $data);
     }

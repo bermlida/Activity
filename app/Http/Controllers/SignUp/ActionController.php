@@ -101,8 +101,10 @@ class ActionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postTransaction($activity, $serial_number, PostTransactionRequest $request)
+    public function postTransaction($activity, PostTransactionRequest $request)
     {
+        $serial_number = session('serial_number');
+        
         $order = Auth::user()
             ->profile->activities()
             ->wherePivot('serial_number', $serial_number)
