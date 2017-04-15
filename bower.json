@@ -1,0 +1,26 @@
+{
+  "name": "Activity",
+  "description": "The Buddha Activity Platform",
+  "main": "",
+  "authors": [
+    "Bermlida"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/bermlida/Activity",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-social": "^5.1.1",
+    "jquery": "^3.2.1",
+    "summernote": "^0.8.3",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
+  }
+}

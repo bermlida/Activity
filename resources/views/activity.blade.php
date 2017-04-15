@@ -40,21 +40,18 @@
                 @endif
                 </h3>
                 <h3>活動地點：{{ $info->venue }}</h3>
-                @if (Auth::check() && Auth::user()->role_id == 1)
-                    @if (Auth::user()->profile->activities()
-                            ->where('activity_id', $info->id)
-                            ->wherePivot('status', 1)
-                            ->count() == 0)
+                    @can('apply', $info)
                         <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $info->id]) }}" class="btn btn-primary">
                             <i class="glyphicon glyphicon-pencil"></i>
                             報名
                         </a>
                     @else
-                        <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
-                            您已報名本活動，請至「參加的活動」查詢報名紀錄
-                        </a>
-                    @endif
-                @endif
+                        @if (Auth::user()->role_id == 1)
+                            <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
+                                您已報名本活動，請至「參加的活動」查詢報名紀錄
+                            </a>
+                        @endif
+                    @endcan
             </div>
             <div class="col-md-6">
                 @if (!empty($info->venue_intro))

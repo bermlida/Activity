@@ -13,6 +13,10 @@
 
 Route::get('/', 'IndexController@index');
 
+Route::get('/error', function () {
+    return 'error';
+});
+
 Route::group([
     'as' => 'visit::'
 ], function () {
@@ -51,11 +55,12 @@ Route::group([
 
     Route::group([
         'prefix' => '/organise/activities',
-        'as' => 'organise::activity::'
+        'as' => 'organise::activity::',
+        'middleware' => 'judge-role:2'
     ], function () {
         Route::get('/', 'OrganiseController@index')->name('list');
         Route::get('/new/edit', 'OrganiseController@edit')->name('create');
-        Route::get('/{activity}/edit', 'OrganiseController@edit')->name('modify');
+        Route::get('/{activity}/edit', 'OrganiseController@edit')->name('modify')->middleware('exist-resource');
         
         Route::post('/', 'OrganiseController@create')->name('store');
         Route::put('/{activity}', 'OrganiseController@update')->name('update');
@@ -63,7 +68,8 @@ Route::group([
 
     Route::group([
         'prefix' => '/participate/records',
-        'as' => 'participate::record::'
+        'as' => 'participate::record::',
+        'middleware' => 'judge-role:1'
     ], function () {
         Route::get('/', 'ParticipateController@index')->name('list');
         Route::get('/{serial_number}/view', 'ParticipateController@info')->name('view');
