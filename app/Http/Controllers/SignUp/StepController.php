@@ -29,26 +29,32 @@ class StepController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showApplyForm($activity, $serial_number = null)
+    public function showApply($activity, $record = null)
     {
-        if (!is_null($serial_number)) {
+        if (!is_null($record)) {
             $order = Auth::user()
                 ->profile->activities()
-                ->wherePivot('serial_number', $serial_number)
+                ->wherePivot('serial_number', $record)
                 ->first()->pivot;
 
             $data['activity'] = $order->activity;
+
             $data['user_account'] = $order->user->account()->first();
+
             $data['user_profile'] = $order->user;
+
             $data['form_method'] = 'PUT';
         } else {
             $data['activity'] = Activity::find($activity);
+
             $data['user_account'] = Auth::user();
+
             $data['user_profile'] = $data['user_account']->profile;
+
             $data['form_method'] = 'POST';
         }
         
-        return view('sign-up.apply-form', $data);
+        return view('sign-up.apply', $data);
     }
 
     /**

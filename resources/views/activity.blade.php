@@ -41,13 +41,13 @@
                 </h3>
                 <h3>活動地點：{{ $info->venue }}</h3>
                     @can('apply', $info)
-                        <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $info->id]) }}" class="btn btn-primary">
+                        <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary">
                             <i class="glyphicon glyphicon-pencil"></i>
                             報名
                         </a>
                     @else
                         @if (Auth::user()->role_id == 1)
-                            <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
+                            <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
                                 您已報名本活動，請至「參加的活動」查詢報名紀錄
                             </a>
                         @endif

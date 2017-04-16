@@ -77,7 +77,7 @@
 
         <div class="row">
             <div class="col-md-6 col-xs-6">
-                <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $activity->id, 'serial_number' => $serial_number]) }}" class="btn btn-danger">
+                <a href="{{ route('sign-up::apply::edit', ['activity' => $activity->id, 'serial_number' => $serial_number]) }}" class="btn btn-danger">
                     <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                     上一步
                 </a>

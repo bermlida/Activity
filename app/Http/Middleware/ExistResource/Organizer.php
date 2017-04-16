@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\ExistResource;
 
 use Closure;
 
-class ExistResource
+use App\Models\Organizer as OrganizerModel;
+
+class Organizer
 {
     /**
      * Handle an incoming request.
@@ -15,6 +17,12 @@ class ExistResource
      */
     public function handle($request, Closure $next)
     {
+        $organizer = $request->route('organizer');
+
+        if (is_null(OrganizerModel::find($organizer))) {
+            return redirect('/error');
+        }
+
         return $next($request);
     }
 }

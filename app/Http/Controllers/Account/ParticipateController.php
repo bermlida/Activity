@@ -26,7 +26,7 @@ class ParticipateController extends Controller
 
         $data['cancelled_activities'] = $user->activities()->wherePivot('status', -1)->get();
         
-        return view('account.participate-activities', $data);
+        return view('account.participate-records', $data);
     }
 
     /**
@@ -34,9 +34,9 @@ class ParticipateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function info($serial_number)
+    public function info($record)
     {
-        $order = Order::where('serial_number', $serial_number)->first();
+        $order = Order::where('serial_number', $record)->first();
 
         $data['order'] = $order;
 
@@ -46,7 +46,7 @@ class ParticipateController extends Controller
 
         $data['user_profile'] = $order->user;
 
-        return view('account.participate-activity', $data);
+        return view('account.participate-record', $data);
     }
 
     /**
@@ -54,9 +54,9 @@ class ParticipateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function cancel($serial_number)
+    public function cancel($record)
     {
-        $order = Order::where('serial_number', $serial_number)->first();
+        $order = Order::where('serial_number', $record)->first();
 
         $order->status = -1;
 

@@ -50,7 +50,11 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
+        'exist-activity' => \App\Http\Middleware\ExistResource\Activity::class,
+        'exist-organizer' => \App\Http\Middleware\ExistResource\Organizer::class,
+        'exist-organise-activity' => \App\Http\Middleware\ExistResource\OrganiseActivity::class,
+        'exist-participate-record' => \App\Http\Middleware\ExistResource\ParticipateRecord::class,
         'judge-role' => \App\Http\Middleware\JudgeRole::class,
-        'exist-resource' => \App\Http\Middleware\ExistResource\OrganiseActivity::class,
+        'verify-social-provider' => \App\Http\Middleware\VerifySocialProvider::class,
     ];
 }

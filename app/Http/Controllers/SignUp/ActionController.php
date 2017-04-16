@@ -24,7 +24,7 @@ class ActionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postApplyForm($activity, SubmitApplyFormRequest $request)
+    public function postOrder($activity, SubmitApplyFormRequest $request)
     {
         $user = Auth::user()->profile;
         $activity = Activity::find($activity);
@@ -70,7 +70,7 @@ class ActionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function putApplyForm($activity, $serial_number, SubmitApplyFormRequest $request)
+    public function putOrder($activity, $record, SubmitApplyFormRequest $request)
     {
         $activity = Activity::find($activity);
         
@@ -79,7 +79,7 @@ class ActionController extends Controller
             $payment_amount += $request->input('sponsorship_amount');
         }
         
-        $data['serial_number'] = $serial_number;
+        $data['serial_number'] = $record;
         if ($payment_amount > 0) {
             $route = 'sign-up::payment::confirm';
             if (!$activity->is_free) {

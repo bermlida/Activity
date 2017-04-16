@@ -21,18 +21,23 @@ Route::group([
     'as' => 'visit::'
 ], function () {
     Route::get('/activities', 'ActivityController@index')->name('activities');
-    Route::get('/activities/{activity}', 'ActivityController@info')->name('activity');
+    Route::get('/activities/{activity}', 'ActivityController@info')
+        ->middleware('exist-activity')
+        ->name('activity');
 
     Route::get('/organizers', 'OrganizerController@index')->name('organizers');
-    Route::get('/organizers/{organizer}', 'OrganizerController@info')->name('organizer');
+    Route::get('/organizers/{organizer}', 'OrganizerController@info')
+        ->middleware('exist-organizer')
+        ->name('organizer');
 });
 
 Route::auth();
 
 Route::group([
     'prefix' => '/social-auth/{social_provider}',
-    'as' => 'social-auth::',
-    'namespace' => 'Auth'
+    'namespace' => 'Auth',
+    'middleware' => 'verify-social-provider',
+    'as' => 'social-auth::'
 ], function () {
     Route::get('/ask', 'AuthController@redirectToProvider')->name('ask');
     Route::get('/reply', 'AuthController@handleProviderCallback')->name('reply');
@@ -55,42 +60,56 @@ Route::group([
 
     Route::group([
         'prefix' => '/organise/activities',
-        'as' => 'organise::activity::',
-        'middleware' => 'judge-role:2'
+        'middleware' => 'judge-role:2',
+        'as' => 'organise::activity::'
     ], function () {
         Route::get('/', 'OrganiseController@index')->name('list');
         Route::get('/new/edit', 'OrganiseController@edit')->name('create');
-        Route::get('/{activity}/edit', 'OrganiseController@edit')->name('modify')->middleware('exist-resource');
+        Route::get('/{activity}/edit', 'OrganiseController@edit')
+            ->middleware('exist-organise-activity')
+            ->name('modify');
         
         Route::post('/', 'OrganiseController@create')->name('store');
-        Route::put('/{activity}', 'OrganiseController@update')->name('update');
+        Route::put('/{activity}', 'OrganiseController@update')
+            ->middleware('exist-organise-activity')
+            ->name('update');
     });
 
     Route::group([
         'prefix' => '/participate/records',
-        'as' => 'participate::record::',
-        'middleware' => 'judge-role:1'
+        'middleware' => 'judge-role:1',
+        'as' => 'participate::record::'
     ], function () {
         Route::get('/', 'ParticipateController@index')->name('list');
-        Route::get('/{serial_number}/view', 'ParticipateController@info')->name('view');
+        Route::get('/{record}/view', 'ParticipateController@info')
+            ->middleware('exist-participate-record')
+            ->name('view');
 
-        Route::put('/{serial_number}/cancel', 'ParticipateController@cancel')->name('cancel');
+        Route::put('/{record}/cancel', 'ParticipateController@cancel')
+            ->middleware('exist-participate-record')
+            ->name('cancel');
     });
 });
 
 Route::group([
     'prefix' => '/sign-up/{activity}',
-    'as' => 'sign-up::',
-    'namespace' => 'SignUp'
+    'namespace' => 'SignUp',
+    'middleware' => ['exist-activity'],
+    'as' => 'sign-up::'
 ], function () {
     Route::group([
-        'prefix' => '/fill-apply-form',
-        'as' => 'fill-apply-form::'
+        'prefix' => '/apply',
+        'as' => 'apply::'
     ], function () {
-        Route::get('/{serial_number?}', 'StepController@showApplyForm')->name('edit');
+        Route::get('/', 'StepController@showApply')->name('new');
+        Route::get('/{record}', 'StepController@showApply')
+            ->middleware('exist-participate-record')
+            ->name('edit');
 
-        Route::post('/', 'ActionController@postApplyForm')->name('store');
-        Route::put('/{serial_number}', 'ActionController@putApplyForm')->name('update');
+        Route::post('/', 'ActionController@postOrder')->name('store');
+        Route::put('/{record}', 'ActionController@putOrder')
+            ->middleware('exist-participate-record')
+            ->name('update');
     });
 
     Route::group([

@@ -148,7 +148,7 @@
                                             ->get();
                                     @endphp
                                     @if (count($no_interfacing) == 0 || count($interfacing_cashflow_error) > 0)
-                                        <a href="{{ route('sign-up::fill-apply-form::edit', ['activity' => $activity->id, 'serial_number' => $activity->pivot->serial_number]) }}">
+                                        <a href="{{ route('sign-up::apply::edit', ['activity' => $activity->id, 'serial_number' => $activity->pivot->serial_number]) }}">
                                             報名未完成
                                         </a>
                                     @else
@@ -234,8 +234,10 @@
 
     <script>
 
-    function cancel(url)
+    function cancel(target)
     {
+        var url = target;
+
         jQuery.ajax({
             url: url,
             type: "PUT",
