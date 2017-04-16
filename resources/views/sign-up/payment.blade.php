@@ -84,6 +84,8 @@
             </div>
             <div class="col-md-6 col-xs-6">
                 <form role="form" method="POST" action="{{ route('sign-up::payment::deal', [$activity]) }}">
+                    {{ csrf_field() }}
+                    
                     <input type="text" name="apply_fee" value="{{ isset($apply_fee) ? $apply_fee : 0 }}">
                     <input type="text" name="sponsorship_amount" value="{{ isset($sponsorship_amount) ? $sponsorship_amount : 0 }}">
                     <button type="submit" class="btn btn-primary">

@@ -14,6 +14,7 @@
 Route::get('/', 'IndexController@index');
 
 Route::get('/error', function () {
+    var_dump(app('router'));
     return 'error';
 });
 
