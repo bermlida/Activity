@@ -239,6 +239,9 @@
         var url = target;
 
         jQuery.ajax({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
             url: url,
             type: "PUT",
             dataType: "json"
