@@ -16,15 +16,23 @@ class ParticipateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = (Auth::user())->profile;
 
-        $data['registered_activities'] = $user->activities()->wherePivot('status', 1)->get();
+        $data['registered_activities'] = $user->activities()
+            ->wherePivot('status', 1)
+            ->paginate(1, ['*'], 'registered_page');
 
-        $data['undone_activities'] = $user->activities()->wherePivot('status', 0)->get();
+        $data['undone_activities'] = $user->activities()
+            ->wherePivot('status', 0)
+            ->paginate(1, ['*'], 'undone_page');
 
-        $data['cancelled_activities'] = $user->activities()->wherePivot('status', -1)->get();
+        $data['cancelled_activities'] = $user->activities()
+            ->wherePivot('status', -1)
+            ->paginate(1, ['*'], 'cancelled_page');
+
+        $data['url_query'] = $request->only('tab', 'registered_page', 'undone_page', 'cancelled_page');
         
         return view('account.participate-records', $data);
     }

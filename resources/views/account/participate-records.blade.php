@@ -103,6 +103,9 @@
                             @endforelse
                             </tbody>
                         </table>
+                        <div class="col-md-12 text-center">
+                            {!! $registered_activities->appends($url_query)->links() !!}
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="undone">
                         <table class="table table-hover">
@@ -164,6 +167,9 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="col-md-12 text-center">
+                            {!! $undone_activities->appends($url_query)->links() !!}
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="cancelled">
                         <table class="table table-hover">
@@ -203,6 +209,9 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="col-md-12 text-center">
+                            {!! $cancelled_activities->appends($url_query)->links() !!}
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="service-four">
                         <h4>Service Four</h4>

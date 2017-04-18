@@ -18,7 +18,7 @@ class OrganizerController extends Controller
     {
         $organizers = Organizer::with('attachments')
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(6);
 
         return view('organizers', ['organizers' => $organizers]);
     }
