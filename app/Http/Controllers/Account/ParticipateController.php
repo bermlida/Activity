@@ -32,7 +32,9 @@ class ParticipateController extends Controller
             ->wherePivot('status', -1)
             ->paginate(1, ['*'], 'cancelled_page');
 
-        $data['url_query'] = $request->only('tab', 'registered_page', 'undone_page', 'cancelled_page');
+        $data['url_query'] = $request->only('registered_page', 'undone_page', 'cancelled_page');
+
+        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'registered';
         
         return view('account.participate-records', $data);
     }

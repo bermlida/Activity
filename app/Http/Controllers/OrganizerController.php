@@ -28,7 +28,7 @@ class OrganizerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function info($organizer)
+    public function info($organizer, Request $request)
     {
         $data['info'] = Organizer::find($organizer);
 
@@ -38,13 +38,17 @@ class OrganizerController extends Controller
             ->with('attachments')
             ->where('end_time', '>=', Carbon::now())
             ->ofStatus(1)
-            ->get();
+            ->paginate(1, ['*'], 'activities_page');
 
         $data['histories'] = $data['info']->activities()
             ->with('attachments')
             ->where('end_time', '<', Carbon::now())
             ->ofStatus(1)
-            ->get();
+            ->paginate(1, ['*'], 'histories_page');
+
+        $data['url_query'] = $request->only('activities_page', 'histories_page');
+
+        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'activities';
 
         return view('organizer', $data);
     }

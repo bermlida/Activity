@@ -8,7 +8,7 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
@@ -23,19 +23,19 @@
         <div class="row">
             <div class="col-lg-12">
                 <ul id="myTab" class="nav nav-tabs nav-justified">
-                    <li class="active">
+                    <li class="{{ $tab == 'registered' ? 'active' : '' }}">
                         <a href="#registered" data-toggle="tab">
                             <i class="fa fa-tree"></i>
                             已報名
                         </a>
                     </li>
-                    <li class="">
+                    <li class="{{ $tab == 'undone' ? 'active' : '' }}">
                         <a href="#undone" data-toggle="tab">
                             <i class="fa fa-car"></i>
                             未完成
                         </a>
                     </li>
-                    <li class="">
+                    <li class="{{ $tab == 'cancelled' ? 'active' : '' }}">
                         <a href="#cancelled" data-toggle="tab">
                             <i class="fa fa-exclamation-triangle"></i> 
                             已取消
@@ -49,7 +49,7 @@
                     </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade active in" id="registered">
+                    <div class="tab-pane fade {{ $tab == 'registered' ? 'active in' : '' }}" id="registered">
                         <table class="table table-hover">
                             <caption></caption>
                             <thead>
@@ -69,12 +69,12 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $activity->name }}</td>
                                 <td>
-                                @if ($carbon->parse($activity->start_time)->toDateString() != $carbon->parse($activity->end_time)->toDateString())
-                                    {{ $carbon->parse($activity->start_time)->toDateString() }}
+                                @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                                    {{ $activity->start_time->toDateString() }}
                                      ~ 
-                                    {{ $carbon->parse($activity->end_time)->toDateString() }}
+                                    {{ $activity->end_time->toDateString() }}
                                 @else
-                                    {{ $carbon->parse($activity->start_time)->toDateString() }}
+                                    {{ $activity->start_time->toDateString() }}
                                 @endif
                                 </td>
                                 <td>{{ $activity->venue }}</td>
@@ -104,10 +104,15 @@
                             </tbody>
                         </table>
                         <div class="col-md-12 text-center">
-                            {!! $registered_activities->appends($url_query)->links() !!}
+                            {!!
+                                $registered_activities
+                                    ->appends($url_query)
+                                    ->appends('tab', 'registered')
+                                    ->links()
+                            !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="undone">
+                    <div class="tab-pane fade {{ $tab == 'undone' ? 'active in' : '' }}" id="undone">
                         <table class="table table-hover">
                             <caption></caption>
                             <thead>
@@ -127,12 +132,12 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $activity->name }}</td>
                                 <td>
-                                @if ($carbon->parse($activity->start_time)->toDateString() != $carbon->parse($activity->end_time)->toDateString())
-                                    {{ $carbon->parse($activity->start_time)->toDateString() }}
+                                @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                                    {{ $activity->start_time->toDateString() }}
                                      ~ 
-                                    {{ $carbon->parse($activity->end_time)->toDateString() }}
+                                    {{ $activity->end_time->toDateString() }}
                                 @else
-                                    {{ $carbon->parse($activity->start_time)->toDateString() }}
+                                    {{ $activity->start_time->toDateString() }}
                                 @endif
                                 </td>
                                 <td>{{ $activity->venue }}</td>
@@ -168,10 +173,15 @@
                             </tbody>
                         </table>
                         <div class="col-md-12 text-center">
-                            {!! $undone_activities->appends($url_query)->links() !!}
+                            {!! 
+                                $undone_activities
+                                    ->appends($url_query)
+                                    ->appends('tab', 'undone')
+                                    ->links()
+                            !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="cancelled">
+                    <div class="tab-pane fade {{ $tab == 'cancelled' ? 'active in' : '' }}" id="cancelled">
                         <table class="table table-hover">
                             <caption></caption>
                             <thead>
@@ -190,12 +200,12 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $activity->name }}</td>
                                 <td>
-                                @if ($carbon->parse($activity->start_time)->toDateString() != $carbon->parse($activity->end_time)->toDateString())
-                                    {{ $carbon->parse($activity->start_time)->toDateString() }}
+                                @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                                    {{ $activity->start_time->toDateString() }}
                                      ~ 
-                                    {{ $carbon->parse($activity->end_time)->toDateString() }}
+                                    {{ $activity->end_time->toDateString() }}
                                 @else
-                                    {{ $carbon->parse($activity->start_time)->toDateString() }}
+                                    {{ $activity->start_time->toDateString() }}
                                 @endif
                                 </td>
                                 <td>{{ $activity->venue }}</td>
@@ -210,7 +220,12 @@
                             </tbody>
                         </table>
                         <div class="col-md-12 text-center">
-                            {!! $cancelled_activities->appends($url_query)->links() !!}
+                            {!!
+                                $cancelled_activities
+                                    ->appends($url_query)
+                                    ->appends('tab', 'cancelled')
+                                    ->links()
+                            !!}
                         </div>
                     </div>
                     <div class="tab-pane fade" id="service-four">

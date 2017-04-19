@@ -51,30 +51,8 @@
 
         <!-- Pagination -->
         <div class="row text-center">
-            <div class="col-lg-12">
-                <ul class="pagination">
-                    <li>
-                        @if (!is_null($organizers->previousPageUrl()))
-                            <a href="{{ $organizers->previousPageUrl() }}">&laquo;</a>
-                        @else
-                            <a href="#">&laquo;</a>
-                        @endif
-                    </li>
-                    @for ($i = 1 ; $i <= $organizers->lastPage() ; $i++)
-                        @if ($i == $organizers->currentPage())
-                            <li class="active"><a href="#">{{ $i }}</a></li>
-                        @else
-                            <li><a href="{{ $organizers->url($i) }}">{{ $i }}</a></li>
-                        @endif
-                    @endfor
-                    <li>
-                        @if (!is_null($organizers->nextPageUrl()))
-                            <a href="{{ $organizers->nextPageUrl() }}">&raquo;</a>
-                        @else
-                            <a href="#">&raquo;</a>
-                        @endif
-                    </li>
-                </ul>
+            <div class="col-md-12">
+                {!! $organizers->links() !!}
             </div>
         </div>
         <!-- /.row -->

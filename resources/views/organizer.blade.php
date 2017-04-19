@@ -30,14 +30,15 @@
         <!-- Intro Content -->
         <div class="row">
             <div class="col-lg-12">
+
                 <ul id="myTab" class="nav nav-tabs nav-justified">
-                    <li class="">
+                    <li class="{{ $tab == 'activities' ? 'active' : '' }}">
                         <a href="#activities" data-toggle="tab">
                             <i class="fa fa-clock-o" aria-hidden="true"></i>
                             當前活動
                         </a>
                     </li>
-                    <li class="">
+                    <li class="{{ $tab == 'histories' ? 'active' : '' }}">
                         <a href="#histories" data-toggle="tab">
                             <i class="fa fa-history" aria-hidden="true"></i>
                             歷史活動
@@ -49,7 +50,7 @@
                             聯絡及交通方式
                         </a>
                     </li>
-                    <li class="active">
+                    <li class="">
                         <a href="#about" data-toggle="tab">
                             <i class="fa fa-tree" aria-hidden="true"></i>
                             關於
@@ -58,7 +59,7 @@
                 </ul>
 
                 <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade" id="activities">
+                    <div class="tab-pane fade {{ $tab == 'activities' ? 'active in' : '' }}" id="activities">
                         <br>
                         @forelse ($activities as $activity)
                             <div class="col-md-4 img-portfolio">
@@ -91,6 +92,14 @@
                                 </p>
                                 <p>{{ $activity->summary }}</p>
                             </div>
+                            <div class="col-md-12 text-center">
+                                {!!
+                                    $activities
+                                        ->appends($url_query)
+                                        ->appends('tab', 'activities')
+                                        ->links()
+                                !!}
+                            </div>
                         @empty
                             <h3>目前沒有正在舉辦的活動</h3>
                             <br>
@@ -99,7 +108,7 @@
                             </a>
                         @endforelse
                     </div>
-                    <div class="tab-pane fade" id="histories">
+                    <div class="tab-pane fade {{ $tab == 'histories' ? 'active in' : '' }}" id="histories">
                         <br>
                         @forelse ($histories as $history)
                             <div class="col-md-4 img-portfolio">
@@ -132,11 +141,19 @@
                                 </p>
                                 <p>{{ $history->summary }}</p>
                             </div>
+                            <div class="col-md-12 text-center">
+                                {!!
+                                    $histories
+                                        ->appends($url_query)
+                                        ->appends('tab', 'histories')
+                                        ->links()
+                                !!}
+                            </div>
                         @empty
                             <h3>目前沒有舉辦過的活動</h3>
                         @endforelse
                     </div>
-                    <div class="tab-pane fade active in" id="about">
+                    <div class="tab-pane fade" id="about">
                         <br>
                         {{ $info->intro }}
                     </div>
