@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">註冊為會員 / 主辦單位</div>
+                <div class="panel-heading">註冊為會員</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
@@ -70,24 +70,6 @@
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('is_organizer') ? ' has-error' : '' }}">
-                            <label for="is-organizer" class="col-md-4 control-label">申請為主辦單位</label>
-                            <div class="col-md-6">
-                                <select id="is-organizer" class="form-control" name="is_organizer">
-                                    <option value="" disabled selected>
-                                        請選擇是否將此帳號申請為主辦單位
-                                    </option>
-                                    <option value="0">否</option>
-                                    <option value="1">是</option>
-                                </select>
-                                @if ($errors->has('is_organizer'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('is_organizer') }}</strong>
                                     </span>
                                 @endif
                             </div>

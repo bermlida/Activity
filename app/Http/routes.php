@@ -33,6 +33,8 @@ Route::group([
 });
 
 Route::auth();
+Route::get('/apply', 'Auth\AuthController@showApplyForm');
+Route::post('/apply', 'Auth\AuthController@apply');
 
 Route::group([
     'prefix' => '/social-auth/{social_provider}',

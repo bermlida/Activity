@@ -54,6 +54,7 @@
                     @if(Auth::guest())
                         <li><a href="{{ url('/login') }}">登入</a></li>
                         <li><a href="{{ url('/register') }}">註冊</a></li>
+                        <li><a href="{{ url('/apply') }}">主辦單位申請</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -9,8 +9,9 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreOrganizerRequest;
 use App\Models\Account;
-use App\Models\Role;
+use App\Models\Organizer;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -55,8 +56,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'email' => 'required|email|max:255|unique:accounts',
-            'password' => 'required|min:6|confirmed',
-            'is_organizer' => 'required'
+            'password' => 'required|min:6|confirmed'
         ]);
     }
 
@@ -82,6 +82,39 @@ class AuthController extends Controller
         $account->save();
         
         return $account;
+    }
+
+    /**
+     * 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showApplyForm()
+    {
+        return view('auth.apply');
+    }
+
+    /**
+     * 
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function apply(StoreOrganizerRequest $request)
+    {
+        $profile = Organizer::create($request->all());
+
+        $result = $profile->account()->save(
+            (new Account)->forceFill([
+                'email' => $request->input('email'),
+                'password' => bcrypt($request->input('password')),
+                'role_id' => 2
+            ])
+        );
+
+        $this->login($request);
+
+        return redirect($this->redirectPath());
     }
 
     /**
