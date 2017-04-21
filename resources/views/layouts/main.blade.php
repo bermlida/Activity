@@ -53,8 +53,16 @@
                     <li><a href="{{ route('visit::organizers') }}">找主辦單位</a></li>
                     @if(Auth::guest())
                         <li><a href="{{ url('/login') }}">登入</a></li>
-                        <li><a href="{{ url('/register') }}">註冊</a></li>
-                        <li><a href="{{ url('/apply') }}">主辦單位申請</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                註冊
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url('/register') }}">註冊為會員</a></li>
+                                <li><a href="{{ url('/apply') }}">註冊為主辦單位</a></li>
+                            </ul>
+                        </li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -94,7 +102,7 @@
                     @endif
 {{--
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="blog-home-1.html">Blog Home 1</a>
@@ -105,11 +113,6 @@
                             <li>
                                 <a href="blog-post.html">Blog Post</a>
                             </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
                             <li>
                                 <a href="full-width.html">Full Width Page</a>
                             </li>

@@ -1,6 +1,13 @@
 
 @extends('layouts.main')
 
+@section('style')
+
+    <!-- Bootstrap Social CSS -->
+    <link href="{{ asset('bower_components/bootstrap-social/bootstrap-social.css') }}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
     <div class="container">
@@ -8,26 +15,16 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                @if (!is_null(session('message_type')) && !is_null(session('message_body')))
-                    <div class="alert alert-{{ session('message_type') }}" role="alert">
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        {{ session('message_body') }}
-                    </div>
-                @endif
                 <h1 class="page-header">
-                    申請為主辦單位
-                    <small></small>
+                    註冊為主辦單位
                 </h1>
             </div>
         </div>
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-md-12">
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('/apply') }}" enctype="multipart/form-data">
+            <div class="col-md-6">
+                <form class="form-horizontal" role="form" method="POST" action="{{ url('/apply') }}">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -39,6 +36,32 @@
                             @if ($errors->has('name'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                        <label for="address" class="col-md-4 control-label">地址</label>
+                        <div class="col-md-6">
+                            <input id="address" class="form-control" name="address" value="{{ old('address') }}">
+                                
+                            @if ($errors->has('address'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('address') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                        <label for="phone" class="col-md-4 control-label">電話</label>
+                        <div class="col-md-6">
+                            <input id="phone" class="form-control" name="phone" value="{{ old('phone') }}">
+                                
+                            @if ($errors->has('phone'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('phone') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -85,42 +108,33 @@
                             @endif
                         </div>
                     </div>
-
-                    <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                        <label for="address" class="col-md-4 control-label">地址</label>
-                        <div class="col-md-6">
-                            <input id="address" class="form-control" name="address" value="{{ old('address') }}">
-                                
-                            @if ($errors->has('address'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('address') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                        <label for="phone" class="col-md-4 control-label">電話</label>
-                        <div class="col-md-6">
-                            <input id="phone" class="form-control" name="phone" value="{{ old('phone') }}">
-                                
-                            @if ($errors->has('phone'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('phone') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
                         
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-6">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-building" aria-hidden="true"></i>
-                                申請
+                                註冊
                             </button>
                         </div>
                     </div>
                 </form>
+            </div>
+
+            <div class="col-md-6">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="form-group">
+                    <a class="btn btn-block btn-social btn-facebook" href="{{ route('social-auth::ask', ['social_provider' => 'facebook']) }}">
+                        <span class="fa fa-facebook"></span>
+                        以 Facebook 登入
+                    </a>
+                    </div>
+                    <div class="form-group">
+                    <a class="btn btn-block btn-social btn-google" href="{{ route('social-auth::ask', ['social_provider' => 'google']) }}">
+                        <span class="fa fa-google"></span>
+                        以 Google+ 登入
+                    </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

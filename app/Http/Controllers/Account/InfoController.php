@@ -45,7 +45,7 @@ class InfoController extends Controller
             case 1:
                 $rules = [
                     'name' => 'required|string|max:128',
-                    'mobile_phone' => 'sometimes|string|max:30'
+                    'mobile_phone' => 'required|string|max:30'
                 ];
                 break;
             case 2:

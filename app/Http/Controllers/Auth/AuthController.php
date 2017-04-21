@@ -55,8 +55,10 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'name' => 'required|string|max:128',
             'email' => 'required|email|max:255|unique:accounts',
-            'password' => 'required|min:6|confirmed'
+            'password' => 'required|min:6|confirmed',
+            'mobile_phone' => 'required|string|max:30'
         ]);
     }
 
@@ -68,20 +70,17 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        $account = new Account([
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
-        ]);
+        $profile = User::create($data);
 
-        if ($data['is_organizer'] == '1') {
-            $account->role_id = 2;
-        } else {
-            $account->role_id = 1;
-        }
-
-        $account->save();
+        $result = $profile->account()->save(
+            (new Account)->forceFill([
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'role_id' => 1
+            ])
+        );
         
-        return $account;
+        return $profile->account()->first();
     }
 
     /**
