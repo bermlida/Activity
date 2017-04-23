@@ -19,9 +19,19 @@ class OrganiseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['activities'] = (Auth::user())->profile->activities;
+        $data['published_activities'] = (Auth::user())->profile->activities()
+            ->ofStatus(1)
+            ->paginate(5, ['*'], 'published_page');
+
+        $data['draft_activities'] = (Auth::user())->profile->activities()
+            ->ofStatus(0)
+            ->paginate(5, ['*'], 'draft_page');
+
+        $data['url_query'] = $request->only('published_page', 'draft_page');
+
+        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'published';
         
         return view('account.organise-activities', $data);
     }
@@ -156,5 +166,23 @@ class OrganiseController extends Controller
         }
 
         return !$request->hasFile('photo');
+    }
+
+    /**
+     * 刪除單一活動。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($activity)
+    {
+        $organizer = (Auth::user())->profile;
+
+        $activity = $organizer->activities()->find($activity);
+
+        $data['result'] = $activity->delete();
+
+        $data['message'] = $data['result'] ? '刪除成功' : '刪除失敗';
+
+        return response()->json($data);
     }
 }

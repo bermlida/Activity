@@ -19,7 +19,7 @@ class OrganiseActivity
         $activity = $request->route('activity');
 
         $organizer = Auth::user()->profile;
-
+        
         if (is_null($organizer->activities()->find($activity))) {
             return redirect('/error');
         }

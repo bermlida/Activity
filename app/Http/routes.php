@@ -14,7 +14,7 @@
 Route::get('/', 'IndexController@index');
 
 Route::get('/error', function () {
-    var_dump(app('router'));
+    // var_dump(app('router'));
     return 'error';
 });
 
@@ -33,8 +33,19 @@ Route::group([
 });
 
 Route::auth();
-Route::get('/apply', 'Auth\AuthController@showApplyForm');
-Route::post('/apply', 'Auth\AuthController@apply');
+
+Route::group([
+    'prefix' => '/register',
+    'namesapce' => 'Auth',
+    'as' => 'register::'
+], function () {
+    Route::get('/user', 'AuthController@showRegisterUser')->name('user');
+    Route::get('/organizer', 'AuthController@showRegisterOrganizer')->name('organizer');
+    
+    Route::post('/user', 'AuthController@registerUser')->name('user::store');
+    Route::post('/organizer', 'AuthController@registerOrganizer')->name('organizer::store');
+});
+
 
 Route::group([
     'prefix' => '/social-auth/{social_provider}',
@@ -68,14 +79,16 @@ Route::group([
     ], function () {
         Route::get('/', 'OrganiseController@index')->name('list');
         Route::get('/new/edit', 'OrganiseController@edit')->name('create');
-        Route::get('/{activity}/edit', 'OrganiseController@edit')
-            ->middleware('exist-organise-activity')
-            ->name('modify');
-        
         Route::post('/', 'OrganiseController@create')->name('store');
-        Route::put('/{activity}', 'OrganiseController@update')
-            ->middleware('exist-organise-activity')
-            ->name('update');
+        
+        Route::group([
+            'prefix' => '/{activity}',
+            'middleware' => 'exist-organise-activity'
+        ], function () {
+            Route::get('/edit', 'OrganiseController@edit')->name('modify');
+            Route::put('/update', 'OrganiseController@update')->name('update');
+            Route::delete('/delete', 'OrganiseController@delete')->name('delete');
+        });
     });
 
     Route::group([

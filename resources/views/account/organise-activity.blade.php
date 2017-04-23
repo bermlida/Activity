@@ -44,7 +44,7 @@
         <!-- Activity Form -->
         <div class="row">
             <div class="col-md-8">
-                <form class="form-horizontal" role="form" method="POST" action="{{ !isset($activity->id) ? route('organise::activity::store') : route('organise::activity::update', ['id' => $activity->id]) }}" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" method="POST" action="{{ !isset($activity->id) ? route('organise::activity::store') : route('organise::activity::update', ['activity' => $activity->id]) }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field($page_method) }}
                     <input type="hidden" name="status" value="{{ old('status') }}">

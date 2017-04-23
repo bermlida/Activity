@@ -15,6 +15,15 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
+                @if (!is_null(session('message_type')) && !is_null(session('message_body')))
+                    <div class="alert alert-{{ session('message_type') }}" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        {{ session('message_body') }}
+                    </div>
+                @endif
                 <h1 class="page-header">
                     註冊為主辦單位
                 </h1>
@@ -24,7 +33,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('/apply') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('register::organizer::store') }}">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

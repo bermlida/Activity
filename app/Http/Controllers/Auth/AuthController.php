@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrganizerRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\Account;
 use App\Models\Organizer;
 use App\Models\User;
@@ -84,36 +85,87 @@ class AuthController extends Controller
     }
 
     /**
-     * 
+     * 顯示會員註冊畫面。
      *
      * @return \Illuminate\Http\Response
      */
-    public function showApplyForm()
+    public function showRegisterUser()
     {
-        return view('auth.apply');
+        return view('auth.register-user');
     }
 
     /**
-     * 
+     * 顯示主辦單位註冊畫面。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegisterOrganizer()
+    {
+        return view('auth.register-organizer');
+    }
+
+    /**
+     * 註冊會員。
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function apply(StoreOrganizerRequest $request)
+    public function registerUser(StoreUserRequest $request)
     {
-        $profile = Organizer::create($request->all());
+        $result = DB::transaction(function () {
+            $profile = User::create($request->all());
 
-        $result = $profile->account()->save(
-            (new Account)->forceFill([
-                'email' => $request->input('email'),
-                'password' => bcrypt($request->input('password')),
-                'role_id' => 2
-            ])
-        );
+            $profile->account()->save(
+                (new Account)->forceFill([
+                    'email' => $request->input('email'),
+                    'password' => bcrypt($request->input('password')),
+                    'role_id' => 1
+                ])
+            );
 
-        $this->login($request);
+            return !empty($profile->id) && !is_null($profile->account);
+        });
 
-        return redirect($this->redirectPath());
+        if (!$result) {
+            return back()->withInput()->with([
+                'message_type' => 'warning',
+                'message_body' => '儲存失敗'
+            ]);
+        } else {
+            return $this->login($request);
+        }
+    }
+
+    /**
+     * 註冊主辦單位。
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function registerOrganizer(StoreOrganizerRequest $request)
+    {
+        $result = DB::transaction(function () {
+            $profile = Organizer::create($request->all());
+
+            $profile->account()->save(
+                (new Account)->forceFill([
+                    'email' => $request->input('email'),
+                    'password' => bcrypt($request->input('password')),
+                    'role_id' => 2
+                ])
+            );
+
+            return !empty($profile->id) && !is_null($profile->account);
+        });
+
+        if (!$result) {
+            return back()->withInput()->with([
+                'message_type' => 'warning',
+                'message_body' => '儲存失敗'
+            ]);
+        } else {
+            return $this->login($request);
+        }
     }
 
     /**

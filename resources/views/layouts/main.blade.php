@@ -59,8 +59,8 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url('/register') }}">註冊為會員</a></li>
-                                <li><a href="{{ url('/apply') }}">註冊為主辦單位</a></li>
+                                <li><a href="{{ route('register::user') }}">註冊為會員</a></li>
+                                <li><a href="{{ route('register::organizer') }}">註冊為主辦單位</a></li>
                             </ul>
                         </li>
                     @else
