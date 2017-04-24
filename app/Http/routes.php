@@ -78,8 +78,9 @@ Route::group([
         'as' => 'organise::activity::'
     ], function () {
         Route::get('/', 'OrganiseController@index')->name('list');
-        Route::get('/new/edit', 'OrganiseController@edit')->name('create');
-        Route::post('/', 'OrganiseController@create')->name('store');
+        
+        Route::get('/new', 'OrganiseController@edit')->name('create');
+        Route::post('/new', 'OrganiseController@create')->name('store');
         
         Route::group([
             'prefix' => '/{activity}',
@@ -88,6 +89,8 @@ Route::group([
             Route::get('/edit', 'OrganiseController@edit')->name('modify');
             Route::put('/update', 'OrganiseController@update')->name('update');
             Route::delete('/delete', 'OrganiseController@delete')->name('delete');
+
+            Route::get('/applicants', 'OrganiseController@applicants')->name('applicants');
         });
     });
 

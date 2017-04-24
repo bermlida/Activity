@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Account;
 
 use Auth;
 use Storage;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -21,17 +22,26 @@ class OrganiseController extends Controller
      */
     public function index(Request $request)
     {
-        $data['published_activities'] = (Auth::user())->profile->activities()
-            ->ofStatus(1)
-            ->paginate(5, ['*'], 'published_page');
+        $organizer = Auth::user()->profile;
 
-        $data['draft_activities'] = (Auth::user())->profile->activities()
+        $data['going_activities'] = $organizer->activities()
+            ->going()
+            ->orderBy('start_time')->orderBy('end_time')
+            ->paginate(1, ['*'], 'going_page');
+
+        $data['draft_activities'] = $organizer->activities()
             ->ofStatus(0)
-            ->paginate(5, ['*'], 'draft_page');
+            ->orderBy('updated_at', 'desc')
+            ->paginate(1, ['*'], 'draft_page');
 
-        $data['url_query'] = $request->only('published_page', 'draft_page');
+        $data['ended_activities'] = $organizer->activities()
+            ->ended()
+            ->orderBy('start_time')->orderBy('end_time')
+            ->paginate(1, ['*'], 'ended_page');
 
-        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'published';
+        $data['url_query'] = $request->only('going_page', 'draft_page', 'ended_page');
+
+        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'going';
         
         return view('account.organise-activities', $data);
     }
@@ -184,5 +194,37 @@ class OrganiseController extends Controller
         $data['message'] = $data['result'] ? '刪除成功' : '刪除失敗';
 
         return response()->json($data);
+    }
+
+    /**
+     * 取得單一活動的報名列表。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function applicants($activity, Request $request)
+    {
+        $organizer = (Auth::user())->profile;
+
+        $activity = $organizer->activities()->find($activity);
+
+        $data['completed_orders'] = $activity->orders()
+            ->where('status', 1)
+            ->paginate(1, ['*'], 'completed_page');
+
+        $data['undone_orders'] = $activity->orders()
+            ->where('status', 0)
+            ->doesntHave('transactions')
+            ->paginate(1, ['*'], 'undone_page');
+
+        $data['unpaid_orders'] = $activity->orders()
+            ->where('status', 0)
+            ->has('transactions')
+            ->paginate(1, ['*'], 'unpaid_page');
+
+        $data['url_query'] = $request->only('completed_page', 'undone_page', 'unpaid_page');
+
+        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'completed';
+        
+        return view('account.applicants', $data);
     }
 }
