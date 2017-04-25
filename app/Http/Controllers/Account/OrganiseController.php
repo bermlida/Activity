@@ -24,26 +24,33 @@ class OrganiseController extends Controller
     {
         $organizer = Auth::user()->profile;
 
-        $data['going_activities'] = $organizer->activities()
-            ->going()
+        $data['launched_activities'] = $organizer->activities()
+            ->launched()
             ->orderBy('start_time')->orderBy('end_time')
-            ->paginate(1, ['*'], 'going_page');
+            ->paginate(10, ['*'], 'launched_page');
+
+        $data['discontinued_activities'] = $organizer->activities()
+            ->discontinued()
+            ->orderBy('start_time')->orderBy('end_time')
+            ->paginate(10, ['*'], 'discontinued_page');
 
         $data['draft_activities'] = $organizer->activities()
             ->ofStatus(0)
             ->orderBy('updated_at', 'desc')
-            ->paginate(1, ['*'], 'draft_page');
+            ->paginate(10, ['*'], 'draft_page');
 
         $data['ended_activities'] = $organizer->activities()
             ->ended()
             ->orderBy('start_time')->orderBy('end_time')
-            ->paginate(1, ['*'], 'ended_page');
+            ->paginate(10, ['*'], 'ended_page');
 
-        $data['url_query'] = $request->only('going_page', 'draft_page', 'ended_page');
+        $data['url_query'] = $request->only([
+            'launched_page', 'discontinued_page', 'draft_page', 'ended_page'
+        ]);
 
-        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'going';
+        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'launched';
         
-        return view('account.organise-activities', $data);
+        return view('organise.activities', $data);
     }
 
     /**
@@ -100,7 +107,7 @@ class OrganiseController extends Controller
                 'page_method' => 'POST'
             ];
             
-            return view('account.organise-activity', $data);
+            return view('organise.activity', $data);
         }
 
     }
@@ -140,7 +147,7 @@ class OrganiseController extends Controller
                 'page_method' => 'PUT'
             ];
 
-            return view('account.organise-activity', $data);
+            return view('organise.activity', $data);
         }
     }
 
@@ -197,6 +204,46 @@ class OrganiseController extends Controller
     }
 
     /**
+     * 設定單一活動的狀態為上架。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function launch($activity)
+    {
+        $organizer = Auth::user()->profile;
+
+        $activity = $organizer->activities()->find($activity);
+
+        $activity->status = 1;
+
+        $data['result'] = $activity->save();
+
+        $data['message'] = $data['result'] ? '活動已上架' : '活動上架失敗';
+
+        return response()->json($data);
+    }
+
+    /**
+     * 設定單一活動的狀態為下架。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function discontinue($activity)
+    {
+        $organizer = Auth::user()->profile;
+
+        $activity = $organizer->activities()->find($activity);
+
+        $activity->status = -1;
+
+        $data['result'] = $activity->save();
+
+        $data['message'] = $data['result'] ? '活動已下架' : '活動下架失敗';
+
+        return response()->json($data);
+    }
+
+    /**
      * 取得單一活動的報名列表。
      *
      * @return \Illuminate\Http\Response
@@ -207,21 +254,20 @@ class OrganiseController extends Controller
 
         $activity = $organizer->activities()->find($activity);
 
-        $data['completed_orders'] = $activity->orders()
+        $data['completed_orders'] = $activity->orders()->with('transactions')
             ->where('status', 1)
-            ->paginate(1, ['*'], 'completed_page');
-
-        $data['undone_orders'] = $activity->orders()
-            ->where('status', 0)
-            ->doesntHave('transactions')
-            ->paginate(1, ['*'], 'undone_page');
+            ->paginate(10, ['*'], 'completed_page');
 
         $data['unpaid_orders'] = $activity->orders()
             ->where('status', 0)
             ->has('transactions')
-            ->paginate(1, ['*'], 'unpaid_page');
+            ->paginate(10, ['*'], 'unpaid_page');
 
-        $data['url_query'] = $request->only('completed_page', 'undone_page', 'unpaid_page');
+        $data['cancelled_orders'] = $activity->orders()
+            ->where('status', -1)
+            ->paginate(10, ['*'], 'cancelled_orders');
+
+        $data['url_query'] = $request->only('completed_page', 'unpaid_page', 'cancelled_page');
 
         $data['tab'] = $request->has('tab') ? $request->input('tab') : 'completed';
         

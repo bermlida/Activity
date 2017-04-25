@@ -26,15 +26,21 @@
         <div class="row">
             <div class="col-lg-12">
                 <ul id="myTab" class="nav nav-tabs nav-justified">
-                    <li class="{{ $tab == 'going' ? 'active' : '' }}">
-                        <a href="#going" data-toggle="tab">
-                            <i class="fa fa-spinner" aria-hidden="true"></i>
-                            進行中
+                    <li class="{{ $tab == 'launched' ? 'active' : '' }}">
+                        <a href="#launched" data-toggle="tab">
+                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                            上架
+                        </a>
+                    </li>
+                    <li class="{{ $tab == 'discontinued' ? 'active' : '' }}">
+                        <a href="#discontinued" data-toggle="tab">
+                            <i class="fa fa-calendar-times-o" aria-hidden="true"></i>
+                            下架
                         </a>
                     </li>
                     <li class="{{ $tab == 'draft' ? 'active' : '' }}">
                         <a href="#draft" data-toggle="tab">
-                            <i class="fa fa-file" aria-hidden="true"></i>
+                            <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
                             草稿
                         </a>
                     </li>
@@ -46,7 +52,7 @@
                     </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade {{ $tab == 'going' ? 'active in' : '' }}" id="going">
+                    <div class="tab-pane fade {{ $tab == 'launched' ? 'active in' : '' }}" id="launched">
                         <table class="table table-hover">
                             <caption></caption>
                             <thead>
@@ -55,11 +61,11 @@
                                     <th>活動名稱</th>
                                     <th>活動時間</th>
                                     <th>活動地點</th>
-                                    <th>功能</th>
+                                    <th class="text-center">功能</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($going_activities as $key => $activity)
+                                @forelse ($launched_activities as $key => $activity)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $activity->name }}</td>
@@ -77,10 +83,17 @@
                                         </td>
                                         <td>{{ $activity->venue }}</td>
                                         <td>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::modify', ['activity' => $activity->id]) }}">
+                                            <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::discontinue', [$activity]) }}')">
+                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                下架
+                                            </button>
+                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}">
+                                                檢視
+                                            </a>
+                                            <a class="btn btn-warning" href="{{ route('organise::activity::modify', [$activity]) }}">
                                                 變更
                                             </a>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::applicants', ['activity' => $activity->id]) }}">
+                                            <a class="btn btn-info" href="{{ route('organise::activity::applicants', [$activity]) }}">
                                                 報名清單
                                             </a>
                                         </td>
@@ -100,9 +113,64 @@
                         </table>
                         <div class="col-md-12 text-center">
                             {!!
-                                $going_activities
+                                $launched_activities
                                     ->appends($url_query)
-                                    ->appends('tab', 'going')
+                                    ->appends('tab', 'launched')
+                                    ->links()
+                            !!}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade {{ $tab == 'discontinued' ? 'active in' : '' }}" id="discontinued">
+                        <table class="table table-hover">
+                            <caption></caption>
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>活動名稱</th>
+                                    <th>活動時間</th>
+                                    <th>活動地點</th>
+                                    <th class="text-center">功能</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($discontinued_activities as $key => $activity)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $activity->name }}</td>
+                                        <td>
+                                            @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                                                {{ $activity->start_time->format('Y-m-d H:i') }}
+                                                 ~ 
+                                                {{ $activity->end_time->format('Y-m-d H:i') }}
+                                            @else
+                                                {{ $activity->start_time->toDateString() }}
+                                                {{ $activity->start_time->format('H:i') }}
+                                                 ~ 
+                                                {{ $activity->end_time->format('H:i') }}
+                                            @endif
+                                        </td>
+                                        <td>{{ $activity->venue }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::launch', [$activity]) }}')">
+                                                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                                                上架
+                                            </button>
+                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}">
+                                                檢視
+                                            </a>
+                                            <a class="btn btn-warning" href="{{ route('organise::activity::modify', [$activity]) }}">
+                                                變更
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="col-md-12 text-center">
+                            {!!
+                                $discontinued_activities
+                                    ->appends($url_query)
+                                    ->appends('tab', 'discontinued')
                                     ->links()
                             !!}
                         </div>
@@ -116,47 +184,40 @@
                                     <th>活動名稱</th>
                                     <th>活動時間</th>
                                     <th>活動地點</th>
-                                    <th>功能</th>
+                                    <th class="text-center">功能</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse ($draft_activities as $key => $activity)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $activity->name }}</td>
-                                    <td>
-                                        @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
-                                            {{ $activity->start_time->format('Y-m-d H:i') }}
-                                             ~ 
-                                            {{ $activity->end_time->format('Y-m-d H:i') }}
-                                        @else
+                                @foreach ($draft_activities as $key => $activity)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $activity->name }}</td>
+                                        <td>
+                                            @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                                                {{ $activity->start_time->format('Y-m-d H:i') }}
+                                                 ~ 
+                                                {{ $activity->end_time->format('Y-m-d H:i') }}
+                                            @else
                                                 {{ $activity->start_time->toDateString() }}
                                                 {{ $activity->start_time->format('H:i') }}
                                                  ~ 
                                                 {{ $activity->end_time->format('H:i') }}
-                                        @endif
-                                    </td>
-                                    <td>{{ $activity->venue }}</td>
-                                    <td>
-                                        <a class="btn btn-info" href="{{ route('organise::activity::modify', ['activity' => $activity->id]) }}">
-                                            編輯
-                                        </a>
-                                        <button type="button" class="btn btn-danger" onclick="remove('{{ route('organise::activity::delete', ['activity' => $activity->id]) }}')">
-                                            刪除
-                                        </button>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td>
-                                        目前這裡沒有活動，不如開始辦一個吧 ! 
-                                        <br><br><br>
-                                        <a href="{{ route('organise::activity::create') }}">
-                                            立刻新增活動
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforelse
+                                            @endif
+                                        </td>
+                                        <td>{{ $activity->venue }}</td>
+                                        <td>
+                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}">
+                                                檢視
+                                            </a>
+                                            <a class="btn btn-info" href="{{ route('organise::activity::modify', [$activity]) }}">
+                                                編輯
+                                            </a>
+                                            <button type="button" class="btn btn-danger" onclick="remove('{{ route('organise::activity::delete', [$activity]) }}')">
+                                                刪除
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="col-md-12 text-center">
@@ -177,11 +238,11 @@
                                     <th>活動名稱</th>
                                     <th>活動時間</th>
                                     <th>活動地點</th>
-                                    <th>功能</th>
+                                    <th class="text-center">功能</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($ended_activities as $key => $activity)
+                                @foreach ($ended_activities as $key => $activity)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $activity->name }}</td>
@@ -199,22 +260,15 @@
                                         </td>
                                         <td>{{ $activity->venue }}</td>
                                         <td>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::applicants', ['activity' => $activity->id]) }}">
+                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}">
+                                                檢視
+                                            </a>
+                                            <a class="btn btn-info" href="{{ route('organise::activity::applicants', [$activity]) }}">
                                                 報名清單
                                             </a>
                                         </td>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td>
-                                            目前這裡沒有活動，不如開始辦一個吧 ! 
-                                            <br><br><br>
-                                            <a href="{{ route('organise::activity::create') }}">
-                                                立刻新增活動
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="col-md-12 text-center">
@@ -252,6 +306,11 @@
 @section('script')
 
     <script>
+
+    function update(target)
+    {
+        execAjax(target, "PUT")
+    }
 
     function remove(target)
     {

@@ -25,20 +25,20 @@
                 <ul id="myTab" class="nav nav-tabs nav-justified">
                     <li class="{{ $tab == 'completed' ? 'active' : '' }}">
                         <a href="#completed" data-toggle="tab">
-                            <i class="fa fa-spinner" aria-hidden="true"></i>
+                            <i class="fa fa-check" aria-hidden="true"></i>
                             已完成
-                        </a>
-                    </li>
-                    <li class="{{ $tab == 'undone' ? 'active' : '' }}">
-                        <a href="#undone" data-toggle="tab">
-                            <i class="fa fa-file" aria-hidden="true"></i>
-                            未完成
                         </a>
                     </li>
                     <li class="{{ $tab == 'unpaid' ? 'active' : '' }}">
                         <a href="#unpaid" data-toggle="tab">
-                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                            <i class="fa fa-usd" aria-hidden="true"></i>
                             未付款
+                        </a>
+                    </li>
+                    <li class="{{ $tab == 'cancelled' ? 'active' : '' }}">
+                        <a href="#cancelled" data-toggle="tab">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            已取消
                         </a>
                     </li>
                 </ul>
@@ -52,6 +52,7 @@
                                     <th>姓名</th>
                                     <th>電子郵件</th>
                                     <th>手機</th>
+                                    <th>付款資訊</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,6 +62,7 @@
                                         <td>{{ $order->user->name }}</td>
                                         <td>{{ $order->user->account->first()->email }}</td>
                                         <td>{{ $order->user->mobile_phone }}</td>
+                                        <td></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -74,7 +76,7 @@
                             !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade {{ $tab == 'undone' ? 'active in' : '' }}" id="undone">
+                    <div class="tab-pane fade {{ $tab == 'unpaid' ? 'active in' : '' }}" id="unpaid">
                         <table class="table table-hover">
                             <caption></caption>
                             <thead>
@@ -83,10 +85,11 @@
                                     <th>姓名</th>
                                     <th>電子郵件</th>
                                     <th>手機</th>
+                                    <th>付款資訊</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($undone_orders as $key => $order)
+                                @foreach ($unpaid_orders as $key => $order)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $order->user->name }}</td>
@@ -98,14 +101,14 @@
                         </table>
                         <div class="col-md-12 text-center">
                             {!! 
-                                $undone_orders
+                                $unpaid_orders
                                     ->appends($url_query)
-                                    ->appends('tab', 'undone')
+                                    ->appends('tab', 'unpaid')
                                     ->links()
                             !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade {{ $tab == 'unpaid' ? 'active in' : '' }}" id="unpaid">
+                    <div class="tab-pane fade {{ $tab == 'cancelled' ? 'active in' : '' }}" id="cancelled">
                         <table class="table table-hover">
                             <caption></caption>
                             <thead>
@@ -114,25 +117,27 @@
                                     <th>姓名</th>
                                     <th>電子郵件</th>
                                     <th>手機</th>
+                                    <th>付款資訊</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($unpaid_orders as $key => $order)
+                                @foreach ($cancelled_orders as $key => $order)
                                     <tr>
                                         <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $order->user->name }}</td>
                                         <td>{{ $order->user->account->first()->email }}</td>
                                         <td>{{ $order->user->mobile_phone }}</td>
+                                        <td></td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div class="col-md-12 text-center">
                             {!!
-                                $unpaid_orders
+                                $cancelled_orders
                                     ->appends($url_query)
-                                    ->appends('tab', 'unpaid')
+                                    ->appends('tab', 'cancelled')
                                     ->links()
                             !!}
                         </div>

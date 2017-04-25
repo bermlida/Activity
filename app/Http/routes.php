@@ -88,6 +88,8 @@ Route::group([
         ], function () {
             Route::get('/edit', 'OrganiseController@edit')->name('modify');
             Route::put('/update', 'OrganiseController@update')->name('update');
+            Route::put('/launch', 'OrganiseController@launch')->name('launch');
+            Route::put('/discontinue', 'OrganiseController@discontinue')->name('discontinue');
             Route::delete('/delete', 'OrganiseController@delete')->name('delete');
 
             Route::get('/applicants', 'OrganiseController@applicants')->name('applicants');
