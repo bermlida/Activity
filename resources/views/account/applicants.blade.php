@@ -52,17 +52,35 @@
                                     <th>姓名</th>
                                     <th>電子郵件</th>
                                     <th>手機</th>
-                                    <th>付款資訊</th>
+                                    <th>報名費用</th>
+                                    <th>贊助金額</th>
+                                    <th>支付費用總額</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $completed_orders->setCollection(
+                                        $completed_orders->getCollection()->load([
+                                            'user.account',
+                                            'transactions' => function ($query) {
+                                                $query->where('status', 1);
+                                            }
+                                        ])
+                                    );
+                                @endphp
                                 @foreach ($completed_orders as $key => $order)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $order->user->name }}</td>
                                         <td>{{ $order->user->account->first()->email }}</td>
                                         <td>{{ $order->user->mobile_phone }}</td>
-                                        <td></td>
+                                        @if (!is_null($transaction = $order->transactions->first()))
+                                            <td>{{ $transaction->apply_fee }}</td>
+                                            <td>{{ $transaction->sponsorship_amount }}</td>
+                                            <td>{{ $transaction->apply_fee + $transaction->sponsorship_amount }}</td>
+                                        @else
+                                            <td colspan="3"></td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -85,7 +103,6 @@
                                     <th>姓名</th>
                                     <th>電子郵件</th>
                                     <th>手機</th>
-                                    <th>付款資訊</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -117,10 +134,22 @@
                                     <th>姓名</th>
                                     <th>電子郵件</th>
                                     <th>手機</th>
-                                    <th>付款資訊</th>
+                                    <th>報名費用</th>
+                                    <th>贊助金額</th>
+                                    <th>支付費用總額</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $cancelled_orders->setCollection(
+                                        $cancelled_orders->getCollection()->load([
+                                            'user.account',
+                                            'transactions' => function ($query) {
+                                                $query->where('status', 1);
+                                            }
+                                        ])
+                                    );
+                                @endphp
                                 @foreach ($cancelled_orders as $key => $order)
                                     <tr>
                                         <tr>
@@ -128,7 +157,13 @@
                                         <td>{{ $order->user->name }}</td>
                                         <td>{{ $order->user->account->first()->email }}</td>
                                         <td>{{ $order->user->mobile_phone }}</td>
-                                        <td></td>
+                                        @if (!is_null($transaction = $order->transactions->first()))
+                                            <td>{{ $transaction->apply_fee }}</td>
+                                            <td>{{ $transaction->sponsorship_amount }}</td>
+                                            <td>{{ $transaction->apply_fee + $transaction->sponsorship_amount }}</td>
+                                        @else
+                                            <td colspan="3"></td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

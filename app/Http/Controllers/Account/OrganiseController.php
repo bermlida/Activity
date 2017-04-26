@@ -72,7 +72,7 @@ class OrganiseController extends Controller
             $data['page_method'] = 'POST';
         }
 
-        return view('account.organise-activity', $data);
+        return view('organise.activity', $data);
     }
 
     /**
@@ -254,7 +254,7 @@ class OrganiseController extends Controller
 
         $activity = $organizer->activities()->find($activity);
 
-        $data['completed_orders'] = $activity->orders()->with('transactions')
+        $data['completed_orders'] = $activity->orders()
             ->where('status', 1)
             ->paginate(10, ['*'], 'completed_page');
 
@@ -265,6 +265,9 @@ class OrganiseController extends Controller
 
         $data['cancelled_orders'] = $activity->orders()
             ->where('status', -1)
+            ->whereHas('transactions', function ($query) {
+                $query->where('status', 1);
+            })
             ->paginate(10, ['*'], 'cancelled_orders');
 
         $data['url_query'] = $request->only('completed_page', 'unpaid_page', 'cancelled_page');

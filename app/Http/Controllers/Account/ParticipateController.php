@@ -22,15 +22,15 @@ class ParticipateController extends Controller
 
         $data['registered_activities'] = $user->activities()
             ->wherePivot('status', 1)
-            ->paginate(1, ['*'], 'registered_page');
+            ->paginate(10, ['*'], 'registered_page');
 
         $data['undone_activities'] = $user->activities()
             ->wherePivot('status', 0)
-            ->paginate(1, ['*'], 'undone_page');
+            ->paginate(10, ['*'], 'undone_page');
 
         $data['cancelled_activities'] = $user->activities()
             ->wherePivot('status', -1)
-            ->paginate(1, ['*'], 'cancelled_page');
+            ->paginate(10, ['*'], 'cancelled_page');
 
         $data['url_query'] = $request->only('registered_page', 'undone_page', 'cancelled_page');
 
