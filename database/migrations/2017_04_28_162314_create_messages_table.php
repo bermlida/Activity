@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,21 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('serial_number')->unique();
-            $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('activity_id')->unsigned();
+            $table->string('subject');
+            $table->text('content');
+            $table->json('sending_method');
+            $table->json('sending_target');
+            $table->dateTime('sending_time');
             $table->integer('status');
-            $table->string('status_info')->nullable();
 
-            $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
-            $table->foreign('activity_id')
+            $table
+                ->foreign('activity_id')
                 ->references('id')->on('activities')
                 ->onDelete('cascade');
-
+            
             $table->timestamps();
             $table->softDeletes();
         });
@@ -39,6 +39,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('orders');
+        Schema::drop('messages');
     }
 }

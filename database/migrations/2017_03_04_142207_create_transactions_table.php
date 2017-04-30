@@ -13,7 +13,7 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->bigIncrements('id')->unsigned();
+            $table->bigIncrements('id');
             $table->bigInteger('order_id')->unsigned()->nullable();
             $table->string('serial_number')->unique();
             $table->string('order_serial_number');

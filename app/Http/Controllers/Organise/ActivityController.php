@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Account;
+namespace App\Http\Controllers\Organise;
 
 use Auth;
 use Storage;
@@ -10,10 +10,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreActivityRequest;
-// use App\Http\Requests\UpdateActivityRequest;
 use App\Models\Activity;
 
-class OrganiseController extends Controller
+class ActivityController extends Controller
 {
     /**
      * 顯示主辦單位舉辦活動的列表畫面。

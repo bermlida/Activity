@@ -13,7 +13,7 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->bigIncrements('id')->unsigned();
+            $table->bigIncrements('id');
             $table->bigInteger('profile_id')->unsigned()->nullable();
             $table->string('profile_type')->nullable();
             

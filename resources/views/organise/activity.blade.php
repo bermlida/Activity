@@ -340,7 +340,7 @@
             });
 
             $("input.datetime-picker").datetimepicker({
-                format: "YYYY-MM-DD HH:mm:ss",
+                format: "YYYY-MM-DD HH:mm",
                 locale: 'zh-tw'
             });
 

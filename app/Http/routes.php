@@ -73,30 +73,6 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => '/organise/activities',
-        'middleware' => 'judge-role:2',
-        'as' => 'organise::activity::'
-    ], function () {
-        Route::get('/', 'OrganiseController@index')->name('list');
-        
-        Route::get('/new', 'OrganiseController@edit')->name('create');
-        Route::post('/new', 'OrganiseController@create')->name('store');
-        
-        Route::group([
-            'prefix' => '/{activity}',
-            'middleware' => 'exist-organise-activity'
-        ], function () {
-            Route::get('/edit', 'OrganiseController@edit')->name('modify');
-            Route::put('/update', 'OrganiseController@update')->name('update');
-            Route::put('/launch', 'OrganiseController@launch')->name('launch');
-            Route::put('/discontinue', 'OrganiseController@discontinue')->name('discontinue');
-            Route::delete('/delete', 'OrganiseController@delete')->name('delete');
-
-            Route::get('/applicants', 'OrganiseController@applicants')->name('applicants');
-        });
-    });
-
-    Route::group([
         'prefix' => '/participate/records',
         'middleware' => 'judge-role:1',
         'as' => 'participate::record::'
@@ -109,6 +85,48 @@ Route::group([
         Route::put('/{record}/cancel', 'ParticipateController@cancel')
             ->middleware('exist-participate-record')
             ->name('cancel');
+    });
+});
+
+Route::group([
+    'prefix' => '/organise/activities',
+    'namespace' => 'Organise',
+    'middleware' => ['auth', 'judge-role:2'],
+    'as' => 'organise::activity::'
+], function () {
+    Route::get('/', 'ActivityController@index')->name('list');
+    Route::get('/new', 'ActivityController@edit')->name('create');
+    Route::post('/new', 'ActivityController@create')->name('store');
+        
+    Route::group([
+        'prefix' => '/{activity}',
+        'middleware' => 'exist-organise-activity'
+    ], function () {
+        Route::get('/edit', 'ActivityController@edit')->name('modify');
+        Route::put('/update', 'ActivityController@update')->name('update');
+        Route::put('/launch', 'ActivityController@launch')->name('launch');
+        Route::put('/discontinue', 'ActivityController@discontinue')->name('discontinue');
+        Route::delete('/delete', 'ActivityController@delete')->name('delete');
+
+        Route::get('/applicants', 'ActivityController@applicants')->name('applicants');
+
+        Route::group([
+            'prefix' => '/messages',
+            'as' => 'message::'
+        ], function () {
+            Route::get('/', 'ActivityMessageController@index')->name('list');
+            Route::get('/new', 'ActivityMessageController@edit')->name('create');
+            Route::post('/new', 'ActivityMessageController@save')->name('store');
+
+            Route::group([
+                'prefix' => '/{message}'
+            ], function () {
+                Route::get('/edit', 'ActivityMessageController@edit')->name('modify');
+                Route::put('/update', 'ActivityMessageController@save')->name('update');
+                Route::delete('/delete', 'ActivityMessageController@delete')->name('delete');
+                Route::put('/cancel', 'ActivityMessageController@cancel')->name('cancel');
+            });
+        });
     });
 });
 

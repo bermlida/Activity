@@ -87,14 +87,17 @@
                                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
                                                 下架
                                             </button>
-                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}">
+                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}" role="button">
                                                 檢視
                                             </a>
-                                            <a class="btn btn-warning" href="{{ route('organise::activity::modify', [$activity]) }}">
+                                            <a class="btn btn-warning" href="{{ route('organise::activity::modify', [$activity]) }}" role="button">
                                                 變更
                                             </a>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::applicants', [$activity]) }}">
+                                            <a class="btn btn-info" href="{{ route('organise::activity::applicants', [$activity]) }}" role="button">
                                                 報名清單
+                                            </a>
+                                            <a class="btn btn-info" href="{{ route('organise::activity::message::list', [$activity]) }}" role="button">
+                                                訊息通知
                                             </a>
                                         </td>
                                     </tr>
@@ -155,11 +158,14 @@
                                                 <i class="fa fa-arrow-up" aria-hidden="true"></i>
                                                 上架
                                             </button>
-                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}">
+                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}" role="button">
                                                 檢視
                                             </a>
-                                            <a class="btn btn-warning" href="{{ route('organise::activity::modify', [$activity]) }}">
+                                            <a class="btn btn-warning" href="{{ route('organise::activity::modify', [$activity]) }}" role="button">
                                                 變更
+                                            </a>
+                                            <a class="btn btn-info" href="{{ route('organise::activity::message::list', [$activity]) }}" role="button">
+                                                訊息通知
                                             </a>
                                         </td>
                                     </tr>
@@ -206,10 +212,10 @@
                                         </td>
                                         <td>{{ $activity->venue }}</td>
                                         <td>
-                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}">
+                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}" role="button">
                                                 檢視
                                             </a>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::modify', [$activity]) }}">
+                                            <a class="btn btn-info" href="{{ route('organise::activity::modify', [$activity]) }}" role="button">
                                                 編輯
                                             </a>
                                             <button type="button" class="btn btn-danger" onclick="remove('{{ route('organise::activity::delete', [$activity]) }}')">
@@ -260,11 +266,14 @@
                                         </td>
                                         <td>{{ $activity->venue }}</td>
                                         <td>
-                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}">
+                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}" role="button">
                                                 檢視
                                             </a>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::applicants', [$activity]) }}">
+                                            <a class="btn btn-info" href="{{ route('organise::activity::applicants', [$activity]) }}" role="button">
                                                 報名清單
+                                            </a>
+                                            <a class="btn btn-info" href="{{ route('organise::activity::message::list', [$activity]) }}" role="button">
+                                                訊息通知
                                             </a>
                                         </td>
                                     </tr>

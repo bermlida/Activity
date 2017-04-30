@@ -68,14 +68,6 @@ class Activity extends Model
                     ->withPivot('serial_number', 'status', 'status_info')
                     ->withTimestamps();
     }
-    
-    /**
-     * 取得購買此活動的訂單。
-     */
-    public function orders()
-    {
-        return $this->hasMany('App\Models\Order');
-    }
 
     /**
      * 取得此活動的附件。
@@ -83,6 +75,22 @@ class Activity extends Model
     public function attachments()
     {
         return $this->morphMany('App\Models\Attachment', 'attached');
+    }
+    
+    /**
+     * 取得此活動擁有的訊息。
+     */
+    public function messages()
+    {
+        return $this->hasMany('App\Models\Message');
+    }
+    
+    /**
+     * 取得購買此活動的訂單。
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
     }
 
     /**
