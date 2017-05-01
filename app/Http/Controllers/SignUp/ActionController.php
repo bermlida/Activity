@@ -14,8 +14,6 @@ use App\Models\Activity;
 use App\Models\Order;
 use App\Models\Transaction;
 use App\Services\AllpayService;
-// use Allpay;
-// use DB;
 
 class ActionController extends Controller
 {

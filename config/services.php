@@ -47,4 +47,9 @@ return [
         'redirect' => 'http://activity.app/social-auth/google/reply',
     ],
 
+    'nexmo' => [
+        'key' => '5d5fb54c',
+        'secret' => 'a309e33dbc237da1',
+        'sms_from' => '15556666666',
+    ],
 ];

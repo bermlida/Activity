@@ -18,6 +18,7 @@
 
     <!-- Page Content -->
     <div class="container">
+
         <!-- For success/fail messages -->
         @if (!is_null(session('message_type')) && !is_null(session('message_body')))
             <div class="alert alert-{{ session('message_type') }}" role="alert">
@@ -164,27 +165,58 @@
                     </div>
 --}}
                     <div class="form-group">
-                        <label for="sending_time" class="col-md-2 col-xs-4">發送時間：</label>
-
-                        <div class="col-md-10 col-xs-8">
+                        @if (isset($message->sending_time))
+                            @php
+                                $checked = [
+                                    'no' => is_null($message->sending_time) ? 'checked' : '',
+                                    'yes' => !is_null($message->sending_time) ? 'checked' : ''
+                                ];
+                            @endphp
+                        @elseif (!is_null(old('join_schedule')))
+                            @php
+                                $checked = [
+                                    'no' => old('join_schedule') == 'no' ? 'checked' : '',
+                                    'yes' => old('join_schedule') == 'yes' ? 'checked' : ''
+                                ];
+                            @endphp
+                        @endif
+                        <label class="radio-inline">發送排程：</label>
+                        
+                        <label class="radio-inline">
+                            <input type="radio" name="join_schedule" value="no" {{ $checked['no'] or '' }}>立刻發送
+                        </label>
+                        
+                        <label class="radio-inline">
+                            <input type="radio" name="join_schedule" value="yes" {{ $checked['yes'] or '' }}>特定時間
                             <input id="sending_time" type="text" class="datetime-picker" name="sending_time" value="{{ $message->sending_time or old('sending_time') }}">
-                             @if ($errors->has('sending_time'))
-                                <span class="help-block" style="color:red">
-                                    {{ $errors->first('sending_time') }}
-                                </span>
-                            @endif
-                        </div>
+                        </label>
+                        
+                        @if ($errors->has('join_schedule'))
+                            <span class="help-block" style="color:red">
+                                {{ $errors->first('join_schedule') }}
+                            </span>
+                        @endif
+
+                        @if ($errors->has('sending_time'))
+                            <span class="help-block" style="color:red">
+                                {{ $errors->first('sending_time') }}
+                            </span>
+                        @endif
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-5 col-md-offset-2 col-xs-5 col-xs-offset-2">
+                            
+                        </div>
+                        <div class="col-md-5 col-xs-5">
                             <button type="button" class="btn btn-primary" name="draft">
                                 儲存為草稿
                             </button>
-                        </div>
-                        <div class="col-md-5 col-xs-5">
                             <button type="button" class="btn btn-success" name="publish">
-                                儲存後發佈
+                                儲存
+                            </button>
+                            <button type="button" class="btn btn-success" name="publish">
+                                儲存並排成
                             </button>
                         </div>
                     </div>
@@ -235,6 +267,16 @@
                 format: "YYYY-MM-DD HH:mm",
                 locale: 'zh-tw'
             });
+        });
+
+        $("input[name=join_schedule]").click(function () {
+            join = $(this).val();
+
+            if (join == "yes") {
+                $("input[name=sending_time]").prop("disabled", false);
+            } else {
+                $("input[name=sending_time]").prop("disabled", true);
+            }
         });
 
         $("button[name]").click(function () {

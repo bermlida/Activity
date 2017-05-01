@@ -12,7 +12,9 @@
         "zendframework/zend-diactoros": "^1.3",
         "howtomakeaturn/allpay-4-laravel": "^0.1.0",
         "laravel/socialite": "^2.0.0",
-        "ixudra/curl": "^6.9"
+        "ixudra/curl": "^6.9",
+        "laravel-notification-channels/backport": "^1.0",
+        "nexmo/client": "^0.4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

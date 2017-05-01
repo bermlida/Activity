@@ -29,7 +29,8 @@ class StoreActivityMessageRequest extends Request
             'sending_method' => 'required|array',
             'sending_target' => 'required|array',
             'sending_target.3' => 'sometimes|array',
-            'sending_time' => 'required|date_format:"Y-m-d H:i"',
+            'join_schedule' => 'required|string|in:yes,no',
+            'sending_time' => 'required_if:join_schedule,yes|date_format:"Y-m-d H:i"',
             'status' => 'required|integer'
         ];
     }

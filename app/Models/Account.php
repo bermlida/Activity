@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Account extends Authenticatable
 {
-    use SoftDeletes;
+    use SoftDeletes, Notifiable;
 
     /**
      * 需要被轉換成日期的屬性。
@@ -23,6 +24,16 @@ class Account extends Authenticatable
      * @var array
      */
     protected $fillable = ['email', 'password'];
+
+    /**
+     * Route notifications for the Nexmo channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForNexmo()
+    {
+        return $this->profile->mobile_phone;
+    }
     
     /**
      * 取得此帳號的基本資料。

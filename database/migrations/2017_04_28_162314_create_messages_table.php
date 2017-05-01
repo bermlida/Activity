@@ -19,7 +19,7 @@ class CreateMessagesTable extends Migration
             $table->text('content');
             $table->json('sending_method');
             $table->json('sending_target');
-            $table->dateTime('sending_time');
+            $table->dateTime('sending_time')->nullable();
             $table->integer('status');
 
             $table

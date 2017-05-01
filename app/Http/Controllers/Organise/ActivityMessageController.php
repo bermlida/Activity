@@ -9,6 +9,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreActivityMessageRequest;
 use App\Models\Message;
+use App\Notifications\ActivityNotification;
+
+use App\Models\Account;
 
 class ActivityMessageController extends Controller
 {
@@ -107,6 +110,10 @@ class ActivityMessageController extends Controller
         }
 
         if ($result) {
+            $this->test($message);
+
+            exit;
+
             return redirect()
                     ->route('organise::activity::message::modify', [$activity, $message])
                     ->with([
@@ -127,7 +134,13 @@ class ActivityMessageController extends Controller
                         'message_body' => '儲存失敗'
                     ]);
         }
+    }
+    
+    protected function test($message)
+    {
+        $user = Account::where('email', '')->first();
 
+        $user->notify(new ActivityNotification($message));
     }
 
     /**

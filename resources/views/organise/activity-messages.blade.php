@@ -46,7 +46,6 @@
                     </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
-
                     <div class="tab-pane fade {{ $tab == 'scheduled' ? 'active in' : '' }}" id="scheduled">
                         <table class="table table-hover">
                             <caption></caption>
