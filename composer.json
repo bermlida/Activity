@@ -14,7 +14,8 @@
         "laravel/socialite": "^2.0.0",
         "ixudra/curl": "^6.9",
         "laravel-notification-channels/backport": "^1.0",
-        "nexmo/client": "^0.4.0"
+        "nexmo/client": "^0.4.0",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

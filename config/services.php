@@ -47,6 +47,11 @@ return [
         'redirect' => 'http://activity.app/social-auth/google/reply',
     ],
 
+    'mailgun' => [
+        'domain' => 'sandbox9ebef659e197489989fb3166ad4f921c.mailgun.org',
+        'secret' => 'key-6d2d641fd8d31f248dc2ac809ae138e0',
+    ],
+
     'nexmo' => [
         'key' => '5d5fb54c',
         'secret' => 'a309e33dbc237da1',

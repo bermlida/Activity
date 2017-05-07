@@ -206,6 +206,7 @@ class AuthController extends Controller
 
             return '
                 <form style="display:none" id="__form" method="POST" action="' . url('/login') . '">
+                    ' . csrf_field() . '
                     <input name="email" value="' . $account->email . '">
                     <input name="password" value="1234567890">
                     <input name="remeber">

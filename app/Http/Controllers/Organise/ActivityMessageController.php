@@ -9,7 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreActivityMessageRequest;
 use App\Models\Message;
-use App\Notifications\ActivityNotification;
+use App\Services\MessageService;
 
 use App\Models\Account;
 
@@ -138,9 +138,9 @@ class ActivityMessageController extends Controller
     
     protected function test($message)
     {
-        $user = Account::where('email', '')->first();
-
-        $user->notify(new ActivityNotification($message));
+        // $user = Account::where('email', '')->first();
+        app(MessageService::class)->sendMail($message);
+        // $user->notify(new ActivityNotification($message));
     }
 
     /**
