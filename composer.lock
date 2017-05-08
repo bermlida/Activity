@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8cc2e511dee4d9229181d370559ad62",
+    "content-hash": "781c9e5f7fcb528dc28b011a4f513b34",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1911,6 +1911,54 @@
             "time": "2016-01-26T13:27:02+00:00"
         },
         {
+            "name": "plivo/plivo-php",
+            "version": "v1.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/plivo/plivo-php.git",
+                "reference": "5d3417f654d8b59b64707661f2c202f32a554783"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/plivo/plivo-php/zipball/5d3417f654d8b59b64707661f2c202f32a554783",
+                "reference": "5d3417f654d8b59b64707661f2c202f32a554783",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "plivo.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Radu Topala",
+                    "email": "radu.topala@trisoft.ro"
+                },
+                {
+                    "name": "Adam Homsi",
+                    "email": "adam.homsi@gmail.com"
+                },
+                {
+                    "name": "Plivo Team",
+                    "email": "hello@plivo.com"
+                },
+                {
+                    "name": "Ben McInturff",
+                    "email": "benmcinturff@gmail.com"
+                }
+            ],
+            "description": "Plivo PHP helper library to access PlivoCloud API and generate Plivo XML",
+            "time": "2017-04-25T07:35:31+00:00"
+        },
+        {
             "name": "psr/http-message",
             "version": "1.0.1",
             "source": {
@@ -2160,6 +2208,72 @@
                 "uuid"
             ],
             "time": "2017-03-26T20:37:53+00:00"
+        },
+        {
+            "name": "simplesoftwareio/simple-sms",
+            "version": "3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SimpleSoftwareIO/simple-sms.git",
+                "reference": "93e7feb7a1f76634b49247bb5849f06a879a3fb4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SimpleSoftwareIO/simple-sms/zipball/93e7feb7a1f76634b49247bb5849f06a879a3fb4",
+                "reference": "93e7feb7a1f76634b49247bb5849f06a879a3fb4",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6",
+                "illuminate/log": ">=5.0.0",
+                "illuminate/mail": ">=5.0.0",
+                "illuminate/queue": ">=5.0.0",
+                "illuminate/support": ">=5.0.0",
+                "illuminate/view": ">=5.0.0",
+                "php": ">=7.0.0",
+                "plivo/plivo-php": "^1.0",
+                "twilio/sdk": "~4"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "~5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SimpleSoftwareIO\\SMS\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simple Software LLC",
+                    "email": "support@simplesoftware.io"
+                }
+            ],
+            "description": "Simple-SMS is a package made for Laravel to send/receive (polling/pushing) text messages.  Currently supports CalLFire, EZTexting, Email Gateways, FlowRoute, LabsMobile, Mozeo, Nexmo, Plivo, Twilio, and Zenvia",
+            "homepage": "http://www.simplesoftware.io",
+            "keywords": [
+                "FlowRoute",
+                "SMS Email Gateways",
+                "callfire",
+                "eztexting",
+                "labsmobile",
+                "laravel",
+                "mozeo",
+                "nexmo",
+                "plivo",
+                "receive",
+                "send",
+                "sms",
+                "text messages",
+                "twilio",
+                "zenvia"
+            ],
+            "time": "2017-03-19T22:12:45+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3053,6 +3167,56 @@
                 "dump"
             ],
             "time": "2016-07-26T08:03:56+00:00"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "4.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twilio/twilio-php.git",
+                "reference": "6e4b45fc3f8b56c088dfecf4bced76c712cb6182"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/6e4b45fc3f8b56c088dfecf4bced76c712cb6182",
+                "reference": "6e4b45fc3f8b56c088dfecf4bced76c712cb6182",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.1"
+            },
+            "require-dev": {
+                "mockery/mockery": ">=0.7.2",
+                "phpunit/phpunit": "4.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Services/Twilio.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Burke",
+                    "email": "kevin@twilio.com"
+                },
+                {
+                    "name": "Kyle Conroy",
+                    "email": "kyle+pear@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "http://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "time": "2016-09-01T18:42:52+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

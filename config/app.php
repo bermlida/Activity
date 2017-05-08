@@ -152,9 +152,10 @@ return [
         /*
          * Other Service Providers...
          */
+        Laravel\Socialite\SocialiteServiceProvider::class,
         Howtomakeaturn\Allpay\AllpayServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
+        SimpleSoftwareIO\SMS\SMSServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -210,9 +211,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Allpay' => Howtomakeaturn\Allpay\Facade\Allpay::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'SMS' => SimpleSoftwareIO\SMS\Facades\SMS::class,
 
     ],
 
