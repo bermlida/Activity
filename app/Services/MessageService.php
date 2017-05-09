@@ -27,7 +27,7 @@ class MessageService
                     $message->activity->organizer->name
                 );
                     
-                $mail->to('fir4268@gmail.com', 'bermlida');
+                $mail->to('', '');
             }
         );
     }
@@ -43,7 +43,9 @@ class MessageService
             'email.activity-notification',
             ['content' => $message->content],
             function($sms) {
-                $sms->to('+15555555555');
+                $sms->from('');
+
+                $sms->to('');
             }
         );
     }

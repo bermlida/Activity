@@ -110,9 +110,9 @@ class ActivityMessageController extends Controller
         }
 
         if ($result) {
-            $this->test($message);
+            // $this->test($message);
 
-            exit;
+            // exit;
 
             return redirect()
                     ->route('organise::activity::message::modify', [$activity, $message])
@@ -136,11 +136,16 @@ class ActivityMessageController extends Controller
         }
     }
     
-    protected function test($message)
+    protected function send($message)
     {
-        // $user = Account::where('email', '')->first();
-        app(MessageService::class)->sendMail($message);
-        // $user->notify(new ActivityNotification($message));
+        $message_service = app(MessageService::class);
+
+        $message->activity->users()
+            ->wherePivotIn('status', $message->sending_target)
+            ->get()->each(function ($item, $key) {
+                
+                
+            })
     }
 
     /**
