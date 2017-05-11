@@ -8,10 +8,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreActivityMessageRequest;
+use App\Models\Account;
 use App\Models\Message;
 use App\Services\MessageService;
-
-use App\Models\Account;
 
 class ActivityMessageController extends Controller
 {
@@ -110,9 +109,11 @@ class ActivityMessageController extends Controller
         }
 
         if ($result) {
-            // $this->test($message);
+            if (!$request->has('sending_time')) {
+                $message->fill(['sending_time' => null])->save();
 
-            // exit;
+                app(MessageService::class)->send($message);
+            }
 
             return redirect()
                     ->route('organise::activity::message::modify', [$activity, $message])
@@ -134,18 +135,6 @@ class ActivityMessageController extends Controller
                         'message_body' => '儲存失敗'
                     ]);
         }
-    }
-    
-    protected function send($message)
-    {
-        $message_service = app(MessageService::class);
-
-        $message->activity->users()
-            ->wherePivotIn('status', $message->sending_target)
-            ->get()->each(function ($item, $key) {
-                
-                
-            })
     }
 
     /**
