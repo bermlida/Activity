@@ -28,7 +28,7 @@ class MessageService
                 if (in_array('sms', $message->sending_method)) {
                     $this->sendSMS($user, $message);
                 }
-            })
+            });
     }
 
     /**

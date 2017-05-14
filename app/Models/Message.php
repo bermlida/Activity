@@ -33,12 +33,14 @@ class Message extends Model
     /**
      * 設定發送時間。
      *
-     * @param  string  $value
+     * @param  string|null  $value
      * @return string
      */
-    public function setSendingTimeAttribute(string $value)
+    public function setSendingTimeAttribute($value)
     {
-        $this->attributes['sending_time'] = $value . ':00';
+        $value = is_string($value) ? $value . ':00' : $value;
+        
+        $this->attributes['sending_time'] = $value;
     }
 
     /**
