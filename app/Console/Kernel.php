@@ -2,8 +2,12 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+
+use App\Models\Message;
+use App\Services\MessageService;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,5 +30,13 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        
+        $schedule->call(function () {
+            Message::scheduled()
+                ->where('sending_time', '=', Carbon::now()->format('Y-m-d H:i'))
+                ->get()->each(function ($message, $key) {
+                    app(MessageService::class)->send($message);
+                });
+        })->everyMinute();
     }
 }

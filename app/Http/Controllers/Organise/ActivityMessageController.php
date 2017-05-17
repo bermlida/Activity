@@ -112,7 +112,9 @@ class ActivityMessageController extends Controller
             if (!$request->has('sending_time')) {
                 $message->fill(['sending_time' => null])->save();
 
-                app(MessageService::class)->send($message);
+                if ($message->status == 1) {
+                    app(MessageService::class)->send($message);
+                }
             }
 
             return redirect()

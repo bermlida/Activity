@@ -215,9 +215,6 @@
                             <button type="button" class="btn btn-success" name="publish">
                                 儲存
                             </button>
-                            <button type="button" class="btn btn-success" name="publish">
-                                儲存並排成
-                            </button>
                         </div>
                     </div>
                 </form>

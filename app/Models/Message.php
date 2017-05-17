@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -104,5 +105,18 @@ class Message extends Model
     public function scopeOfActivity($query, $activity)
     {
         return $query->where('activity_id', $activity);
+    }
+
+    /**
+     * 限制查詢已列入排程但尚未發送的訊息。
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeScheduled($query)
+    {
+        return $query
+                ->where('status', 1)
+                ->whereNotNull('sending_time')
+                ->where('sending_time', '>=', Carbon::now()->format('Y-m-d H:i'));
     }
 }
