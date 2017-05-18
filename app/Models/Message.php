@@ -119,4 +119,21 @@ class Message extends Model
                 ->whereNotNull('sending_time')
                 ->where('sending_time', '>=', Carbon::now()->format('Y-m-d H:i'));
     }
+
+    /**
+     * 限制查詢已發送的訊息。
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSent($query)
+    {
+        return $query
+                ->where('status', 1)
+                ->whereNull('sending_time')
+                ->orWhere(function ($query) {
+                    $query
+                        ->whereNotNull('sending_time')
+                        ->where('sending_time', '<', Carbon::now()->format('Y-m-d H:i'))
+                });
+    }
 }
