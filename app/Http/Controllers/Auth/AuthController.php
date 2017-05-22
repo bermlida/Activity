@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use DB;
 use Socialite;
 use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -112,7 +113,7 @@ class AuthController extends Controller
      */
     public function registerUser(StoreUserRequest $request)
     {
-        $result = DB::transaction(function () {
+        $result = DB::transaction(function () use ($request) {
             $profile = User::create($request->all());
 
             $profile->account()->save(
@@ -188,7 +189,11 @@ class AuthController extends Controller
         $user = Socialite::driver($social_provider)->user();
 
         if (Account::where('email', $user->getEmail())->count() == 0) {
-            $profile = User::create(['name' => $user->getName(), 'mobile_phone' => '']);
+            $profile = User::create([
+                'name' => $user->getName(),
+                'mobile_country_calling_code' => '',
+                'mobile_phone' => ''
+            ]);
 
             $result = $profile->account()->save(
                 (new Account)->forceFill([

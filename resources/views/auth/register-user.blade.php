@@ -64,11 +64,26 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('mobile_phone') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('mobile_country_calling_code') || $errors->has('mobile_phone') ? ' has-error' : '' }}">
                         <label for="mobile_phone" class="col-md-4 control-label">手機號碼</label>
+
                         <div class="col-md-6">
+                            <select class="form-control" name="mobile_country_calling_code">
+                                @foreach (config('constant.CountryCallingCodes') as $code => $code_name)
+                                    @if ($code == old('mobile_country_calling_code'))
+                                        <option value="{{ $code }}" selected>{{ $code_name }}</option>
+                                    @else
+                                        <option value="{{ $code }}">{{ $code_name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                             <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{ old('mobile_phone') }} ">
-                                
+                            
+                            @if ($errors->has('mobile_country_calling_code'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('mobile_country_calling_code') }}</strong>
+                                </span>
+                            @endif 
                             @if ($errors->has('mobile_phone'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('mobile_phone') }}</strong>

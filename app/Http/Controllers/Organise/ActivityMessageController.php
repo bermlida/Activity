@@ -26,7 +26,7 @@ class ActivityMessageController extends Controller
         $activity = $organizer->activities()->find($activity);
 
         $data['scheduled_messages'] = $activity->messages()
-            ->where('status', 1)
+            ->scheduled()
             ->orderBy('sending_time')
             ->paginate(10, ['*'], 'scheduled_page');
 
@@ -36,7 +36,7 @@ class ActivityMessageController extends Controller
             ->paginate(10, ['*'], 'draft_page');
 
         $data['send_messages'] = $activity->messages()
-            ->where('status', 2)
+            ->sent()
             ->orderBy('sending_time', 'desc')
             ->paginate(10, ['*'], 'send_page');
 

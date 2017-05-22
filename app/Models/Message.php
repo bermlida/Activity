@@ -133,7 +133,7 @@ class Message extends Model
                 ->orWhere(function ($query) {
                     $query
                         ->whereNotNull('sending_time')
-                        ->where('sending_time', '<', Carbon::now()->format('Y-m-d H:i'))
+                        ->where('sending_time', '<', Carbon::now()->format('Y-m-d H:i'));
                 });
     }
 }

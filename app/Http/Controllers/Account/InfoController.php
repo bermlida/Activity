@@ -28,6 +28,8 @@ class InfoController extends Controller
         if (!is_null($data['profile']) && $data['account']->role_id == 2) {
             $data['banner'] = $data['profile']->attachments()->IsBanner()->first();
         }
+
+        $data['country_calling_codes'] = config('constant.CountryCallingCodes');
         
         return view('account.info', $data);
     }
@@ -45,6 +47,7 @@ class InfoController extends Controller
             case 1:
                 $rules = [
                     'name' => 'required|string|max:128',
+                    'mobile_country_calling_code' => 'required|string|max:15',
                     'mobile_phone' => 'required|string|max:30'
                 ];
                 break;

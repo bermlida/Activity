@@ -41,7 +41,7 @@ class MessageService
     protected function sendMail(User $recipient, Message $message)
     {
         Mail::send(
-            'email.activity-notification',
+            'notification.activity-email-message',
             ['content' => $message->content],
             function ($mail) use ($recipient, $message) {
                 $mail->subject($message->subject);
@@ -66,12 +66,12 @@ class MessageService
     protected function sendSMS(User $recipient, Message $message)
     {
         SMS::send(
-            'email.activity-notification',
+            'notification.activity-sms-message',
             ['content' => $message->content],
             function ($sms) use ($recipient) {
-                $sms->from('');
+                // $sms->from('');
 
-                $sms->to($recipient->mobile_phone);
+                $sms->to($recipient->mobile_country_calling_code . ltrim($recipient->mobile_phone, 0));
             }
         );
     }

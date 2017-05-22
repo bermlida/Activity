@@ -22,7 +22,11 @@ class User extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'mobile_phone'];
+    protected $fillable = [
+        'name',
+        'mobile_country_calling_code',
+        'mobile_phone'
+    ];
 
     /**
      * 建立中介資料表的模型。

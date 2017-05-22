@@ -36,7 +36,7 @@ Route::auth();
 
 Route::group([
     'prefix' => '/register',
-    'namesapce' => 'Auth',
+    'namespace' => 'Auth',
     'as' => 'register::'
 ], function () {
     Route::get('/user', 'AuthController@showRegisterUser')->name('user');
