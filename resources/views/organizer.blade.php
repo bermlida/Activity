@@ -103,7 +103,7 @@
                         @empty
                             <h3>目前沒有正在舉辦的活動</h3>
                             <br>
-                            <a href="mailto:{{ $info->account->first()->email }}" class="btn btn-primary">
+                            <a href="mailto:{{ $info->account->email }}" class="btn btn-primary">
                                 通知主辦單位來辦活動吧 ! 
                             </a>
                         @endforelse

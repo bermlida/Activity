@@ -51,7 +51,7 @@ class User extends Model
      */
     public function account()
     {
-        return $this->morphMany('App\Models\Account', 'profile');
+        return $this->morphOne('App\Models\Account', 'profile');
     }
 
     /**

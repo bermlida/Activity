@@ -127,7 +127,7 @@
                         </a>
                         <div class="panel-body">
                             <p>電話：{{ $organizer->phone }}</p>
-                            <p>電子郵件：{{ $organizer->account->first()->email }}</p>
+                            <p>電子郵件：{{ $organizer->account->email }}</p>
                             <p>住址：{{ $organizer->address }}</p>
                         </div>
                     </div>

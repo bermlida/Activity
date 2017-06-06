@@ -52,7 +52,7 @@ class ParticipateController extends Controller
 
         $data['activity'] = $order->activity;
 
-        $data['user_account'] = $order->user->account()->first();
+        $data['user_account'] = $order->user->account;
 
         $data['user_profile'] = $order->user;
 

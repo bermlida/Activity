@@ -82,7 +82,7 @@ class AuthController extends Controller
             ])
         );
         
-        return $profile->account()->first();
+        return $profile->account;
     }
 
     /**

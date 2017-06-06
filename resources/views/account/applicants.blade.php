@@ -72,7 +72,7 @@
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $order->user->name }}</td>
-                                        <td>{{ $order->user->account->first()->email }}</td>
+                                        <td>{{ $order->user->account->email }}</td>
                                         <td>{{ $order->user->mobile_phone }}</td>
                                         @if (!is_null($transaction = $order->transactions->first()))
                                             <td>{{ $transaction->apply_fee }}</td>
@@ -110,7 +110,7 @@
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $order->user->name }}</td>
-                                        <td>{{ $order->user->account->first()->email }}</td>
+                                        <td>{{ $order->user->account->email }}</td>
                                         <td>{{ $order->user->mobile_phone }}</td>
                                     </tr>
                                 @endforeach
@@ -155,7 +155,7 @@
                                         <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $order->user->name }}</td>
-                                        <td>{{ $order->user->account->first()->email }}</td>
+                                        <td>{{ $order->user->account->email }}</td>
                                         <td>{{ $order->user->mobile_phone }}</td>
                                         @if (!is_null($transaction = $order->transactions->first()))
                                             <td>{{ $transaction->apply_fee }}</td>

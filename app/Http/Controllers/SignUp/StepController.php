@@ -39,7 +39,7 @@ class StepController extends Controller
 
             $data['activity'] = $order->activity;
 
-            $data['user_account'] = $order->user->account()->first();
+            $data['user_account'] = $order->user->account;
 
             $data['user_profile'] = $order->user;
 
@@ -73,7 +73,7 @@ class StepController extends Controller
 
         $data = session()->all();
 
-        $data['user_account'] = $order->user->account()->first();
+        $data['user_account'] = $order->user->account;
 
         $data['user_profile'] = $order->user;
         
@@ -115,7 +115,7 @@ class StepController extends Controller
         
         $data['activity'] = $data['order']->activity;
         
-        $data['user_account'] = $data['order']->user->account()->first();
+        $data['user_account'] = $data['order']->user->account;
 
         $data['user_profile'] = $data['order']->user;
         

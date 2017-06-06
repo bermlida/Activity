@@ -51,7 +51,7 @@ class MessageService
                     $message->activity->organizer->name
                 );
                     
-                $mail->to($recipient->account->first()->email, $recipient->name);
+                $mail->to($recipient->account->email, $recipient->name);
             }
         );
     }
