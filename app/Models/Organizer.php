@@ -32,6 +32,14 @@ class Organizer extends Model
     }
 
     /**
+     * 取得主辦單位的金融帳戶。
+     */
+    public function financial_account()
+    {
+        return $this->morphOne('App\Models\FinancialAccount', 'associated');
+    }
+
+    /**
      * 取得與主辦單位有關的附件。
      */
     public function attachments()

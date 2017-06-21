@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "781c9e5f7fcb528dc28b011a4f513b34",
+    "content-hash": "b0b19fa820c79e4376fa1d8b6cfcaaff",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -3267,6 +3267,42 @@
                 "environment"
             ],
             "time": "2016-09-01T10:05:43+00:00"
+        },
+        {
+            "name": "wsmwason/taiwan-bank-code",
+            "version": "v0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wsmwason/taiwan-bank-code.git",
+                "reference": "caba29505a0a4b8f3025b585e9ce8c02d29c4c86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wsmwason/taiwan-bank-code/zipball/caba29505a0a4b8f3025b585e9ce8c02d29c4c86",
+                "reference": "caba29505a0a4b8f3025b585e9ce8c02d29c4c86",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "TaiwanBankCode.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "wsmwason",
+                    "email": "wsmwason@gmail.com"
+                }
+            ],
+            "description": "Taiwan Bank Code List",
+            "time": "2017-03-17T05:23:31+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",

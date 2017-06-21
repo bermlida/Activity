@@ -70,6 +70,9 @@ Route::group([
     
         Route::get('/info', 'InfoController@index')->name('info');
         Route::post('/info', 'InfoController@save')->name('info::save');
+
+        Route::get('/receipt-setting', 'SettingController@receipt')->name('receipt-setting');
+        Route::post('/receipt-setting', 'SettingController@saveReceipt')->name('receipt-setting::save');
     });
 
     Route::group([

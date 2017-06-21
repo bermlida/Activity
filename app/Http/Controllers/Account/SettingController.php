@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\FinancialAccount;
 
 class SettingController extends Controller
 {
@@ -73,6 +74,47 @@ class SettingController extends Controller
             ->with([
                 'message_type' => 'success',
                 'message_body' => '儲存成功'
+            ]);
+    }
+
+    /**
+     * 顯示收款設定編輯畫面。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function receipt()
+    {
+        $data['organizer'] = Auth::user()->profile;
+
+        $data['financial_account'] = $data['organizer']->financial_account;
+
+        $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();
+        // print '<pre>'; var_dump($data); exit;
+        return view('account.receipt-setting', $data);
+    }
+
+    /**
+     * 儲存收款設定
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function saveReceipt(Request $request)
+    {
+        $organizer = Auth::user()->profile;
+
+        if (is_null($organizer->financial_account)) {
+            $financial_account = new FinancialAccount($request->all());
+
+            $result = $organizer->financial_account()->save($financial_account);
+        } else {
+            $result = $organizer->financial_account->fill($request->all())->save();
+        }
+        
+        return redirect()
+            ->route('account::receipt-setting')
+            ->with([
+                'message_type' => $result ? 'success' : 'warning',
+                'message_body' => $result ? '儲存成功' : '儲存失敗'
             ]);
     }
 }

@@ -88,6 +88,10 @@
                                         <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
                                         舉辦的活動
                                     </a></li>
+                                    <li><a href="{{ route('account::receipt-setting') }}">
+                                        <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+                                        收款設定
+                                    </a></li>
                                 @endif
 {{--
                                 

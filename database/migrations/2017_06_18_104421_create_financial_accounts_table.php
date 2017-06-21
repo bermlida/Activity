@@ -14,8 +14,8 @@ class CreateFinancialAccountsTable extends Migration
     {
         Schema::create('financial_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('financial_institution_code', 5)
-            $table->string('account_number', 25)
+            $table->string('financial_institution_code', 5);
+            $table->string('account_number', 25);
 
             $table->morphs('associated');
 
