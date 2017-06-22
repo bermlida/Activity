@@ -89,7 +89,7 @@
                                         舉辦的活動
                                     </a></li>
                                     <li><a href="{{ route('account::receipt-setting') }}">
-                                        <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+                                        <span class="fa fa-usd" aria-hidden="true"></span>
                                         收款設定
                                     </a></li>
                                 @endif

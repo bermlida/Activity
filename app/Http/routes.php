@@ -71,8 +71,14 @@ Route::group([
         Route::get('/info', 'InfoController@index')->name('info');
         Route::post('/info', 'InfoController@save')->name('info::save');
 
-        Route::get('/receipt-setting', 'SettingController@receipt')->name('receipt-setting');
-        Route::post('/receipt-setting', 'SettingController@saveReceipt')->name('receipt-setting::save');
+        Route::group([
+            'prefix' => '/receipt-setting',
+            'middleware' => 'judge-role:2',
+            'as' => 'receipt-setting'
+        ], function () {
+            Route::get('/', 'SettingController@showReceiptSetting');
+            Route::post('/', 'SettingController@saveReceiptSetting')->name('::save');
+        });
     });
 
     Route::group([

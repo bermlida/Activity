@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostFinancialAccountRequest;
 use App\Models\FinancialAccount;
 
 class SettingController extends Controller
@@ -82,14 +83,14 @@ class SettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function receipt()
+    public function showReceiptSetting()
     {
         $data['organizer'] = Auth::user()->profile;
 
         $data['financial_account'] = $data['organizer']->financial_account;
 
         $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();
-        // print '<pre>'; var_dump($data); exit;
+        
         return view('account.receipt-setting', $data);
     }
 
@@ -98,7 +99,7 @@ class SettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function saveReceipt(Request $request)
+    public function saveReceiptSetting(PostFinancialAccountRequest $request)
     {
         $organizer = Auth::user()->profile;
 
