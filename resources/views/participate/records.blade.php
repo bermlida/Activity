@@ -85,9 +85,9 @@
                                 </td>
                                 <td>已完成報名</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ route('participate::record::cancel', ['serial_number' => $activity->pivot->serial_number]) }}')">
+                                    <a class="btn btn-danger" href="{{ route('participate::record::cancel::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
                                         取消
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                             @empty
@@ -164,9 +164,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger" onclick="cancel('{{ route('participate::record::cancel', ['serial_number' => $activity->pivot->serial_number]) }}')">
+                                    <a class="btn btn-danger" href="{{ route('participate::record::cancel::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
                                         取消
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach
@@ -213,6 +213,11 @@
                                     <a class="btn btn-info" href="{{ route('participate::record::view', ['serial_number' => $activity->pivot->serial_number]) }}">
                                         檢視
                                     </a>
+                                    @if ($activity->pivot->transactions()->where('status', 1)->count() > 0)
+                                        <a class="btn btn-info" href="{{ route('participate::record::refund::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
+                                            退款設定
+                                        </a>
+                                    @endif
                                 </td>
                                 <td>已取消報名</td>
                             </tr>

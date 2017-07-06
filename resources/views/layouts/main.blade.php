@@ -83,6 +83,12 @@
                                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                         參加的活動
                                     </a></li>
+                                    <li>
+                                        <a href="{{ route('account::refund-setting') }}">
+                                            <span class="fa fa-usd" aria-hidden="true"></span>
+                                            退款設定
+                                        </a>
+                                    </li>
                                 @elseif (Auth::user()->role_id == '2')
                                     <li><a href="{{ route('organise::activity::list') }}">
                                         <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>

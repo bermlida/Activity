@@ -118,4 +118,45 @@ class SettingController extends Controller
                 'message_body' => $result ? '儲存成功' : '儲存失敗'
             ]);
     }
+
+    /**
+     * 顯示退款設定編輯畫面。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRefundSetting()
+    {
+        $data['user'] = Auth::user()->profile;
+
+        $data['financial_account'] = $data['user']->financial_account;
+
+        $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();
+        
+        return view('account.refund-setting', $data);
+    }
+
+    /**
+     * 儲存退款設定
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function saveRefundSetting(PostFinancialAccountRequest $request)
+    {
+        $user = Auth::user()->profile;
+
+        if (is_null($user->financial_account)) {
+            $financial_account = new FinancialAccount($request->all());
+
+            $result = $user->financial_account()->save($financial_account);
+        } else {
+            $result = $user->financial_account->fill($request->all())->save();
+        }
+        
+        return redirect()
+            ->route('account::refund-setting')
+            ->with([
+                'message_type' => $result ? 'success' : 'warning',
+                'message_body' => $result ? '儲存成功' : '儲存失敗'
+            ]);
+    }
 }

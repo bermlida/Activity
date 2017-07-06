@@ -72,6 +72,15 @@ Route::group([
         Route::post('/info', 'InfoController@save')->name('info::save');
 
         Route::group([
+            'prefix' => '/refund-setting',
+            'middleware' => 'judge-role:1',
+            'as' => 'refund-setting'
+        ], function () {
+            Route::get('/', 'SettingController@showRefundSetting');
+            Route::post('/', 'SettingController@saveRefundSetting')->name('::save');
+        });
+
+        Route::group([
             'prefix' => '/receipt-setting',
             'middleware' => 'judge-role:2',
             'as' => 'receipt-setting'
@@ -80,20 +89,27 @@ Route::group([
             Route::post('/', 'SettingController@saveReceiptSetting')->name('::save');
         });
     });
+});
+
+Route::group([
+    'prefix' => '/participate/records',
+    'namespace' => 'Participate',
+    'middleware' => ['auth', 'judge-role:1'],
+    'as' => 'participate::record::'
+], function () {
+    Route::get('/', 'RecordController@index')->name('list');
 
     Route::group([
-        'prefix' => '/participate/records',
-        'middleware' => 'judge-role:1',
-        'as' => 'participate::record::'
+        'prefix' => '/{record}',
+        'middleware' => 'exist-participate-record'
     ], function () {
-        Route::get('/', 'ParticipateController@index')->name('list');
-        Route::get('/{record}/view', 'ParticipateController@info')
-            ->middleware('exist-participate-record')
-            ->name('view');
+        Route::get('/view', 'RecordController@info')->name('view');
 
-        Route::put('/{record}/cancel', 'ParticipateController@cancel')
-            ->middleware('exist-participate-record')
-            ->name('cancel');
+        Route::get('/cancel', 'RecordController@showCancel')->name('cancel::confirm');
+        Route::put('/cancel', 'RecordController@cancel')->name('cancel');
+        
+        Route::get('/refund', 'RecordController@showRefund')->name('refund::confirm');
+        Route::put('/refund', 'RecordController@refund')->name('refund');
     });
 });
 
@@ -173,5 +189,3 @@ Route::group([
     
     Route::get('/confirm', 'StepController@showConfirm')->name('confirm');
 });
-
-

@@ -39,4 +39,12 @@ class Transaction extends Model
             'serial_number'
         );
     }
+
+    /**
+     * 取得此交易紀錄對應的退款帳戶。
+     */
+    public function financial_account()
+    {
+        return $this->morphOne('App\Models\FinancialAccount', 'associated');
+    }
 }
