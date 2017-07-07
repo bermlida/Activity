@@ -128,7 +128,7 @@ class ActionController extends Controller
         $serial_number = $request->input('MerchantTradeNo');
 
         $transaction = Transaction::where('serial_number', $serial_number)->first();
-        $transaction->payment_info = json_encode($request->all());
+        $transaction->payment_info = $request->all();
         $transaction->save();
 
         return redirect()
@@ -144,7 +144,7 @@ class ActionController extends Controller
         $serial_number = $request->input('MerchantTradeNo');
         
         $transaction = Transaction::where('serial_number', $serial_number)->first();
-        $transaction->payment_result = json_encode($request->all());
+        $transaction->payment_result = $request->all();
         $transaction->status = 1;
         $transaction->status_info = '已完成付款';
         $transaction->save();

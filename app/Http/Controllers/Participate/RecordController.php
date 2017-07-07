@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostFinancialAccountRequest;
 use App\Models\FinancialAccount;
 use App\Models\Order;
 
@@ -51,6 +52,8 @@ class RecordController extends Controller
 
         $data['order'] = $order;
 
+        $data['transaction'] = $order->transactions->first();
+
         $data['activity'] = $order->activity;
 
         $data['user_account'] = $order->user->account;
@@ -80,6 +83,8 @@ class RecordController extends Controller
         }
 
         $data['order'] = $order;
+
+        $data['transaction'] = $order->transactions->first();
 
         $data['activity'] = $order->activity;
 
@@ -142,7 +147,7 @@ class RecordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function refund($record, Request $request)
+    public function refund($record, PostFinancialAccountRequest $request)
     {
         $order = Order::where('serial_number', $record)->first();
 

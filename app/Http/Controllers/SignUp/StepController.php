@@ -103,14 +103,6 @@ class StepController extends Controller
                 ->transactions()
                 ->where('serial_number', session('transaction_serial_number'))
                 ->first();
-
-            if (!is_null($data['transaction']->payment_info)) {
-                $data['transaction']->payment_info = json_decode($data['transaction']->payment_info);
-            }
-
-            if (!is_null($data['transaction']->payment_result)) {
-                $data['transaction']->payment_result = json_decode($data['transaction']->payment_result);
-            }
         }
         
         $data['activity'] = $data['order']->activity;

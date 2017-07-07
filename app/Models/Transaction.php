@@ -29,6 +29,54 @@ class Transaction extends Model
     ];
 
     /**
+     * 設定付款資訊。
+     *
+     * @param  array|object  $value
+     * @return string
+     */
+    public function setPaymentInfoAttribute($value)
+    {
+        $value = is_array($value) || is_object($value) ? $value : null;
+
+        $this->attributes['payment_info'] = json_encode($value);
+    }
+
+    /**
+     * 設定付款結果。
+     *
+     * @param  array|object  $value
+     * @return string
+     */
+    public function setPaymentResultAttribute($value)
+    {
+        $value = is_array($value) || is_object($value) ? $value : null;
+        
+        $this->attributes['payment_result'] = json_encode($value);
+    }
+
+    /**
+     * 取得付款資訊。
+     *
+     * @param  string|null  $value
+     * @return object
+     */
+    public function getPaymentInfoAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    /**
+     * 取得付款結果。
+     *
+     * @param  string|null  $value
+     * @return object
+     */
+    public function getPaymentResultAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    /**
      * 取得此交易紀錄對應的訂單。
      */
     public function order()
@@ -46,5 +94,15 @@ class Transaction extends Model
     public function financial_account()
     {
         return $this->morphOne('App\Models\FinancialAccount', 'associated');
+    }
+
+    /**
+     * 限制查詢特定狀態的交易紀錄。
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfStatus($query, $status)
+    {
+        return $query->where('status', $status);
     }
 }

@@ -31,21 +31,6 @@
                 <p>報名者電子郵件：{{ $user_account->email }}</p>
                 <p>報名者手機：{{ $user_profile->mobile_phone }}</p>
             </div>
-            @php
-
-                $transaction = $order->transactions()->first();
-
-                if (!is_null($transaction)) {
-                    if (!is_null($transaction->payment_info)) {
-                        $transaction->payment_info = json_decode($transaction->payment_info);
-                    }
-
-                    if (!is_null($transaction->payment_result)) {
-                        $transaction->payment_result = json_decode($transaction->payment_result);
-                    }
-                }
-
-            @endphp
             @if (!is_null($transaction))
                 @if ($transaction->status == 0 && !is_null($transaction->payment_info))
                     <div class="col-md-12">
