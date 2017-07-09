@@ -17,9 +17,13 @@ class TaiwanBankCodeServiceProvider extends ServiceProvider
         $this->app->bind('TaiwanBankCode', function ($app) {
             $taiwan_bank_code = new TaiwanBankCode();
 
+            ob_start();
+
             $taiwan_bank_code->updateXmlFromFisc();
 
             $taiwan_bank_code->convertJsonFromXml();
+
+            ob_end_clean();
 
             return $taiwan_bank_code;
         });

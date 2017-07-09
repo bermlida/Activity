@@ -6,96 +6,68 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Features Section -->
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- For success/fail messages -->
-                @if (!is_null(session('message_type')) && !is_null(session('message_body')))
-                    <div class="alert alert-{{ session('message_type') }}" role="alert">
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        {{ session('message_body') }}
+        <form role="form" method="POST">
+            {{ method_field('PUT') }}
+            {{ csrf_field() }}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Success/Fail Message -->
+                    @include('partials.alert-message')
+
+                    <h2 class="page-header">
+                        取消報名
+                    </h2>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel-group">
+                        @include('partials.apply-info-panel')
+                    
+                        @if (!is_null($transaction))
+                            @include('partials.apply-fee-info-panel')
+
+                            @if (!is_null($transaction->payment_result))
+                                @include('partials.payment-result-panel')
+
+                                <!-- /.refund-account-panel -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">退款設定</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        @include('partials.refund-account-form')
+                                    </div>
+                                </div>
+                            @elseif (!is_null($transaction->payment_info))
+                                @include('partials.payment-info-panel')
+                            @endif
+                        @endif
                     </div>
-                @endif
-                <h2 class="page-header">
-                    取消報名
-                </h2>
+                    <!-- /.panel-group -->
+                </div>
             </div>
-            <div class="col-md-12">
-                <p>活動名稱：{{ $activity->name }}</p>
-                <p>活動時間：
-                    @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
-                        {{ $activity->start_time->toDateString() }}
-                         ~ 
-                        {{ $activity->end_time->toDateString() }}
-                    @else
-                        {{ $activity->start_time->toDateString() }}
-                    @endif
-                </p>
-                <p>活動地點：{{ $activity->venue }}</p>
-                <p>報名者姓名：{{ $user_profile->name }}</p>
-                <p>報名者電子郵件：{{ $user_account->email }}</p>
-                <p>報名者手機：{{ $user_profile->mobile_phone }}</p>
-            </div>
-            @if (!is_null($transaction))
-                @if ($transaction->status == 0 && !is_null($transaction->payment_info))
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    <div class="col-md-12">
-                        <p>訂單編號：{{ $transaction->payment_info->MerchantTradeNo }}</p>
-                        <p>繳費金額：{{ $transaction->payment_info->TradeAmt }}</p>
-                        @if (isset($transaction->payment_info->PaymentNo))
-                            <p>繳費代碼：{{ $transaction->payment_info->PaymentNo }}</p>
-                        @endif
-                        @if (isset($transaction->payment_info->BankCode))
-                            <p>繳費銀行代碼：{{ $transaction->payment_info->BankCode }}</p>
-                        @endif
-                        @if (isset($transaction->payment_info->vAccount))
-                            <p>繳費虛擬帳號：{{ $transaction->payment_info->vAccount }}</p>
-                        @endif
-                        <p>繳費期限：{{ $transaction->payment_info->ExpireDate }}</p>
-                    </div>
-                @endif
-                @if ($transaction->status == 1 && !is_null($transaction->payment_result))
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    <div class="col-md-12">
-                        <p>訂單編號：{{ $transaction->payment_result->MerchantTradeNo }}</p>
-                        <p>交易金額：{{ $transaction->payment_result->TradeAmt }}</p>
-                        <p>付款金額：{{ $transaction->payment_result->PayAmt }}</p>
-                        <p>付款時間：{{ $transaction->payment_result->PaymentDate }}</p>
-                    </div>
-                @endif
-            @endif
-        </div>
-        <!-- /.row -->
-        
-        <div class="row">
-            <div class="col-md-12">
-                @if (!is_null($transaction))
-                    @include('partials.refund-account')
-                @else
-                    <form class="form-horizontal" role="form" method="POST">
-                        {{ method_field('PUT') }}
-                        {{ csrf_field() }}
-                        
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-6">
-                                <button type="submit" class="btn btn-primary">
-                                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
-                                    確認取消
-                                </button>
-                            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-6">
+                            <a href="javascript:history.back(-1);" class="btn btn-danger">
+                                <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+                                返回
+                            </a>
                         </div>
-                    </form>
-                @endif
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                                確認取消
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <!-- /.row -->
+            <!-- /.row -->
+        </form>
 
         <hr>
 

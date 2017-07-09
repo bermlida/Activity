@@ -97,6 +97,18 @@ class Transaction extends Model
     }
 
     /**
+     * 限制查詢串接金流的交易紀錄。
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeConnectPaymentFlow($query)
+    {
+        return $query
+                    ->whereNotNull('payment_info')
+                    ->orWhereNotNull('payment_result');
+    }
+
+    /**
      * 限制查詢特定狀態的交易紀錄。
      *
      * @return \Illuminate\Database\Eloquent\Builder

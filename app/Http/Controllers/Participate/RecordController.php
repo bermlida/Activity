@@ -48,17 +48,11 @@ class RecordController extends Controller
      */
     public function info($record)
     {
-        $order = Order::where('serial_number', $record)->first();
+        $data['order'] = Order::with('user.account', 'activity')
+                            ->where('serial_number', $record)
+                            ->first();
 
-        $data['order'] = $order;
-
-        $data['transaction'] = $order->transactions->first();
-
-        $data['activity'] = $order->activity;
-
-        $data['user_account'] = $order->user->account;
-
-        $data['user_profile'] = $order->user;
+        $data['transaction'] = $order->transactions()->first();
 
         return view('participate.record', $data);
     }
@@ -70,27 +64,19 @@ class RecordController extends Controller
      */
     public function showCancel($record)
     {
-        $order = Order::where('serial_number', $record)->first();
+        $data['order'] = Order::with('user.account', 'activity')
+                            ->where('serial_number', $record)
+                            ->first();
 
-        $transaction = $order->transactions()->where('status', 1)->first();
+        $data['transaction'] = $order->transactions()->first();
 
-        if (!is_null($transaction)) {
+        if (!is_null($data['transaction']->payment_result)) {
             $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();
             
-            if (!is_null($transaction->financial_account)) {
-                $data['financial_account'] = $transaction->financial_account;
+            if (!is_null($data['transaction']->financial_account)) {
+                $data['financial_account'] = $data['transaction']->financial_account;
             }
         }
-
-        $data['order'] = $order;
-
-        $data['transaction'] = $order->transactions->first();
-
-        $data['activity'] = $order->activity;
-
-        $data['user_account'] = $order->user->account;
-
-        $data['user_profile'] = $order->user;
 
         return view('participate.cancel', $data);
     }
@@ -102,22 +88,38 @@ class RecordController extends Controller
      */
     public function cancel($record, Request $request)
     {
-        $order = Order::where('serial_number', $record)->first();
+        $result = DB::transaction(function () use ($request) {
+            $cancel_status = ['status' => -1, 'status_info' => '使用者取消'];
 
-        $transaction = $order->transactions()->where('status', 1)->first();
+            $order = Order::where('serial_number', $record)->first();
 
-        $result = $order->fill(['status' => -1, 'status_info' => '使用者取消'])->save();
+            $transaction = $order->transactions()->first();
 
-        if (!is_null($transaction)) {
-            $financial_account = new FinancialAccount($request->all());
+            $order_result = $order->fill($cancel_status)->save();
 
-            $refund_result = $transaction->financial_account()->save($financial_account);
+            if (!is_null($transaction)) {
+                $transaction_result = $transaction->fill($cancel_status)->save();
 
-            $result = $result && $refund_result;
-        }
+                if (!is_null($transaction->payment_result)) {
+                    if (is_null($transaction->financial_account)) {
+                        $financial_account = new FinancialAccount($request->all());
+
+                        $refund_result = $transaction->financial_account()->save($financial_account);
+                    } else {
+                        $refund_result = $transaction->financial_account->fill($request->all())->save();
+                    }
+
+                    return $order_result && $transaction_result && $refund_result;
+                }
+
+                return $order_result && $transaction_result;
+            }
+
+            return $order_result;
+        });
 
         return redirect()
-                ->route('participate::record::cancel::confirm', ['record' => $order->serial_number])
+                ->route('participate::record::cancel::confirm', ['record' => $record])
                 ->with([
                     'message_type' => $result ? 'success' : 'warning',
                     'message_body' => $result ? '取消成功' : '取消失敗'
@@ -133,7 +135,7 @@ class RecordController extends Controller
     {
         $data['order'] = Order::where('serial_number', $record)->first();
 
-        $data['transaction'] = $data['order']->transactions()->where('status', 1)->first();
+        $data['transaction'] = $data['order']->transactions()->ofStatus(1)->first();
 
         $data['financial_account'] = $data['transaction']->financial_account;
 
@@ -151,14 +153,12 @@ class RecordController extends Controller
     {
         $order = Order::where('serial_number', $record)->first();
 
-        $transaction = $order->transactions()->where('status', 1)->first();
+        $transaction = $order->transactions()->ofStatus(1)->first();
 
-        $financial_account = $transaction->financial_account;
-
-        $result = $financial_account->fill($request->all())->save();
+        $result = $transaction->financial_account->fill($request->all())->save();
 
         return redirect()
-                ->route('participate::record::refund::confirm', ['record' => $order->serial_number])
+                ->route('participate::record::refund::confirm', ['record' => $record])
                 ->with([
                     'message_type' => $result ? 'success' : 'warning',
                     'message_body' => $result ? '儲存成功' : '儲存失敗'
