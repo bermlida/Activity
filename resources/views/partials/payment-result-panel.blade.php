@@ -1,5 +1,4 @@
 
-    <!-- /.payment-result-panel -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">付款明細</h4>
@@ -11,3 +10,4 @@
             <p>付款時間：{{ $transaction->payment_result->PaymentDate }}</p>
         </div>
     </div>
+    <!-- /.payment-result-panel -->

@@ -67,17 +67,13 @@ class StepController extends Controller
         $serial_number = session('serial_number');
 
         $order = Auth::user()
-            ->profile->activities()
-            ->wherePivot('serial_number', $serial_number)
-            ->first()->pivot;
+                    ->profile->activities()
+                    ->wherePivot('serial_number', $serial_number)
+                    ->first()->pivot;
 
         $data = session()->all();
 
-        $data['user_account'] = $order->user->account;
-
-        $data['user_profile'] = $order->user;
-        
-        $data['activity'] = $order->activity;
+        $data['order'] = $order;
 
         session()->keep('serial_number');
 
@@ -94,22 +90,16 @@ class StepController extends Controller
         $serial_number = session('serial_number');
 
         $data['order'] = Auth::user()
-            ->profile->activities()
-            ->wherePivot('serial_number', $serial_number)
-            ->first()->pivot;
+                            ->profile->activities()
+                            ->wherePivot('serial_number', $serial_number)
+                            ->first()->pivot;
 
         if (session()->has('transaction_serial_number')) {
             $data['transaction'] = $data['order']
-                ->transactions()
-                ->where('serial_number', session('transaction_serial_number'))
-                ->first();
+                                        ->transactions()
+                                        ->where('serial_number', session('transaction_serial_number'))
+                                        ->first();
         }
-        
-        $data['activity'] = $data['order']->activity;
-        
-        $data['user_account'] = $data['order']->user->account;
-
-        $data['user_profile'] = $data['order']->user;
         
         return view('sign-up.confirm', $data);
     }

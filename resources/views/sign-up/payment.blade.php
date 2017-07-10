@@ -22,44 +22,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel-group" id="accordion">
-                    <!-- /.panel -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                報名資訊
-                            </h4>
-                        </div>
-                        <div class="panel-body">
-                            <p>活動名稱：{{ $activity->name }}</p>
-                            <p>活動時間：
-                                @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
-                                    {{ $activity->start_time->toDateString() }}
-                                     ~ 
-                                    {{ $activity->end_time->toDateString() }}
-                                @else
-                                    {{ $activity->start_time->toDateString() }}
-                                @endif
-                            </p>
-                            <p>活動地點：{{ $activity->venue }}</p>
-                            <p>報名者姓名：{{ $user_profile->name }}</p>
-                            <p>報名者電子郵件：{{ $user_account->email }}</p>
-                            <p>報名者手機：{{ $user_profile->mobile_phone }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
+                    @include('partials.apply-info-panel')
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel-group" id="accordion">
-                    <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title">
-                                付款資訊
-                            </h4>
+                            <h4 class="panel-title">付款資訊</h4>
                         </div>
                         <div class="panel-body">
                             @if (isset($apply_fee))
@@ -70,6 +37,7 @@
                             @endif
                         </div>
                     </div>
+                    <!-- /.apply-payment-info-panel -->
                 </div>
             </div>
         </div>
@@ -77,13 +45,13 @@
 
         <div class="row">
             <div class="col-md-6 col-xs-6">
-                <a href="{{ route('sign-up::apply::edit', ['activity' => $activity->id, 'serial_number' => $serial_number]) }}" class="btn btn-danger">
+                <a href="{{ route('sign-up::apply::edit', ['activity' => $order->activity->id, 'serial_number' => $serial_number]) }}" class="btn btn-danger">
                     <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                     上一步
                 </a>
             </div>
             <div class="col-md-6 col-xs-6">
-                <form role="form" method="POST" action="{{ route('sign-up::payment::deal', [$activity]) }}">
+                <form role="form" method="POST" action="{{ route('sign-up::payment::deal', [$order->activity]) }}">
                     {{ csrf_field() }}
                     
                     <input type="text" name="apply_fee" value="{{ isset($apply_fee) ? $apply_fee : 0 }}">

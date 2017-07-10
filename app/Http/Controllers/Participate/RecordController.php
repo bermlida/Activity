@@ -48,11 +48,9 @@ class RecordController extends Controller
      */
     public function info($record)
     {
-        $data['order'] = Order::with('user.account', 'activity')
-                            ->where('serial_number', $record)
-                            ->first();
+        $data['order'] = Order::where('serial_number', $record)->first();
 
-        $data['transaction'] = $order->transactions()->first();
+        $data['transaction'] = $data['order']->transactions()->first();
 
         return view('participate.record', $data);
     }
@@ -64,11 +62,9 @@ class RecordController extends Controller
      */
     public function showCancel($record)
     {
-        $data['order'] = Order::with('user.account', 'activity')
-                            ->where('serial_number', $record)
-                            ->first();
+        $data['order'] = Order::where('serial_number', $record)->first();
 
-        $data['transaction'] = $order->transactions()->first();
+        $data['transaction'] = $data['order']->transactions()->first();
 
         if (!is_null($data['transaction']->payment_result)) {
             $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();

@@ -1,5 +1,4 @@
 
-    <!-- /.payment-info-panel -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">繳費資訊</h4>
@@ -19,3 +18,4 @@
             <p>繳費期限：{{ $transaction->payment_info->ExpireDate }}</p>
         </div>
     </div>
+    <!-- /.payment-info-panel -->
