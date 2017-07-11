@@ -71,6 +71,8 @@ class RecordController extends Controller
             
             if (!is_null($data['transaction']->financial_account)) {
                 $data['financial_account'] = $data['transaction']->financial_account;
+            } else {
+                $data['financial_account'] = Auth::user()->profile->financial_account;
             }
         }
 

@@ -55,6 +55,14 @@ class User extends Model
     }
 
     /**
+     * 取得使用者的金融帳戶。
+     */
+    public function financial_account()
+    {
+        return $this->morphOne('App\Models\FinancialAccount', 'associated');
+    }
+
+    /**
      * 取得使用者參加的活動。
      */
     public function activities()

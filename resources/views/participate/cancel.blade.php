@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <div class="col-md-6 col-md-6">
+                        <div class="col-md-6">
                             <a href="javascript:history.back(-1);" class="btn btn-danger">
                                 <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
                                 返回
