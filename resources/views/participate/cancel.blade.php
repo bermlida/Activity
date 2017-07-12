@@ -29,15 +29,17 @@
                             @if (!is_null($transaction->payment_result))
                                 @include('partials.payment-result-panel')
 
-                                <!-- /.refund-account-panel -->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">退款設定</h4>
+                                @if ($transaction->apply_fee > 0)
+                                    <!-- /.refund-account-panel -->
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">退款設定</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            @include('partials.refund-account-form')
+                                        </div>
                                     </div>
-                                    <div class="panel-body">
-                                        @include('partials.refund-account-form')
-                                    </div>
-                                </div>
+                                @endif
                             @elseif (!is_null($transaction->payment_info))
                                 @include('partials.payment-info-panel')
                             @endif

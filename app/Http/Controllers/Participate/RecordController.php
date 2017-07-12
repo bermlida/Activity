@@ -66,7 +66,7 @@ class RecordController extends Controller
 
         $data['transaction'] = $data['order']->transactions()->first();
 
-        if (!is_null($data['transaction']->payment_result)) {
+        if (!is_null($data['transaction']->payment_result) && $data['transaction']->apply_fee > 0) {
             $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();
             
             if (!is_null($data['transaction']->financial_account)) {
@@ -98,7 +98,7 @@ class RecordController extends Controller
             if (!is_null($transaction)) {
                 $transaction_result = $transaction->fill($cancel_status)->save();
 
-                if (!is_null($transaction->payment_result)) {
+                if (!is_null($transaction->payment_result) && $transaction->apply_fee > 0) {
                     if (is_null($transaction->financial_account)) {
                         $financial_account = new FinancialAccount($request->all());
 
