@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostFinancialAccountRequest;
 use App\Models\FinancialAccount;
 use App\Models\Order;
+use App\Services\AllpayService;
 
 class RecordController extends Controller
 {
@@ -66,6 +67,8 @@ class RecordController extends Controller
 
         $data['transaction'] = $data['order']->transactions()->first();
 
+        app(AllpayService::class)->cancelCreditTransaction($data['transaction']);
+
         if (!is_null($data['transaction']->payment_result) && $data['transaction']->apply_fee > 0) {
             $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();
             
@@ -98,13 +101,21 @@ class RecordController extends Controller
             if (!is_null($transaction)) {
                 $transaction_result = $transaction->fill($cancel_status)->save();
 
-                if (!is_null($transaction->payment_result) && $transaction->apply_fee > 0) {
-                    if (is_null($transaction->financial_account)) {
-                        $financial_account = new FinancialAccount($request->all());
+                if (!is_null($transaction->payment_result)) {
+                    $segments = explode('_', $transaction->payment_result->PaymentType);
 
-                        $refund_result = $transaction->financial_account()->save($financial_account);
+                    if ($segments[0] != 'Credit') {
+                        if (is_null($transaction->financial_account)) {
+                            $financial_account = new FinancialAccount($request->all());
+
+                            $refund_result = $transaction->financial_account()->save($financial_account);
+                        } else {
+                            $refund_result = $transaction->financial_account->fill($request->all())->save();
+                        }
                     } else {
-                        $refund_result = $transaction->financial_account->fill($request->all())->save();
+                        $result = app(AllpayService::class)->cancelCreditTrade($transaction);
+
+                        $refund_result = $result['RtnCode'] == 1;
                     }
 
                     return $order_result && $transaction_result && $refund_result;
@@ -134,6 +145,8 @@ class RecordController extends Controller
         $data['order'] = Order::where('serial_number', $record)->first();
 
         $data['transaction'] = $data['order']->transactions()->ofStatus(1)->first();
+        
+        app(AllpayService::class)->cancelCreditTransaction($data['transaction']);
 
         $data['financial_account'] = $data['transaction']->financial_account;
 

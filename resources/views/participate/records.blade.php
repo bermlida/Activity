@@ -200,13 +200,13 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $activity->name }}</td>
                                 <td>
-                                @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
-                                    {{ $activity->start_time->toDateString() }}
-                                     ~ 
-                                    {{ $activity->end_time->toDateString() }}
-                                @else
-                                    {{ $activity->start_time->toDateString() }}
-                                @endif
+                                    @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                                        {{ $activity->start_time->toDateString() }}
+                                         ~ 
+                                        {{ $activity->end_time->toDateString() }}
+                                    @else
+                                        {{ $activity->start_time->toDateString() }}
+                                    @endif
                                 </td>
                                 <td>{{ $activity->venue }}</td>
                                 <td>

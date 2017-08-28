@@ -16,7 +16,8 @@
         "laravel-notification-channels/backport": "^1.0",
         "nexmo/client": "^0.4.0",
         "guzzlehttp/guzzle": "^6.2",
-        "simplesoftwareio/simple-sms": "^3.1"
+        "simplesoftwareio/simple-sms": "^3.1",
+        "yellowskies/QR-code-bundle": "^1.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
