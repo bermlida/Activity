@@ -60,6 +60,7 @@
                                 <th>活動地點</th>
                                 <th>報名資訊</th>
                                 <th>狀態</th>
+                                <th>報到狀態</th>
                                 <th>取消報名</th>
                             </tr>
                             </thead>
@@ -79,11 +80,20 @@
                                 </td>
                                 <td>{{ $activity->venue }}</td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ route('participate::record::view', ['serial_number' => $activity->pivot->serial_number]) }}">
+                                    <a class="btn btn-info" href="{{ route('participate::record::view', ['record' => $activity->pivot->serial_number]) }}">
                                         檢視
                                     </a>
                                 </td>
                                 <td>已完成報名</td>
+                                <td>
+                                    @if ($activity->pivot->register_status == 0)
+                                        <a class="btn btn-default" href="{{ route('participate::record::register::confirm', ['record' => $activity->pivot->serial_number]) }}">
+                                            顯示報到憑證
+                                        </a>
+                                    @else
+                                        已完成報到
+                                    @endif
+                                </td>
                                 <td>
                                     <a class="btn btn-danger" href="{{ route('participate::record::cancel::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
                                         取消

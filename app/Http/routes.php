@@ -105,6 +105,9 @@ Route::group([
     ], function () {
         Route::get('/view', 'RecordController@info')->name('view');
 
+        Route::get('/register', 'RecordController@showRegister')->name('register::confirm');
+        Route::put('/register', 'RecordController@register')->name('register');
+
         Route::get('/cancel', 'RecordController@showCancel')->name('cancel::confirm');
         Route::put('/cancel', 'RecordController@cancel')->name('cancel');
         

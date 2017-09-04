@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Participate;
 
 use Auth;
 use Illuminate\Http\Request;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\Output\QRImage;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -54,6 +56,22 @@ class RecordController extends Controller
         $data['transaction'] = $data['order']->transactions()->first();
 
         return view('participate.record', $data);
+    }
+
+    /**
+     * 顯示報到憑證的QR Code及報名相關資料的畫面。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegister($record)
+    {
+        $data['order'] = Order::where('serial_number', $record)->first();
+
+        $data['transaction'] = $data['order']->transactions()->first();
+
+        $data['qr_code'] = (new QRCode('test', new QRImage()))->output();
+
+        return view('participate.register', $data);
     }
 
     /**
