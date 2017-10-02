@@ -18,6 +18,10 @@ Route::get('/error', function () {
     return 'error';
 });
 
+Route::get('/activity-management', function () {
+    return view('organise.activity-management');
+});
+
 Route::group([
     'as' => 'visit::'
 ], function () {
