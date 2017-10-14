@@ -30,7 +30,7 @@ class IndexController extends Controller
             ->orderBy('id', 'desc')
             ->take(3)
             ->get();
-
+        
         $data['activities'] = Activity::with('attachments')->ofStatus(1)->take(3)->get();
 
         $data['organizers'] = Organizer::with('account', 'attachments')->take(3)->get();
