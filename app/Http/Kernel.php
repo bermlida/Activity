@@ -54,6 +54,7 @@ class Kernel extends HttpKernel
         'exist-organizer' => \App\Http\Middleware\ExistResource\Organizer::class,
         'exist-organise-activity' => \App\Http\Middleware\ExistResource\OrganiseActivity::class,
         'exist-participate-record' => \App\Http\Middleware\ExistResource\ParticipateRecord::class,
+        'exist-register-certificate' => \App\Http\Middleware\ExistResource\RegisterCertificate::class,
         'judge-role' => \App\Http\Middleware\JudgeRole::class,
         'verify-social-provider' => \App\Http\Middleware\VerifySocialProvider::class,
     ];

@@ -22,6 +22,10 @@ Route::get('/activity-management', function () {
     return view('organise.activity-management');
 });
 
+Route::get('/test', function () {
+    return view('test');
+});
+
 Route::group([
     'as' => 'visit::'
 ], function () {
@@ -109,8 +113,7 @@ Route::group([
     ], function () {
         Route::get('/view', 'RecordController@info')->name('view');
 
-        Route::get('/register', 'RecordController@showRegister')->name('register::confirm');
-        Route::put('/register', 'RecordController@register')->name('register');
+        Route::get('/register', 'RegisterController@index')->name('register-certificate');
 
         Route::get('/cancel', 'RecordController@showCancel')->name('cancel::confirm');
         Route::put('/cancel', 'RecordController@cancel')->name('cancel');
@@ -139,6 +142,21 @@ Route::group([
         Route::put('/launch', 'ActivityController@launch')->name('launch');
         Route::put('/discontinue', 'ActivityController@discontinue')->name('discontinue');
         Route::delete('/delete', 'ActivityController@delete')->name('delete');
+
+        Route::group([
+            'prefix' => '/register-certificates',
+            'as' => 'register-certificate::'
+        ], function () {
+            Route::get('/scan', 'RegisterController@scan')->name('scan');
+
+            Route::group([
+                'prefix' => '/{certificate}',
+                'middleware' => 'exist-register-certificate'
+            ], function () {
+                Route::put('/use', 'RegisterController@use')->name('use');
+                Route::get('/info', 'RegisterController@info')->name('info');
+            });
+        });
 
         Route::get('/applicants', 'ActivityController@applicants')->name('applicants');
 

@@ -59,22 +59,6 @@ class RecordController extends Controller
     }
 
     /**
-     * 顯示報到憑證的QR Code及報名相關資料的畫面。
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showRegister($record)
-    {
-        $data['order'] = Order::where('serial_number', $record)->first();
-
-        $data['transaction'] = $data['order']->transactions()->first();
-
-        $data['qr_code'] = (new QRCode('test', new QRImage()))->output();
-
-        return view('participate.register', $data);
-    }
-
-    /**
      * 顯示取消特定活動報名的確認畫面。
      *
      * @return \Illuminate\Http\Response
