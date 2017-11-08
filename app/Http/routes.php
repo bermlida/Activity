@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-//test
+
 Route::get('/', 'IndexController@index');
 
 Route::get('/error', function () {
