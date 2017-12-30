@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\Organizer;
@@ -36,5 +37,11 @@ class IndexController extends Controller
         $data['organizers'] = Organizer::with('account', 'attachments')->take(3)->get();
 
         return view('index', $data);
+        // phpinfo();
+        // print '<pre>test1712110130<br>';
+        // var_dump(DB::select('SHOW TABLES;'));
+        // var_dump(DB::select('SHOW COLUMNS FROM activities;'));
+        // var_dump(Activity::count());
+        // https://nifty-atlas-125208.appspot.com/
     }
 }

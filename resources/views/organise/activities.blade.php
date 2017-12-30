@@ -83,22 +83,16 @@
                                         </td>
                                         <td>{{ $activity->venue }}</td>
                                         <td>
+                                            <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
+                                                管理
+                                            </a>
+                                            <a class="btn btn-default" href="{{ route('visit::activity', [$activity]) }}" role="button">
+                                                預覽
+                                            </a>
                                             <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::discontinue', [$activity]) }}')">
                                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
                                                 下架
                                             </button>
-                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}" role="button">
-                                                檢視
-                                            </a>
-                                            <a class="btn btn-warning" href="{{ route('organise::activity::modify', [$activity]) }}" role="button">
-                                                變更
-                                            </a>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::applicants', [$activity]) }}" role="button">
-                                                報名清單
-                                            </a>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::message::list', [$activity]) }}" role="button">
-                                                訊息通知
-                                            </a>
                                         </td>
                                     </tr>
                                 @empty
@@ -154,19 +148,16 @@
                                         </td>
                                         <td>{{ $activity->venue }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::launch', [$activity]) }}')">
+                                            <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
+                                                管理
+                                            </a>
+                                            <a class="btn btn-default" href="{{ route('visit::activity', [$activity]) }}" role="button">
+                                                預覽
+                                            </a>
+                                            <button type="button" class="btn btn-success" onclick="update('{{ route('organise::activity::launch', [$activity]) }}')">
                                                 <i class="fa fa-arrow-up" aria-hidden="true"></i>
                                                 上架
                                             </button>
-                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}" role="button">
-                                                檢視
-                                            </a>
-                                            <a class="btn btn-warning" href="{{ route('organise::activity::modify', [$activity]) }}" role="button">
-                                                變更
-                                            </a>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::message::list', [$activity]) }}" role="button">
-                                                訊息通知
-                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -212,11 +203,14 @@
                                         </td>
                                         <td>{{ $activity->venue }}</td>
                                         <td>
-                                            <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}" role="button">
+                                            <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
+                                                管理
+                                            </a>
+                                            <a class="btn btn-default" href="{{ route('visit::activity', [$activity]) }}" role="button">
                                                 檢視
                                             </a>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::modify', [$activity]) }}" role="button">
-                                                編輯
+                                            <a class="btn btn-success" href="" role="button">
+                                                發佈
                                             </a>
                                             <button type="button" class="btn btn-danger" onclick="remove('{{ route('organise::activity::delete', [$activity]) }}')">
                                                 刪除
@@ -268,12 +262,6 @@
                                         <td>
                                             <a class="btn btn-success" href="{{ route('visit::activity', [$activity]) }}" role="button">
                                                 檢視
-                                            </a>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::applicants', [$activity]) }}" role="button">
-                                                報名清單
-                                            </a>
-                                            <a class="btn btn-info" href="{{ route('organise::activity::message::list', [$activity]) }}" role="button">
-                                                訊息通知
                                             </a>
                                         </td>
                                     </tr>

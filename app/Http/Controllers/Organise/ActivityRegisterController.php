@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class RegisterController extends Controller
+class ActivityRegisterController extends Controller
 {
     /**
      * 更新報到狀態。
@@ -17,7 +17,7 @@ class RegisterController extends Controller
      */
     public function scan()
     {
-        return view('organise.register-certificate-scan');
+        return view('organise.activity-register-certificate-scan');
     }
     
     /**

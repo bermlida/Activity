@@ -137,6 +137,7 @@ Route::group([
         'prefix' => '/{activity}',
         'middleware' => 'exist-organise-activity'
     ], function () {
+        Route::get('/info', 'ActivityController@info')->name('info');
         Route::get('/edit', 'ActivityController@edit')->name('modify');
         Route::put('/update', 'ActivityController@update')->name('update');
         Route::put('/launch', 'ActivityController@launch')->name('launch');
@@ -147,18 +148,24 @@ Route::group([
             'prefix' => '/register-certificates',
             'as' => 'register-certificate::'
         ], function () {
-            Route::get('/scan', 'RegisterController@scan')->name('scan');
+            Route::get('/scan', 'ActivityRegisterController@scan')->name('scan');
 
             Route::group([
                 'prefix' => '/{certificate}',
                 'middleware' => 'exist-register-certificate'
             ], function () {
-                Route::put('/use', 'RegisterController@use')->name('use');
-                Route::get('/info', 'RegisterController@info')->name('info');
+                Route::put('/use', 'ActivityRegisterController@use')->name('use');
+                Route::get('/info', 'ActivityRegisterController@info')->name('info');
             });
         });
 
-        Route::get('/applicants', 'ActivityController@applicants')->name('applicants');
+        Route::group([
+            'prefix' => '/applicants',
+            'as' => 'applicant::'
+        ], function () {
+            Route::get('/', 'ActivityApplicantController@index')->name('list');
+        });
+        
 
         Route::group([
             'prefix' => '/messages',

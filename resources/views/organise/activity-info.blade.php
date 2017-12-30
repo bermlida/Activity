@@ -30,8 +30,8 @@
             <!-- Blog Entries Column -->
             <div class="col-md-9">
                 <!-- First Blog Post -->
-                <a href="blog-post.html">
-                    <img class="img-responsive img-hover" src="http://placehold.it/900x300" alt="">
+                <a href="{{ route('organise::activity::modify', [$activity]) }}">
+                    <img class="img-responsive img-hover" style="width:900px; height:300px" src="{{ !is_null($activity_banner) ? asset('/storage/banners/' . $activity_banner->name) : 'http://placehold.it/900x300' }}" alt="{{ $activity->name }}">
                 </a>
             </div>
 
@@ -39,9 +39,20 @@
             <div class="col-md-3">
                 <!-- Side Widget Well -->
                 <div class="well">
-                    <h4>活動名稱</h4>
-                    <p>時間</p>
-                    <p>地點</p>
+                    <h4>{{ $activity->name }}</h4>
+                    <p>
+                        @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                            {{ $activity->start_time->format('Y-m-d H:i') }}
+                             ~ 
+                            {{ $activity->end_time->format('Y-m-d H:i') }}
+                        @else
+                            {{ $activity->start_time->toDateString() }}
+                            {{ $activity->start_time->format('H:i') }}
+                             ~ 
+                            {{ $activity->end_time->format('H:i') }}
+                        @endif
+                    </p>
+                    <p>{{ $activity->venue }}</p>
                 </div>
             </div>
         </div>
@@ -56,12 +67,12 @@
                         <h4>報名</h4>
                     </div>
                     <div class="panel-body">
-                        <a class="btn btn-primary btn-lg btn-block" href="">
+                        <a class="btn btn-primary btn-lg btn-block" role="button" href="{{ route('organise::activity::register-certificate::scan', [$activity]) }}">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                             掃描報到憑證
                         </a>
                         <hr>
-                        <a class="btn btn-primary btn-lg btn-block" href="">
+                        <a class="btn btn-primary btn-lg btn-block" role="button" href="{{ route('organise::activity::applicants::list', [$activity]) }}">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                             報名清單
                         </a>
@@ -77,12 +88,12 @@
                     <div class="panel-body">
                         <a class="btn btn-primary btn-lg btn-block" href="">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                            直播設定
+                            直播
                         </a>
                         <hr>
-                        <a class="btn btn-primary btn-lg btn-block" href="">
+                        <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::message::list', [$activity]) }}" role="button">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                            推送設定
+                            訊息推送
                         </a>
                     </div>
                 </div>

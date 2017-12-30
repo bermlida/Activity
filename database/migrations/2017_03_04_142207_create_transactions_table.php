@@ -24,7 +24,8 @@ class CreateTransactionsTable extends Migration
             $table->integer('status');
             $table->string('status_info')->nullable();
 
-            $table->foreign('order_serial_number')
+            $table
+                ->foreign('order_serial_number')
                 ->references('serial_number')->on('orders')
                 ->onDelete('cascade');
 

@@ -23,7 +23,8 @@ class CreateActivitiesTable extends Migration
             $table->text('intro');
 
             $table->bigInteger('organizer_id')->unsigned();
-            $table->foreign('organizer_id')
+            $table
+                ->foreign('organizer_id')
                 ->references('id')->on('organizers')
                 ->onDelete('cascade');
 

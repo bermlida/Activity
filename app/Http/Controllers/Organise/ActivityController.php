@@ -53,6 +53,22 @@ class ActivityController extends Controller
     }
 
     /**
+     * 顯示單一活動的資訊畫面。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function info($activity)
+    {
+        $data['organizer'] = (Auth::user())->profile;
+        
+        $data['activity'] = $data['organizer']->activities()->find($activity);
+
+        $data['activity_banner'] = $data['activity']->attachments()->IsBanner()->first();
+
+        return view('organise.activity-info', $data);
+    }
+
+    /**
      * 顯示單一活動的新增 / 編輯畫面。
      *
      * @return \Illuminate\Http\Response
@@ -240,39 +256,5 @@ class ActivityController extends Controller
         $data['message'] = $data['result'] ? '活動已下架' : '活動下架失敗';
 
         return response()->json($data);
-    }
-
-    /**
-     * 取得單一活動的報名列表。
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function applicants($activity, Request $request)
-    {
-        $organizer = (Auth::user())->profile;
-
-        $activity = $organizer->activities()->find($activity);
-
-        $data['completed_orders'] = $activity->orders()
-            ->where('status', 1)
-            ->paginate(10, ['*'], 'completed_page');
-
-        $data['unpaid_orders'] = $activity->orders()
-            ->where('status', 0)
-            ->has('transactions')
-            ->paginate(10, ['*'], 'unpaid_page');
-
-        $data['cancelled_orders'] = $activity->orders()
-            ->where('status', -1)
-            ->whereHas('transactions', function ($query) {
-                $query->where('status', 1);
-            })
-            ->paginate(10, ['*'], 'cancelled_orders');
-
-        $data['url_query'] = $request->only('completed_page', 'unpaid_page', 'cancelled_page');
-
-        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'completed';
-        
-        return view('account.applicants', $data);
     }
 }
