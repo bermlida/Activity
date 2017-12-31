@@ -72,7 +72,7 @@
                             掃描報到憑證
                         </a>
                         <hr>
-                        <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::applicants::list', [$activity]) }}" role="button">
+                        <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::applicant::list', [$activity]) }}" role="button">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                             報名清單
                         </a>

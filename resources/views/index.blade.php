@@ -63,14 +63,14 @@
                         </h3>
                     </div>
                     <div class="panel panel-default">
-                        @php
-                            $banner = $activity->attachments->first(function ($key, $value) {
-                                return $value->category == 'banner';
-                            });
+                        @php  
+                            // $banner = $activity->attachments->first(function ($key, $value) {
+                            //     return $value->category == 'banner';
+                            // });
 
-                            $banner_path = !is_null($banner)
-                                ? asset('storage/banners/' . $banner->name)
-                                : 'http://placehold.it/1050x450';
+                            // $banner_path = !is_null($banner)
+                            //     ? asset('storage/banners/' . $banner->name)
+                            //     : 'http://placehold.it/1050x450';
                         @endphp
                         <a href="{{ route('visit::activity', [$activity]) }}">
                             <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
@@ -114,7 +114,7 @@
                     </div>
                     <div class="panel panel-default">
                         @php
-                            $banner = $activity->attachments->first(function ($key, $value) {
+                            $banner = $organizer->attachments->first(function ($key, $value) {
                                 return $value->category == 'banner';
                             });
 

@@ -18,13 +18,13 @@ Route::get('/error', function () {
     return 'error';
 });
 
-Route::get('/activity-management', function () {
-    return view('organise.activity-management');
-});
+// Route::get('/activity-management', function () {
+//     return view('organise.activity-management');
+// });
 
-Route::get('/test', function () {
-    return view('test');
-});
+// Route::get('/test', function () {
+//     return view('test');
+// });
 
 Route::group([
     'as' => 'visit::'

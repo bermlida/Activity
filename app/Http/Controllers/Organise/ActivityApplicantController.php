@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Organise;
 
+use Auth;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

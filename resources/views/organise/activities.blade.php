@@ -89,7 +89,7 @@
                                             <a class="btn btn-default" href="{{ route('visit::activity', [$activity]) }}" role="button">
                                                 預覽
                                             </a>
-                                            <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::discontinue', [$activity]) }}')" role="button">
+                                            <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::discontinue', [$activity]) }}')">
                                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
                                                 下架
                                             </button>
@@ -154,7 +154,7 @@
                                             <a class="btn btn-default" href="{{ route('visit::activity', [$activity]) }}" role="button">
                                                 預覽
                                             </a>
-                                            <button type="button" class="btn btn-success" onclick="update('{{ route('organise::activity::launch', [$activity]) }}')" role="button">
+                                            <button type="button" class="btn btn-success" onclick="update('{{ route('organise::activity::launch', [$activity]) }}')">
                                                 <i class="fa fa-arrow-up" aria-hidden="true"></i>
                                                 上架
                                             </button>
@@ -209,10 +209,10 @@
                                             <a class="btn btn-default" href="{{ route('visit::activity', [$activity]) }}" role="button">
                                                 預覽
                                             </a>
-                                            <a class="btn btn-success" href="update('{{ route('organise::activity::publish', [$activity]) }}')" role="button">
+                                            <button type="button" class="btn btn-default" onclick="update('{{ route('organise::activity::publish', [$activity]) }}')">
                                                 發布
-                                            </a>
-                                            <button type="button" class="btn btn-danger" onclick="remove('{{ route('organise::activity::delete', [$activity]) }}')" role="button">
+                                            </button>
+                                            <button type="button" class="btn btn-danger" onclick="remove('{{ route('organise::activity::delete', [$activity]) }}')">
                                                 刪除
                                             </button>
                                         </td>

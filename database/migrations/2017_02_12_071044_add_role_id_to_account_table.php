@@ -27,9 +27,9 @@ class AddRoleIdToAccountTable extends Migration
     public function down()
     {
         Schema::table('accounts', function ($table) {
-            $table->dropColumn('role_id');
-
             $table->dropForeign('accounts_role_id_foreign');
+            
+            $table->dropColumn('role_id');
         });
     }
 }

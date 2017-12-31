@@ -34,6 +34,58 @@ class Activity extends Model
     ];
 
     /**
+     * 設定活動開始時間。
+     *
+     * @param  string|null  $value
+     * @return string
+     */
+    public function setStartTimeAttribute($value)
+    {
+        $value = is_string($value) ? $value . ':00' : $value;
+        
+        $this->attributes['start_time'] = $value;
+    }
+
+    /**
+     * 設定活動結束時間。
+     *
+     * @param  string|null  $value
+     * @return string
+     */
+    public function setEndTimeAttribute($value)
+    {
+        $value = is_string($value) ? $value . ':00' : $value;
+        
+        $this->attributes['end_time'] = $value;
+    }
+
+    /**
+     * 設定報名開始時間。
+     *
+     * @param  string|null  $value
+     * @return string
+     */
+    public function setApplyStartTimeAttribute($value)
+    {
+        $value = is_string($value) ? $value . ':00' : $value;
+        
+        $this->attributes['apply_start_time'] = $value;
+    }
+
+    /**
+     * 設定報名結束時間。
+     *
+     * @param  string|null  $value
+     * @return string
+     */
+    public function setApplyEndTimeAttribute($value)
+    {
+        $value = is_string($value) ? $value . ':00' : $value;
+        
+        $this->attributes['apply_end_time'] = $value;
+    }
+
+    /**
      * 建立中介資料表的模型。
      *
      * @param  \Illuminate\Database\Eloquent\Model  $parent
