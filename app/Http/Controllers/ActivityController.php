@@ -19,7 +19,7 @@ class ActivityController extends Controller
     }
 
     /**
-     * 顯示已發佈活動的列表畫面。
+     * 顯示已發布活動的列表畫面。
      *
      * @return \Illuminate\Http\Response
      */
@@ -33,7 +33,7 @@ class ActivityController extends Controller
     }
 
     /**
-     * 顯示已發佈活動的資訊畫面。
+     * 顯示已發布活動的資訊畫面。
      *
      * @return \Illuminate\Http\Response
      */

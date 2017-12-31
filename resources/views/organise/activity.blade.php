@@ -291,7 +291,7 @@
                             </div>
                             <div class="col-md-5 col-xs-5">
                                 <button type="button" class="btn btn-success" name="publish">
-                                    儲存後發佈
+                                    儲存後發布
                                 </button>
                             </div>
                         {{-- </div> --}}

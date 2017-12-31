@@ -145,7 +145,7 @@ class AuthController extends Controller
      */
     public function registerOrganizer(StoreOrganizerRequest $request)
     {
-        $result = DB::transaction(function () {
+        $result = DB::transaction(function () use ($request) {
             $profile = Organizer::create($request->all());
 
             $profile->account()->save(

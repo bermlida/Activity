@@ -219,6 +219,26 @@ class ActivityController extends Controller
     }
 
     /**
+     * 發布單一活動
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function publish($activity)
+    {
+        $organizer = Auth::user()->profile;
+
+        $activity = $organizer->activities()->find($activity);
+
+        $activity->status = 1;
+
+        $data['result'] = $activity->save();
+
+        $data['message'] = $data['result'] ? '活動已發布' : '活動發布失敗';
+
+        return response()->json($data);
+    }
+
+    /**
      * 設定單一活動的狀態為上架。
      *
      * @return \Illuminate\Http\Response

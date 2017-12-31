@@ -67,12 +67,12 @@
                         <h4>報名</h4>
                     </div>
                     <div class="panel-body">
-                        <a class="btn btn-primary btn-lg btn-block" role="button" href="{{ route('organise::activity::register-certificate::scan', [$activity]) }}">
+                        <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::register-certificate::scan', [$activity]) }}" role="button">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                             掃描報到憑證
                         </a>
                         <hr>
-                        <a class="btn btn-primary btn-lg btn-block" role="button" href="{{ route('organise::activity::applicants::list', [$activity]) }}">
+                        <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::applicants::list', [$activity]) }}" role="button">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                             報名清單
                         </a>
@@ -126,12 +126,12 @@
                     <div class="panel-body">
                         <a class="btn btn-primary btn-lg btn-block" href="">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                            日誌管理
+                            活動日誌
                         </a>
                         <hr>
                         <a class="btn btn-primary btn-lg btn-block" href="">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                            影音管理
+                            直播影音
                         </a>
                     </div>
                 </div>

@@ -24,9 +24,10 @@
         <td>{{ !is_null($message->sending_time) ? $message->sending_time->format('Y-m-d H:i') : '' }}</td>
         <td>
             @if ($message->status == 1)
-                <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::message::cancel', [$message->activity, $message]) }}')">取消發送</button>
-            @endif
-            @if ($message->status != 2)
+                @if (!is_null($message->sending_time) && $message->sending_time >= $carbon->now()->format('Y-m-d H:i'))
+                    <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::message::cancel', [$message->activity, $message]) }}')">取消發送</button>
+                @endif
+            @elseif ($message->status == 0)
                 <a class="btn btn-info" href="{{
                     route('organise::activity::message::modify', [$message->activity, $message])
                 }}" role="button">編輯</a>

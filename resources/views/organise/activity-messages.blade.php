@@ -13,7 +13,7 @@
             <div class="col-lg-12">
                 <h1 class="page-header">活動訊息
                     <small></small>
-                    <a class="btn btn-default" href="{{ route('organise::activity::message::create', [$activity]) }}">
+                    <a class="btn btn-default" href="{{ route('organise::activity::message::create', [$activity]) }}" role="button">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         新增訊息
                     </a>

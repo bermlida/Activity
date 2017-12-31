@@ -140,6 +140,7 @@ Route::group([
         Route::get('/info', 'ActivityController@info')->name('info');
         Route::get('/edit', 'ActivityController@edit')->name('modify');
         Route::put('/update', 'ActivityController@update')->name('update');
+        Route::put('/publish', 'ActivityController@publish')->name('publish');
         Route::put('/launch', 'ActivityController@launch')->name('launch');
         Route::put('/discontinue', 'ActivityController@discontinue')->name('discontinue');
         Route::delete('/delete', 'ActivityController@delete')->name('delete');
@@ -180,8 +181,8 @@ Route::group([
             ], function () {
                 Route::get('/edit', 'ActivityMessageController@edit')->name('modify');
                 Route::put('/update', 'ActivityMessageController@save')->name('update');
-                Route::delete('/delete', 'ActivityMessageController@delete')->name('delete');
                 Route::put('/cancel', 'ActivityMessageController@cancel')->name('cancel');
+                Route::delete('/delete', 'ActivityMessageController@delete')->name('delete');
             });
         });
     });
