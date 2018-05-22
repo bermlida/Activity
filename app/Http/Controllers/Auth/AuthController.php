@@ -170,56 +170,111 @@ class AuthController extends Controller
     }
 
     /**
-     * 重導使用者到社群認證頁面。
+     * 顯示以社群認證註冊會員或主辦單位的畫面。
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider($social_provider)
+    public function redirectToRegister($social_provider)
     {
-        return Socialite::driver($social_provider)->redirect();
+        return view('auth.register-user-or-organzier');
     }
 
     /**
-     * 從社群認證提供者取得使用者資訊
+     * 因為註冊帳戶之需要，重導使用者到社群認證頁面。
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function askForRegister($social_provider, Request $request)
+    {
+        return Socialite::driver($social_provider)
+                    ->redirectUrl($request->url() . '/callback')
+                    ->redirect();
+    }
+
+    /**
+     * 因為帳戶登入之需要，重導使用者到社群認證頁面。
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function askForLogin($social_provider, Request $request)
+    {
+        return Socialite::driver($social_provider)
+                    ->redirectUrl($request->url() . '/callback')
+                    ->redirect();
+    }
+
+    /**
+     * 從社群認證提供者取得使用者資訊進行註冊
      *
      * @return Response
      */
-    public function handleProviderCallback($social_provider, Request $request)
+    public function replyForRegister($social_provider, $role, Request $request)
     {
         $user = Socialite::driver($social_provider)->user();
 
         if (Account::where('email', $user->getEmail())->count() == 0) {
-            $profile = User::create([
-                'name' => $user->getName(),
-                'mobile_country_calling_code' => '',
-                'mobile_phone' => ''
-            ]);
+            if ($role == 'user') {
+                $profile = new User([
+                    'name' => $user->getName(),
+                    'mobile_country_calling_code' => '', 'mobile_phone' => ''
+                ]);
 
-            $result = $profile->account()->save(
-                (new Account)->forceFill([
-                    'email' => $user->getEmail(),
-                    'password' => bcrypt('1234567890'),
-                    'role_id' => 1
-                ])
-            );
-        } else {
-            $result = true;
+                $role_id = 1;
+            } elseif ($role == 'organizer') {
+                $profile = new Organizer([
+                    'name' => $user->getName(),
+                    'address' => '',
+                    'phone' => '', 'fax' => '',
+                    'mobile_country_calling_code' => '', 'mobile_phone' => '',
+                    'intro' => ''
+                ]);
+
+                $role_id = 2;
+            }
+
+            $result = DB::transaction(function () use ($profile, $role_id) {
+                $profile->save();
+
+                $result = $profile->account()->save(
+                    (new Account)->forceFill([
+                        'email' => $user->getEmail(),
+                        'password' => bcrypt('1234567890'),
+                        'role_id' => $role_id
+                    ])
+                );
+
+                return !empty($profile->id) && !is_null($profile->account);
+            });
         }
 
         if ($result) {
-            $account = Account::where('email', $user->getEmail())->first();
+            return $this->handleUserWasAuthenticated($request, true);
+        } else {
+            if ($role == 'user') {
+                return redirect()->route('register::user');
+            } elseif ($role == 'organizer') {
+                return redirect()->route('register::organizer');
+            } else {
+                return redirect()->route('register::organizer');
+            }
+        }
+    }
 
-            return '
-                <form style="display:none" id="__form" method="POST" action="' . url('/login') . '">
-                    ' . csrf_field() . '
-                    <input name="email" value="' . $account->email . '">
-                    <input name="password" value="1234567890">
-                    <input name="remeber">
-                </form>
-                <script type="text/javascript">
-                    document.getElementById("__form").submit();
-                </script>
-            ';
+    /**
+     * 從社群認證提供者取得使用者資訊進行登入
+     *
+     * @return Response
+     */
+    public function replyForLogin($social_provider, Request $request)
+    {
+        $user = Socialite::driver($social_provider)->user();
+
+        $account = Account::where('email', $user->getEmail())->first();
+
+        if (!is_null($account)) {
+            return $this->handleUserWasAuthenticated($request, true);
+        } else {
+            return redirect()->route('social-auth::register');
         }
     }
 }

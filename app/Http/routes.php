@@ -61,8 +61,24 @@ Route::group([
     'middleware' => 'verify-social-provider',
     'as' => 'social-auth::'
 ], function () {
-    Route::get('/ask', 'AuthController@redirectToProvider')->name('ask');
-    Route::get('/reply', 'AuthController@handleProviderCallback')->name('reply');
+    Route::get('/register', 'AuthController@redirectToRegister')->name('register');
+    
+    Route::group([
+        'prefix' => '/register/{role}',
+        'where' => ['role' => '(organizer|user)'],
+        'as' => 'register::'
+    ], function () {
+        Route::get('/', 'AuthController@askForRegister')->name('ask');
+        Route::get('/callback', 'AuthController@replyForRegister')->name('reply');
+    });
+    
+    Route::group([
+        'prefix' => '/login',
+        'as' => 'login::'
+    ], function () {
+        Route::get('/', 'AuthController@askForLogin')->name('ask');
+        Route::get('/callback', 'AuthController@replyForLogin')->name('reply');
+    });
 });
 
 Route::group([
