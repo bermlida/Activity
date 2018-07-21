@@ -11,11 +11,11 @@
     <title>精進之門 - 佛教活動平台</title>
     
     <!-- Bootstrap CSS -->
-    <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap-theme.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('components/bootstrap/dist/css/bootstrap-theme.min.css') }}" rel="stylesheet">
 
     <!-- Font Awesome CSS -->
-    <link href="{{asset('bower_components/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet">
@@ -151,11 +151,11 @@
     @yield('content')
     
     <!-- jQuery Javascript -->
-    <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
-    {{-- <script src="{{ asset('bower_components/jquery/dist/jquery.slim.min.js') }}"></script> --}}
+    <script src="{{ asset('components/jquery/dist/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('components/jquery/dist/jquery.slim.min.js') }}"></script> --}}
 
     <!-- Bootstrap JavaScript -->
-    <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- Script to Activate the Carousel -->
     <script>

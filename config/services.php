@@ -38,13 +38,13 @@ return [
     'facebook' => [
         'client_id' => '1300993716649012',
         'client_secret' => '6f3e4abf05b2ce66923dea15d30b3bcf',
-        'redirect' => 'http://activity.app/social-auth/facebook/reply',
+        'redirect' => 'http://activity.apps/social-auth/facebook/reply',
     ],
 
     'google' => [
         'client_id' => '543556594150-5gb2jddp31iudbp7j76pd4l9gei3n8ag.apps.googleusercontent.com',
         'client_secret' => 'CZ6M13XdGwAbZIqgcxOfgJgb',
-        'redirect' => 'http://activity.app/social-auth/google/reply',
+        'redirect' => 'http://activity.apps/social-auth/google/reply',
     ],
 
     'mailgun' => [

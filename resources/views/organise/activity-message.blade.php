@@ -6,11 +6,11 @@
 @section('style')
 
     <!-- Summernote CSS -->
-    <link href="{{ asset('bower_components/summernote/dist/summernote.css') }}" rel="stylesheet">
+    <link href="{{ asset('components/summernote/dist/summernote.css') }}" rel="stylesheet">
 
     <!-- Bootstrap Datetime Picker CSS -->
-    <link href="{{ asset('bower_components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bower_components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker-standalone.css') }}" rel="stylesheet">
+    <link href="{{ asset('components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker-standalone.css') }}" rel="stylesheet">
 
 @endsection
 
@@ -245,13 +245,13 @@
     {{-- <script src="js/jqBootstrapValidation.js"></script> --}}
 
     <!-- Summernote JavaScript -->
-    <script src="{{ asset('bower_components/summernote/dist/summernote.min.js') }}"></script>
+    <script src="{{ asset('components/summernote/dist/summernote.min.js') }}"></script>
 
     <!-- Moment JavaScript -->
-    <script src="{{ asset('bower_components/moment/min/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('components/moment/min/moment-with-locales.min.js') }}"></script>
 
     <!-- Bootstrap Datetime Picker JavaScript -->
-    <script src="{{ asset('bower_components/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {

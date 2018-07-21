@@ -21,7 +21,13 @@ class Organizer extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'address', 'phone', 'fax', 'mobile_phone', 'intro'];
+    protected $fillable = [
+        'name',
+        'address',
+        'phone', 'fax',
+        'mobile_country_calling_code', 'mobile_phone',
+        'intro'
+    ];
 
     /**
      * 取得主辦單位的帳號資訊。

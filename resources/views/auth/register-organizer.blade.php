@@ -4,7 +4,7 @@
 @section('style')
 
     <!-- Bootstrap Social CSS -->
-    <link href="{{ asset('bower_components/bootstrap-social/bootstrap-social.css') }}" rel="stylesheet">
+    <link href="{{ asset('components/bootstrap-social/bootstrap-social.css') }}" rel="stylesheet">
 
 @endsection
 
@@ -14,19 +14,10 @@
 
         <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                @if (!is_null(session('message_type')) && !is_null(session('message_body')))
-                    <div class="alert alert-{{ session('message_type') }}" role="alert">
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        {{ session('message_body') }}
-                    </div>
-                @endif
-                <h1 class="page-header">
-                    註冊為主辦單位
-                </h1>
+            <div class="col-xs-12">
+                @include('partials.alert-message')
+                
+                <h1 class="page-header">註冊為主辦單位</h1>
             </div>
         </div>
         <!-- /.row -->
@@ -76,6 +67,34 @@
                         </div>
                     </div>
 
+                    <div class="form-group{{ $errors->has('mobile_country_calling_code') || $errors->has('mobile_phone') ? ' has-error' : '' }}">
+                        <label for="mobile_phone" class="col-sm-4 control-label">手機號碼</label>
+
+                        <div class="col-sm-6">
+                            <select class="form-control" name="mobile_country_calling_code">
+                                @foreach (config('constant.CountryCallingCodes') as $code => $code_name)
+                                    @if ($code == old('mobile_country_calling_code'))
+                                        <option value="{{ $code }}" selected>{{ $code_name }}</option>
+                                    @else
+                                        <option value="{{ $code }}">{{ $code_name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{ old('mobile_phone') }} ">
+                            
+                            @if ($errors->has('mobile_country_calling_code'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('mobile_country_calling_code') }}</strong>
+                                </span>
+                            @endif 
+                            @if ($errors->has('mobile_phone'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('mobile_phone') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <label for="email" class="col-sm-4 control-label">電子郵件</label>
 
@@ -119,9 +138,9 @@
                     </div>
                         
                     <div class="form-group">
-                        <div class="col-sm-6 col-sm-offset-4">
+                        <div class="col-sm-6 col-xs-offset-4">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-building" aria-hidden="true"></i>
+                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
                                 註冊
                             </button>
                         </div>
@@ -129,20 +148,25 @@
                 </form>
             </div>
 
+            <div class="col-xs-12 visible-xs-block">
+                <hr>
+            </div>
+
             <div class="col-sm-4 col-xs-12">
                 <div class="col-sm-12 col-xs-12">
-                    <div class="form-group">
-                        <a class="btn btn-block btn-social btn-facebook" href="{{ route('social-auth::register::ask', ['social_provider' => 'facebook', 'role' => 'organizer']) }}">
-                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                            以 Facebook 登入
-                        </a>
+                    <a class="btn btn-block btn-social btn-facebook" href="{{ route('social-auth::register::ask', ['social_provider' => 'facebook', 'role' => 'organizer']) }}" role="button">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        以 Facebook 登入
+                    </a>
+                    
+                    <div class="col-xs-12">
+                        <br>
                     </div>
-                    <div class="form-group">
-                        <a class="btn btn-block btn-social btn-google" href="{{ route('social-auth::register::ask', ['social_provider' => 'google', 'role' => 'organizer']) }}">
-                            <i class="fa fa-google" aria-hidden="true"></i>
-                            以 Google+ 登入
-                        </a>
-                    </div>
+                    
+                    <a class="btn btn-block btn-social btn-google" href="{{ route('social-auth::register::ask', ['social_provider' => 'google', 'role' => 'organizer']) }}" role="button">
+                        <i class="fa fa-google" aria-hidden="true"></i>
+                        以 Google+ 登入
+                    </a>
                 </div>
             </div>
         </div>

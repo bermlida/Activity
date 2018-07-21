@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "Activity",
+    "description": "The Buddha Activity Platform",
+    "keywords": ["Buddha Activity Platform"],
     "license": "MIT",
     "type": "project",
     "require": {

@@ -57,7 +57,8 @@ class InfoController extends Controller
                     'address' => 'required|string|max:512',
                     'phone' => 'required|string|max:30',
                     'fax' => 'sometimes|string|max:30',
-                    'mobile_phone' => 'sometimes|string|max:30',
+                    'mobile_country_calling_code' => 'required|string|max:15',
+                    'mobile_phone' => 'required|string|max:30',
                     'intro' => 'required|string',
                     'photo' => 'sometimes|image|mimes:jpeg,bmp,png,gif,svg|dimensions:width=750,height=450'
                 ];

@@ -3,18 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use DB;
+use Auth;
 use Socialite;
 use Validator;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Illuminate\Http\Request;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreOrganizerRequest;
-use App\Http\Requests\StoreUserRequest;
+use App\Models\User;
 use App\Models\Account;
 use App\Models\Organizer;
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\StoreOrganizerRequest;
 
 class AuthController extends Controller
 {
@@ -176,7 +177,7 @@ class AuthController extends Controller
      */
     public function redirectToRegister($social_provider)
     {
-        return view('auth.register-user-or-organzier');
+        return view('auth.register-user-or-organizer', ['social_provider' => $social_provider]);
     }
 
     /**
@@ -210,7 +211,9 @@ class AuthController extends Controller
      */
     public function replyForRegister($social_provider, $role, Request $request)
     {
-        $user = Socialite::driver($social_provider)->user();
+        $user = Socialite::driver($social_provider)
+                    ->redirectUrl($request->url())
+                    ->user();
 
         if (Account::where('email', $user->getEmail())->count() == 0) {
             if ($role == 'user') {
@@ -232,10 +235,10 @@ class AuthController extends Controller
                 $role_id = 2;
             }
 
-            $result = DB::transaction(function () use ($profile, $role_id) {
+            $result = DB::transaction(function () use ($user, $profile, $role_id) {
                 $profile->save();
 
-                $result = $profile->account()->save(
+                $profile->account()->save(
                     (new Account)->forceFill([
                         'email' => $user->getEmail(),
                         'password' => bcrypt('1234567890'),
@@ -245,17 +248,23 @@ class AuthController extends Controller
 
                 return !empty($profile->id) && !is_null($profile->account);
             });
+        } else {
+            $result = true;
         }
 
         if ($result) {
-            return $this->handleUserWasAuthenticated($request, true);
+            $account = Account::where('email', $user->getEmail())->first();
+
+            Auth::login($account);
+
+            return redirect()->intended($this->redirectPath());
         } else {
             if ($role == 'user') {
                 return redirect()->route('register::user');
             } elseif ($role == 'organizer') {
                 return redirect()->route('register::organizer');
             } else {
-                return redirect()->route('register::organizer');
+                return redirect()->route('social-auth::register', ['social_provider' => $social_provider]);
             }
         }
     }
@@ -267,14 +276,18 @@ class AuthController extends Controller
      */
     public function replyForLogin($social_provider, Request $request)
     {
-        $user = Socialite::driver($social_provider)->user();
+        $user = Socialite::driver($social_provider)
+                    ->redirectUrl($request->url())
+                    ->user();
 
         $account = Account::where('email', $user->getEmail())->first();
 
         if (!is_null($account)) {
-            return $this->handleUserWasAuthenticated($request, true);
+            Auth::login($account);
+
+            return redirect()->intended($this->redirectPath());
         } else {
-            return redirect()->route('social-auth::register');
+            return redirect()->route('social-auth::register', ['social_provider' => $social_provider]);
         }
     }
 }

@@ -7,33 +7,23 @@
 
         <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                @if (!is_null(session('message_type')) && !is_null(session('message_body')))
-                    <div class="alert alert-{{ session('message_type') }}" role="alert">
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        {{ session('message_body') }}
-                    </div>
-                @endif
-                <h1 class="page-header">
-                     基本資料
-                    <small></small>
-                </h1>
+            <div class="col-xs-12">
+                @include('partials.alert-message')
+
+                <h1 class="page-header">基本資料</h1>
             </div>
         </div>
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12">
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('account::info::save') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">名稱</label>
+                        <label for="name" class="col-sm-4 control-label">名稱</label>
 
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <input id="name" class="form-control" name="name" value="{{ isset($profile->name) ? $profile->name : old('name') }}">
 
                             @if ($errors->has('name'))
@@ -46,9 +36,9 @@
 
                     @if ($account->role_id == '1')
                         <div class="form-group{{ $errors->has('mobile_phone') ? ' has-error' : '' }}">
-                            <label for="mobile_phone" class="col-md-4 control-label">手機號碼</label>
+                            <label for="mobile_phone" class="col-sm-4 control-label">手機號碼</label>
 
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                                 <select class="form-control" name="mobile_country_calling_code">
                                     @foreach ($country_calling_codes as $code_key => $code_name)
                                         @if (!is_null(old('mobile_country_calling_code')))
@@ -70,10 +60,11 @@
                             </div>
                         </div>
                     @elseif ($account->role_id == 2)
-                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                            <label for="address" class="col-md-4 control-label">地址</label>
 
-                            <div class="col-md-6">
+                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                            <label for="address" class="col-sm-4 control-label">地址</label>
+
+                            <div class="col-sm-6">
                                 <input id="address" class="form-control" name="address" value="{{ isset($profile->address) ? $profile->address : old('address') }}">
                                 
                                 @if ($errors->has('address'))
@@ -85,9 +76,9 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <label for="phone" class="col-md-4 control-label">電話</label>
+                            <label for="phone" class="col-sm-4 control-label">電話</label>
 
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                                 <input id="phone" class="form-control" name="phone" value="{{ isset($profile->phone) ? $profile->phone : old('phone') }}">
                                 
                                 @if ($errors->has('phone'))
@@ -99,8 +90,9 @@
                         </div>
                             
                         <div class="form-group{{ $errors->has('fax') ? ' has-error' : '' }}">
-                            <label for="fax" class="col-md-4 control-label">傳真</label>
-                            <div class="col-md-6">
+                            <label for="fax" class="col-sm-4 control-label">傳真</label>
+
+                            <div class="col-sm-6">
                                 <input id="fax" class="form-control" name="fax" value="{{ isset($profile->fax) ? $profile->fax : old('fax') }}">
                                 
                                 @if ($errors->has('fax'))
@@ -112,10 +104,21 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('mobile_phone') ? ' has-error' : '' }}">
-                            <label for="mobile_phone" class="col-md-4 control-label">手機號碼</label>
+                            <label for="mobile_phone" class="col-sm-4 control-label">手機號碼</label>
 
-                            <div class="col-md-6">
-                                <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{ isset($profile->mobile_phone) ? $profile->mobile_phone : old('mobile_phone') }}">
+                            <div class="col-sm-6">
+                                <select class="form-control" name="mobile_country_calling_code">
+                                    @foreach ($country_calling_codes as $code_key => $code_name)
+                                        @if (!is_null(old('mobile_country_calling_code')))
+                                            <option value="{{ $code_key }}" {{ old('mobile_country_calling_code') == $code_key ? 'selected' : '' }}>{{ $code_name }}</option>
+                                        @elseif (isset($profile->mobile_country_calling_code))
+                                            <option value="{{ $code_key }}" {{ $profile->mobile_country_calling_code == $code_key ? 'selected' : '' }}>{{ $code_name }}</option>
+                                        @else
+                                            <option value="{{ $code_key }}">{{ $code_name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{ isset($profile->mobile_phone) ? $profile->mobile_phone : old('mobile_phone')}} ">
                                 
                                 @if ($errors->has('mobile_phone'))
                                     <span class="help-block">
@@ -126,9 +129,9 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('intro') ? ' has-error' : '' }}">
-                            <label for="intro" class="col-md-4 control-label">介紹</label>
+                            <label for="intro" class="col-sm-4 control-label">介紹</label>
                             
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                                 <textarea id="intro" class="form-control" name="intro">{{ isset($profile->intro) ? $profile->intro : old('intro') }}</textarea>
                                 
                                 @if ($errors->has('intro'))
@@ -140,11 +143,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="photo" class="col-md-4 control-label">
+                            <label for="photo" class="col-sm-4 control-label">
                                 {{ isset($banner) && !is_null($banner) ? '更換宣傳圖片' : '宣傳圖片'}}
                             </label>
 
-                            <div class="col-md-8">
+                            <div class="col-sm-8">
                                 <input type="file" id="photo" class="form-control" name="photo">
                                 @if ($errors->has('photo'))
                                     <span class="help-block" style="color:red">
@@ -156,9 +159,9 @@
 
                         @if (isset($banner) && !is_null($banner))
                             <div class="form-group">
-                                <label class="col-md-3 control-label">宣傳圖片預覽</label>
+                                <label class="col-sm-3 control-label">宣傳圖片預覽</label>
 
-                                <div class="col-md-9">
+                                <div class="col-sm-9">
                                     <img class="img-responsive" src="{{ asset('storage/banners/' . $banner->name) }}" alt="{{ $profile->name }}">
                                 </div>
                             </div>
@@ -166,7 +169,7 @@
                     @endif
                         
                     <div class="form-group">
-                        <div class="col-md-6 col-md-offset-6">
+                        <div class="col-xs-6 col-md-offset-6 col-xs-offset-4">
                             <button type="submit" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
                                 存檔

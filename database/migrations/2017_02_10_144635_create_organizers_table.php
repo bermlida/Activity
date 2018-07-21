@@ -18,7 +18,7 @@ class CreateOrganizersTable extends Migration
             $table->string('address', 512);
             $table->string('phone', 30);
             $table->string('fax', 30)->nullable();
-            $table->string('mobile_phone', 30)->nullable();
+            $table->string('mobile_phone', 30);
             $table->text('intro')->nullable();
 
             $table->timestamps();
