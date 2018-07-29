@@ -97,7 +97,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td>
+                                        <td colspan="5">
                                             目前這裡沒有活動，不如開始辦一個吧 ! 
                                             <br><br><br>
                                             <a href="{{ route('organise::activity::create') }}">
