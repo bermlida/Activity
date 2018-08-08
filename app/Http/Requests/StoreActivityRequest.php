@@ -31,13 +31,13 @@ class StoreActivityRequest extends Request
 
         return [
             'name' => 'required|string|max:255',
-            'start_time' => 'required|date' . $before_end_time,
+            'start_time' => 'required|date|before:end_time',
             'end_time' => 'required|date',
             'venue' => 'required|string|max:512',
             'venue_intro' => 'sometimes|string|max:255',
             'summary' => 'required|string|max:255',
-            'apply_start_time' => 'required|date' . $before_apply_end_time . $before_start_time,
-            'apply_end_time' => 'required|date' . $before_start_time,
+            'apply_start_time' => 'required|date|before:apply_end_time|before:start_time',
+            'apply_end_time' => 'required|date|before:start_time',
             'can_sponsored' => 'required|integer|between:0,1',
             'is_free' => 'required|integer|between:0,1',
             'apply_fee' => 'required_if:is_free,0|integer|min:1',
