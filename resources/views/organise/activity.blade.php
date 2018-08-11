@@ -165,7 +165,7 @@
                         <input type="radio" name="is_free" value="0" {{$is_free === 0 ? 'checked' : '' }}>否
                     </label>
                     @if ($errors->has('is_free'))
-                        <span class="help-block" style="color:red">
+                        <span class="help-block col-xs-offset-2" style="color:red">
                             {{ $errors->first('is_free') }}
                         </span>
                     @endif
@@ -198,7 +198,7 @@
                         <input type="radio" name="can_sponsored" value="0" {{$can_sponsored === 0 ? 'checked' : '' }}>否
                     </label>
                     @if ($errors->has('can_sponsored'))
-                        <span class="help-block" style="color:red">
+                        <span class="help-block col-xs-offset-2" style="color:red">
                             {{ $errors->first('can_sponsored') }}
                         </span>
                     @endif

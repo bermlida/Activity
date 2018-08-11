@@ -54,7 +54,6 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'launched' ? 'active in' : '' }}" id="launched">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -82,7 +81,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $activity->venue }}</td>
-                                        <td>
+                                        <td class="text-center">
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
@@ -119,7 +118,6 @@
                     </div>
                     <div class="tab-pane fade {{ $tab == 'discontinued' ? 'active in' : '' }}" id="discontinued">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -147,7 +145,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $activity->venue }}</td>
-                                        <td>
+                                        <td class="text-center">
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
@@ -174,7 +172,6 @@
                     </div>
                     <div class="tab-pane fade {{ $tab == 'draft' ? 'active in' : '' }}" id="draft">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -202,7 +199,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $activity->venue }}</td>
-                                        <td>
+                                        <td class="text-center">
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
@@ -231,7 +228,6 @@
                     </div>
                     <div class="tab-pane fade {{ $tab == 'ended' ? 'active in' : '' }}" id="ended">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -259,7 +255,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $activity->venue }}</td>
-                                        <td>
+                                        <td class="text-center">
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
