@@ -48,7 +48,6 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'scheduled' ? 'active in' : '' }}" id="scheduled">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -79,7 +78,6 @@
                     </div>
                     <div class="tab-pane fade {{ $tab == 'draft' ? 'active in' : '' }}" id="draft">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -110,7 +108,6 @@
                     </div>
                     <div class="tab-pane fade {{ $tab == 'send' ? 'active in' : '' }}" id="send">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>No.</th>
