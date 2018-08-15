@@ -8,16 +8,22 @@
     <!-- Page Content -->
     <div class="container">
 
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-xs-12">
+                @include('partials.alert-message')
+
+                <h1 class="page-header">
+                    掃描報到憑證
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
         <!-- Feature Section -->
         <div class="row">
-            <div class="col-lg-12">
-                <h2 class="page-header">
-                    掃描報到憑證
-                </h2>
-            </div>
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <div class="panel-group">
-                    
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">掃描</h4>
@@ -27,7 +33,6 @@
                         </div>
                     </div>
                     <!-- /.register-certificate-panel -->
-                    
                 </div>
                 <!-- /.panel-group -->
             </div>

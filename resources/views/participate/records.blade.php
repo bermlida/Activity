@@ -13,7 +13,6 @@
             <div class="col-lg-12">
                 <h1 class="page-header">
                     參加的活動
-                    <small></small>
                 </h1>
             </div>
         </div>
@@ -50,8 +49,7 @@
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'registered' ? 'active in' : '' }}" id="registered">
-                        <table class="table table-hover">
-                            <caption></caption>
+                        <table class="table table-hover"
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -87,7 +85,7 @@
                                 <td>已完成報名</td>
                                 <td>
                                     @if ($activity->pivot->register_status == 0)
-                                        <a class="btn btn-default" href="{{ route('participate::record::register::confirm', ['record' => $activity->pivot->serial_number]) }}">
+                                        <a class="btn btn-default" href="{{ route('participate::record::register-certificate', ['record' => $activity->pivot->serial_number]) }}">
                                             顯示報到憑證
                                         </a>
                                     @else
@@ -124,7 +122,6 @@
                     </div>
                     <div class="tab-pane fade {{ $tab == 'undone' ? 'active in' : '' }}" id="undone">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -193,7 +190,6 @@
                     </div>
                     <div class="tab-pane fade {{ $tab == 'cancelled' ? 'active in' : '' }}" id="cancelled">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                             <tr>
                                 <th>No.</th>

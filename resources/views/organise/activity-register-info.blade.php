@@ -8,14 +8,21 @@
     <!-- Page Content -->
     <div class="container">
 
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-xs-12">
+                @include('partials.alert-message')
+
+                <h1 class="page-header">
+                    報到資訊
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
         <!-- Feature Section -->
         <div class="row">
-            <div class="col-lg-12">
-                <h2 class="page-header">
-                    報到資訊
-                </h2>
-            </div>
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <div class="panel-group">
                     
                     @include('partials.apply-info-panel')
