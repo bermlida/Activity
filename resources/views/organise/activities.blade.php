@@ -8,11 +8,11 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">舉辦的活動
-                    <small></small>
+            <div class="col-xs-12">
+                <h1 class="page-header">
+                    舉辦的活動
                     <a class="btn btn-default" href="{{ route('organise::activity::create') }}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         新增活動
@@ -22,7 +22,7 @@
         </div>
         <!-- /.row -->
 
-        <!-- Content Row -->
+        <!-- Organise Activities Tabs -->
         <div class="row">
             <div class="col-lg-12">
                 <ul id="myTab" class="nav nav-tabs nav-justified">

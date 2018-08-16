@@ -13,13 +13,12 @@
     
         <!-- Page Heading -->
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <!-- Success/Fail Message -->
                 @include('partials.alert-message')
 
                 <h1 class="page-header">
                     退款設定
-                    <small></small>
                 </h1>
             </div>
         </div>
@@ -31,7 +30,7 @@
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
 
-                    @include('partials.refund-account')
+                    @include('partials.refund-account-form')
 
                     <div class="form-group">
                         <div class="col-md-6">

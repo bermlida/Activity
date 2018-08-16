@@ -8,14 +8,19 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Feature Section -->
+        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                <h2 class="page-header">
+            <div class="col-xs-12">
+                <h1 class="page-header">
                     報到憑證
-                </h2>
+                </h1>
             </div>
-            <div class="col-md-12">
+        </div>
+        <!-- /.row -->
+
+        <!-- Register Info Section -->
+        <div class="row">
+            <div class="col-xs-12">
                 <div class="panel-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">

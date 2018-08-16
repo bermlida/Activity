@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Participate;
 use Auth;
 use Illuminate\Http\Request;
 use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\Output\QRImage;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -23,7 +24,7 @@ class RegisterController extends Controller
 
         $data['transaction'] = $data['order']->transactions()->first();
 
-        $data['qr_code'] = (new QRCode(route('participate::record::register'), new QRImage()))->output();
+        $data['qr_code'] = (new QRCode($record, new QRImage()))->output();
 
         return view('participate.register-certificate', $data);
     }

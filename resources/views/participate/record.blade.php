@@ -8,14 +8,19 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Feature Section -->
+        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                <h2 class="page-header">
+            <div class="col-xs-12">
+                <h1 class="page-header">
                     活動報名
-                </h2>
+                </h1>
             </div>
-            <div class="col-md-12">
+        </div>
+        <!-- /.row -->
+
+        <!-- Participate Record Info -->
+        <div class="row">
+            <div class="col-xs-12">
                 <div class="panel-group">
                     @include('partials.apply-info-panel')
                     

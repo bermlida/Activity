@@ -6,20 +6,25 @@
     <!-- Page Content -->
     <div class="container">
 
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- Success/Fail Message -->
+                @include('partials.alert-message')
+
+                <h1 class="page-header">
+                    取消報名
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
         <form role="form" method="POST">
             {{ method_field('PUT') }}
             {{ csrf_field() }}
 
             <div class="row">
-                <div class="col-lg-12">
-                    <!-- Success/Fail Message -->
-                    @include('partials.alert-message')
-
-                    <h2 class="page-header">
-                        取消報名
-                    </h2>
-                </div>
-                <div class="col-md-12">
+                <div class="col-xs-12">
                     <div class="panel-group">
                         @include('partials.apply-info-panel')
                     
@@ -51,15 +56,15 @@
             <!-- /.row -->
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-xs-12">
                     <div class="form-group">
-                        <div class="col-md-6">
+                        <div class="col-xs-6">
                             <a href="javascript:history.back(-1);" class="btn btn-danger">
                                 <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
                                 返回
                             </a>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-xs-6">
                             <button type="submit" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
                                 確認取消

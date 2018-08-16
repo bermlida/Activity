@@ -69,8 +69,6 @@ class RecordController extends Controller
 
         $data['transaction'] = $data['order']->transactions()->first();
 
-        app(AllpayService::class)->cancelCreditTransaction($data['transaction']);
-
         if (!is_null($data['transaction']->payment_result) && $data['transaction']->apply_fee > 0) {
             $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();
             
@@ -147,8 +145,6 @@ class RecordController extends Controller
         $data['order'] = Order::where('serial_number', $record)->first();
 
         $data['transaction'] = $data['order']->transactions()->ofStatus(1)->first();
-        
-        app(AllpayService::class)->cancelCreditTransaction($data['transaction']);
 
         $data['financial_account'] = $data['transaction']->financial_account;
 
