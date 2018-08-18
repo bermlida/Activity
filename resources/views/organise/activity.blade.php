@@ -39,9 +39,9 @@
                 <input type="hidden" name="status" value="{{ old('status') }}">
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">主辦單位：</label>
+                    <label class="col-sm-4 control-label">主辦單位</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <p class="form-control-static">
                             {{ $organizer->name }}
                         </p>
@@ -49,9 +49,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">活動名稱：</label>
+                    <label for="name" class="col-sm-4 control-label">活動名稱</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <input id="name" type="text" class="form-control" name="name" value="{{ isset($activity->name) ? $activity->name : old('name') }}">
                         @if ($errors->has('name'))
                             <span class="help-block" style="color:red">
@@ -62,9 +62,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="start_time" class="col-sm-2 control-label">開始時間：</label>
+                    <label for="start_time" class="col-sm-4 control-label">開始時間：</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <input id="start_time" type="text" class="datetime-picker" name="start_time" value="{{ isset($activity->start_time) ? $activity->start_time : old('start_time') }}">
                         @if ($errors->has('start_time'))
                             <span class="help-block" style="color:red">
@@ -75,9 +75,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="end_time" class="col-sm-2 control-label">結束時間：</label>
+                    <label for="end_time" class="col-sm-4 control-label">結束時間：</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <input id="end_time" type="text" class="datetime-picker" name="end_time" value="{{ isset($activity->end_time) ? $activity->end_time : old('end_time') }}">
                         @if ($errors->has('end_time'))
                             <span class="help-block" style="color:red">
@@ -88,9 +88,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="venue" class="col-sm-2 control-label">地點：</label>
+                    <label for="venue" class="col-sm-4 control-label">地點：</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <input id="venue" type="text" class="form-control" name="venue" value="{{ isset($activity->venue) ? $activity->venue : old('venue') }}">
                         @if ($errors->has('venue'))
                             <span class="help-block" style="color:red">
@@ -114,9 +114,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="summary" class="col-sm-2 control-label">活動概要：</label>
+                    <label for="summary" class="col-sm-4 control-label">活動概要：</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <textarea id="summary" class="form-control" name="summary">{{ isset($activity->summary) ? $activity->summary : old('summary') }}</textarea>
                         @if ($errors->has('summary'))
                             <span class="help-block" style="color:red">
@@ -172,9 +172,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="apply_fee" class="col-sm-2 control-label">報名費用：</label>
+                    <label for="apply_fee" class="col-sm-4 control-label">報名費用：</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <input id="apply_fee" type="number" class="form-control" name="apply_fee" value="{{ isset($activity->apply_fee) ? ($activity->apply_fee > 0 ? $activity->apply_fee : '') : old('apply_fee') }}">
                         <span class="help-block">(非免費活動必填)</span>
                         @if ($errors->has('apply_fee'))
@@ -223,7 +223,7 @@
                             更換宣傳圖片：
                         </label>
                     @else
-                        <label for="photo" class="col-sm-2 control-label">
+                        <label for="photo" class="col-sm-4 control-label">
                             宣傳圖片：
                         </label>
                     @endif

@@ -8,19 +8,16 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
             <div class="col-xs-12">
                 @include('partials.alert-message')
 
-                <h1 class="page-header">
-                    報到資訊
-                </h1>
+                <h1 class="page-header">報到資訊</h1>
             </div>
         </div>
         <!-- /.row -->
-
-        <!-- Feature Section -->
+        
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel-group">

@@ -8,7 +8,7 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Image Header -->
+        <!-- Organizer Banner -->
         <div class="row">
             <br>
             <div class="col-md-10 col-md-offset-2">
@@ -19,7 +19,7 @@
 
         <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <h1 class="page-header" style="text-align:center;">
                     {{ $info->name }}
                 </h1>
@@ -27,10 +27,9 @@
         </div>
         <!-- /.row -->
 
-        <!-- Intro Content -->
+        <!-- Organizer Intro -->
         <div class="row">
-            <div class="col-lg-12">
-
+            <div class="col-xs-12">
                 <ul id="myTab" class="nav nav-tabs nav-justified">
                     <li class="{{ $tab == 'activities' ? 'active' : '' }}">
                         <a href="#activities" data-toggle="tab">
@@ -57,7 +56,6 @@
                         </a>
                     </li>
                 </ul>
-
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'activities' ? 'active in' : '' }}" id="activities">
                         <br>
@@ -92,7 +90,7 @@
                                 </p>
                                 <p>{{ $activity->summary }}</p>
                             </div>
-                            <div class="col-md-12 text-center">
+                            <div class="col-xs-12 text-center">
                                 {!!
                                     $activities
                                         ->appends($url_query)
@@ -141,7 +139,7 @@
                                 </p>
                                 <p>{{ $history->summary }}</p>
                             </div>
-                            <div class="col-md-12 text-center">
+                            <div class="col-xs-12 text-center">
                                 {!!
                                     $histories
                                         ->appends($url_query)
@@ -169,7 +167,6 @@
                         <iframe src="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $info->address }}&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div>
                 </div>
-
             </div>
         </div>
 

@@ -1,4 +1,5 @@
 
+    <!-- Apply Info -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">報名資訊</h4>
@@ -20,4 +21,4 @@
             <p>報名者手機：{{ $order->user->mobile_phone }}</p>
         </div>
     </div>
-    <!-- /.apply-info-panel -->
+    <!-- /.panel -->

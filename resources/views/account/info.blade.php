@@ -16,7 +16,7 @@
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-xs-12">
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('account::info::save') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
@@ -35,6 +35,7 @@
                     </div>
 
                     @if ($account->role_id == '1')
+
                         <div class="form-group{{ $errors->has('mobile_phone') ? ' has-error' : '' }}">
                             <label for="mobile_phone" class="col-sm-4 control-label">手機號碼</label>
 
@@ -59,6 +60,7 @@
                                 @endif
                             </div>
                         </div>
+
                     @elseif ($account->role_id == 2)
 
                         <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
@@ -166,6 +168,7 @@
                                 </div>
                             </div>
                         @endif
+                        
                     @endif
                         
                     <div class="form-group">

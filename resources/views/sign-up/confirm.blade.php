@@ -8,9 +8,9 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <h1 class="page-header">
                     活動報名
                     <small>完成及確認</small>
@@ -20,7 +20,7 @@
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <div class="panel-group">
                     @include('partials.apply-info-panel')
 
@@ -39,7 +39,7 @@
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-md-12 col-xs-12">
+            <div class="col-xs-12">
                 <h3>看看現在報名了那些活動</h3>
                 <a href="{{ route('participate::record::list') }}" class="btn btn-primary">
                     <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>

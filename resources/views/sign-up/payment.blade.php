@@ -8,9 +8,9 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <h1 class="page-header">
                     活動報名
                     <small>確認付款資料</small>
@@ -20,10 +20,11 @@
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <div class="panel-group" id="accordion">
                     @include('partials.apply-info-panel')
 
+                    <!-- Payment Info -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">付款資訊</h4>
@@ -37,7 +38,8 @@
                             @endif
                         </div>
                     </div>
-                    <!-- /.apply-payment-info-panel -->
+                    <!-- /.panel -->
+                    
                 </div>
             </div>
         </div>

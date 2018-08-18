@@ -8,26 +8,17 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    活動管理
-                    <small></small>
-                </h1>
-{{-- 
-                <ol class="breadcrumb">
-                    <li><a href="index.html">我所舉辦的活動</a></li>
-                    <li class="active">活動管理</li>
-                </ol>
- --}}
+            <div class="col-xs-12">
+                <h1 class="page-header">活動管理</h1>
             </div>
         </div>
         <!-- /.row -->
 
         <div class="row">
 
-            <!-- Blog Entries Column -->
+            <!-- Activity Banner -->
             <div class="col-md-9">
                 <!-- First Blog Post -->
                 <a href="{{ route('organise::activity::modify', [$activity]) }}">
@@ -35,9 +26,8 @@
                 </a>
             </div>
 
-            <!-- Blog Sidebar Widgets Column -->
+            <!-- Activity Info -->
             <div class="col-md-3">
-                <!-- Side Widget Well -->
                 <div class="well">
                     <h4>{{ $activity->name }}</h4>
                     <p>
@@ -60,6 +50,7 @@
 
         <hr>
 
+        <!-- Activity Manage Feature -->
         <div class="row">
             <div class="col-md-3 col-xs-6">
                 <div class="panel panel-default text-center">

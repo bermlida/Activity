@@ -11,16 +11,14 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="page-header">
-                    報名清單
-                </h1>
+                <h1 class="page-header">報名清單</h1>
             </div>
         </div>
         <!-- /.row -->
 
-        <!-- Content Row -->
+        <!-- Applicants -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <ul id="myTab" class="nav nav-tabs nav-justified">
                     <li class="{{ $tab == 'completed' ? 'active' : '' }}">
                         <a href="#completed" data-toggle="tab">
@@ -44,7 +42,6 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'completed' ? 'active in' : '' }}" id="completed">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -84,7 +81,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!!
                                 $completed_orders
                                     ->appends($url_query)
@@ -95,7 +92,6 @@
                     </div>
                     <div class="tab-pane fade {{ $tab == 'unpaid' ? 'active in' : '' }}" id="unpaid">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -115,7 +111,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!! 
                                 $unpaid_orders
                                     ->appends($url_query)
@@ -126,7 +122,6 @@
                     </div>
                     <div class="tab-pane fade {{ $tab == 'cancelled' ? 'active in' : '' }}" id="cancelled">
                         <table class="table table-hover">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -167,7 +162,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!!
                                 $cancelled_orders
                                     ->appends($url_query)

@@ -43,6 +43,7 @@
 
                     <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                         <label for="address" class="col-sm-4 control-label">地址</label>
+
                         <div class="col-sm-6">
                             <input id="address" class="form-control" name="address" value="{{ old('address') }}">
                                 
@@ -56,6 +57,7 @@
 
                     <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                         <label for="phone" class="col-sm-4 control-label">電話</label>
+                        
                         <div class="col-sm-6">
                             <input id="phone" class="form-control" name="phone" value="{{ old('phone') }}">
                                 

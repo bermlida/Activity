@@ -16,11 +16,11 @@
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-xs-12">
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('account::refund-setting::save') }}">
                     {{ csrf_field() }}
                         
-                    @include('partials.refund-account-form')
+                    @include('partials.financial-institution-account-form')
 
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-6 col-xs-offset-4">

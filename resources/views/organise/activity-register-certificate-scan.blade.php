@@ -8,19 +8,17 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
             <div class="col-xs-12">
                 @include('partials.alert-message')
 
-                <h1 class="page-header">
-                    掃描報到憑證
-                </h1>
+                <h1 class="page-header">掃描報到憑證</h1>
             </div>
         </div>
         <!-- /.row -->
 
-        <!-- Feature Section -->
+        <!-- Register Certificate Scanner -->
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel-group">
@@ -29,10 +27,10 @@
                             <h4 class="panel-title">掃描</h4>
                         </div>
                         <div class="panel-body text-center">
-                            <video width="320px" height="240px" id="camera" autoplay></video>
+                            <video width="100%" height="100%" id="camera" autoplay></video>
                         </div>
                     </div>
-                    <!-- /.register-certificate-panel -->
+                    <!-- /.panel -->
                 </div>
                 <!-- /.panel-group -->
             </div>

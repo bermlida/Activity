@@ -11,9 +11,7 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="page-header">
-                    活動報名
-                </h1>
+                <h1 class="page-header">活動報名</h1>
             </div>
         </div>
         <!-- /.row -->

@@ -8,23 +8,22 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">活動訊息
-                    <small></small>
-                    <a class="btn btn-default" href="{{ route('organise::activity::message::create', [$activity]) }}" role="button">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        新增訊息
-                    </a>
-                </h1>
+                <h1 class="page-header">活動訊息</h1>
+                
+                <a class="btn btn-default" href="{{ route('organise::activity::message::create', [$activity]) }}" role="button">
+                    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                    新增訊息
+                </a>
             </div>
         </div>
         <!-- /.row -->
 
-        <!-- Content Row -->
+        <!-- Activity Messages -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <ul id="myTab" class="nav nav-tabs nav-justified">
                     <li class="{{ $tab == 'scheduled' ? 'active' : '' }}">
                         <a href="#scheduled" data-toggle="tab">
@@ -67,7 +66,7 @@
                                 )
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!!
                                 $scheduled_messages
                                     ->appends($url_query)
@@ -97,7 +96,7 @@
                                 )
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!! 
                                 $draft_messages
                                     ->appends($url_query)
@@ -127,7 +126,7 @@
                                 )
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!!
                                 $send_messages
                                     ->appends($url_query)

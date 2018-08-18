@@ -6,18 +6,15 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    找主辦單位
-                    <small></small>
-                </h1>
+            <div class="col-xs-12">
+                <h1 class="page-header">找主辦單位</h1>
             </div>
         </div>
         <!-- /.row -->
 
-        <!-- Team Members -->
+        <!-- Organizers -->
         <div class="row">
             @forelse ($organizers as $organizer)
                 <div class="col-md-6 img-portfolio text-center">
@@ -40,7 +37,7 @@
                     </h3>
                 </div>
             @empty
-                <div class="col-md-12 text-center">
+                <div class="col-xs-12 text-center">
                     <h2>目前無主辦單位可供查詢</h2>
                 </div>
             @endforelse
@@ -51,7 +48,7 @@
 
         <!-- Pagination -->
         <div class="row text-center">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 {!! $organizers->links() !!}
             </div>
         </div>

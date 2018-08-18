@@ -22,7 +22,7 @@
     <!-- /.row -->
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                 {{ csrf_field() }}
 
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-6 col-sm-offset-4">
+                    <div class="col-sm-6 col-sm-offset-4 col-xs-offset-4">
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-btn fa-sign-in"></i> 登入
                         </button>

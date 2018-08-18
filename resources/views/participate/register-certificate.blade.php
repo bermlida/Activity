@@ -11,17 +11,16 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="page-header">
-                    報到憑證
-                </h1>
+                <h1 class="page-header">報到憑證</h1>
             </div>
         </div>
         <!-- /.row -->
 
-        <!-- Register Info Section -->
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel-group">
+
+                    <!-- Register Certificate -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">報到憑證</h4>
@@ -34,7 +33,7 @@
                             @endif
                         </div>
                     </div>
-                    <!-- /.register-certificate-panel -->
+                    <!-- /.panel -->
 
                     @include('partials.apply-info-panel')
                     

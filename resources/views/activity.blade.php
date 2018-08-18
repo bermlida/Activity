@@ -8,7 +8,7 @@
     <!-- Page Content -->
     <div class="container">
     
-        <!-- Image Header -->
+        <!-- Activity Banner -->
         <div class="row">
             <br>
             <div class="col-md-10 col-md-offset-1">
@@ -19,7 +19,7 @@
 
         <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <h1 class="page-header" style="text-align:center;">
                     {{ $info->name }}
                 </h1>
@@ -27,9 +27,9 @@
         </div>
         <!-- /.row -->
 
-        <!-- Intro Content -->
+        <!-- Activity Info -->
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <h3>活動時間：
                 @if ($carbon->parse($info->start_time)->toDateString() != $carbon->parse($info->end_time)->toDateString())
                     {{ $carbon->parse($info->start_time)->toDateString() }}
@@ -53,7 +53,7 @@
                         @endif
                     @endcan
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 @if (!empty($info->venue_intro))
                     <h4>{{ $info->venue_intro }}</h4>
                     <h4>({{ $info->venue }})</h4>
@@ -63,12 +63,12 @@
         </div>
         <!-- /.row -->
 
-        <!-- Our Customers -->
+        <!-- Activity Intro -->
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <h2 class="page-header">活動介紹</h2>
             </div>
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 {!! $info->intro !!}
             </div>
         </div>

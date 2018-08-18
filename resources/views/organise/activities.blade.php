@@ -11,20 +11,19 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="page-header">
-                    舉辦的活動
-                    <a class="btn btn-default" href="{{ route('organise::activity::create') }}">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        新增活動
-                    </a>
-                </h1>
+                <h1 class="page-header">舉辦的活動</h1>
+
+                <a class="btn btn-default" href="{{ route('organise::activity::create') }}">
+                    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                    新增活動
+                </a>
             </div>
         </div>
         <!-- /.row -->
 
-        <!-- Organise Activities Tabs -->
+        <!-- Organise Activities -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <ul id="myTab" class="nav nav-tabs nav-justified">
                     <li class="{{ $tab == 'launched' ? 'active' : '' }}">
                         <a href="#launched" data-toggle="tab">
@@ -107,7 +106,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!!
                                 $launched_activities
                                     ->appends($url_query)
@@ -161,7 +160,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!!
                                 $discontinued_activities
                                     ->appends($url_query)
@@ -217,7 +216,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!! 
                                 $draft_activities
                                     ->appends($url_query)
@@ -267,7 +266,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!!
                                 $ended_activities
                                     ->appends($url_query)

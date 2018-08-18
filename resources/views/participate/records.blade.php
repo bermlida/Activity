@@ -11,16 +11,16 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="page-header">
-                    參加的活動
-                </h1>
+                @include('partials.alert-message')
+
+                <h1 class="page-header">參加的活動</h1>
             </div>
         </div>
         <!-- /.row -->
 
         <!-- Participate Records Tabs -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <ul id="myTab" class="nav nav-tabs nav-justified">
                     <li class="{{ $tab == 'registered' ? 'active' : '' }}">
                         <a href="#registered" data-toggle="tab">
@@ -63,55 +63,53 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse ($registered_activities as $key => $activity)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $activity->name }}</td>
-                                <td>
-                                @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
-                                    {{ $activity->start_time->toDateString() }}
-                                     ~ 
-                                    {{ $activity->end_time->toDateString() }}
-                                @else
-                                    {{ $activity->start_time->toDateString() }}
-                                @endif
-                                </td>
-                                <td>{{ $activity->venue }}</td>
-                                <td>
-                                    <a class="btn btn-info" href="{{ route('participate::record::view', ['record' => $activity->pivot->serial_number]) }}">
-                                        檢視
-                                    </a>
-                                </td>
-                                <td>已完成報名</td>
-                                <td>
-                                    @if ($activity->pivot->register_status == 0)
-                                        <a class="btn btn-default" href="{{ route('participate::record::register-certificate', ['record' => $activity->pivot->serial_number]) }}">
-                                            顯示報到憑證
-                                        </a>
-                                    @else
-                                        已完成報到
-                                    @endif
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger" href="{{ route('participate::record::cancel::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
-                                        取消
-                                    </a>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td>
-                                    目前你還沒有參加任何活動，不如就此開始吧 ! 
-                                    <br><br><br>
-                                    <a href="{{ route('visit::activities') }}">
-                                        開始找活動
-                                    </a>
-                                </td>
-                            </tr>
-                            @endforelse
+                                @forelse ($registered_activities as $key => $activity)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $activity->name }}</td>
+                                        <td>
+                                            @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                                                {{ $activity->start_time->toDateString() }}
+                                                 ~ 
+                                                {{ $activity->end_time->toDateString() }}
+                                            @else
+                                                {{ $activity->start_time->toDateString() }}
+                                            @endif
+                                        </td>
+                                        <td>{{ $activity->venue }}</td>
+                                        <td>
+                                            <a class="btn btn-info" href="{{ route('participate::record::view', ['record' => $activity->pivot->serial_number]) }}">
+                                                檢視
+                                            </a>
+                                        </td>
+                                        <td>已完成報名</td>
+                                        <td>
+                                            @if ($activity->pivot->register_status == 0)
+                                                <a class="btn btn-default" href="{{ route('participate::record::register-certificate', ['record' => $activity->pivot->serial_number]) }}">
+                                                    顯示報到憑證
+                                                </a>
+                                            @else
+                                                已完成報到
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger" href="{{ route('participate::record::cancel::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
+                                                取消
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="8">
+                                            目前你還沒有參加任何活動，不如就此開始吧 ! 
+                                            <br><br><br>
+                                            <a href="{{ route('visit::activities') }}">開始找活動</a>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!!
                                 $registered_activities
                                     ->appends($url_query)
@@ -135,51 +133,52 @@
                             </thead>
                             <tbody>
                             @foreach ($undone_activities as $key => $activity)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $activity->name }}</td>
-                                <td>
-                                @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
-                                    {{ $activity->start_time->toDateString() }}
-                                     ~ 
-                                    {{ $activity->end_time->toDateString() }}
-                                @else
-                                    {{ $activity->start_time->toDateString() }}
-                                @endif
-                                </td>
-                                <td>{{ $activity->venue }}</td>
-                                <td>
-                                    <a class="btn btn-info" href="{{ route('participate::record::view', ['serial_number' => $activity->pivot->serial_number]) }}">
-                                        檢視
-                                    </a>
-                                </td>
-                                <td>
-                                    @php
-                                        $no_interfacing = $activity->pivot->transactions()->get();
-                                        $interfacing_cashflow_error = $activity->pivot
-                                            ->transactions()
-                                            ->whereNull('payment_info')
-                                            ->whereNull('payment_result')
-                                            ->get();
-                                    @endphp
-                                    @if (count($no_interfacing) == 0 || count($interfacing_cashflow_error) > 0)
-                                        <a href="{{ route('sign-up::apply::edit', ['activity' => $activity->id, 'serial_number' => $activity->pivot->serial_number]) }}">
-                                            報名未完成
-                                        </a>
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $activity->name }}</td>
+                                    <td>
+                                    @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                                        {{ $activity->start_time->toDateString() }}
+                                        ~ 
+                                        {{ $activity->end_time->toDateString() }}
                                     @else
-                                        報名未完成 - 未繳款
+                                        {{ $activity->start_time->toDateString() }}
                                     @endif
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger" href="{{ route('participate::record::cancel::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
-                                        取消
-                                    </a>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>{{ $activity->venue }}</td>
+                                    <td>
+                                        <a class="btn btn-info" href="{{ route('participate::record::view', ['serial_number' => $activity->pivot->serial_number]) }}">
+                                            檢視
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @php
+                                            $no_interfacing = $activity->pivot->transactions()->get();
+
+                                            $interfacing_cashflow_error = $activity->pivot
+                                                ->transactions()
+                                                ->whereNull('payment_info')
+                                                ->whereNull('payment_result')
+                                                ->get();
+                                        @endphp
+                                        @if (count($no_interfacing) == 0 || count($interfacing_cashflow_error) > 0)
+                                            <a href="{{ route('sign-up::apply::edit', ['activity' => $activity->id, 'serial_number' => $activity->pivot->serial_number]) }}">
+                                                報名未完成
+                                            </a>
+                                        @else
+                                            報名未完成 - 未繳款
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" href="{{ route('participate::record::cancel::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
+                                            取消
+                                        </a>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!! 
                                 $undone_activities
                                     ->appends($url_query)
@@ -201,36 +200,36 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($cancelled_activities as $key => $activity)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $activity->name }}</td>
-                                <td>
-                                    @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
-                                        {{ $activity->start_time->toDateString() }}
-                                         ~ 
-                                        {{ $activity->end_time->toDateString() }}
-                                    @else
-                                        {{ $activity->start_time->toDateString() }}
-                                    @endif
-                                </td>
-                                <td>{{ $activity->venue }}</td>
-                                <td>
-                                    <a class="btn btn-info" href="{{ route('participate::record::view', ['serial_number' => $activity->pivot->serial_number]) }}">
-                                        檢視
-                                    </a>
-                                    @if ($activity->pivot->transactions()->whereNotNull('payment_result')->where('apply_fee', '>', 0)->count() > 0)
-                                        <a class="btn btn-info" href="{{ route('participate::record::refund::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
-                                            退款設定
+                                @foreach ($cancelled_activities as $key => $activity)
+                                    <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $activity->name }}</td>
+                                    <td>
+                                        @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                                            {{ $activity->start_time->toDateString() }}
+                                             ~ 
+                                            {{ $activity->end_time->toDateString() }}
+                                        @else
+                                            {{ $activity->start_time->toDateString() }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $activity->venue }}</td>
+                                    <td>
+                                        <a class="btn btn-info" href="{{ route('participate::record::view', ['serial_number' => $activity->pivot->serial_number]) }}">
+                                            檢視
                                         </a>
-                                    @endif
-                                </td>
-                                <td>已取消報名</td>
-                            </tr>
-                            @endforeach
+                                        @if ($activity->pivot->transactions()->whereNotNull('payment_result')->where('apply_fee', '>', 0)->count() > 0)
+                                            <a class="btn btn-info" href="{{ route('participate::record::refund::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
+                                                退款設定
+                                            </a>
+                                        @endif
+                                    </td>
+                                    <td>已取消報名</td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
-                        <div class="col-md-12 text-center">
+                        <div class="col-xs-12 text-center">
                             {!!
                                 $cancelled_activities
                                     ->appends($url_query)

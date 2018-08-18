@@ -1,5 +1,7 @@
 
     @if (!is_null(session('message_type')) && !is_null(session('message_body')))
+
+        <!-- Alert Message -->
         <div class="alert alert-{{ session('message_type') }}" role="alert">
             <button type="button" class="close" data-dismiss="alert">
                 <span aria-hidden="true">&times;</span>
@@ -7,5 +9,6 @@
             </button>
             {{ session('message_body') }}
         </div>
-        <!-- /.alert-message -->
+        <!-- /.alert -->
+
     @endif

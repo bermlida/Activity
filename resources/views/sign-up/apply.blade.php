@@ -13,9 +13,9 @@
         {{ method_field($form_method) }}
         {{ csrf_field() }}
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <h1 class="page-header">
                     活動報名
                     <small>確認報名資料</small>
@@ -24,11 +24,11 @@
         </div>
         <!-- /.row -->
 
-        <!-- Content Row -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <div class="panel-group" id="accordion">
-                    <!-- /.panel -->
+
+                    <!-- Activity Info -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -49,8 +49,9 @@
                             <p>活動地點：{{ $activity->venue }}</p>
                         </div>
                     </div>
-                    
                     <!-- /.panel -->
+                    
+                    <!-- Apply Info -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -63,9 +64,11 @@
                             <p>手機：{{ $user_profile->mobile_phone }}</p>
                         </div>
                     </div>
-
                     <!-- /.panel -->
+
                     @if (!$activity->is_free || $activity->can_sponsored)
+
+                        <!-- Fee Info -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">報名費用或隨喜贊助</h4>
@@ -88,11 +91,13 @@
                                 @endif
                             </div>
                         </div>
+                        <!-- /.panel -->
+
                     @endif
                 </div>
                 <!-- /.panel-group -->
             </div>
-            <!-- /.col-lg-12 -->
+            <!-- /.col-xs-12 -->
         </div>
         <!-- /.row -->
 

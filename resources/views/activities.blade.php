@@ -8,17 +8,15 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    找活動
-                    <small>開啟自性之旅</small>
-                </h1>
+            <div class="col-xs-12">
+                <h1 class="page-header">找活動</h1>
             </div>
         </div>
         <!-- /.row -->
 
+        <!-- Activities -->
         <div class="row">
             @forelse ($activities as $activity)
                 <div class="col-md-4 img-portfolio">
@@ -52,7 +50,7 @@
                     <p>{{ $activity->summary }}</p>
                 </div>
             @empty
-                <div class="col-md-12">
+                <div class="col-xs-12">
                     目前這裡還沒有活動
                 </div>
             @endforelse
@@ -63,7 +61,7 @@
 
         <!-- Pagination -->
         <div class="row text-center">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 {!! $activities->links() !!}
             </div>
         </div>

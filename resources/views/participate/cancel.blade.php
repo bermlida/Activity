@@ -9,12 +9,9 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-xs-12">
-                <!-- Success/Fail Message -->
                 @include('partials.alert-message')
 
-                <h1 class="page-header">
-                    取消報名
-                </h1>
+                <h1 class="page-header">取消報名</h1>
             </div>
         </div>
         <!-- /.row -->
@@ -35,7 +32,8 @@
                                 @include('partials.payment-result-panel')
 
                                 @if ($transaction->apply_fee > 0)
-                                    <!-- /.refund-account-panel -->
+
+                                    <!-- Refund Account -->
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">退款設定</h4>
@@ -44,6 +42,8 @@
                                             @include('partials.refund-account-form')
                                         </div>
                                     </div>
+                                    <!-- /.panel -->
+
                                 @endif
                             @elseif (!is_null($transaction->payment_info))
                                 @include('partials.payment-info-panel')

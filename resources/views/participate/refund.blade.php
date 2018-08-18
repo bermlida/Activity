@@ -14,23 +14,20 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-xs-12">
-                <!-- Success/Fail Message -->
                 @include('partials.alert-message')
 
-                <h1 class="page-header">
-                    退款設定
-                </h1>
+                <h1 class="page-header">退款設定</h1>
             </div>
         </div>
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <form class="form-horizontal" role="form" method="POST">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
 
-                    @include('partials.refund-account-form')
+                    @include('financial-institution-account-form')
 
                     <div class="form-group">
                         <div class="col-md-6">
