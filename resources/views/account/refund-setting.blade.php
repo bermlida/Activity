@@ -16,7 +16,7 @@
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-xs-12">
+            {{-- <div class="col-xs-12"> --}}
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('account::refund-setting::save') }}">
                     {{ csrf_field() }}
                         
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            {{-- </div> --}}
         </div>
 
         <hr>

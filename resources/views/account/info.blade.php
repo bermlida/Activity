@@ -16,7 +16,7 @@
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-xs-12">
+            {{-- <div class="col-xs-12"> --}}
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('account::info::save') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
@@ -180,21 +180,20 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            {{-- </div> --}}
         </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+            </div>
+            </div>
+        </footer>
     </div>
-
-    <hr>
-
-    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
-        </div>
-    </footer>
-</div>
 
 @endsection
 

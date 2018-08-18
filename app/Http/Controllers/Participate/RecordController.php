@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Participate;
 
+use DB;
 use Auth;
 use Illuminate\Http\Request;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\Output\QRImage;
 
+use App\Models\Order;
 use App\Http\Requests;
+use App\Services\AllpayService;
+use App\Models\FinancialAccount;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostFinancialAccountRequest;
-use App\Models\FinancialAccount;
-use App\Models\Order;
-use App\Services\AllpayService;
 
 class RecordController extends Controller
 {
@@ -69,13 +70,15 @@ class RecordController extends Controller
 
         $data['transaction'] = $data['order']->transactions()->first();
 
-        if (!is_null($data['transaction']->payment_result) && $data['transaction']->apply_fee > 0) {
-            $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();
+        if (!is_null($data['transaction']) && !is_null($data['transaction']->payment_result)) {
+            if ($data['transaction']->apply_fee > 0) {
+                $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();
             
-            if (!is_null($data['transaction']->financial_account)) {
-                $data['financial_account'] = $data['transaction']->financial_account;
-            } else {
-                $data['financial_account'] = Auth::user()->profile->financial_account;
+                if (!is_null($data['transaction']->financial_account)) {
+                    $data['financial_account'] = $data['transaction']->financial_account;
+                } else {
+                    $data['financial_account'] = Auth::user()->profile->financial_account;
+                }
             }
         }
 
@@ -89,7 +92,7 @@ class RecordController extends Controller
      */
     public function cancel($record, Request $request)
     {
-        $result = DB::transaction(function () use ($request) {
+        $result = DB::transaction(function () use ($record, $request) {
             $cancel_status = ['status' => -1, 'status_info' => '使用者取消'];
 
             $order = Order::where('serial_number', $record)->first();
