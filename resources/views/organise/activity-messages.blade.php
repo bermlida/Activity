@@ -3,6 +3,13 @@
 
 @extends('layouts.main')
 
+@section('style')
+    
+    <!-- ReStable CSS -->
+    <link href="{{ asset('components/ReStable/jquery.restable.min.css') }}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
     <!-- Page Content -->
@@ -10,13 +17,14 @@
 
         <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">活動訊息</h1>
-                
-                <a class="btn btn-default" href="{{ route('organise::activity::message::create', [$activity]) }}" role="button">
-                    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                    新增訊息
-                </a>
+            <div class="col-xs-12">
+                <h1 class="page-header">
+                    活動訊息
+                    <a class="btn btn-default" href="{{ route('organise::activity::message::create', [$activity]) }}" role="button">
+                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                        新增訊息
+                    </a>
+                </h1>
             </div>
         </div>
         <!-- /.row -->
@@ -46,7 +54,7 @@
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'scheduled' ? 'active in' : '' }}" id="scheduled">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -54,7 +62,7 @@
                                     <th>發送方式</th>
                                     <th>發送對象</th>
                                     <th>發送時間</th>
-                                    <th class="text-center">功能</th>
+                                    <th>功能</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,7 +84,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade {{ $tab == 'draft' ? 'active in' : '' }}" id="draft">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -84,7 +92,7 @@
                                     <th>發送方式</th>
                                     <th>發送對象</th>
                                     <th>發送時間</th>
-                                    <th class="text-center">功能</th>
+                                    <th>功能</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -106,7 +114,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade {{ $tab == 'send' ? 'active in' : '' }}" id="send">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -114,7 +122,7 @@
                                     <th>發送方式</th>
                                     <th>發送對象</th>
                                     <th>發送時間</th>
-                                    <th class="text-center">功能</th>
+                                    <th>功能</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -161,39 +169,52 @@
 
 @section('script')
 
+    <!-- ReStable JavaScript -->
+    <script src="{{ asset('components/ReStable/jquery.restable.min.js') }}"></script>
+
     <script>
 
-    function update(target)
-    {
-        execAjax(target, "PUT")
-    }
+        function update(target)
+        {
+            execAjax(target, "PUT")
+        }
 
-    function remove(target)
-    {
-        execAjax(target, "DELETE")
-    }
+        function remove(target)
+        {
+            execAjax(target, "DELETE")
+        }
 
-    function execAjax(url, method)
-    {
-        jQuery.ajax({
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            url: url,
-            type: method,
-            dataType: "json"
-        }).done(
-            function (data) {
-                alert(data.message);
+        function execAjax(url, method)
+        {
+            jQuery.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                url: url,
+                type: method,
+                dataType: "json"
+            }).done(
+                function (data) {
+                    alert(data.message);
 
-                if (data.result) {
-                    window.location.href = "{{
-                        route('organise::activity::message::list', [$activity])
-                    }}";
+                    if (data.result) {
+                        window.location.href = "{{
+                            route('organise::activity::message::list', [$activity])
+                        }}";
+                    }
                 }
-            }
-        );
-    }
+            );
+        }
+
+        $(document).ready(function () {
+
+            $('.responsive-table').ReStable({
+                keepHtml : true,
+                rowHeaders : false,
+                maxWidth: 992
+            });
+
+        });
 
     </script>
 

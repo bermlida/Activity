@@ -3,6 +3,13 @@
 
 @extends('layouts.main')
 
+@section('style')
+    
+    <!-- ReStable CSS -->
+    <link href="{{ asset('components/ReStable/jquery.restable.min.css') }}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
     <!-- Page Content -->
@@ -41,7 +48,7 @@
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'completed' ? 'active in' : '' }}" id="completed">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -91,7 +98,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade {{ $tab == 'unpaid' ? 'active in' : '' }}" id="unpaid">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -121,7 +128,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade {{ $tab == 'cancelled' ? 'active in' : '' }}" id="cancelled">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -196,32 +203,45 @@
 
 @section('script')
 
+    <!-- ReStable JavaScript -->
+    <script src="{{ asset('components/ReStable/jquery.restable.min.js') }}"></script>
+
     <script>
 
-    function remove(target)
-    {
-        execAjax(target, "DELETE")
-    }
+        function remove(target)
+        {
+            execAjax(target, "DELETE")
+        }
 
-    function execAjax(url, method)
-    {
-        jQuery.ajax({
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            url: url,
-            type: method,
-            dataType: "json"
-        }).done(
-            function (data) {
-                alert(data.message);
+        function execAjax(url, method)
+        {
+            jQuery.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                url: url,
+                type: method,
+                dataType: "json"
+            }).done(
+                function (data) {
+                    alert(data.message);
 
-                if (data.result) {
-                    window.location.href = "{{ route('organise::activity::list') }}";
+                    if (data.result) {
+                        window.location.href = "{{ route('organise::activity::list') }}";
+                    }
                 }
-            }
-        );
-    }
+            );
+        }
+
+        $(document).ready(function () {
+
+            $('.responsive-table').ReStable({
+                keepHtml : true,
+                rowHeaders : false,
+                maxWidth: 768
+            });
+
+        });
 
     </script>
 

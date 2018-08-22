@@ -60,9 +60,9 @@
                 <input type="hidden" name="status" value="{{ old('status') }}">
 
                 <div class="form-group">
-                    <label for="subject" class="col-sm-4 control-label">主旨</label>
+                    <label for="subject" class="col-sm-2 control-label">主旨</label>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <input id="subject" type="text" class="form-control" name="subject" value="{{ $message->subject or old('subject') }}">
                         @if ($errors->has('subject'))
                             <span class="help-block" style="color:red">
@@ -73,9 +73,9 @@
                 </div>
                     
                 <div class="form-group">
-                    <label for="content" class="col-sm-4 control-label">內容</label>
+                    <label for="content" class="col-sm-2 control-label">內容</label>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <textarea id="content" class="form-control" name="content">{{ $message->content or old('content') }}</textarea>
                         @if ($errors->has('content'))
                             <span class="help-block" style="color:red">
@@ -94,7 +94,7 @@
                             ];
                         @endphp
                     @endif
-                    <label class="col-sm-4 control-label">發送方式</label>
+                    <label class="col-sm-2 control-label">發送方式</label>
 
                     <label class="radio-inline">
                         <input type="checkbox" name="sending_method[0]" value="email" {{ $checked[0] or '' }}>E-mail
@@ -119,7 +119,7 @@
                             ];
                         @endphp
                     @endif
-                    <label class="col-sm-4 control-label">發送對象</label>
+                    <label class="col-sm-2 control-label">發送對象</label>
 
                     <label class="radio-inline">
                         <input type="checkbox" name="sending_target[0]" value="1" {{ $checked[0] or '' }}>已完成報名
@@ -177,7 +177,7 @@
                             ];
                         @endphp
                     @endif
-                    <label class="col-sm-4 control-label">發送排程</label>
+                    <label class="col-sm-2 control-label">發送排程</label>
                         
                     <label class="radio-inline">
                         <input type="radio" name="join_schedule" value="no" {{ $checked['no'] or '' }}>立刻發送

@@ -3,6 +3,13 @@
 
 @extends('layouts.main')
 
+@section('style')
+    
+    <!-- ReStable CSS -->
+    <link href="{{ asset('components/ReStable/jquery.restable.min.css') }}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
     <!-- Page Content -->
@@ -11,12 +18,13 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="page-header">舉辦的活動</h1>
-
-                <a class="btn btn-default" href="{{ route('organise::activity::create') }}">
-                    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                    新增活動
-                </a>
+                <h1 class="page-header">
+                    舉辦的活動
+                    <a class="btn btn-default" href="{{ route('organise::activity::create') }}">
+                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                        新增活動
+                    </a>
+                </h1>
             </div>
         </div>
         <!-- /.row -->
@@ -52,14 +60,14 @@
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'launched' ? 'active in' : '' }}" id="launched">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>活動名稱</th>
                                     <th>活動時間</th>
                                     <th>活動地點</th>
-                                    <th class="text-center">功能</th>
+                                    <th>功能</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,7 +88,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $activity->venue }}</td>
-                                        <td class="text-center">
+                                        <td>
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
@@ -116,14 +124,14 @@
                         </div>
                     </div>
                     <div class="tab-pane fade {{ $tab == 'discontinued' ? 'active in' : '' }}" id="discontinued">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>活動名稱</th>
                                     <th>活動時間</th>
                                     <th>活動地點</th>
-                                    <th class="text-center">功能</th>
+                                    <th>功能</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -144,7 +152,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $activity->venue }}</td>
-                                        <td class="text-center">
+                                        <td>
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
@@ -170,14 +178,14 @@
                         </div>
                     </div>
                     <div class="tab-pane fade {{ $tab == 'draft' ? 'active in' : '' }}" id="draft">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>活動名稱</th>
                                     <th>活動時間</th>
                                     <th>活動地點</th>
-                                    <th class="text-center">功能</th>
+                                    <th>功能</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -198,7 +206,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $activity->venue }}</td>
-                                        <td class="text-center">
+                                        <td>
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
@@ -226,14 +234,14 @@
                         </div>
                     </div>
                     <div class="tab-pane fade {{ $tab == 'ended' ? 'active in' : '' }}" id="ended">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>活動名稱</th>
                                     <th>活動時間</th>
                                     <th>活動地點</th>
-                                    <th class="text-center">功能</th>
+                                    <th>功能</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -254,7 +262,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $activity->venue }}</td>
-                                        <td class="text-center">
+                                        <td>
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
@@ -300,37 +308,50 @@
 
 @section('script')
 
+    <!-- ReStable JavaScript -->
+    <script src="{{ asset('components/ReStable/jquery.restable.min.js') }}"></script>
+
     <script>
 
-    function update(target)
-    {
-        execAjax(target, "PUT")
-    }
+        function update(target)
+        {
+            execAjax(target, "PUT")
+        }
 
-    function remove(target)
-    {
-        execAjax(target, "DELETE")
-    }
+        function remove(target)
+        {
+            execAjax(target, "DELETE")
+        }
 
-    function execAjax(url, method)
-    {
-        jQuery.ajax({
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            url: url,
-            type: method,
-            dataType: "json"
-        }).done(
-            function (data) {
-                alert(data.message);
+        function execAjax(url, method)
+        {
+            jQuery.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                url: url,
+                type: method,
+                dataType: "json"
+            }).done(
+                function (data) {
+                    alert(data.message);
 
-                if (data.result) {
-                    window.location.href = "{{ route('organise::activity::list') }}";
+                    if (data.result) {
+                        window.location.href = "{{ route('organise::activity::list') }}";
+                    }
                 }
-            }
-        );
-    }
+            );
+        }
+
+        $(document).ready(function () {
+
+            $('.responsive-table').ReStable({
+                keepHtml : true,
+                rowHeaders : false,
+                maxWidth: 992
+            });
+
+        });
 
     </script>
 

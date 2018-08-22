@@ -22,7 +22,7 @@
             }, $message->sending_target))
         }}</td>
         <td>{{ !is_null($message->sending_time) ? $message->sending_time->format('Y-m-d H:i') : '' }}</td>
-        <td class="text-center">
+        <td>
             @if ($message->status == 1)
                 @if (!is_null($message->sending_time) && $message->sending_time >= date('Y-m-d H:i'))
                     <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::message::cancel', [$message->activity, $message]) }}')">取消發送</button>
