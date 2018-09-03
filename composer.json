@@ -1,11 +1,11 @@
 {
-    "name": "Activity",
+    "name": "activity",
     "description": "The Buddha Activity Platform",
     "keywords": ["Buddha Activity Platform"],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "7.0.*",
+        "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "doctrine/dbal": "^2.5",
         "symfony/psr-http-message-bridge": "^1.0",
@@ -17,8 +17,7 @@
         "nexmo/client": "^0.4.0",
         "guzzlehttp/guzzle": "^6.2",
         "simplesoftwareio/simple-sms": "^3.1",
-        "yellowskies/QR-code-bundle": "^1.2",
-        "chillerlan/php-qrcode": "dev-master"
+        "chillerlan/php-qrcode": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -57,6 +56,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "process-timeout": 0
     }
 }
