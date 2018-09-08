@@ -3,6 +3,13 @@
 
 @extends('layouts.main')
 
+@section('style')
+    
+    <!-- ReStable CSS -->
+    <link href="{{ asset('components/ReStable/jquery.restable.min.css') }}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
     <!-- Page Content -->
@@ -49,7 +56,7 @@
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'registered' ? 'active in' : '' }}" id="registered">
-                        <table class="table table-hover"
+                        <table class="table table-hover responsive-table">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -63,7 +70,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @forelse ($registered_activities as $key => $activity)
+                                @foreach ($registered_activities as $key => $activity)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $activity->name }}</td>
@@ -98,6 +105,7 @@
                                             </a>
                                         </td>
                                     </tr>
+{{--
                                 @empty
                                     <tr>
                                         <td colspan="8">
@@ -106,7 +114,8 @@
                                             <a href="{{ route('visit::activities') }}">開始找活動</a>
                                         </td>
                                     </tr>
-                                @endforelse
+--}}
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="col-xs-12 text-center">
@@ -119,7 +128,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade {{ $tab == 'undone' ? 'active in' : '' }}" id="undone">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -188,7 +197,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade {{ $tab == 'cancelled' ? 'active in' : '' }}" id="cancelled">
-                        <table class="table table-hover">
+                        <table class="table table-hover responsive-table">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -266,29 +275,42 @@
 
 @section('script')
 
+    <!-- ReStable JavaScript -->
+    <script src="{{ asset('components/ReStable/jquery.restable.min.js') }}"></script>
+
     <script>
 
-    function cancel(target)
-    {
-        var url = target;
+        function cancel(target)
+        {
+            var url = target;
 
-        jQuery.ajax({
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            url: url,
-            type: "PUT",
-            dataType: "json"
-        }).done(
-            function (data) {
-                alert(data.message);
+            jQuery.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                url: url,
+                type: "PUT",
+                dataType: "json"
+            }).done(
+                function (data) {
+                    alert(data.message);
 
-                if (data.result) {
-                    window.location.href = "{{ route('participate::record::list') }}";
+                    if (data.result) {
+                        window.location.href = "{{ route('participate::record::list') }}";
+                    }
                 }
-            }
-        );
-    }
+            );
+        }
+
+        $(document).ready(function () {
+
+            $('.responsive-table').ReStable({
+                keepHtml : true,
+                rowHeaders : false,
+                maxWidth: 992
+            });
+
+        });
 
     </script>
 

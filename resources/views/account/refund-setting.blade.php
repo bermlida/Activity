@@ -16,22 +16,21 @@
         <!-- /.row -->
 
         <div class="row">
-            {{-- <div class="col-xs-12"> --}}
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('account::refund-setting::save') }}">
-                    {{ csrf_field() }}
+            <form class="form-horizontal" role="form" method="POST" action="{{ route('account::refund-setting::save') }}">
+                {{ csrf_field() }}
                         
-                    @include('partials.financial-institution-account-form')
+                @include('partials.financial-institution-account-form')
 
-                    <div class="form-group">
-                        <div class="col-sm-6 col-sm-offset-6 col-xs-offset-4">
-                            <button type="submit" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
-                                存檔
-                            </button>
-                        </div>
+                <div class="form-group">
+                    <div class="col-sm-6 col-sm-offset-5 col-xs-offset-4">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                            存檔
+                        </button>
                     </div>
-                </form>
-            {{-- </div> --}}
+                </div>
+                
+            </form>
         </div>
 
         <hr>

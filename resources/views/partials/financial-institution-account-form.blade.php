@@ -1,8 +1,8 @@
          
     <div class="form-group{{ $errors->has('financial_institution_code') ? ' has-error' : '' }}">
-        <label for="financial_institution_code" class="col-sm-4 control-label">銀行代號</label>
+        <label for="financial_institution_code" class="col-sm-2 control-label">銀行代號</label>
 
-        <div class="col-sm-6">
+        <div class="col-sm-8">
             <select id="financial_institution_code" class="form-control" name="financial_institution_code">
                 @if (!is_null(old('financial_institution_code')) || isset($financial_account))
                     <option value="" disabled>請選擇銀行代號</option>
@@ -28,9 +28,9 @@
     </div>
 
     <div class="form-group{{ $errors->has('account_number') ? ' has-error' : '' }}">
-        <label for="account_number" class="col-sm-4 control-label">帳號</label>
+        <label for="account_number" class="col-sm-2 control-label">帳號</label>
 
-        <div class="col-sm-6">
+        <div class="col-sm-8">
             <input id="account_number" class="form-control" name="account_number" value="{{ !is_null(old('account_number')) ? old('account_number') : (isset($financial_account) ? $financial_account->account_number : '') }}">
             @if ($errors->has('account_number'))
                 <span class="help-block">

@@ -17,7 +17,9 @@
         "nexmo/client": "^0.4.0",
         "guzzlehttp/guzzle": "^6.2",
         "simplesoftwareio/simple-sms": "^3.1",
-        "chillerlan/php-qrcode": "^2.0"
+        "chillerlan/php-qrcode": "^2.0",
+        "flamelin/ecpay": "dev-master",
+        "wsmwason/taiwan-bank-code": "^0.1.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

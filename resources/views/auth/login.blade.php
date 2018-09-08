@@ -27,9 +27,9 @@
                 {{ csrf_field() }}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email" class="col-sm-4 control-label">電子郵件</label>
+                    <label for="email" class="col-sm-2 control-label">電子郵件</label>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
 
                         @if ($errors->has('email'))
@@ -41,9 +41,9 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="password" class="col-sm-4 control-label">密碼</label>
+                    <label for="password" class="col-sm-2 control-label">密碼</label>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <input id="password" type="password" class="form-control" name="password">
 
                         @if ($errors->has('password'))
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-6 col-sm-offset-4">
+                    <div class="col-sm-6 col-sm-offset-2">
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="remember">
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-6 col-sm-offset-4 col-xs-offset-4">
+                    <div class="col-sm-6 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-btn fa-sign-in"></i> 登入
                         </button>
@@ -76,7 +76,6 @@
                         </a>
                     </div>
                 </div>
-
                 
             </form>
         </div>
@@ -85,7 +84,7 @@
             <hr>
         </div>
 
-        <div class="col-sm-6 col-sm-offset-4">
+        <div class="col-sm-8 col-sm-offset-2">
             <a class="btn btn-block btn-social btn-facebook" href="{{ route('social-auth::login::ask', ['social_provider' => 'facebook']) }}" role="button">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
                 以 Facebook 登入

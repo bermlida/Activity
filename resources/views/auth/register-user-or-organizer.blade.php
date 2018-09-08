@@ -22,7 +22,7 @@
     <!-- /.row -->
 
     <div class="row">
-        <div class="col-sm-6 col-sm-offset-4">
+        <div class="col-sm-8 col-sm-offset-2">
             <a class="btn btn-block btn-social btn-{{ $social_provider }}" href="{{ route('social-auth::register::ask', ['social_provider' => $social_provider, 'role' => 'organizer']) }}" role="button">
                 <i class="fa fa-{{ $social_provider }}" aria-hidden="true"></i>
                 註冊為主辦單位

@@ -156,6 +156,7 @@ return [
         Howtomakeaturn\Allpay\AllpayServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
         SimpleSoftwareIO\SMS\SMSServiceProvider::class,
+        flamelin\ECPay\EcpayServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -216,7 +217,8 @@ return [
         'Allpay' => Howtomakeaturn\Allpay\Facade\Allpay::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'SMS' => SimpleSoftwareIO\SMS\Facades\SMS::class,
-
+        'Ecpay' => flamelin\ECPay\Facade\Ecpay::class,
+        
     ],
 
 ];

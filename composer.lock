@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4673adbd16a6e121b5be096e453c7482",
+    "content-hash": "380ca555eee358b29234489c39ae923b",
     "packages": [
         {
             "name": "chillerlan/php-qrcode",
@@ -665,6 +665,42 @@
                 "parser"
             ],
             "time": "2014-09-09T13:34:57+00:00"
+        },
+        {
+            "name": "flamelin/ecpay",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flamelin/ECPay.git",
+                "reference": "6417728c5a43db68b6dc9b4e0683eec82b18191d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flamelin/ECPay/zipball/6417728c5a43db68b6dc9b4e0683eec82b18191d",
+                "reference": "6417728c5a43db68b6dc9b4e0683eec82b18191d",
+                "shasum": ""
+            },
+            "type": "ectool",
+            "autoload": {
+                "classmap": [
+                    "src/lib"
+                ],
+                "psr-4": {
+                    "flamelin\\ECPay\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "AIRO",
+                    "email": "service@airo.com.tw"
+                }
+            ],
+            "description": "ECPay for Laravel 5",
+            "keywords": [
+                "ecpay"
+            ],
+            "time": "2017-05-24T09:57:19+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -3449,6 +3485,42 @@
             "time": "2018-07-29T20:33:41+00:00"
         },
         {
+            "name": "wsmwason/taiwan-bank-code",
+            "version": "v0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wsmwason/taiwan-bank-code.git",
+                "reference": "caba29505a0a4b8f3025b585e9ce8c02d29c4c86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wsmwason/taiwan-bank-code/zipball/caba29505a0a4b8f3025b585e9ce8c02d29c4c86",
+                "reference": "caba29505a0a4b8f3025b585e9ce8c02d29c4c86",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "TaiwanBankCode.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "wsmwason",
+                    "email": "wsmwason@gmail.com"
+                }
+            ],
+            "description": "Taiwan Bank Code List",
+            "time": "2017-03-17T05:23:31+00:00"
+        },
+        {
             "name": "zendframework/zend-diactoros",
             "version": "1.8.5",
             "source": {
@@ -4907,7 +4979,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "flamelin/ecpay": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

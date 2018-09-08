@@ -155,21 +155,21 @@
             </div>
 
             <div class="col-sm-4 col-xs-12">
-                <div class="col-sm-12 col-xs-12">
-                    <a class="btn btn-block btn-social btn-facebook" href="{{ route('social-auth::register::ask', ['social_provider' => 'facebook', 'role' => 'organizer']) }}" role="button">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                        以 Facebook 登入
-                    </a>
+
+                <a class="btn btn-block btn-social btn-facebook" href="{{ route('social-auth::register::ask', ['social_provider' => 'facebook', 'role' => 'organizer']) }}" role="button">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                    以 Facebook 登入
+                </a>
                     
-                    <div class="col-xs-12">
-                        <br>
-                    </div>
-                    
-                    <a class="btn btn-block btn-social btn-google" href="{{ route('social-auth::register::ask', ['social_provider' => 'google', 'role' => 'organizer']) }}" role="button">
-                        <i class="fa fa-google" aria-hidden="true"></i>
-                        以 Google+ 登入
-                    </a>
+                <div class="col-xs-12">
+                    <br>
                 </div>
+                    
+                <a class="btn btn-block btn-social btn-google" href="{{ route('social-auth::register::ask', ['social_provider' => 'google', 'role' => 'organizer']) }}" role="button">
+                    <i class="fa fa-google" aria-hidden="true"></i>
+                    以 Google+ 登入
+                </a>
+                
             </div>
         </div>
     </div>
