@@ -84,7 +84,7 @@
             <hr>
         </div>
 
-        <div class="col-sm-8 col-sm-offset-2">
+        <div class="col-sm-8 col-sm-offset-2 col-xs-12">
             <a class="btn btn-block btn-social btn-facebook" href="{{ route('social-auth::login::ask', ['social_provider' => 'facebook']) }}" role="button">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
                 以 Facebook 登入
