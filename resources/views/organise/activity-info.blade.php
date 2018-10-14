@@ -79,7 +79,7 @@
                     <div class="panel-body">
                         <a class="btn btn-primary btn-lg btn-block" href="">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                            直播
+                            活動日誌
                         </a>
                         <hr>
                         <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::message::list', [$activity]) }}" role="button">

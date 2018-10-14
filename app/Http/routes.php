@@ -18,12 +18,12 @@ Route::get('/error', function () {
     return 'error';
 });
 
-// Route::get('/activity-management', function () {
-//     return view('organise.activity-management');
-// });
-
 // Route::get('/test', function () {
 //     return view('test');
+// });
+
+// Route::get('/activity-management', function () {
+//     return view('organise.activity-management');
 // });
 
 Route::group([
@@ -199,6 +199,25 @@ Route::group([
                 Route::put('/update', 'ActivityMessageController@save')->name('update');
                 Route::put('/cancel', 'ActivityMessageController@cancel')->name('cancel');
                 Route::delete('/delete', 'ActivityMessageController@delete')->name('delete');
+            });
+        });
+
+        Route::group([
+            'prefix' => '/logs',
+            'as' => 'log::'
+        ], function () {
+            Route::get('/', 'ActivityLogController@index')->name('list');
+            Route::get('/new', 'ActivityLogController@edit')->name('create');
+            Route::post('/new', 'ActivityLogController@save')->name('store');
+
+            Route::group([
+                'prefix' => '/{log}'
+            ], function () {
+                Route::get('/edit', 'ActivityLogController@edit')->name('modify');
+                Route::put('/update', 'ActivityLogController@save')->name('update');
+                Route::put('/launched', 'ActivityLogController@launched')->name('launched');
+                Route::put('/postponed', 'ActivityLogController@postponed')->name('postponed');
+                Route::delete('/delete', 'ActivityLogController@delete')->name('delete');
             });
         });
     });

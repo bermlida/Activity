@@ -25,19 +25,21 @@ class ActivityApplicantController extends Controller
             ->where('status', 1)
             ->paginate(10, ['*'], 'completed_page');
 
-        $data['unpaid_orders'] = $activity->orders()
-            ->where('status', 0)
-            ->has('transactions')
-            ->paginate(10, ['*'], 'unpaid_page');
-
-        $data['cancelled_orders'] = $activity->orders()
+        $data['unrefund_orders'] = $activity->orders()
             ->where('status', -1)
             ->whereHas('transactions', function ($query) {
                 $query->where('status', 1);
             })
-            ->paginate(10, ['*'], 'cancelled_orders');
+            ->paginate(10, ['*'], 'unrefund_orders');
 
-        $data['url_query'] = $request->only('completed_page', 'unpaid_page', 'cancelled_page');
+        $data['refunded_orders'] = $activity->orders()
+            ->where('status', -1)
+            ->whereHas('transactions', function ($query) {
+                $query->where('status', 1);
+            })
+            ->paginate(10, ['*'], 'refunded_page');
+
+        $data['url_query'] = $request->only('completed_page', 'unrefund_page', 'refunded_page');
 
         $data['tab'] = $request->has('tab') ? $request->input('tab') : 'completed';
         

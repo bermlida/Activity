@@ -33,16 +33,16 @@
                             已完成
                         </a>
                     </li>
-                    <li class="{{ $tab == 'unpaid' ? 'active' : '' }}">
-                        <a href="#unpaid" data-toggle="tab">
-                            <i class="fa fa-usd" aria-hidden="true"></i>
-                            未付款
+                    <li class="{{ $tab == 'unrefund' ? 'active' : '' }}">
+                        <a href="#unrefund" data-toggle="tab">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            未退款
                         </a>
                     </li>
-                    <li class="{{ $tab == 'cancelled' ? 'active' : '' }}">
-                        <a href="#cancelled" data-toggle="tab">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                            已取消
+                    <li class="{{ $tab == 'refunded' ? 'active' : '' }}">
+                        <a href="#refunded" data-toggle="tab">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                            已退款
                         </a>
                     </li>
                 </ul>
@@ -97,37 +97,7 @@
                             !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade {{ $tab == 'unpaid' ? 'active in' : '' }}" id="unpaid">
-                        <table class="table table-hover responsive-table">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>姓名</th>
-                                    <th>電子郵件</th>
-                                    <th>手機</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($unpaid_orders as $key => $order)
-                                    <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $order->user->name }}</td>
-                                        <td>{{ $order->user->account->email }}</td>
-                                        <td>{{ $order->user->mobile_phone }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <div class="col-xs-12 text-center">
-                            {!! 
-                                $unpaid_orders
-                                    ->appends($url_query)
-                                    ->appends('tab', 'unpaid')
-                                    ->links()
-                            !!}
-                        </div>
-                    </div>
-                    <div class="tab-pane fade {{ $tab == 'cancelled' ? 'active in' : '' }}" id="cancelled">
+                    <div class="tab-pane fade {{ $tab == 'unrefund' ? 'active in' : '' }}" id="unrefund">
                         <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
@@ -142,8 +112,8 @@
                             </thead>
                             <tbody>
                                 @php
-                                    $cancelled_orders->setCollection(
-                                        $cancelled_orders->getCollection()->load([
+                                    $unrefund_orders->setCollection(
+                                        $unrefund_orders->getCollection()->load([
                                             'user.account',
                                             'transactions' => function ($query) {
                                                 $query->where('status', 1);
@@ -151,7 +121,7 @@
                                         ])
                                     );
                                 @endphp
-                                @foreach ($cancelled_orders as $key => $order)
+                                @foreach ($unrefund_orders as $key => $order)
                                     <tr>
                                         <tr>
                                         <td>{{ $key + 1 }}</td>
@@ -171,9 +141,39 @@
                         </table>
                         <div class="col-xs-12 text-center">
                             {!!
-                                $cancelled_orders
+                                $unrefund_orders
                                     ->appends($url_query)
-                                    ->appends('tab', 'cancelled')
+                                    ->appends('tab', 'unrefund')
+                                    ->links()
+                            !!}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade {{ $tab == 'refunded' ? 'active in' : '' }}" id="refunded">
+                        <table class="table table-hover responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>姓名</th>
+                                    <th>電子郵件</th>
+                                    <th>手機</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($refunded_orders as $key => $order)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $order->user->name }}</td>
+                                        <td>{{ $order->user->account->email }}</td>
+                                        <td>{{ $order->user->mobile_phone }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="col-xs-12 text-center">
+                            {!! 
+                                $refunded_orders
+                                    ->appends($url_query)
+                                    ->appends('tab', 'refunded')
                                     ->links()
                             !!}
                         </div>
