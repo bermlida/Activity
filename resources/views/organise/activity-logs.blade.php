@@ -39,16 +39,16 @@
                             上架中
                         </a>
                     </li>
-                    <li class="{{ $tab == 'postponed' ? 'active' : '' }}">
-                        <a href="#postponed" data-toggle="tab">
-                            <i class="fa fa-paper-plane " aria-hidden="true"></i>
-                            已下架
-                        </a>
-                    </li>
                     <li class="{{ $tab == 'draft' ? 'active' : '' }}">
                         <a href="#draft" data-toggle="tab">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             草稿
+                        </a>
+                    </li>
+                    <li class="{{ $tab == 'postponed' ? 'active' : '' }}">
+                        <a href="#postponed" data-toggle="tab">
+                            <i class="fa fa-paper-plane " aria-hidden="true"></i>
+                            已下架
                         </a>
                     </li>
                 </ul>
@@ -80,33 +80,6 @@
                             !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade {{ $tab == 'postponed' ? 'active in' : '' }}" id="postponed">
-                        <table class="table table-hover responsive-table">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>標題</th>
-                                    <th>功能</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @each(
-                                    'partials.activity-log-row',
-                                    $postponed_logs,
-                                    'log',
-                                    'partials.activity-log-empty'
-                                )
-                            </tbody>
-                        </table>
-                        <div class="col-xs-12 text-center">
-                            {!!
-                                $postponed_logs
-                                    ->appends($url_query)
-                                    ->appends('tab', 'postponed')
-                                    ->links()
-                            !!}
-                        </div>
-                    </div>
                     <div class="tab-pane fade {{ $tab == 'draft' ? 'active in' : '' }}" id="draft">
                         <table class="table table-hover responsive-table">
                             <thead>
@@ -130,6 +103,33 @@
                                 $draft_logs
                                     ->appends($url_query)
                                     ->appends('tab', 'draft')
+                                    ->links()
+                            !!}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade {{ $tab == 'postponed' ? 'active in' : '' }}" id="postponed">
+                        <table class="table table-hover responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>標題</th>
+                                    <th>功能</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @each(
+                                    'partials.activity-log-row',
+                                    $postponed_logs,
+                                    'log',
+                                    'partials.activity-log-empty'
+                                )
+                            </tbody>
+                        </table>
+                        <div class="col-xs-12 text-center">
+                            {!!
+                                $postponed_logs
+                                    ->appends($url_query)
+                                    ->appends('tab', 'postponed')
                                     ->links()
                             !!}
                         </div>

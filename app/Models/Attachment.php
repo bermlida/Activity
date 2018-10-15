@@ -43,4 +43,14 @@ class Attachment extends Model
     {
         return $query->where('category', 'banner');
     }
+
+    /**
+     * 限制查詢特定類別的附件。
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfCategory($query, $category)
+    {
+        return $query->where('category', $category);
+    }
 }

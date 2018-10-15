@@ -30,7 +30,7 @@ class ActivityApplicantController extends Controller
             ->whereHas('transactions', function ($query) {
                 $query->where('status', 1);
             })
-            ->paginate(10, ['*'], 'unrefund_orders');
+            ->paginate(10, ['*'], 'unrefund_page');
 
         $data['refunded_orders'] = $activity->orders()
             ->where('status', -1)
