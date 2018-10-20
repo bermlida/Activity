@@ -91,7 +91,7 @@
                         <label class="col-sm-3 control-label">圖片預覽</label>
                         
                         <div class="col-sm-9">
-                            <img class="img-responsive" src="{{ asset('storage/' . $log->activity->id . '/plogs/' . $attachment->name) }}" alt="{{ $attachment->name }}">
+                            <img class="img-responsive" src="{{ asset('storage/' . $log->activity->id . '/plogs/' . $log_content->name) }}" alt="{{ $log_content->name }}">
                         </div>
                     </div>
                 @endif
@@ -102,7 +102,7 @@
                         
                         <div class="col-sm-9">
                             <video width="320" height="240" controls autoplay>
-                                <source src="{{ asset('storage/' . $log->activity->id . '/vlogs/' . $attachment->name) }}" type="video/mp4">
+                                <source src="{{ asset('storage/' . $log->activity->id . '/vlogs/' . $log_content->name) }}" type="video/mp4">
                                 您的瀏覽器並不支援預覽影片
                             </video>
                         </div>
