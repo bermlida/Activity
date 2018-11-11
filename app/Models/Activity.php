@@ -138,6 +138,14 @@ class Activity extends Model
     }
     
     /**
+     * 取得此活動擁有的日誌。
+     */
+    public function logs()
+    {
+        return $this->hasMany('App\Models\Log');
+    }
+    
+    /**
      * 取得購買此活動的訂單。
      */
     public function orders()

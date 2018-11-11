@@ -87,7 +87,6 @@ class Message extends Model
     {
         return json_decode($value, true);
     }
-
     
     /**
      * 取得此訊息對應的活動。

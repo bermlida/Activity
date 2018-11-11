@@ -33,10 +33,10 @@
         <div class="row">
             <div class="col-xs-12">
                 <ul id="myTab" class="nav nav-tabs nav-justified">
-                    <li class="{{ $tab == 'launched' ? 'active' : '' }}">
-                        <a href="#launched" data-toggle="tab">
+                    <li class="{{ $tab == 'published' ? 'active' : '' }}">
+                        <a href="#published" data-toggle="tab">
                             <i class="fa fa-envelope-open" aria-hidden="true"></i>
-                            上架中
+                            已發布
                         </a>
                     </li>
                     <li class="{{ $tab == 'draft' ? 'active' : '' }}">
@@ -45,15 +45,9 @@
                             草稿
                         </a>
                     </li>
-                    <li class="{{ $tab == 'postponed' ? 'active' : '' }}">
-                        <a href="#postponed" data-toggle="tab">
-                            <i class="fa fa-paper-plane " aria-hidden="true"></i>
-                            已下架
-                        </a>
-                    </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade {{ $tab == 'launched' ? 'active in' : '' }}" id="launched">
+                    <div class="tab-pane fade {{ $tab == 'published' ? 'active in' : '' }}" id="published">
                         <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
@@ -63,19 +57,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @each(
-                                    'partials.activity-log-row',
-                                    $launched_logs,
-                                    'log',
-                                    'partials.activity-log-empty'
-                                )
+                                @foreach ($published_logs as $key => $log)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $log->title }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::log::cancel-publish', [$log->activity, $log]) }}')">
+                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                下架
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="col-xs-12 text-center">
                             {!!
-                                $launched_logs
+                                $published_logs
                                     ->appends($url_query)
-                                    ->appends('tab', 'launched')
+                                    ->appends('tab', 'published')
                                     ->links()
                             !!}
                         </div>
@@ -90,12 +90,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @each(
-                                    'partials.activity-log-row',
-                                    $draft_logs,
-                                    'log',
-                                    'partials.activity-log-empty'
-                                )
+                                @foreach ($draft_logs as $key => $log)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $log->title }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success" onclick="update('{{ route('organise::activity::log::publish', [$log->activity, $log]) }}')">
+                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                上架
+                                            </button>
+                                            <button type="button" class="btn btn-danger" onclick="remove('{{ route('organise::activity::log::delete', [$log->activity, $log]) }}')">
+                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                刪除
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="col-xs-12 text-center">
@@ -103,33 +113,6 @@
                                 $draft_logs
                                     ->appends($url_query)
                                     ->appends('tab', 'draft')
-                                    ->links()
-                            !!}
-                        </div>
-                    </div>
-                    <div class="tab-pane fade {{ $tab == 'postponed' ? 'active in' : '' }}" id="postponed">
-                        <table class="table table-hover responsive-table">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>標題</th>
-                                    <th>功能</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @each(
-                                    'partials.activity-log-row',
-                                    $postponed_logs,
-                                    'log',
-                                    'partials.activity-log-empty'
-                                )
-                            </tbody>
-                        </table>
-                        <div class="col-xs-12 text-center">
-                            {!!
-                                $postponed_logs
-                                    ->appends($url_query)
-                                    ->appends('tab', 'postponed')
                                     ->links()
                             !!}
                         </div>

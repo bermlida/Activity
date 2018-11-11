@@ -23,24 +23,19 @@ class ActivityLogController extends Controller
 
         $activity = $organizer->activities()->find($activity);
 
-        $data['launched_logs'] = $activity
+        $data['published_logs'] = $activity
             ->logs()
             ->where('status', 1)
-            ->paginate(10, ['*'], 'launched_page');
+            ->paginate(10, ['*'], 'published_page');
 
         $data['draft_logs'] = $activity
             ->logs()
             ->where('status', 0)
             ->paginate(10, ['*'], 'draft_page');
 
-        $data['postponed_logs'] = $activity
-            ->logs()
-            ->where('status', -1)
-            ->paginate(10, ['*'], 'postponed_page');
+        $data['url_query'] = $request->only('published_page', 'draft_page');
 
-        $data['url_query'] = $request->only('launched_page', 'draft_page', 'postponed_page');
-
-        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'launched';
+        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'published';
         
         return view('organise.activity-logs', $data);
     }
@@ -94,40 +89,46 @@ class ActivityLogController extends Controller
         $log = !is_null($log)
                 ? $activity->logs()->find($log)->fill($request->all())
                 : new Log($request->all());
+                
+        if ($log->content_type == 'blog' || $request->hasFile('plog_content') || $request->hasFile('vlog_content')) {
+            $result = DB::transaction(function () use ($log, $request) {
+                if ($log->attachments()->where('category', 'like', '%_content')->count() > 0) {
+                    unlink($log->attachments()->where('category', 'like', '%_content')->first()->path);
 
-        if ($log->content_type == 'plog' || $log->content_type == 'vlog') {
-            $upload_file = $request->file($log->content_type . '_content');
+                    $log->attachments()->where('category', 'like', '%_content')->first()->delete();
+                }
 
-            if (!is_null($upload_file)) {
-                $stored_path = public_path('storage/' . $activity->id . '/' . $log->content_type . 's/');
+                if ($log->content_type == 'plog' || $log->content_type == 'vlog') {
+                    $upload_file = $request->file($log->content_type . '_content');
 
-                DB::transaction(function () use ($log, $upload_file, $stored_path) {
-                    unlink($log->attachment()->ofCategory($log->content_type . '_content')->first()->path);
+                    if (!is_null($upload_file)) {
+                        $stored_path = public_path('storage/' . $activity->id . '/' . $log->content_type . 's/');
 
-                    $log->attachment()->ofCategory($log->content_type . '_content')->first()->delete();
+                        $log->fill(['content' => null])->save();
 
-                    $log->fill(['content' => null])->save();
+                        $log->attachments()->create([
+                            'name' => $upload_file->getClientOriginalName(),
+                            'type' => $upload_file->getMimeType(),
+                            'size' => $upload_file->getClientSize(),
+                            'path' => $stored_path . $upload_file->getClientOriginalName(),
+                            'category' => $log->content_type . '_content',
+                            'description' => ''
+                        ]);
 
-                    $log->attachments()->create([
-                        'name' => $upload_file->getClientOriginalName(),
-                        'type' => $upload_file->getMimeType(),
-                        'size' => $upload_file->getClientSize(),
-                        'path' => $stored_path . $upload_file->getClientOriginalName(),
-                        'category' => $log->content_type . '_content',
-                        'description' => ''
-                    ]);
+                        app(FileUploadService::class)->storeFile(
+                            $upload_file,
+                            $stored_path,
+                            $file->getClientOriginalName()
+                        );
+                    }
+                }
 
-                    return true;
-                });
+                $log->save();
 
-                app(FileUploadService::class)->storeFile(
-                    $upload_file,
-                    $stored_path,
-                    $file->getClientOriginalName()
-                );
-            }
+                return true;
+            });
         } else {
-            $log->save();
+            $result = $log->save();
         }
 
         if ($result) {
@@ -163,6 +164,28 @@ class ActivityLogController extends Controller
         $data['result'] = $log->save();
 
         $data['message'] = $data['result'] ? '日誌已發布' : '日誌發布失敗';
+
+        return response()->json($data);
+    }
+
+    /**
+     * 取消發布單一日誌。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cancelPublish($activity, $log)
+    {
+        $organizer = (Auth::user())->profile;
+
+        $activity = $organizer->activities()->find($activity);
+
+        $log = $activity->logs()->find($log);
+
+        $log->status = -1;
+
+        $data['result'] = $log->save();
+
+        $data['message'] = $data['result'] ? '日誌已取消發布' : '日誌取消發布失敗';
 
         return response()->json($data);
     }

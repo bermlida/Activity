@@ -216,6 +216,7 @@ Route::group([
                 Route::get('/edit', 'ActivityLogController@edit')->name('modify');
                 Route::put('/update', 'ActivityLogController@save')->name('update');
                 Route::put('/publish', 'ActivityLogController@publish')->name('publish');
+                Route::put('/cancel-publish', 'ActivityLogController@cancelPublish')->name('cancel-publish');
                 Route::delete('/delete', 'ActivityLogController@delete')->name('delete');
             });
         });
