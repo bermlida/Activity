@@ -64,7 +64,7 @@
                                         <td>
                                             <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::log::cancel-publish', [$log->activity, $log]) }}')">
                                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
-                                                下架
+                                                取消發布
                                             </button>
                                         </td>
                                     </tr>
@@ -95,9 +95,13 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $log->title }}</td>
                                         <td>
+                                            <a class="btn btn-primary" href="{{ route('organise::activity::log::modify', [$log->activity, $log]) }}"  role="button">
+                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                編輯
+                                            </a>
                                             <button type="button" class="btn btn-success" onclick="update('{{ route('organise::activity::log::publish', [$log->activity, $log]) }}')">
                                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
-                                                上架
+                                                發布
                                             </button>
                                             <button type="button" class="btn btn-danger" onclick="remove('{{ route('organise::activity::log::delete', [$log->activity, $log]) }}')">
                                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>

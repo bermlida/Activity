@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Organise;
 
+use DB;
 use Auth;
 use Illuminate\Http\Request;
 
+use App\Models\Log;
 use App\Http\Requests;
+use App\Services\FileUploadService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreActivityLogRequest;
-use App\Services\FileUploadService;
 
 class ActivityLogController extends Controller
 {
@@ -21,14 +23,14 @@ class ActivityLogController extends Controller
     {
         $organizer = (Auth::user())->profile;
 
-        $activity = $organizer->activities()->find($activity);
+        $data['activity'] = $organizer->activities()->find($activity);
 
-        $data['published_logs'] = $activity
+        $data['published_logs'] = $data['activity']
             ->logs()
             ->where('status', 1)
             ->paginate(10, ['*'], 'published_page');
 
-        $data['draft_logs'] = $activity
+        $data['draft_logs'] = $data['activity']
             ->logs()
             ->where('status', 0)
             ->paginate(10, ['*'], 'draft_page');
@@ -61,13 +63,13 @@ class ActivityLogController extends Controller
 
             $data['form_action'] = route('organise::activity::log::update', ['activity' => $activity, 'log' => $log]);
 
-            $data['page_method'] = 'PUT';
+            $data['form_method'] = 'PUT';
 
             $data['page_title'] = '編輯活動日誌';
         } else {
             $data['form_action'] = route('organise::activity::log::store', ['activity' => $activity]);
 
-            $data['page_method'] = 'POST';
+            $data['form_method'] = 'POST';
 
             $data['page_title'] = '新增活動日誌';
         }
@@ -89,9 +91,9 @@ class ActivityLogController extends Controller
         $log = !is_null($log)
                 ? $activity->logs()->find($log)->fill($request->all())
                 : new Log($request->all());
-                
+        
         if ($log->content_type == 'blog' || $request->hasFile('plog_content') || $request->hasFile('vlog_content')) {
-            $result = DB::transaction(function () use ($log, $request) {
+            $result = DB::transaction(function () use ($activity, $log, $request) {
                 if ($log->attachments()->where('category', 'like', '%_content')->count() > 0) {
                     unlink($log->attachments()->where('category', 'like', '%_content')->first()->path);
 
@@ -121,9 +123,11 @@ class ActivityLogController extends Controller
                             $file->getClientOriginalName()
                         );
                     }
+                } else {
+                    $log->content = $request->input('blog_content');
                 }
 
-                $log->save();
+                $activity->logs()->save($log);
 
                 return true;
             });
@@ -181,7 +185,7 @@ class ActivityLogController extends Controller
 
         $log = $activity->logs()->find($log);
 
-        $log->status = -1;
+        $log->status = 0;
 
         $data['result'] = $log->save();
 

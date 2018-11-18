@@ -68,9 +68,9 @@
                     <label for="content" class="col-sm-2 control-label">內容</label>
 
                     <div class="col-sm-8">
-                        <textarea id="blog_content" class="form-control" name="blog_content" {{ old('content_type', (isset($log) ? $log->content_type : '')) != 'blog' ? 'style="display:none;"' : '' }}>{{ old('blog_content', (isset($log) && $log->content_type == 'blog' ? $log->content : '')) }}</textarea>
-                        <input type="file" id="plog_content" class="form-control" name="plog_content" {{ old('content_type', (isset($log) ? $log->content_type : '')) != 'plog' ? 'style="display:none;"' : '' }}>
-                        <input type="file" id="vlog_content" class="form-control" name="vlog_content" {{ old('content_type', (isset($log) ? $log->content_type : '')) != 'vlog' ? 'style="display:none;"' : '' }}>
+                        <textarea id="blog_content" class="form-control" name="blog_content">{{ old('blog_content', (isset($log) && $log->content_type == 'blog' ? $log->content : '')) }}</textarea>
+                        <input type="file" id="plog_content" class="form-control" name="plog_content" {{ old('content_type', (isset($log) ? $log->content_type : '')) == 'plog' ? '' : 'style=display:none;' }}>
+                        <input type="file" id="vlog_content" class="form-control" name="vlog_content" {{ old('content_type', (isset($log) ? $log->content_type : '')) == 'vlog' ? '' : 'style=display:none;' }}>
 
                         @if ($errors->has('blog_content') || $errors->has('plog_content') || $errors->has('vlog_content'))
                             <span class="help-block" style="color:red">
@@ -188,8 +188,14 @@
         $("input[name=content_type]").change(function () {
             var content_type = $(this).val();
 
-            $("[name$='_content']").hide();
-            $("[name=" + content_type + "_content]").show();
+            $("input[name$='_content']").hide();
+            $("textarea[name='blog_content']").next().hide();
+            
+            if (content_type == 'blog') {
+                $("textarea[name='blog_content']").next().show();
+            } else {
+                $("input[name=" + content_type + "_content]").show();
+            }    
 
             if ($("div[id$='_preview']").length) {
                 $("div[id$='_preview']").hide();

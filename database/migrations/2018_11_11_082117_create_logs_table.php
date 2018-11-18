@@ -18,6 +18,7 @@ class CreateLogsTable extends Migration
             $table->string('title');
             $table->enum('content_type', ['blog', 'plog', 'vlog']);
             $table->text('content')->nullable();
+            $table->integer('status');
             
             $table
                 ->foreign('activity_id')

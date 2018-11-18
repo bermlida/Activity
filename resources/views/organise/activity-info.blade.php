@@ -77,7 +77,7 @@
                         <h4>互動</h4>
                     </div>
                     <div class="panel-body">
-                        <a class="btn btn-primary btn-lg btn-block" href="">
+                        <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::log::list', [$activity]) }}" role="button">
                             <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                             活動日誌
                         </a>
