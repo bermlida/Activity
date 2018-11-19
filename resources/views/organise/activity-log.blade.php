@@ -27,7 +27,7 @@
         
         <!-- Activity Log Form -->
         <div class="row">
-            <form class="form-horizontal" role="form" method="POST" action="{{ $form_action }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ $form_action }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field($form_method) }}
                 <input type="hidden" name="status" value="{{ old('status') }}">
