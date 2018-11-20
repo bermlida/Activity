@@ -106,7 +106,7 @@ class ActivityLogController extends Controller
                     if (!is_null($upload_file)) {
                         $stored_path = public_path('storage/' . $activity->id . '/' . $log->content_type . 's/');
 
-                        $log->fill(['content' => null])->save();
+                        $activity->logs()->save($log->fill(['content' => null]));
 
                         $log->attachments()->create([
                             'name' => $upload_file->getClientOriginalName(),
@@ -122,6 +122,8 @@ class ActivityLogController extends Controller
                             $stored_path,
                             $file->getClientOriginalName()
                         );
+
+                        return true;
                     }
                 } else {
                     $log->content = $request->input('blog_content');
