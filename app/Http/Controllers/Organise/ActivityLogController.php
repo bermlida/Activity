@@ -120,7 +120,7 @@ class ActivityLogController extends Controller
                         app(FileUploadService::class)->storeFile(
                             $upload_file,
                             $stored_path,
-                            $file->getClientOriginalName()
+                            $upload_file->getClientOriginalName()
                         );
 
                         return true;

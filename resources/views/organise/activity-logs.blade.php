@@ -35,7 +35,7 @@
                 <ul id="myTab" class="nav nav-tabs nav-justified">
                     <li class="{{ $tab == 'published' ? 'active' : '' }}">
                         <a href="#published" data-toggle="tab">
-                            <i class="fa fa-envelope-open" aria-hidden="true"></i>
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
                             已發布
                         </a>
                     </li>
@@ -63,7 +63,7 @@
                                         <td>{{ $log->title }}</td>
                                         <td>
                                             <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::log::cancel-publish', [$log->activity, $log]) }}')">
-                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                <i class="fa fa-undo" aria-hidden="true"></i>
                                                 取消發布
                                             </button>
                                         </td>
@@ -95,16 +95,15 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $log->title }}</td>
                                         <td>
-                                            <a class="btn btn-primary" href="{{ route('organise::activity::log::modify', [$log->activity, $log]) }}"  role="button">
-                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                            <a class="btn btn-default" href="{{ route('organise::activity::log::modify', [$log->activity, $log]) }}"  role="button">
                                                 編輯
                                             </a>
-                                            <button type="button" class="btn btn-success" onclick="update('{{ route('organise::activity::log::publish', [$log->activity, $log]) }}')">
-                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                            <button type="button" class="btn btn-primary" onclick="update('{{ route('organise::activity::log::publish', [$log->activity, $log]) }}')">
+                                                <i class="fa fa-check" aria-hidden="true"></i>
                                                 發布
                                             </button>
                                             <button type="button" class="btn btn-danger" onclick="remove('{{ route('organise::activity::log::delete', [$log->activity, $log]) }}')">
-                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
                                                 刪除
                                             </button>
                                         </td>

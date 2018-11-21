@@ -22,13 +22,16 @@ class StoreActivityLogRequest extends Request
      * @return array
      */
     public function rules()
-    {
+    {   
+        $plog_content_required = $this->isMethod('post') ? 'required_if:content_type,plog' : 'sometimes';
+        $vlog_content_required = $this->isMethod('post') ? 'required_if:content_type,vlog' : 'sometimes';
+
         return [
             'title' => 'required|string|max:255',
             'content_type' => 'required|string|in:blog,plog,vlog',
             'blog_content' => 'required_if:content_type,blog|string',
-            'plog_content' => 'required_if:content_type,plog|image',
-            'vlog_content' => 'required_if:content_type,vlog|mimes:mp4,mov,ogg,qt',
+            'plog_content' => $plog_content_required . '|image',
+            'vlog_content' => $vlog_content_required . '|mimes:mp4,mov,ogg,qt',
             'status' => 'required|integer'
         ];
     }

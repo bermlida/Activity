@@ -88,9 +88,9 @@
 
                 @if (isset($log) && $log->content_type == 'plog')
                     <div class="form-group" id="plog_preview">
-                        <label class="col-sm-3 control-label">圖片預覽</label>
+                        <label class="col-sm-2 control-label">圖片預覽</label>
                         
-                        <div class="col-sm-9">
+                        <div class="col-sm-10">
                             <img class="img-responsive" src="{{ asset('storage/' . $log->activity->id . '/plogs/' . $log_content->name) }}" alt="{{ $log_content->name }}">
                         </div>
                     </div>
@@ -98,11 +98,10 @@
 
                 @if (isset($log) && $log->content_type == 'vlog')
                     <div class="form-group" id="vlog_preview">
-                        <label class="col-sm-3 control-label">影片預覽</label>
+                        <label class="col-sm-2 control-label">影片預覽</label>
                         
-                        <div class="col-sm-9">
-                            <video width="320" height="240" controls autoplay>
-                                <source src="{{ asset('storage/' . $log->activity->id . '/vlogs/' . $log_content->name) }}" type="video/mp4">
+                        <div class="col-sm-10">
+                            <video src="{{ asset('storage/' . $log->activity->id . '/vlogs/' . $log_content->name) }}" controls autoplay>
                                 您的瀏覽器並不支援預覽影片
                             </video>
                         </div>
@@ -117,7 +116,7 @@
                     </div>
                     <div class="col-sm-5 col-xs-5">
                         <button type="button" class="btn btn-success" name="publish">
-                            儲存
+                            儲存後發布
                         </button>
                     </div>
                 </div>
@@ -157,33 +156,6 @@
     <script src="{{ asset('components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-
-            $("#blog_content").summernote({
-                toolbar: [
-                    // [groupName, [list of button]]
-                    ['style', ['style']],
-                    ['undo', ['undo']],
-                    ['redo', ['redo']],
-                    ['fontname', ['fontname']],
-                    ['color', ['color']],
-                    ['fontsize', ['fontsize']],
-                    ['font', ['bold', 'italic', 'underline', 'strikethrough']],
-                    ['fontstyle', ['superscript', 'subscript']],
-                    ['clear', ['clear']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']],
-                    ['Insert', ['picture', 'link', 'video', 'table', 'hr']],
-                    ['fullscreen', ['fullscreen']],
-                    ['help', ['help']]
-                ],
-                height: 500,
-                minHeight: 100,
-                lang: 'zh-TW',
-                focus: true
-            });
-
-        });
 
         $("input[name=content_type]").change(function () {
             var content_type = $(this).val();
@@ -224,6 +196,39 @@
             }
 
             $("form").submit();
+        });
+
+        $(document).ready(function() {
+
+            $("#blog_content").summernote({
+                toolbar: [
+                    // [groupName, [list of button]]
+                    ['style', ['style']],
+                    ['undo', ['undo']],
+                    ['redo', ['redo']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['fontsize', ['fontsize']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough']],
+                    ['fontstyle', ['superscript', 'subscript']],
+                    ['clear', ['clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['Insert', ['picture', 'link', 'video', 'table', 'hr']],
+                    ['fullscreen', ['fullscreen']],
+                    ['help', ['help']]
+                ],
+                height: 500,
+                minHeight: 100,
+                lang: 'zh-TW',
+                focus: true
+            });
+
+            var content_type = $("input[name=content_type]:checked").val();
+            if (content_type == 'plog' || content_type == 'vlog') {
+                $("textarea[name='blog_content']").next().hide();
+            }
+
         });
 
     </script>
