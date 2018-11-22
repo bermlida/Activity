@@ -46,7 +46,7 @@
                             報名
                         </a>
                     @else
-                        @if (Auth::user()->role_id == 1)
+                        @if (!is_null(Auth::user()) && Auth::user()->role_id == 1)
                             <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
                                 您已報名本活動，請至「參加的活動」查詢報名紀錄
                             </a>
