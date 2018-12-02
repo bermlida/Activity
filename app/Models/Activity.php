@@ -112,16 +112,6 @@ class Activity extends Model
     }
 
     /**
-     * 取得參加活動的使用者。
-     */
-    public function users()
-    {
-        return $this->belongsToMany('App\Models\User', 'orders')
-                    ->withPivot('serial_number', 'status', 'status_info')
-                    ->withTimestamps();
-    }
-
-    /**
      * 取得此活動的附件。
      */
     public function attachments()
@@ -148,9 +138,31 @@ class Activity extends Model
     /**
      * 取得購買此活動的訂單。
      */
-    public function orders()
+    // public function orders()
+    // {
+    //     return $this->hasMany('App\Models\Order');
+    // }
+
+    /**
+     * 取得參加活動的使用者。
+     */
+    public function participants()
     {
-        return $this->hasMany('App\Models\Order');
+        return $this->morphToMany('App\Models\User', 'ordered')
+                    ->withPivot('serial_number', 'category', 'status', 'status_info')
+                    ->withTimestamps()
+                    ->where('category', 'participate');
+    }
+
+    /**
+     * 取得贊助活動的使用者。
+     */
+    public function donors()
+    {
+        return $this->morphToMany('App\Models\User', 'ordered')
+                    ->withPivot('serial_number', 'category', 'status', 'status_info')
+                    ->withTimestamps()
+                    ->where('category', 'donate');
     }
 
     /**

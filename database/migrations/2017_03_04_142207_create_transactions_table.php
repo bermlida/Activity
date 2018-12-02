@@ -17,8 +17,9 @@ class CreateTransactionsTable extends Migration
             $table->bigInteger('order_id')->unsigned()->nullable();
             $table->string('serial_number')->unique();
             $table->string('order_serial_number');
-            $table->integer('apply_fee')->unsigned();
-            $table->integer('sponsorship_amount')->unsigned();
+            $table->integer('amount')->unsigned();
+            // $table->integer('apply_fee')->unsigned();
+            // $table->integer('sponsorship_amount')->unsigned();
             $table->json('payment_info')->nullable();
             $table->json('payment_result')->nullable();
             $table->integer('status');

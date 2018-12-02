@@ -15,18 +15,17 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('serial_number')->unique();
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('activity_id')->unsigned();
+            $table->string('category');
             $table->integer('status');
             $table->string('status_info')->nullable();
+
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('ordered_id')->unsigned();
+            $table->string('ordered_type');
 
             $table
                 ->foreign('user_id')
                 ->references('id')->on('users')
-                ->onDelete('cascade');
-            $table
-                ->foreign('activity_id')
-                ->references('id')->on('activities')
                 ->onDelete('cascade');
 
             $table->timestamps();

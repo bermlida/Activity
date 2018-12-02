@@ -39,7 +39,7 @@ class User extends Model
      */
     public function newPivot(Model $parent, array $attributes, $table, $exists)
     {
-        if ($parent instanceof Activity) {
+        if ($parent instanceof Activity || $parent instanceof Organizer) {
             return new OrderPivot($parent, $attributes, $table, $exists);
         }
 
@@ -61,22 +61,45 @@ class User extends Model
     {
         return $this->morphOne('App\Models\FinancialAccount', 'associated');
     }
-
-    /**
-     * 取得使用者參加的活動。
-     */
-    public function activities()
-    {
-        return $this->belongsToMany('App\Models\Activity', 'orders')
-                    ->withPivot('serial_number', 'status', 'status_info')
-                    ->withTimestamps();
-    }
     
     /**
      * 取得使用者購買的訂單。
      */
-    public function orders()
+    // public function orders()
+    // {
+    //     return $this->hasMany('App\Models\Order');
+    // }
+
+    /**
+     * 取得使用者參加的活動。
+     */
+    public function participated_activities()
     {
-        return $this->hasMany('App\Models\Order');
+        return $this->morphedByMany('App\Models\Activity', 'ordered')
+                    ->withPivot('serial_number', 'category', 'status', 'status_info')
+                    ->withTimestamps()
+                    ->where('category', 'participate');
+    }
+
+    /**
+     * 取得使用者贊助的活動。
+     */
+    public function donated_activities()
+    {
+        return $this->morphedByMany('App\Models\Activity', 'ordered')
+                    ->withPivot('serial_number', 'category', 'status', 'status_info')
+                    ->withTimestamps()
+                    ->where('category', 'donate');
+    }
+
+    /**
+     * 取得使用者贊助的主辦單位。
+     */
+    public function donated_organizers()
+    {
+        return $this->morphedByMany('App\Models\Organizer', 'ordered')
+                    ->withPivot('serial_number', 'category', 'status', 'status_info')
+                    ->withTimestamps()
+                    ->where('category', 'donate');
     }
 }
