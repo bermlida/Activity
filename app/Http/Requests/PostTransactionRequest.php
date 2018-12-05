@@ -24,8 +24,8 @@ class PostTransactionRequest extends Request
     public function rules()
     {
         return [
-            'apply_fee' => 'required|integer|min:0',
-            'sponsorship_amount' => 'required|integer|min:0'
+            'apply_fee' => 'required|integer|min:0'
+            // 'sponsorship_amount' => 'required|integer|min:0',
         ];
     }
 }

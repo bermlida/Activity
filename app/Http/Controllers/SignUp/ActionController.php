@@ -28,18 +28,19 @@ class ActionController extends Controller
         $activity = Activity::find($activity);
         
         $payment_amount = !$activity->is_free ? $activity->apply_fee : 0;
-        if ($request->has('sponsorship_amount')) {
-            $payment_amount += $request->input('sponsorship_amount');
-        }
+        // if ($request->has('sponsorship_amount')) {
+        //     $payment_amount += $request->input('sponsorship_amount');
+        // }
 
         $serial_number = ($payment_amount > 0) ? 'P' : 'F';
         $serial_number .= str_replace('-', '', Carbon::now()->toDateString());
         $serial_number .= strtoupper(str_random(6));
 
-        $user->activities()->attach(
+        $user->ordered_activities()->attach(
             $activity->id,
             [
                 'serial_number' => $serial_number,
+                'category' => 'apply',
                 'status' => ($payment_amount > 0 ? 0 : 1),
                 'status_info' => ($payment_amount > 0 ? '報名未完成' : '已完成報名')
             ]
@@ -51,9 +52,9 @@ class ActionController extends Controller
             if (!$activity->is_free) {
                 $data['apply_fee'] = $activity->apply_fee;
             }
-            if ($request->has('sponsorship_amount')) {
-                $data['sponsorship_amount'] = $request->input('sponsorship_amount');
-            }
+            // if ($request->has('sponsorship_amount')) {
+            //     $data['sponsorship_amount'] = $request->input('sponsorship_amount');
+            // }
         } else {
             $route = 'sign-up::confirm';
         }
@@ -73,9 +74,9 @@ class ActionController extends Controller
         $activity = Activity::find($activity);
         
         $payment_amount = !$activity->is_free ? $activity->apply_fee : 0;
-        if ($request->has('sponsorship_amount')) {
-            $payment_amount += $request->input('sponsorship_amount');
-        }
+        // if ($request->has('sponsorship_amount')) {
+        //     $payment_amount += $request->input('sponsorship_amount');
+        // }
         
         $data['serial_number'] = $record;
         if ($payment_amount > 0) {
@@ -83,9 +84,9 @@ class ActionController extends Controller
             if (!$activity->is_free) {
                 $data['apply_fee'] = $activity->apply_fee;
             }
-            if ($request->has('sponsorship_amount')) {
-                $data['sponsorship_amount'] = $request->input('sponsorship_amount');
-            }
+            // if ($request->has('sponsorship_amount')) {
+            //     $data['sponsorship_amount'] = $request->input('sponsorship_amount');
+            // }
         } else {
             $route = 'sign-up::confirm';
         }
@@ -104,16 +105,17 @@ class ActionController extends Controller
         $serial_number = session('serial_number');
         
         $order = Auth::user()
-            ->profile->activities()
-            ->wherePivot('serial_number', $serial_number)
-            ->first()->pivot;
+                    ->profile
+                    ->ordered_activities()
+                    ->wherePivot('serial_number', $serial_number)
+                    ->first()->pivot;
         
         $order->transactions()->delete();
 
         $transaction = new Transaction([
             'serial_number' => $order->serial_number . strtoupper(str_random(5)),
             'apply_fee' => $request->apply_fee,
-            'sponsorship_amount' => $request->sponsorship_amount,
+            // 'sponsorship_amount' => $request->sponsorship_amount,
             'status' => 0,
             'status_info' => '未完成付款'
         ]);

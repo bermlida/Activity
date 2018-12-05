@@ -33,9 +33,10 @@ class StepController extends Controller
     {
         if (!is_null($record)) {
             $order = Auth::user()
-                ->profile->activities()
-                ->wherePivot('serial_number', $record)
-                ->first()->pivot;
+                        ->profile
+                        ->ordered_activities()
+                        ->wherePivot('serial_number', $record)
+                        ->first()->pivot;
 
             $data['activity'] = $order->activity;
 
@@ -67,7 +68,8 @@ class StepController extends Controller
         $serial_number = session('serial_number');
 
         $order = Auth::user()
-                    ->profile->activities()
+                    ->profile
+                    ->ordered_activities()
                     ->wherePivot('serial_number', $serial_number)
                     ->first()->pivot;
 
@@ -90,7 +92,8 @@ class StepController extends Controller
         $serial_number = session('serial_number');
 
         $data['order'] = Auth::user()
-                            ->profile->activities()
+                            ->profile
+                            ->ordered_activities()
                             ->wherePivot('serial_number', $serial_number)
                             ->first()->pivot;
 

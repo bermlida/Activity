@@ -82,11 +82,10 @@ class Organizer extends Model
     /**
      * 取得贊助主辦單位的使用者。
      */
-    public function donors()
+    public function users()
     {
         return $this->morphToMany('App\Models\User', 'ordered')
                     ->withPivot('serial_number', 'category', 'status', 'status_info')
-                    ->withTimestamps()
-                    ->where('category', 'donate');
+                    ->withTimestamps();
     }
 }
