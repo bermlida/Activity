@@ -73,12 +73,12 @@ class User extends Model
     /**
      * 取得使用者參加的活動。
      */
-    public function applied_activities()
+    public function participated_activities()
     {
         return $this->morphedByMany('App\Models\Activity', 'ordered')
                     ->withPivot('serial_number', 'category', 'status', 'status_info')
                     ->withTimestamps()
-                    ->where('category', 'apply');
+                    ->where('category', 'participate');
     }
 
     /**

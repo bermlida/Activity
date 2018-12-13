@@ -144,14 +144,14 @@ class Activity extends Model
     // }
 
     /**
-     * 取得報名活動的使用者。
+     * 取得參加活動的使用者。
      */
-    public function applicants()
+    public function participants()
     {
         return $this->morphToMany('App\Models\User', 'ordered')
                     ->withPivot('serial_number', 'category', 'status', 'status_info')
                     ->withTimestamps()
-                    ->where('category', 'apply');
+                    ->where('category', 'participate');
     }
 
     /**

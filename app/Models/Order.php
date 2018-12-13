@@ -30,22 +30,14 @@ class Order extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
-    
-    /**
-     * 取得所有所屬訂單的模型。
-     */
-    public function ordered()
-    {
-        return $this->morphTo();
-    }
 
     /**
      * 取得此訂單購買的活動。
      */
-    // public function activity()
-    // {
-    //     return $this->belongsTo('App\Models\Activity');
-    // }
+    public function activity()
+    {
+        return $this->belongsTo('App\Models\Activity');
+    }
     
     /**
      * 取得此訂單的交易紀錄。
