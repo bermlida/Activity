@@ -65,28 +65,41 @@ class User extends Model
     /**
      * 取得使用者購買的訂單。
      */
-    public function orders()
-    {
-        return $this->hasMany('App\Models\Order');
-    }
+    // public function orders()
+    // {
+    //     return $this->hasMany('App\Models\Order');
+    // }
 
     /**
-     * 取得使用者報名或贊助的活動。
+     * 取得使用者參加的活動。
      */
-    public function ordered_activities()
+    public function applied_activities()
     {
         return $this->morphedByMany('App\Models\Activity', 'ordered')
                     ->withPivot('serial_number', 'category', 'status', 'status_info')
-                    ->withTimestamps();
+                    ->withTimestamps()
+                    ->where('category', 'apply');
+    }
+
+    /**
+     * 取得使用者贊助的活動。
+     */
+    public function donated_activities()
+    {
+        return $this->morphedByMany('App\Models\Activity', 'ordered')
+                    ->withPivot('serial_number', 'category', 'status', 'status_info')
+                    ->withTimestamps()
+                    ->where('category', 'donate');
     }
 
     /**
      * 取得使用者贊助的主辦單位。
      */
-    public function ordered_organizers()
+    public function donated_organizers()
     {
         return $this->morphedByMany('App\Models\Organizer', 'ordered')
                     ->withPivot('serial_number', 'category', 'status', 'status_info')
-                    ->withTimestamps();
+                    ->withTimestamps()
+                    ->where('category', 'donate');
     }
 }

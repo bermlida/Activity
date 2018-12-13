@@ -144,13 +144,25 @@ class Activity extends Model
     // }
 
     /**
-     * 取得報名或贊助此活動的使用者。
+     * 取得報名活動的使用者。
      */
-    public function users()
+    public function applicants()
     {
         return $this->morphToMany('App\Models\User', 'ordered')
                     ->withPivot('serial_number', 'category', 'status', 'status_info')
-                    ->withTimestamps();
+                    ->withTimestamps()
+                    ->where('category', 'apply');
+    }
+
+    /**
+     * 取得贊助活動的使用者。
+     */
+    public function donors()
+    {
+        return $this->morphToMany('App\Models\User', 'ordered')
+                    ->withPivot('serial_number', 'category', 'status', 'status_info')
+                    ->withTimestamps()
+                    ->where('category', 'donate');
     }
 
     /**
