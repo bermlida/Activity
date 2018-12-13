@@ -30,24 +30,6 @@ class Organizer extends Model
     ];
 
     /**
-     * 建立中介資料表的模型。
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $parent
-     * @param  array  $attributes
-     * @param  string  $table
-     * @param  bool  $exists
-     * @return \Illuminate\Database\Eloquent\Relations\Pivot
-     */
-    public function newPivot(Model $parent, array $attributes, $table, $exists)
-    {
-        if ($parent instanceof User) {
-            return new OrderPivot($parent, $attributes, $table, $exists);
-        }
-
-        return parent::newPivot($parent, $attributes, $table, $exists);
-    }
-
-    /**
      * 取得主辦單位的帳號資訊。
      */
     public function account()
@@ -77,16 +59,5 @@ class Organizer extends Model
     public function activities()
     {
         return $this->hasMany('App\Models\Activity');
-    }
-
-    /**
-     * 取得贊助主辦單位的使用者。
-     */
-    public function donors()
-    {
-        return $this->morphToMany('App\Models\User', 'ordered')
-                    ->withPivot('serial_number', 'category', 'status', 'status_info')
-                    ->withTimestamps()
-                    ->where('category', 'donate');
     }
 }

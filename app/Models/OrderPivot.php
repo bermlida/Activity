@@ -21,31 +21,23 @@ class OrderPivot extends Pivot
      *
      * @var array
      */
-    protected $fillable = ['serial_number', 'category', 'status', 'status_info'];
+    protected $fillable = ['serial_number', 'status', 'status_info'];
 
     /**
-     * 取得訂購此訂單的用戶。
+     * 取得購買此訂單的用戶。
      */
     public function user()
     {
         return $this->belongsTo('App\Models\User');
     }
-    
-    /**
-     * 取得所有所屬訂單的模型。
-     */
-    public function ordered()
-    {
-        return $this->morphTo();
-    }
 
     /**
      * 取得此訂單購買的活動。
      */
-    // public function activity()
-    // {
-    //     return $this->belongsTo('App\Models\Activity');
-    // }
+    public function activity()
+    {
+        return $this->belongsTo('App\Models\Activity');
+    }
     
     /**
      * 取得此訂單的交易紀錄。

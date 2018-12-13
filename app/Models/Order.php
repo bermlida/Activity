@@ -21,10 +21,10 @@ class Order extends Model
      *
      * @var array
      */
-    protected $fillable = ['serial_number', 'category', 'status', 'status_info'];
+    protected $fillable = ['serial_number', 'status', 'status_info'];
 
     /**
-     * 取得訂購此訂單的用戶。
+     * 取得購買此訂單的用戶。
      */
     public function user()
     {
