@@ -43,6 +43,12 @@ class ActivityController extends Controller
 
         $data['banner'] = $data['info']->attachments()->IsBanner()->first();
 
+        $data['logs'] = $data['info']->logs()->where('status', 1)->paginate(10, ['*'], 'logs_page');
+
+        $data['logs_page'] = $request->only('logs_page');
+
+        $data['tab'] = $request->has('tab') ? $request->input('tab') : 'introduce';
+
         return view('activity', $data);
     }
 }

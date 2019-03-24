@@ -27,49 +27,94 @@
         </div>
         <!-- /.row -->
 
-        <!-- Activity Info -->
-        <div class="row">
-            <div class="col-sm-6">
-                <h3>活動時間：
-                @if ($carbon->parse($info->start_time)->toDateString() != $carbon->parse($info->end_time)->toDateString())
-                    {{ $carbon->parse($info->start_time)->toDateString() }}
-                     ~ 
-                    {{ $carbon->parse($info->end_time)->toDateString() }}
-                @else
-                    {{ $carbon->parse($info->start_time)->toDateString() }}
-                @endif
-                </h3>
-                <h3>活動地點：{{ $info->venue }}</h3>
-                    @can('apply', $info)
-                        <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                            報名
-                        </a>
-                    @else
-                        @if (!is_null(Auth::user()) && Auth::user()->role_id == 1)
-                            <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
-                                您已報名本活動，請至「參加的活動」查詢報名紀錄
-                            </a>
-                        @endif
-                    @endcan
-            </div>
-            <div class="col-sm-6">
-                @if (!empty($info->venue_intro))
-                    <h4>{{ $info->venue_intro }}</h4>
-                    <h4>({{ $info->venue }})</h4>
-                @endif
-                <iframe src="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $info->venue }}&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
-        </div>
-        <!-- /.row -->
-
         <!-- Activity Intro -->
         <div class="row">
             <div class="col-xs-12">
-                <h2 class="page-header">活動介紹</h2>
+                <h2 class="page-header"></h2>
             </div>
-            <div class="col-xs-12">
-                {!! $info->intro !!}
+            <div>
+                <ul id="myTab" class="nav nav-tabs nav-justified">
+                    <li class="{{ $tab == 'introduce' ? 'active' : '' }}">
+                        <a href="#introduce" data-toggle="tab">
+                            <i class="fa fa-info-circle"></i>
+                            活動介紹
+                        </a>
+                    </li>
+                    <li class="{{ $tab == 'register' ? 'active' : '' }}">
+                        <a href="#register" data-toggle="tab">
+                            <i class="fa fa-rocket"></i>
+                            報名
+                        </a>
+                    </li>
+                    <li class="{{ $tab == 'log' ? 'active' : '' }}">
+                        <a href="#log" data-toggle="tab">
+                            <i class="fa fa-sticky-note"></i> 
+                            日誌
+                        </a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade {{ $tab == 'introduce' ? 'active in' : '' }}" id="introduce">
+                        <p>
+                            <h3>
+                                活動時間：
+                                @if ($carbon->parse($info->start_time)->toDateString() != $carbon->parse($info->end_time)->toDateString())
+                                    {{ $carbon->parse($info->start_time)->toDateString() }}
+                                     ~ 
+                                    {{ $carbon->parse($info->end_time)->toDateString() }}
+                                @else
+                                    {{ $carbon->parse($info->start_time)->toDateString() }}
+                                @endif
+                            </h3>
+                            {!! $info->intro !!}
+                            <h3>活動地點：{{ $info->venue }}</h3>
+                            <iframe src="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $info->venue }}&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            @if (!empty($info->venue_intro))
+                                <h3>{{ $info->venue_intro }}</h3>
+                            @endif
+                        </p>
+                    </div>
+                    <div class="tab-pane fade {{ $tab == 'register' ? 'active in' : '' }}" id="register">
+                        @can('apply', $info)
+                            <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                                報名
+                            </a>
+                        @else
+                            @if (!is_null(Auth::user()) && Auth::user()->role_id == 1)
+                                <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
+                                    您已報名本活動，請至「參加的活動」查詢報名紀錄
+                                </a>
+                            @endif
+                        @endcan
+                    </div>
+                    <div class="tab-pane fade {{ $tab == 'log' ? 'active in' : '' }}" id="log">
+                        <table class="table table-hover responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>標題</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($logs as $key => $log)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $log->title }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="col-xs-12 text-center">
+                            {!!
+                                $logs
+                                    ->appends($logs_page)
+                                    ->appends('tab', 'log')
+                                    ->links()
+                            !!}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- /.row -->
