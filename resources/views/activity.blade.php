@@ -56,21 +56,21 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'introduce' ? 'active in' : '' }}" id="introduce">
                         <p>
-                            <h3>
+                            <h4>
                                 活動時間：
-                                @if ($carbon->parse($info->start_time)->toDateString() != $carbon->parse($info->end_time)->toDateString())
-                                    {{ $carbon->parse($info->start_time)->toDateString() }}
+                                @if ($info->start_time->toDateString() != $info->end_time->toDateString())
+                                    {{ $info->start_time->toDateString() }}
                                      ~ 
-                                    {{ $carbon->parse($info->end_time)->toDateString() }}
+                                    {{ $info->end_time->toDateString() }}
                                 @else
-                                    {{ $carbon->parse($info->start_time)->toDateString() }}
+                                    {{ $info->start_time->toDateString() }}
                                 @endif
-                            </h3>
+                            </h4>
                             {!! $info->intro !!}
-                            <h3>活動地點：{{ $info->venue }}</h3>
+                            <h4>活動地點：{{ $info->venue }}</h4>
                             <iframe src="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $info->venue }}&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                             @if (!empty($info->venue_intro))
-                                <h3>{{ $info->venue_intro }}</h3>
+                                <h4 style="text-align: center;">{{ $info->venue_intro }}</h4>
                             @endif
                         </p>
                     </div>
@@ -81,9 +81,19 @@
                                 報名
                             </a>
                         @else
-                            @if (!is_null(Auth::user()) && Auth::user()->role_id == 1)
-                                <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
-                                    您已報名本活動，請至「參加的活動」查詢報名紀錄
+                            @if (!is_null(Auth::user()))
+                                @if (Auth::user()->role_id == 1)
+                                    <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
+                                        您已報名本活動，請至「參加的活動」查詢報名紀錄
+                                    </a>
+                                @else
+                                    <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
+                                        主辦單位不得報名活動
+                                    </a>
+                                @endif
+                            @else
+                                 <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
+                                    請先登入才能報名活動
                                 </a>
                             @endif
                         @endcan

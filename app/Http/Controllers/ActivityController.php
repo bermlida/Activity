@@ -37,7 +37,7 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function info($activity)
+    public function info($activity, Request $request)
     {
         $data['info'] = Activity::find($activity);
 
