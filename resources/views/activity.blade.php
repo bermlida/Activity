@@ -3,6 +3,13 @@
 
 @extends('layouts.main')
 
+@section('style')
+
+    <!-- jQuery Colorbox CSS -->
+    <link href="{{ asset('components/jquery-colorbox/example1/colorbox.css') }}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
     <!-- Page Content -->
@@ -110,7 +117,7 @@
                                 @foreach ($logs as $key => $log)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ $log->title }}</td>
+                                        <td><a class="activity-log" href="http://activity.apps/">{{ $log->title }}</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -142,5 +149,19 @@
 
     </div>
     <!-- /.container -->
+
+@endsection
+
+@section('script')
+
+    <!-- jQuery Colorbox Javascript -->
+    <script src="{{ asset('components/jquery-colorbox/jquery.colorbox-min.js') }}"></script>
+    <script src="{{ asset('components/jquery-colorbox/i18n/jquery.colorbox-zh-TW.js') }}"></script>
+
+    <script type="text/javascript">
+
+        $('a.activity-log').colorbox();
+
+    </script>
 
 @endsection
