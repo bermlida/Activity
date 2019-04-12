@@ -23,6 +23,7 @@
     "summernote": "^0.8.3",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "qcode-decoder": "^0.1.0",
-    "ReStable": "restable#^0.1.2"
+    "ReStable": "restable#^0.1.2",
+    "jquery-colorbox": "^1.6.4"
   }
 }
