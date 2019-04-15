@@ -29,10 +29,20 @@ Route::get('/error', function () {
 Route::group([
     'as' => 'visit::'
 ], function () {
-    Route::get('/activities', 'ActivityController@index')->name('activities');
-    Route::get('/activities/{activity}', 'ActivityController@info')
-        ->middleware('exist-activity')
-        ->name('activity');
+    Route::group([
+        'prefix' => '/activities'
+    ], function () {
+        Route::get('/', 'ActivityController@index')->name('activities');
+
+        Route::group([
+            'prefix' => '/{activity}',
+            'middleware' => 'exist-activity'
+        ], function () {
+            Route::get('/', 'ActivityController@info')->name('activity');
+            Route::get('/logs/{log}', 'ActivityController@log')
+                ->name('activity::log');
+        });        
+    });    
 
     Route::get('/organizers', 'OrganizerController@index')->name('organizers');
     Route::get('/organizers/{organizer}', 'OrganizerController@info')
