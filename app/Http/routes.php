@@ -39,8 +39,7 @@ Route::group([
             'middleware' => 'exist-activity'
         ], function () {
             Route::get('/', 'ActivityController@info')->name('activity');
-            Route::get('/logs/{log}', 'ActivityController@log')
-                ->name('activity::log');
+            Route::get('/logs/{log}', 'ActivityController@log')->name('activity::log');
         });        
     });    
 

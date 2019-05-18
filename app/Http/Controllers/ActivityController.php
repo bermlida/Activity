@@ -51,4 +51,23 @@ class ActivityController extends Controller
 
         return view('activity', $data);
     }
+
+    /**
+     * 顯示已發布活動的日誌內容。
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function log($activity, $log)
+    {
+        $data['info'] = Activity::find($activity);
+
+        $data['log'] = $data['info']->logs()->find($log);
+
+        $data['log_content'] = $data['log']
+                                    ->attachments()
+                                    ->ofCategory($data['log']->content_type . '_content')
+                                    ->first();
+
+        return view('activity-log', $data);
+    }
 }

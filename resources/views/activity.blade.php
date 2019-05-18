@@ -117,7 +117,11 @@
                                 @foreach ($logs as $key => $log)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td><a class="activity-log" href="http://activity.apps/">{{ $log->title }}</a></td>
+                                        <td>
+                                            <a class="activity-log" href="{{ route('visit::activity::log', ['activity' => $info->id, 'log' => $log->id]) }}">
+                                                {{ $log->title }}
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
