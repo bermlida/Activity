@@ -156,12 +156,14 @@
                         {{ $info->intro }}
                     </div>
                     <div class="tab-pane fade" id="map">
-                        <h3>電話：{{ $info->phone }}</h3>
+                        <h3>
+                            電子郵件：
+                            <a href="mailto:{{ $info->account->email }}">{{ $info->account->email }}</a>
+                        </h3>
+                        <h3>市話：<a href="tel:{{ $info->phone }}">{{ $info->phone }}</a></h3>
+                        <h3>手機：<a href="tel:{{ $info->mobile_phone }}">{{ $info->mobile_phone }}</a></h3>
                         @if (!empty($info->fax))
                             <h3>傳真：{{ $info->fax }}</h3>
-                        @endif
-                        @if (!empty($info->mobile_phone))
-                            <h3>手機：{{ $info->mobile_phone }}</h3>
                         @endif
                         <h3>住址：{{ $info->address }}</h3>
                         <iframe src="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $info->address }}&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>

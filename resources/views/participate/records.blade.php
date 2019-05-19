@@ -105,16 +105,6 @@
                                             </a>
                                         </td>
                                     </tr>
-{{--
-                                @empty
-                                    <tr>
-                                        <td colspan="8">
-                                            目前你還沒有參加任何活動，不如就此開始吧 ! 
-                                            <br><br><br>
-                                            <a href="{{ route('visit::activities') }}">開始找活動</a>
-                                        </td>
-                                    </tr>
---}}
                                 @endforeach
                             </tbody>
                         </table>

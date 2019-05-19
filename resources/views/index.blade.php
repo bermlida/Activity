@@ -64,13 +64,13 @@
                     </div>
                     <div class="panel panel-default">
                         @php  
-                            // $banner = $activity->attachments->first(function ($key, $value) {
-                            //     return $value->category == 'banner';
-                            // });
+                            $banner = $activity->attachments->first(function ($key, $value) {
+                                            return $value->category == 'banner';
+                                        });
 
-                            // $banner_path = !is_null($banner)
-                            //     ? asset('storage/banners/' . $banner->name)
-                            //     : 'http://placehold.it/1050x450';
+                            $banner_path = !is_null($banner)
+                                            ? asset('storage/banners/' . $banner->name)
+                                            : 'http://placehold.it/1050x450';
                         @endphp
                         <a href="{{ route('visit::activity', [$activity]) }}">
                             <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
@@ -126,9 +126,30 @@
                             <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $organizer->name }}">
                         </a>
                         <div class="panel-body">
-                            <p>電話：{{ $organizer->phone }}</p>
-                            <p>電子郵件：{{ $organizer->account->email }}</p>
-                            <p>住址：{{ $organizer->address }}</p>
+                            <p>
+                                市話：
+                                <a href="tel:{{ $organizer->phone }}">
+                                    {{ $organizer->phone }}
+                                </a>
+                            </p>
+                            <p>
+                                手機：
+                                <a href="tel:{{ $organizer->mobile_phone }}">
+                                    {{ $organizer->mobile_phone }}
+                                </a>
+                            </p>
+                            <p>
+                                電子郵件：
+                                <a href="mailto:{{ $organizer->account->email }}">
+                                    {{ $organizer->account->email }}
+                                </a>
+                            </p>
+                            <p>
+                                住址：
+                                <a href="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $organizer->address }}" target="view_window">
+                                    {{ $organizer->address }}
+                                </a>
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -164,7 +164,10 @@
 
     <script type="text/javascript">
 
-        $('a.activity-log').colorbox();
+        $('a.activity-log').colorbox({
+            width: "100%",
+            height: "100%"
+        });
 
     </script>
 

@@ -69,8 +69,7 @@
                                 @each(
                                     'partials.activity-message-row',
                                     $scheduled_messages,
-                                    'message',
-                                    'partials.activity-message-empty'
+                                    'message'
                                 )
                             </tbody>
                         </table>
@@ -99,8 +98,7 @@
                                 @each(
                                     'partials.activity-message-row',
                                     $draft_messages,
-                                    'message',
-                                    'partials.activity-message-empty'
+                                    'message'
                                 )
                             </tbody>
                         </table>
@@ -129,8 +127,7 @@
                                 @each(
                                     'partials.activity-message-row',
                                     $send_messages,
-                                    'message',
-                                    'partials.activity-message-empty'
+                                    'message'
                                 )
                             </tbody>
                         </table>

@@ -17,7 +17,7 @@
         <!-- Organizers -->
         <div class="row">
             @forelse ($organizers as $organizer)
-                <div class="col-md-6 img-portfolio text-center">
+                <div class="col-md-6 img-portfolio">
                     <a href="{{ route('visit::organizer', [$organizer]) }}">
                         @php
                             $banner = $organizer->attachments->first(function ($key, $value) {
@@ -35,6 +35,30 @@
                             {{ $organizer->name }}
                         </a>
                     </h3>
+                    <p>
+                        市話：
+                        <a href="tel:{{ $organizer->phone }}">
+                            {{ $organizer->phone }}
+                        </a>
+                    </p>
+                    <p>
+                        手機：
+                        <a href="tel:{{ $organizer->mobile_phone }}">
+                            {{ $organizer->mobile_phone }}
+                        </a>
+                    </p>
+                    <p>
+                        電子郵件：
+                        <a href="mailto:{{ $organizer->account->email }}">
+                            {{ $organizer->account->email }}
+                        </a>
+                    </p>
+                    <p>
+                        住址：
+                        <a href="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $organizer->address }}" target="view_window">
+                            {{ $organizer->address }}
+                        </a>
+                    </p>
                 </div>
             @empty
                 <div class="col-xs-12 text-center">

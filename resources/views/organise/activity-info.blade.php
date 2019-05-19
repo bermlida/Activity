@@ -52,81 +52,38 @@
 
         <!-- Activity Manage Feature -->
         <div class="row">
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-6 col-xs-6">
                 <div class="panel panel-default text-center">
-                    <div class="panel-heading">
-                        <h4>報名</h4>
-                    </div>
                     <div class="panel-body">
                         <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::register-certificate::scan', [$activity]) }}" role="button">
-                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                            <i class="fa fa-camera" aria-hidden="true"></i>
                             掃描報到憑證
                         </a>
                         <hr>
                         <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::applicant::list', [$activity]) }}" role="button">
-                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
                             報名清單
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-6 col-xs-6">
                 <div class="panel panel-default text-center">
-                    <div class="panel-heading">
-                        <h4>互動</h4>
-                    </div>
                     <div class="panel-body">
                         <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::log::list', [$activity]) }}" role="button">
-                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                            <i class="fa fa-calendar-o" aria-hidden="true"></i>
                             活動日誌
                         </a>
                         <hr>
                         <a class="btn btn-primary btn-lg btn-block" href="{{ route('organise::activity::message::list', [$activity]) }}" role="button">
-                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                            <i class="fa fa-commenting-o" aria-hidden="true"></i>
                             訊息推送
                         </a>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-3 col-xs-6">
-                <div class="panel panel-default text-center">
-                    <div class="panel-heading">
-                        <h4>收退款</h4>
-                    </div>
-                    <div class="panel-body">
-                        <a class="btn btn-primary btn-lg btn-block" href="">
-                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                            收款狀態
-                        </a>
-                        <hr>
-                        <a class="btn btn-primary btn-lg btn-block" href="">
-                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                            退款清單
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-xs-6">
-                <div class="panel panel-default text-center">
-                    <div class="panel-heading">
-                        <h4>紀錄</h4>
-                    </div>
-                    <div class="panel-body">
-                        <a class="btn btn-primary btn-lg btn-block" href="">
-                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                            活動日誌
-                        </a>
-                        <hr>
-                        <a class="btn btn-primary btn-lg btn-block" href="">
-                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                            直播影音
-                        </a>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <!-- /.row -->
 

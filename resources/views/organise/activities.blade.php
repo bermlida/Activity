@@ -71,7 +71,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($launched_activities as $key => $activity)
+                                @foreach ($launched_activities as $key => $activity)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $activity->name }}</td>
@@ -101,17 +101,7 @@
                                             </button>
                                         </td>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5">
-                                            目前這裡沒有活動，不如開始辦一個吧 ! 
-                                            <br><br><br>
-                                            <a href="{{ route('organise::activity::create') }}">
-                                                立刻新增活動
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="col-xs-12 text-center">

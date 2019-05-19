@@ -82,7 +82,9 @@
                                             <td>{{ $transaction->sponsorship_amount }}</td>
                                             <td>{{ $transaction->apply_fee + $transaction->sponsorship_amount }}</td>
                                         @else
-                                            <td colspan="3"></td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
                                         @endif
                                     </tr>
                                 @endforeach
@@ -133,7 +135,9 @@
                                             <td>{{ $transaction->sponsorship_amount }}</td>
                                             <td>{{ $transaction->apply_fee + $transaction->sponsorship_amount }}</td>
                                         @else
-                                            <td colspan="3"></td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
                                         @endif
                                     </tr>
                                 @endforeach
