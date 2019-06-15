@@ -12,7 +12,7 @@ use App\Models\User;
 class FileUploadService
 {
     /**
-     * 。
+     * 將上傳的檔案儲存至指定路徑。
      *
      * @param \App\Models\User $recipient
      * @param \App\Models\Message $message

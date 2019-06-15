@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 class ActivityRegisterController extends Controller
 {
     /**
-     * 更新報到狀態。
+     * 顯示掃描報到憑證的掃描畫面。
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,7 +21,7 @@ class ActivityRegisterController extends Controller
     }
     
     /**
-     * 。
+     * 更新報到狀態。
      *
      * @return \Illuminate\Http\Response
      */
@@ -39,7 +39,7 @@ class ActivityRegisterController extends Controller
     }
 
     /**
-     * 。
+     * 顯示報到資訊畫面。
      *
      * @return \Illuminate\Http\Response
      */
@@ -51,6 +51,6 @@ class ActivityRegisterController extends Controller
 
         $data['order'] = $activity->orders()->where('serial_number', $certificate)->first();
 
-        return view('organise.register-info', $data);
+        return view('organise.activity-register-info', $data);
     }
 }

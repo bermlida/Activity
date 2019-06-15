@@ -9,7 +9,7 @@ use App\Models\Transaction;
 class AllpayService
 {
     /**
-     * 。
+     * 將所需資料透過表單遞交給第三方金流廠商。
      *
      * @return string
      */
@@ -51,7 +51,7 @@ class AllpayService
     }
 
     /**
-     * 。
+     * 顯示將所需資料遞交給第三方金流廠商的表單。
      *
      * @return string
      */
@@ -92,9 +92,9 @@ class AllpayService
     }
 
     /**
-     * 。
+     * 透過第三方金流廠商查詢金流交易資料。
      *
-     * @return void
+     * @return array
      */
     public function queryTradeInfo(Transaction $transaction)
     {
@@ -109,9 +109,9 @@ class AllpayService
     }
 
     /**
-     * 。
+     * 透過第三方金流廠商取消信用卡交易。
      *
-     * @return void
+     * @return array
      */
     public function cancelCreditTrade(Transaction $transaction)
     {

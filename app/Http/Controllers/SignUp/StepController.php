@@ -81,7 +81,7 @@ class StepController extends Controller
     }
 
     /**
-     * 。
+     * 顯示付款資訊或付款結果的確認畫面。
      *
      * @return \Illuminate\Http\Response
      */

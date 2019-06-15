@@ -11,7 +11,7 @@ use App\Models\User;
 class MessageService
 {
     /**
-     * 。
+     * 發送電子郵件或簡訊。
      *
      * @param \App\Models\Message $message
      * @return void
@@ -32,7 +32,7 @@ class MessageService
     }
 
     /**
-     * 。
+     * 發送電子郵件。
      *
      * @param \App\Models\User $recipient
      * @param \App\Models\Message $message
@@ -57,11 +57,11 @@ class MessageService
     }
 
     /**
-     * 。
+     * 發送簡訊。
      *
      * @param \App\Models\User $recipient
      * @param \App\Models\Message $message
-     * @return void
+     * @return \SimpleSoftwareIO\SMS\OutgoingMessage
      */
     protected function sendSMS(User $recipient, Message $message)
     {

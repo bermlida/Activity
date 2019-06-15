@@ -51,6 +51,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
         'exist-activity' => \App\Http\Middleware\ExistResource\Activity::class,
+        'exist-log' => \App\Http\Middleware\ExistResource\Log::class,
+        'exist-message' => \App\Http\Middleware\ExistResource\Message::class,
         'exist-organizer' => \App\Http\Middleware\ExistResource\Organizer::class,
         'exist-organise-activity' => \App\Http\Middleware\ExistResource\OrganiseActivity::class,
         'exist-participate-record' => \App\Http\Middleware\ExistResource\ParticipateRecord::class,

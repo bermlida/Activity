@@ -22,7 +22,7 @@ class ActivityPolicy
     }
 
     /**
-     * 。
+     * 僅允許沒參加該活動的使用者才能報名該活動。
      *
      * @param  \App\User  $user
      * @param  \App\Post  $post

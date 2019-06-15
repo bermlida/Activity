@@ -86,9 +86,3 @@
     <!-- /.container -->
 
 @endsection
-
-@section('script')
-
-    
-
-@endsection

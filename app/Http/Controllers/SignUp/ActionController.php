@@ -18,7 +18,7 @@ use App\Services\AllpayService;
 class ActionController extends Controller
 {
     /**
-     * 。
+     * 新增報名活動的訂單資料。
      *
      * @return \Illuminate\Http\Response
      */
@@ -59,12 +59,12 @@ class ActionController extends Controller
         }
         
         return redirect()
-            ->route($route, ['activity' => $activity->id])
-            ->with($data);
+                ->route($route, ['activity' => $activity->id])
+                ->with($data);
     }
 
     /**
-     * 。
+     * 更新報名活動的訂單資料。
      *
      * @return \Illuminate\Http\Response
      */
@@ -91,13 +91,14 @@ class ActionController extends Controller
         }
         
         return redirect()
-            ->route($route, ['activity' => $activity->id])
-            ->with($data);
+                ->route($route, ['activity' => $activity->id])
+                ->with($data);
     }
+
     /**
-     * 。
+     * 新增訂單交易資料。
      *
-     * @return \Illuminate\Http\Response
+     * @return string
      */
     public function postTransaction($activity, PostTransactionRequest $request)
     {
@@ -123,6 +124,11 @@ class ActionController extends Controller
         print app(AllpayService::class)->getCheckOut($order, $transaction);
     }
 
+    /**
+     * 更新訂單交易資料，儲存付款資訊。
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function savePaymentInfo(Request $request)
     {
         $serial_number = $request->input('MerchantTradeNo');
@@ -132,13 +138,18 @@ class ActionController extends Controller
         $transaction->save();
 
         return redirect()
-            ->route('sign-up::confirm', ['activity' => $transaction->order->activity->id])
-            ->with([
-                'serial_number' => $transaction->order->serial_number,
-                'transaction_serial_number' => $serial_number
-            ]);
+                ->route('sign-up::confirm', ['activity' => $transaction->order->activity->id])
+                ->with([
+                    'serial_number' => $transaction->order->serial_number,
+                    'transaction_serial_number' => $serial_number
+                ]);
     }
 
+    /**
+     * 更新訂單交易資料，儲存付款結果。
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function savePaymentResult(Request $request)
     {
         $serial_number = $request->input('MerchantTradeNo');

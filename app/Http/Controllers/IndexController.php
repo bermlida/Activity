@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Illuminate\Http\Request;
+
 use App\Models\Activity;
 use App\Models\Organizer;
 
@@ -20,7 +21,7 @@ class IndexController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * 顯示首頁畫面。
      *
      * @return \Illuminate\Http\Response
      */

@@ -6,11 +6,11 @@ use DB;
 use Auth;
 use Illuminate\Http\Request;
 
-use App\Models\Log;
-use App\Http\Requests;
-use App\Services\FileUploadService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
 use App\Http\Requests\StoreActivityLogRequest;
+use App\Models\Log;
+use App\Services\FileUploadService;
 
 class ActivityLogController extends Controller
 {

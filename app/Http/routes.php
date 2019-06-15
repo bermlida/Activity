@@ -39,7 +39,9 @@ Route::group([
             'middleware' => 'exist-activity'
         ], function () {
             Route::get('/', 'ActivityController@info')->name('activity');
-            Route::get('/logs/{log}', 'ActivityController@log')->name('activity::log');
+            Route::get('/logs/{log}', 'ActivityController@log')
+                ->middleware('exist-log')
+                ->name('activity::log');
         });        
     });    
 
@@ -202,7 +204,8 @@ Route::group([
             Route::post('/new', 'ActivityMessageController@save')->name('store');
 
             Route::group([
-                'prefix' => '/{message}'
+                'prefix' => '/{message}',
+                'middleware' => 'exist-message'
             ], function () {
                 Route::get('/edit', 'ActivityMessageController@edit')->name('modify');
                 Route::put('/update', 'ActivityMessageController@save')->name('update');
@@ -220,7 +223,8 @@ Route::group([
             Route::post('/new', 'ActivityLogController@save')->name('store');
 
             Route::group([
-                'prefix' => '/{log}'
+                'prefix' => '/{log}',
+                'middleware' => 'exist-log'
             ], function () {
                 Route::get('/edit', 'ActivityLogController@edit')->name('modify');
                 Route::put('/update', 'ActivityLogController@save')->name('update');
