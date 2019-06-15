@@ -17,7 +17,7 @@ class JudgeRole
     public function handle($request, Closure $next, $role)
     {
         if (Auth::user()->role_id != $role) {
-            return redirect('/error');
+            return redirect('/403');
         }
 
         return $next($request);

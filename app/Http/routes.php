@@ -13,18 +13,17 @@
 
 Route::get('/', 'IndexController@index');
 
-Route::get('/error', function () {
-    // var_dump(app('router'));
-    return 'error';
+Route::get('/400', function () {
+    return view('errors.400');
 });
 
-// Route::get('/test', function () {
-//     return view('test');
-// });
+Route::get('/403', function () {
+    return view('errors.403');
+});
 
-// Route::get('/activity-management', function () {
-//     return view('organise.activity-management');
-// });
+Route::get('/404', function () {
+    return view('errors.404');
+});
 
 Route::group([
     'as' => 'visit::'

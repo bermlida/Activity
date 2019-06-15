@@ -48,6 +48,12 @@ header.carousel .fill {
     font-size: 100px;
 }
 
+/* Error Page Styles */
+
+.error {
+    font-size: 100px;
+}
+
 /* Pricing Page Styles */
 
 .price {

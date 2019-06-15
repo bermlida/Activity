@@ -20,7 +20,7 @@ class Organizer
         $organizer = $request->route('organizer');
 
         if (is_null(OrganizerModel::find($organizer))) {
-            return redirect('/error');
+            return redirect('/404');
         }
 
         return $next($request);

@@ -25,7 +25,7 @@ class RegisterCertificate
         $organise_activity = $organizer->activities()->find($activity);
 
         if (is_null($organise_activity->orders()->where('serial_number', $certificate)->first())) {
-            return redirect('/error');
+            return redirect('/404');
         }
 
         return $next($request);

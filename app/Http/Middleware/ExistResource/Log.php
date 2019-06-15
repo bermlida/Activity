@@ -20,7 +20,7 @@ class Log
         $log = $request->route('log');
         
         if (is_null(LogModel::find($log))) {
-            return redirect('/error');
+            return redirect('/404');
         }
 
         return $next($request);

@@ -18,7 +18,7 @@ class VerifySocialProvider
         $social_provider = $request->route('social_provider');
 
         if (is_null(config('services.' . $social_provider))) {
-            return redirect('/error');
+            return redirect('/401');
         }
 
         return $next($request);

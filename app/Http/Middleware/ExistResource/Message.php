@@ -20,7 +20,7 @@ class Message
         $message = $request->route('message');
         
         if (is_null(MessageModel::find($message))) {
-            return redirect('/error');
+            return redirect('/404');
         }
 
         return $next($request);

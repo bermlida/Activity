@@ -20,7 +20,7 @@ class Activity
         $activity = $request->route('activity');
         
         if (is_null(ActivityModel::find($activity))) {
-            return redirect('/error');
+            return redirect('/404');
         }
 
         return $next($request);

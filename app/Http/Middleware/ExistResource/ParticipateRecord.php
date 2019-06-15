@@ -21,7 +21,7 @@ class ParticipateRecord
         $user = Auth::user()->profile;
             
         if (is_null($user->orders()->where('serial_number', $serial_number)->first())) {
-            return redirect('/error');
+            return redirect('/404');
         }
 
         return $next($request);

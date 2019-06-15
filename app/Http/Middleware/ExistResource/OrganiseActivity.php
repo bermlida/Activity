@@ -21,7 +21,7 @@ class OrganiseActivity
         $organizer = Auth::user()->profile;
         
         if (is_null($organizer->activities()->find($activity))) {
-            return redirect('/error');
+            return redirect('/404');
         }
         
         return $next($request);
