@@ -204,4 +204,40 @@
     <script src="js/jqBootstrapValidation.js"></script>
     <script src="js/contact_me.js"></script>
 
+    <!-- Summernote JavaScript -->
+    <script src="{{ asset('components/summernote/dist/summernote.min.js') }}"></script>
+    <script src="{{ asset('components/summernote/dist/lang/summernote-zh-TW.min.js') }}"></script>
+
+    <script type="text/javascript">
+        
+        $(document).ready(function() {
+
+            $("#intro").summernote({
+                toolbar: [
+                    // [groupName, [list of button]]
+                    ['style', ['style']],
+                    ['undo', ['undo']],
+                    ['redo', ['redo']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['fontsize', ['fontsize']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough']],
+                    ['fontstyle', ['superscript', 'subscript']],
+                    ['clear', ['clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['Insert', ['picture', 'link', 'video', 'table', 'hr']],
+                    ['fullscreen', ['fullscreen']],
+                    ['help', ['help']]
+                ],
+                height: 500,
+                minHeight: 100,
+                lang: 'zh-TW',
+                focus: true
+            });
+
+        });
+
+    </script>
+
 @endsection

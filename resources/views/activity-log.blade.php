@@ -12,7 +12,7 @@
 
                 <p>
                     @if ($log->content_type == 'blog')
-                        {{ $log->content }}
+                        {!! $log->content !!}
                     @elseif ($log->content_type == 'plog')
                         <img class="img-responsive" src="{{ asset('storage/' . $log->activity->id . '/plogs/' . $log_content->name) }}" alt="{{ $log_content->name }}">
                     @elseif ($log->content_type == 'vlog')
