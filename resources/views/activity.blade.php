@@ -82,27 +82,24 @@
                         </p>
                     </div>
                     <div class="tab-pane fade {{ $tab == 'register' ? 'active in' : '' }}" id="register">
+                        <br>
                         @can('apply', $info)
                             <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary">
                                 <i class="glyphicon glyphicon-pencil"></i>
                                 報名
                             </a>
                         @else
-                            @if (!is_null(Auth::user()))
-                                @if (Auth::user()->role_id == 1)
-                                    <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
+                            <a href="javascript:void(0);" class="btn btn-primary" disabled>
+                                @if (!is_null(Auth::user()))
+                                    @if (Auth::user()->role_id == 1)                                    
                                         您已報名本活動，請至「參加的活動」查詢報名紀錄
-                                    </a>
-                                @else
-                                    <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
-                                        主辦單位不得報名活動
-                                    </a>
+                                    @else                                    
+                                        主辦單位不得報名活動                                    
+                                    @endif
+                                @else                                 
+                                    請先登入才能報名活動                                
                                 @endif
-                            @else
-                                 <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary" disabled>
-                                    請先登入才能報名活動
-                                </a>
-                            @endif
+                            </a>                            
                         @endcan
                     </div>
                     <div class="tab-pane fade {{ $tab == 'log' ? 'active in' : '' }}" id="log">

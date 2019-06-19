@@ -241,6 +241,7 @@
 
     <!-- Summernote JavaScript -->
     <script src="{{ asset('components/summernote/dist/summernote.min.js') }}"></script>
+    <script src="{{ asset('components/summernote/dist/lang/summernote-zh-TW.min.js') }}"></script>
 
     <!-- Moment JavaScript -->
     <script src="{{ asset('components/moment/min/moment-with-locales.min.js') }}"></script>

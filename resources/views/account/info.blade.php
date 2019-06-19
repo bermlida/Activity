@@ -1,6 +1,13 @@
 
 @extends('layouts.main')
 
+@section('style')
+
+    <!-- Summernote CSS -->
+    <link href="{{ asset('components/summernote/dist/summernote.css') }}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
     <div class="container">

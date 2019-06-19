@@ -153,7 +153,7 @@
                     </div>
                     <div class="tab-pane fade" id="about">
                         <br>
-                        {{ $info->intro }}
+                        {!! $info->intro !!}
                     </div>
                     <div class="tab-pane fade" id="map">
                         <h3>
