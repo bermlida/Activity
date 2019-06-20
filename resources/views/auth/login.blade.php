@@ -91,7 +91,7 @@
             </a>
             <a class="btn btn-block btn-social btn-google" href="{{ route('social-auth::login::ask', ['social_provider' => 'google']) }}" role="button">
                 <i class="fa fa-google" aria-hidden="true"></i>
-                以 Google+ 登入
+                以 Google 登入
             </a>
         </div>
     </div>

@@ -43,6 +43,14 @@
                         @endif
                     </p>
                     <p>{{ $activity->venue }}</p>
+                    @if ($activity->status == 0 || $activity->status == -1)
+                        <p>
+                            <a class="btn btn-block btn-primary" href="{{ route('organise::activity::modify', [$activity]) }}" role="button">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                編輯
+                            </a>
+                        </p>
+                    @endif
                 </div>
             </div>
         </div>
