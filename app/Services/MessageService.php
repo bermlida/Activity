@@ -45,11 +45,11 @@ class MessageService
             ['content' => $message->content],
             function ($mail) use ($recipient, $message) {
                 $mail->subject($message->subject);
-
+                
                 $mail->from(
-                    'postmaster@sandbox9ebef659e197489989fb3166ad4f921c.mailgun.org',
+                    $message->activity->organizer->account->email, 
                     $message->activity->organizer->name
-                );
+                ); //'postmaster@sandbox9ebef659e197489989fb3166ad4f921c.mailgun.org'
                     
                 $mail->to($recipient->account->email, $recipient->name);
             }
