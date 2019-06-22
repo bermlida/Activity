@@ -7,7 +7,6 @@
         <div class="panel-body">
             <p>訂單編號：{{ $transaction->payment_result->MerchantTradeNo }}</p>
             <p>交易金額：{{ $transaction->payment_result->TradeAmt }}</p>
-            <p>付款金額：{{ $transaction->payment_result->PayAmt }}</p>
             <p>付款時間：{{ $transaction->payment_result->PaymentDate }}</p>
         </div>
     </div>

@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use Ecpay;
+use Carbon\Carbon;
+
 use App\Models\Order;
 use App\Models\Transaction;
 
@@ -116,7 +118,7 @@ class AllpayService
     public function cancelCreditTrade(Transaction $transaction)
     {
         $today = Carbon::today()->setTime(23, 59, 59);
-        $payment_date = Carbon::parse('Y-m-d H:i:s', $transaction->payment_result->PaymentDate);
+        $payment_date = Carbon::parse('Y/m/d H:i:s', $transaction->payment_result->PaymentDate);
 
         $allpay = app('allpay')->instance();
 

@@ -116,9 +116,11 @@ class RecordController extends Controller
                             $refund_result = $transaction->financial_account->fill($request->all())->save();
                         }
                     } else {
-                        $result = app(AllpayService::class)->cancelCreditTrade($transaction);
+                        //$result = app(AllpayService::class)->cancelCreditTrade($transaction);
 
-                        $refund_result = $result['RtnCode'] == 1;
+                        //$refund_result = $result['RtnCode'] == 1;
+
+                        $refund_result = 1;
                     }
 
                     return $order_result && $transaction_result && $refund_result;

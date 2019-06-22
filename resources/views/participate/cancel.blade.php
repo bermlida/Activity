@@ -39,7 +39,7 @@
                                             <h4 class="panel-title">退款設定</h4>
                                         </div>
                                         <div class="panel-body">
-                                            @include('partials.refund-account-form')
+                                            @include('partials.financial-institution-account-form')
                                         </div>
                                     </div>
                                     <!-- /.panel -->

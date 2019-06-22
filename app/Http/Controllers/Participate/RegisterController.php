@@ -24,7 +24,7 @@ class RegisterController extends Controller
 
         $data['transaction'] = $data['order']->transactions()->first();
 
-        $data['qr_code'] = (new QRCode($record, new QRImage()))->output();
+        $data['qr_code'] = (new QRCode())->render($record);
 
         return view('participate.register-certificate', $data);
     }
