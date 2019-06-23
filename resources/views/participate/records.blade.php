@@ -211,7 +211,7 @@
                                         <a class="btn btn-info" href="{{ route('participate::record::view', ['serial_number' => $activity->pivot->serial_number]) }}">
                                             檢視
                                         </a>
-                                        @if ($activity->pivot->transactions()->whereNotNull('payment_result')->where('apply_fee', '>', 0)->count() > 0)
+                                        @if ($activity->pivot->transactions()->whereNotNull('payment_result')->ofStatus(-1)->count() > 0 && explode('_', $activity->pivot->transactions()->whereNotNull('payment_result')->where('status', -1)->first()->payment_result->PaymentType)[0] != 'Credit')
                                             <a class="btn btn-info" href="{{ route('participate::record::refund::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
                                                 退款設定
                                             </a>

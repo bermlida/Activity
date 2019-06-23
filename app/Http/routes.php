@@ -265,6 +265,7 @@ Route::group([
         Route::post('/', 'ActionController@postTransaction')->name('deal');
         Route::post('/deal-info', 'ActionController@savePaymentInfo')->name('deal-info');
         Route::post('/deal-result', 'ActionController@savePaymentResult')->name('deal-result');
+        Route::post('/deal-result-delay', 'ActionController@savePaymentResultDelay')->name('deal-result-delay');
     });
     
     Route::get('/confirm', 'StepController@showConfirm')->name('confirm');

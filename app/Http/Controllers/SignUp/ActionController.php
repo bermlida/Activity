@@ -172,4 +172,27 @@ class ActionController extends Controller
                 'transaction_serial_number' => $serial_number
             ]);
     }
+
+    /**
+     * 背景更新訂單交易資料，儲存付款結果。
+     *
+     * @return string
+     */
+    public function savePaymentResultDelay(Request $request)
+    {
+        $serial_number = $request->input('MerchantTradeNo');
+        
+        $transaction = Transaction::where('serial_number', $serial_number)->first();
+        $transaction->payment_result = $request->all();
+        $transaction->status = 1;
+        $transaction->status_info = '已完成付款';
+        $transaction->save();
+
+        $order = $transaction->order;
+        $order->status = 1;
+        $order->status_info = '已完成報名';
+        $order->save();
+        
+        return '1|OK';
+    }
 }

@@ -69,9 +69,9 @@ class MessageService
             'notification.activity-sms-message',
             ['content' => $message->content],
             function ($sms) use ($recipient, $message) {
-                $sms->from($message->activity->organizer->mobile_country_calling_code . ltrim($message->activity->organizer->mobile_phone, 0));
+                $sms->from($message->activity->organizer->mobile_country_calling_code . ltrim($message->activity->organizer->mobile_phone, '0'));
 
-                $sms->to($recipient->mobile_country_calling_code . ltrim($recipient->mobile_phone, 0));
+                $sms->to($recipient->mobile_country_calling_code . ltrim($recipient->mobile_phone, '0'));
             }
         );
     }

@@ -71,7 +71,7 @@ class RecordController extends Controller
         $data['transaction'] = $data['order']->transactions()->first();
 
         if (!is_null($data['transaction']) && !is_null($data['transaction']->payment_result)) {
-            if ($data['transaction']->apply_fee > 0) {
+            if (explode('_', $data['transaction']->payment_result->PaymentType)[0] != 'Credit') {
                 $data['taiwan_bank_codes'] = app('TaiwanBankCode')->listBankCodeATM();
             
                 if (!is_null($data['transaction']->financial_account)) {
@@ -120,7 +120,7 @@ class RecordController extends Controller
 
                         //$refund_result = $result['RtnCode'] == 1;
 
-                        $refund_result = 1;
+                        $refund_result = true;
                     }
 
                     return $order_result && $transaction_result && $refund_result;
@@ -149,7 +149,10 @@ class RecordController extends Controller
     {
         $data['order'] = Order::where('serial_number', $record)->first();
 
-        $data['transaction'] = $data['order']->transactions()->ofStatus(1)->first();
+        $data['transaction'] = $data['order']->transactions()
+                                    ->ofStatus(-1)
+                                    ->whereNotNull('payment_result')
+                                    ->first();
 
         $data['financial_account'] = $data['transaction']->financial_account;
 
@@ -167,7 +170,7 @@ class RecordController extends Controller
     {
         $order = Order::where('serial_number', $record)->first();
 
-        $transaction = $order->transactions()->ofStatus(1)->first();
+        $transaction = $order->transactions()->ofStatus(-1)->whereNotNull('payment_result')->first();
 
         $result = $transaction->financial_account->fill($request->all())->save();
 

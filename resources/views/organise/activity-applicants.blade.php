@@ -33,16 +33,16 @@
                             已完成
                         </a>
                     </li>
-                    <li class="{{ $tab == 'unrefund' ? 'active' : '' }}">
-                        <a href="#unrefund" data-toggle="tab">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                            未退款
+                    <li class="{{ $tab == 'paid' ? 'active' : '' }}">
+                        <a href="#paid" data-toggle="tab">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                            已付款
                         </a>
                     </li>
-                    <li class="{{ $tab == 'refunded' ? 'active' : '' }}">
-                        <a href="#refunded" data-toggle="tab">
-                            <i class="fa fa-usd" aria-hidden="true"></i>
-                            已退款
+                    <li class="{{ $tab == 'refunding' ? 'active' : '' }}">
+                        <a href="#refunding" data-toggle="tab">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            須退款
                         </a>
                     </li>
                 </ul>
@@ -99,7 +99,7 @@
                             !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade {{ $tab == 'unrefund' ? 'active in' : '' }}" id="unrefund">
+                    <div class="tab-pane fade {{ $tab == 'paid' ? 'active in' : '' }}" id="paid">
                         <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
@@ -114,8 +114,8 @@
                             </thead>
                             <tbody>
                                 @php
-                                    $unrefund_orders->setCollection(
-                                        $unrefund_orders->getCollection()->load([
+                                    $paid_orders->setCollection(
+                                        $paid_orders->getCollection()->load([
                                             'user.account',
                                             'transactions' => function ($query) {
                                                 $query->where('status', 1);
@@ -123,9 +123,8 @@
                                         ])
                                     );
                                 @endphp
-                                @foreach ($unrefund_orders as $key => $order)
+                                @foreach ($paid_orders as $key => $order)
                                     <tr>
-                                        <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $order->user->name }}</td>
                                         <td>{{ $order->user->account->email }}</td>
@@ -145,14 +144,14 @@
                         </table>
                         <div class="col-xs-12 text-center">
                             {!!
-                                $unrefund_orders
+                                $paid_orders
                                     ->appends($url_query)
-                                    ->appends('tab', 'unrefund')
+                                    ->appends('tab', 'paid')
                                     ->links()
                             !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade {{ $tab == 'refunded' ? 'active in' : '' }}" id="refunded">
+                    <div class="tab-pane fade {{ $tab == 'refunding' ? 'active in' : '' }}" id="refunding">
                         <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
@@ -160,24 +159,63 @@
                                     <th>姓名</th>
                                     <th>電子郵件</th>
                                     <th>手機</th>
+                                    <th>報名費用</th>
+                                    <th>贊助金額</th>
+                                    <th>支付費用總額</th>
+                                    <th>退款帳號</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($refunded_orders as $key => $order)
+                                @php
+                                    $refunding_orders->setCollection(
+                                        $refunding_orders->getCollection()->load([
+                                            'user.account',
+                                            'transactions' => function ($query) {
+                                                $query
+                                                    ->where('status', -1)
+                                                    ->whereNotNull('payment_result');
+                                            }
+                                        ])
+                                    );
+                                @endphp
+                                @foreach ($refunding_orders as $key => $order)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $order->user->name }}</td>
                                         <td>{{ $order->user->account->email }}</td>
                                         <td>{{ $order->user->mobile_phone }}</td>
+                                        @if (!is_null($transaction = $order->transactions->first()))
+                                            <td>{{ $transaction->apply_fee }}</td>
+                                            <td>{{ $transaction->sponsorship_amount }}</td>
+                                            <td>{{ $transaction->apply_fee + $transaction->sponsorship_amount }}</td>
+                                            <td>
+                                                @if (explode('_', $transaction->payment_result->PaymentType)[0] != 'Credit')
+                                                    @if (!is_null($transaction->financial_account))
+                                                        {{ $transaction->financial_account->financial_institution_code }}
+                                                        &nbsp;
+                                                        {{ $transaction->financial_account->account_number }}
+                                                    @else
+                                                        請聯繫報名者填寫退款帳號以進行退款
+                                                    @endif
+                                                @else
+                                                    信用卡將以退刷方式進行退款
+                                                @endif
+                                            </td>
+                                        @else
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div class="col-xs-12 text-center">
                             {!! 
-                                $refunded_orders
+                                $refunding_orders
                                     ->appends($url_query)
-                                    ->appends('tab', 'refunded')
+                                    ->appends('tab', 'refunding')
                                     ->links()
                             !!}
                         </div>

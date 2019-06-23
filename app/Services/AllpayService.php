@@ -25,7 +25,7 @@ class AllpayService
         $ecpay->Send['TradeDesc'] = $order->activity->name;
         $ecpay->Send['ChoosePayment'] = \ECPay_PaymentMethod::ALL;
 
-        $ecpay->Send['ReturnURL'] = route('sign-up::payment::deal-result', [$order->activity]);
+        $ecpay->Send['ReturnURL'] = route('sign-up::payment::deal-result-delay', [$order->activity]);
         $ecpay->Send['OrderResultURL'] = route('sign-up::payment::deal-result', [$order->activity]);
         $ecpay->SendExtend['ClientRedirectURL'] = route('sign-up::payment::deal-info', [$order->activity]);
 
@@ -48,7 +48,7 @@ class AllpayService
                 'URL' => route('visit::activity', [$order->activity])
             ];
         }
-
+        
         return $ecpay->CheckOutString(null);
     }
 

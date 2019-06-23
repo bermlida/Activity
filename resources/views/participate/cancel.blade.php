@@ -31,7 +31,7 @@
                             @if (!is_null($transaction->payment_result))
                                 @include('partials.payment-result-panel')
 
-                                @if ($transaction->apply_fee > 0)
+                                @if (explode('_', $transaction->payment_result->PaymentType)[0] != 'Credit')
 
                                     <!-- Refund Account -->
                                     <div class="panel panel-default">
