@@ -15,34 +15,33 @@
         </div>
         <!-- /.row -->
 
+        <!-- Refund Account Setting -->
         <div class="row">
             <div class="col-xs-12">
                 <form class="form-horizontal" role="form" method="POST">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
 
-                    @include('financial-institution-account-form')
+                    @include('partials.financial-institution-account-form')
 
                     <div class="form-group">
-                        <div class="col-md-6">
+                        <div class="col-xs-5 col-xs-offset-2">
                             <a href="javascript:history.back(-1);" class="btn btn-danger">
                                 <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
                                 返回
                             </a>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-6">
+                        <div class="col-xs-5">
                             <button type="submit" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
                                 存檔
                             </button>
                         </div>
-                    </div>
+                    </div>                    
                 </form>
             </div>
         </div>
+        <!-- /.row -->
 
         <hr>
 

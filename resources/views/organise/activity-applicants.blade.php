@@ -190,7 +190,7 @@
                                             <td>{{ $transaction->apply_fee + $transaction->sponsorship_amount }}</td>
                                             <td>
                                                 @if (explode('_', $transaction->payment_result->PaymentType)[0] != 'Credit')
-                                                    @if (!is_null($transaction->financial_account))
+                                                    @if (!empty($transaction->financial_account->financial_institution_code . $transaction->financial_account->account_number))
                                                         {{ $transaction->financial_account->financial_institution_code }}
                                                         &nbsp;
                                                         {{ $transaction->financial_account->account_number }}
