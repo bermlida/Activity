@@ -80,12 +80,12 @@
                                 </h3>
                                 <p>
                                     活動時間：
-                                    @if ($carbon->parse($activity->start_time)->toDateString() != $carbon->parse($activity->end_time)->toDateString())
-                                        {{ $carbon->parse($activity->start_time)->toDateString() }}
+                                    @if ($activity->start_time->toDateString() != $activity->end_time->toDateString())
+                                        {{ $activity->start_time->toDateString() }}
                                          ~ 
-                                        {{ $carbon->parse($activity->end_time)->toDateString() }}
+                                        {{ $activity->end_time->toDateString() }}
                                     @else
-                                        {{ $carbon->parse($activity->start_time)->toDateString() }}
+                                        {{ $activity->start_time->toDateString() }}
                                     @endif
                                 </p>
                                 <p>{{ $activity->summary }}</p>
@@ -129,12 +129,12 @@
                                 </h3>
                                 <p>
                                     活動時間：
-                                    @if ($carbon->parse($history->start_time)->toDateString() != $carbon->parse($history->end_time)->toDateString())
-                                        {{ $carbon->parse($history->start_time)->toDateString() }}
+                                    @if ($history->start_time->toDateString() != $history->end_time->toDateString())
+                                        {{ $history->start_time->toDateString() }}
                                          ~ 
-                                        {{ $carbon->parse($history->end_time)->toDateString() }}
+                                        {{ $history->end_time->toDateString() }}
                                     @else
-                                        {{ $carbon->parse($history->start_time)->toDateString() }}
+                                        {{ $history->start_time->toDateString() }}
                                     @endif
                                 </p>
                                 <p>{{ $history->summary }}</p>
