@@ -245,9 +245,9 @@ Route::group([
         'prefix' => '/apply',
         'as' => 'apply::'
     ], function () {
-        Route::get('/', 'StepController@showApply')->name('new');
+        Route::get('/', 'StepController@showApply')->middleware('during-apply-period')->name('new');
         Route::get('/{record}', 'StepController@showApply')
-            ->middleware('exist-participate-record')
+            ->middleware(['during-apply-period', 'exist-participate-record'])
             ->name('edit');
 
         Route::post('/', 'ActionController@postOrder')->name('store');

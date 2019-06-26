@@ -83,7 +83,7 @@
                     </div>
                     <div class="tab-pane fade {{ $tab == 'register' ? 'active in' : '' }}" id="register">
                         <br>
-                        @if ($carbon->today()->between($activity->apply_start_time, $activity->apply_end_time))
+                        @if ($carbon->now()->between($info->apply_start_time, $info->apply_end_time))
                             @can('apply', $info)
                                 <a href="{{ route('sign-up::apply::new', ['activity' => $info->id]) }}" class="btn btn-primary">
                                     <i class="glyphicon glyphicon-pencil"></i>
@@ -104,9 +104,9 @@
                             @endcan
                         @else
                             <a href="javascript:void(0);" class="btn btn-primary" disabled>
-                                @if ($carbon->today()->lessThan($activity->apply_start_time))
+                                @if ($carbon->now()->lessThan($info->apply_start_time))
                                     活動尚未開放報名
-                                @elseif ($carbon->today()->greaterThan($activity->apply_end_time))
+                                @elseif ($carbon->now()->greaterThan($info->apply_end_time))
                                     活動已截止報名
                                 @else
                                     活動無法報名

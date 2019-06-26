@@ -3,8 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Carbon\Carbon;
 
-class VerifySocialProvider
+use App\Models\Activity;
+
+class DuringApplyPeriod
 {
     /**
      * Handle an incoming request.
@@ -15,10 +18,10 @@ class VerifySocialProvider
      */
     public function handle($request, Closure $next)
     {
-        $social_provider = $request->route('social_provider');
+        $activity = Activity::find($request->route('activity'));
 
-        if (is_null(config('services.' . $social_provider))) {
-            return redirect('/400');
+        if (!(Carbon::now()->between($activity->apply_start_time, $activity->apply_end_time))) {
+            return redirect('/403');
         }
 
         return $next($request);

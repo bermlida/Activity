@@ -154,12 +154,22 @@
                                                 ->whereNull('payment_result')
                                                 ->get();
                                         @endphp
-                                        @if (count($no_interfacing) == 0 || count($interfacing_cashflow_error) > 0)
-                                            <a href="{{ route('sign-up::apply::edit', ['activity' => $activity->id, 'serial_number' => $activity->pivot->serial_number]) }}">
-                                                報名未完成
-                                            </a>
+                                        @if ($carbon->now()->between($activity->apply_start_time, $activity->apply_end_time))
+                                            @if (count($no_interfacing) == 0 || count($interfacing_cashflow_error) > 0)
+                                                <a href="{{ route('sign-up::apply::edit', ['activity' => $activity->id, 'serial_number' => $activity->pivot->serial_number]) }}">
+                                                    報名未完成
+                                                </a>
+                                            @else
+                                                報名未完成 - 未繳款
+                                            @endif
                                         @else
-                                            報名未完成 - 未繳款
+                                            @if ($carbon->now()->lessThan($activity->apply_start_time))
+                                                活動尚未開放報名
+                                            @elseif ($carbon->now()->greaterThan($activity->apply_end_time))
+                                                活動已截止報名
+                                            @else
+                                                活動無法報名
+                                            @endif
                                         @endif
                                     </td>
                                     <td>
