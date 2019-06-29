@@ -225,6 +225,8 @@
                                             <a class="btn btn-info" href="{{ route('participate::record::refund::confirm', ['serial_number' => $activity->pivot->serial_number]) }}">
                                                 退款設定
                                             </a>
+                                        @else
+                                            信用卡將以退刷方式進行退款
                                         @endif
                                     </td>
                                     <td>已取消報名</td>
