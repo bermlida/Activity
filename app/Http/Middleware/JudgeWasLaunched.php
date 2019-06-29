@@ -3,11 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Carbon\Carbon;
 
 use App\Models\Activity;
 
-class DuringApplyPeriod
+class JudgeWasLaunched
 {
     /**
      * Handle an incoming request.
@@ -20,7 +19,7 @@ class DuringApplyPeriod
     {
         $activity = Activity::find($request->route('activity'));
 
-        if (!(Carbon::now()->between($activity->apply_start_time, $activity->apply_end_time))) {
+        if ($activity->status != 1) {
             return redirect('/403');
         }
 

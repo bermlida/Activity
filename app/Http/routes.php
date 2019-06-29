@@ -35,7 +35,7 @@ Route::group([
 
         Route::group([
             'prefix' => '/{activity}',
-            'middleware' => 'exist-activity'
+            'middleware' => ['exist-activity', 'judge-was-launched']
         ], function () {
             Route::get('/', 'ActivityController@info')->name('activity');
             Route::get('/logs/{log}', 'ActivityController@log')
@@ -238,16 +238,18 @@ Route::group([
 Route::group([
     'prefix' => '/sign-up/{activity}',
     'namespace' => 'SignUp',
-    'middleware' => ['exist-activity'],
+    'middleware' => ['exist-activity', 'judge-was-launched'],
     'as' => 'sign-up::'
 ], function () {
     Route::group([
         'prefix' => '/apply',
         'as' => 'apply::'
     ], function () {
-        Route::get('/', 'StepController@showApply')->middleware('during-apply-period')->name('new');
+        Route::get('/', 'StepController@showApply')
+            ->middleware('judge-during-apply-period')
+            ->name('new');
         Route::get('/{record}', 'StepController@showApply')
-            ->middleware(['during-apply-period', 'exist-participate-record'])
+            ->middleware(['judge-during-apply-period', 'exist-participate-record'])
             ->name('edit');
 
         Route::post('/', 'ActionController@postOrder')->name('store');
