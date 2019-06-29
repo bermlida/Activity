@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Participate;
 
-use DB;
 use Auth;
-use Illuminate\Http\Request;
+use DB;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\Output\QRImage;
+use Illuminate\Http\Request;
 
-use App\Models\Order;
 use App\Http\Requests;
-use App\Services\AllpayService;
-use App\Models\FinancialAccount;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostFinancialAccountRequest;
+use App\Http\Requests\StoreFinancialAccountRequest;
+use App\Models\FinancialAccount;
+use App\Models\Order;
+use App\Services\AllpayService;
 
 class RecordController extends Controller
 {
@@ -166,7 +166,7 @@ class RecordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function refund($record, PostFinancialAccountRequest $request)
+    public function refund($record, StoreFinancialAccountRequest $request)
     {
         $order = Order::where('serial_number', $record)->first();
 

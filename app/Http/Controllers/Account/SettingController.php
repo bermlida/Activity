@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostFinancialAccountRequest;
+use App\Http\Requests\StoreFinancialAccountRequest;
 use App\Models\FinancialAccount;
 
 class SettingController extends Controller
@@ -99,7 +99,7 @@ class SettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function saveReceiptSetting(PostFinancialAccountRequest $request)
+    public function saveReceiptSetting(StoreFinancialAccountRequest $request)
     {
         $organizer = Auth::user()->profile;
 
@@ -140,7 +140,7 @@ class SettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function saveRefundSetting(PostFinancialAccountRequest $request)
+    public function saveRefundSetting(StoreFinancialAccountRequest $request)
     {
         $user = Auth::user()->profile;
 

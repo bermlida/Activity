@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Auth;
 
-use DB;
 use Auth;
+use DB;
 use Socialite;
 use Validator;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
-use App\Models\User;
-use App\Models\Account;
-use App\Models\Organizer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\StoreOrganizerRequest;
+use App\Models\Account;
+use App\Models\User;
+use App\Models\Organizer;
 
 class AuthController extends Controller
 {

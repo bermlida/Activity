@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Organise;
 
-use DB;
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreActivityLogRequest;
 use App\Models\Log;
 use App\Services\FileUploadService;
