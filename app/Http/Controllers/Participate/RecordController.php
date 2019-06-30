@@ -27,14 +27,17 @@ class RecordController extends Controller
         $user = (Auth::user())->profile;
 
         $data['registered_activities'] = $user->activities()
+            ->launched()
             ->wherePivot('status', 1)
             ->paginate(10, ['*'], 'registered_page');
 
         $data['undone_activities'] = $user->activities()
+            ->launched()
             ->wherePivot('status', 0)
             ->paginate(10, ['*'], 'undone_page');
 
         $data['cancelled_activities'] = $user->activities()
+            ->launched()
             ->wherePivot('status', -1)
             ->paginate(10, ['*'], 'cancelled_page');
 

@@ -25,6 +25,7 @@ class ActivityController extends Controller
 
         $data['launched_activities'] = $organizer->activities()
             ->launched()
+            ->where('end_time', '>=', Carbon::now())
             ->orderBy('start_time')->orderBy('end_time')
             ->paginate(10, ['*'], 'launched_page');
 
@@ -33,18 +34,19 @@ class ActivityController extends Controller
             ->orderBy('start_time')->orderBy('end_time')
             ->paginate(10, ['*'], 'discontinued_page');
 
-        $data['draft_activities'] = $organizer->activities()
-            ->ofStatus(0)
+        $data['drafting_activities'] = $organizer->activities()
+            ->drafting()
             ->orderBy('updated_at', 'desc')
-            ->paginate(10, ['*'], 'draft_page');
+            ->paginate(10, ['*'], 'drafting_page');
 
         $data['ended_activities'] = $organizer->activities()
-            ->ended()
+            ->launched()
+            ->where('end_time', '<', Carbon::now())
             ->orderBy('start_time')->orderBy('end_time')
             ->paginate(10, ['*'], 'ended_page');
 
         $data['url_query'] = $request->only([
-            'launched_page', 'discontinued_page', 'draft_page', 'ended_page'
+            'launched_page', 'discontinued_page', 'drafting_page', 'ended_page'
         ]);
 
         $data['tab'] = $request->has('tab') ? $request->input('tab') : 'launched';

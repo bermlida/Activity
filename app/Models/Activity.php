@@ -160,9 +160,17 @@ class Activity extends Model
      */
     public function scopeLaunched($query)
     {
-        return $query
-                ->where('status', 1)
-                ->where('end_time', '>=', Carbon::now());
+        return $query->where('status', 1);
+    }
+
+    /**
+     * 限制查詢尚未發布的活動(草稿)。
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDrafting($query)
+    {
+        return $query->where('status', 0);
     }
 
     /**
@@ -173,18 +181,6 @@ class Activity extends Model
     public function scopeDiscontinued($query)
     {
         return $query->where('status', -1);
-    }
-
-    /**
-     * 限制查詢已結束的活動。
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeEnded($query)
-    {
-        return $query
-                ->where('status', 1)
-                ->where('end_time', '<', Carbon::now());
     }
 
     /**

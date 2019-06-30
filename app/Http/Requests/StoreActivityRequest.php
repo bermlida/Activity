@@ -23,12 +23,6 @@ class StoreActivityRequest extends Request
      */
     public function rules()
     {
-        $before_start_time = $this->has('start_time') ? '|before:' . $this->input('start_time') : '';
-        $before_end_time = $this->has('end_time') ? '|before:' . $this->input('end_time') : '';
-        $before_apply_end_time = $this->has('apply_end_time')
-         ? '|before:' . $this->input('apply_end_time')
-         : '';
-
         return [
             'name' => 'required|string|max:255',
             'start_time' => 'required|date|before:end_time',

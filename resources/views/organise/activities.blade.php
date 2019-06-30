@@ -45,8 +45,8 @@
                             下架
                         </a>
                     </li>
-                    <li class="{{ $tab == 'draft' ? 'active' : '' }}">
-                        <a href="#draft" data-toggle="tab">
+                    <li class="{{ $tab == 'drafting' ? 'active' : '' }}">
+                        <a href="#drafting" data-toggle="tab">
                             <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
                             草稿
                         </a>
@@ -167,7 +167,7 @@
                             !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade {{ $tab == 'draft' ? 'active in' : '' }}" id="draft">
+                    <div class="tab-pane fade {{ $tab == 'drafting' ? 'active in' : '' }}" id="drafting">
                         <table class="table table-hover responsive-table">
                             <thead>
                                 <tr>
@@ -179,7 +179,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($draft_activities as $key => $activity)
+                                @foreach ($drafting_activities as $key => $activity)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $activity->name }}</td>
@@ -216,9 +216,9 @@
                         </table>
                         <div class="col-xs-12 text-center">
                             {!! 
-                                $draft_activities
+                                $drafting_activities
                                     ->appends($url_query)
-                                    ->appends('tab', 'draft')
+                                    ->appends('tab', 'drafting')
                                     ->links()
                             !!}
                         </div>

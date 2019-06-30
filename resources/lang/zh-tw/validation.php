@@ -20,7 +20,7 @@ return [
     'alpha_dash'           => 'The :attribute may only contain letters, numbers, and dashes.',
     'alpha_num'            => 'The :attribute may only contain letters and numbers.',
     'array'                => '必須是一個數組。',
-    'before'               => 'The :attribute must be a date before :date.',
+    'before'               => '必須是 :date 之前的日期或時間。',
     'between'              => [
         'numeric' => '必須介於 :min 和 :max 之間。',
         'file'    => '必須介於 :min 和 :max KB之間。',
@@ -34,6 +34,7 @@ return [
     'different'            => 'The :attribute and :other must be different.',
     'digits'               => 'The :attribute must be :digits digits.',
     'digits_between'       => 'The :attribute must be between :min and :max digits.',
+    'dimensions'           => '圖像尺寸無效。',
     'distinct'             => 'The :attribute field has a duplicate value.',
     'email'                => '必須是有效的電子郵件地址。',
     'exists'               => 'The selected :attribute is invalid.',
@@ -62,7 +63,7 @@ return [
     'present'              => 'The :attribute field must be present.',
     'regex'                => 'The :attribute format is invalid.',
     'required'             => '該欄位是必需的。',
-    'required_if'          => 'The :attribute field is required when :other is :value.',
+    'required_if'          => '該欄位是必需的。',
     'required_unless'      => 'The :attribute field is required unless :other is in :values.',
     'required_with'        => 'The :attribute field is required when :values is present.',
     'required_with_all'    => 'The :attribute field is required when :values is present.',
@@ -92,8 +93,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'email' => [
+            'unique' => '電子郵件信箱重覆建立，請改用其他電子郵件信箱。',
         ],
     ],
 
