@@ -92,7 +92,7 @@
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
-                                            <a class="btn btn-default" href="{{ route('visit::activity', [$activity]) }}" role="button">
+                                            <a class="btn btn-default" href="{{ route('organise::activity::preview', [$activity]) }}" role="button">
                                                 預覽
                                             </a>
                                             <button type="button" class="btn btn-danger" onclick="update('{{ route('organise::activity::discontinue', [$activity]) }}')">
@@ -146,7 +146,7 @@
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
-                                            <a class="btn btn-default" href="{{ route('visit::activity', [$activity]) }}" role="button">
+                                            <a class="btn btn-default" href="{{ route('organise::activity::preview', [$activity]) }}" role="button">
                                                 預覽
                                             </a>
                                             <button type="button" class="btn btn-success" onclick="update('{{ route('organise::activity::launch', [$activity]) }}')">
@@ -200,7 +200,7 @@
                                             <a class="btn btn-primary" href="{{ route('organise::activity::info', [$activity]) }}" role="button">
                                                 管理
                                             </a>
-                                            <a class="btn btn-default" href="{{ route('visit::activity', [$activity]) }}" role="button">
+                                            <a class="btn btn-default" href="{{ route('organise::activity::preview', [$activity]) }}" role="button">
                                                 預覽
                                             </a>
                                             <button type="button" class="btn btn-default" onclick="update('{{ route('organise::activity::publish', [$activity]) }}')">

@@ -164,6 +164,7 @@ Route::group([
         'middleware' => 'exist-organise-activity'
     ], function () {
         Route::get('/info', 'ActivityController@info')->name('info');
+        Route::get('/preview', 'ActivityController@preview')->name('preview');
         Route::get('/edit', 'ActivityController@edit')->name('modify');
         Route::put('/update', 'ActivityController@update')->name('update');
         Route::put('/publish', 'ActivityController@publish')->name('publish');
