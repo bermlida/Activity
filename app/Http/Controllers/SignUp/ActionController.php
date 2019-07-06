@@ -32,9 +32,11 @@ class ActionController extends Controller
             $payment_amount += $request->input('sponsorship_amount');
         }
 
-        $serial_number = ($payment_amount > 0) ? 'P' : 'F';
-        $serial_number .= str_replace('-', '', Carbon::now()->toDateString());
-        $serial_number .= strtoupper(str_random(6));
+        do {
+            $serial_number = ($payment_amount > 0) ? 'P' : 'F';
+            $serial_number .= str_replace('-', '', Carbon::now()->toDateString());
+            $serial_number .= strtoupper(str_random(6));
+        } while (Order::where('serial_number', $serial_number)->count() > 0);
 
         $user->activities()->attach(
             $activity->id,
@@ -105,14 +107,18 @@ class ActionController extends Controller
         $serial_number = session('serial_number');
         
         $order = Auth::user()
-            ->profile->activities()
-            ->wherePivot('serial_number', $serial_number)
-            ->first()->pivot;
+                    ->profile->activities()
+                    ->wherePivot('serial_number', $serial_number)
+                    ->first()->pivot;
         
         $order->transactions()->delete();
 
+        do {
+            $transaction_serial_number = $order->serial_number . strtoupper(str_random(5));
+        } while (Transaction::where('serial_number', $transaction_serial_number)->count() > 0);
+
         $transaction = new Transaction([
-            'serial_number' => $order->serial_number . strtoupper(str_random(5)),
+            'serial_number' => $transaction_serial_number,
             'apply_fee' => $request->apply_fee,
             'sponsorship_amount' => $request->sponsorship_amount,
             'status' => 0,

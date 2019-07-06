@@ -26,8 +26,8 @@ class ActivityController extends Controller
     public function index()
     {
         $data['activities'] = Activity::with('attachments')
-            ->ofStatus(1)
-            ->paginate(12);
+                                ->ofStatus(1)
+                                ->paginate(12);
         
         return view('activities', $data);
     }

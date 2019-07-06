@@ -33,9 +33,9 @@ class StepController extends Controller
     {
         if (!is_null($record)) {
             $order = Auth::user()
-                ->profile->activities()
-                ->wherePivot('serial_number', $record)
-                ->first()->pivot;
+                        ->profile->activities()
+                        ->wherePivot('serial_number', $record)
+                        ->first()->pivot;
 
             $data['activity'] = $order->activity;
 

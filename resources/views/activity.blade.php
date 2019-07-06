@@ -43,25 +43,36 @@
                 <ul id="myTab" class="nav nav-tabs nav-justified">
                     <li class="{{ $tab == 'introduce' ? 'active' : '' }}">
                         <a href="#introduce" data-toggle="tab">
-                            <i class="fa fa-info-circle"></i>
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
                             活動介紹
+                        </a>
+                    </li>
+                    <li class="{{ $tab == 'time-and-venue' ? 'active' : '' }}">
+                        <a href="#time-and-venue" data-toggle="tab">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            時間及地點
                         </a>
                     </li>
                     <li class="{{ $tab == 'register' ? 'active' : '' }}">
                         <a href="#register" data-toggle="tab">
-                            <i class="fa fa-rocket"></i>
+                            <i class="fa fa-rocket" aria-hidden="true"></i>
                             報名
                         </a>
                     </li>
                     <li class="{{ $tab == 'log' ? 'active' : '' }}">
                         <a href="#log" data-toggle="tab">
-                            <i class="fa fa-sticky-note"></i> 
+                            <i class="fa fa-sticky-note" aria-hidden="true"></i> 
                             日誌
                         </a>
                     </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade {{ $tab == 'introduce' ? 'active in' : '' }}" id="introduce">
+                        <p>
+                            {!! $info->intro !!}
+                        </p>
+                    </div>
+                    <div class="tab-pane fade {{ $tab == 'time-and-venue' ? 'active in' : '' }}" id="time-and-venue">
                         <p>
                             <h4>
                                 活動時間：
@@ -73,7 +84,6 @@
                                     {{ $info->start_time->toDateString() }}
                                 @endif
                             </h4>
-                            {!! $info->intro !!}
                             <h4>活動地點：{{ $info->venue }}</h4>
                             <iframe src="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $info->venue }}&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                             @if (!empty($info->venue_intro))
