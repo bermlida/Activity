@@ -70,14 +70,9 @@ return [
             'model' => App\Models\Account::class,
         ],
 
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
-        ],
-
-        // 'users' => [
+        // 'accounts' => [
         //     'driver' => 'database',
-        //     'table' => 'users',
+        //     'table' => 'accounts',
         // ],
     ],
 
@@ -102,7 +97,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'accounts',
             'email' => 'auth.emails.password',
             'table' => 'password_resets',
             'expire' => 60,
