@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'test-activity@activity.tw', 'name' => 'test-activity'],
+    'from' => ['address' => 'activity-admin@activity.tw', 'name' => 'activity-admin'],
 
     /*
     |--------------------------------------------------------------------------

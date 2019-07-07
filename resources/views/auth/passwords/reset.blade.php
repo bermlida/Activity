@@ -25,7 +25,7 @@
                         <label for="email" class="col-sm-2 control-label">電子郵件</label>
 
                         <div class="col-sm-8">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}">
+                            <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" readonly="true">
 
                             @if ($errors->has('email'))
                                 <span class="help-block">
