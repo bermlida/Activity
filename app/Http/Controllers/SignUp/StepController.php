@@ -12,8 +12,6 @@ use App\Models\Transaction;
 
 class StepController extends Controller
 {
-    protected $allpay_service;
-
     /**
      * Create a new controller instance.
      *

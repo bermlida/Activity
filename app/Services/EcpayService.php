@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Transaction;
 
-class AllpayService
+class EcpayService
 {
     /**
      * 將所需資料透過表單遞交給第三方金流廠商。
@@ -120,14 +120,14 @@ class AllpayService
         $today = Carbon::today()->setTime(23, 59, 59);
         $payment_date = Carbon::parse('Y/m/d H:i:s', $transaction->payment_result->PaymentDate);
 
-        $allpay = app('allpay')->instance();
+        $ecpay = app('ecpay')->instance();
 
-        $allpay->ServiceURL = 'https://payment.allpay.com.tw/CreditDetail/DoAction';
-        $allpay->Query['MerchantTradeNo'] = $transation->serial_number;
-        $allpay->Query['TradeNo'] = $transation->payment_result->TradeNo;
-        $allpay->Query['Action'] = $today->gt($payment_date) ? 'R' : 'N';
-        $allpay->Query['TotalAmount'] = $transation->payment_result->PayAmt;
+        $ecpay->ServiceURL = config('ecpay.RefundServiceURL');
+        $ecpay->Action['MerchantTradeNo'] = $transation->serial_number;
+        $ecpay->Action['TradeNo'] = $transation->payment_result->TradeNo;
+        $ecpay->Action['Action'] = $today->gt($payment_date) ? 'R' : 'N';
+        $ecpay->Action['TotalAmount'] = $transation->payment_result->TradeAmt;
 
-        return $allpay->DoAction();
+        return $ecpay->DoAction();
     }
 }

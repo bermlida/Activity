@@ -13,7 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFinancialAccountRequest;
 use App\Models\FinancialAccount;
 use App\Models\Order;
-use App\Services\AllpayService;
+use App\Services\EcpayService;
 
 class RecordController extends Controller
 {
@@ -119,9 +119,9 @@ class RecordController extends Controller
                             $refund_result = $transaction->financial_account->fill($request->all())->save();
                         }
                     } else {
-                        //$result = app(AllpayService::class)->cancelCreditTrade($transaction);
+                        //$result = app(EcpayService::class)->cancelCreditTrade($transaction);
 
-                        //$refund_result = $result['RtnCode'] == 1;
+                        //$refund_result = ($result['RtnCode'] == 1);
 
                         $refund_result = true;
                     }

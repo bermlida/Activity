@@ -13,7 +13,7 @@ use App\Http\Requests\PostTransactionRequest;
 use App\Models\Activity;
 use App\Models\Order;
 use App\Models\Transaction;
-use App\Services\AllpayService;
+use App\Services\EcpayService;
 
 class ActionController extends Controller
 {
@@ -127,7 +127,7 @@ class ActionController extends Controller
         
         $order->transactions()->save($transaction);
 
-        print app(AllpayService::class)->getCheckOut($order, $transaction);
+        print app(EcpayService::class)->getCheckOut($order, $transaction);
     }
 
     /**
