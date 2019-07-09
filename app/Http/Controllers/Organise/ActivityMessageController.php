@@ -128,15 +128,6 @@ class ActivityMessageController extends Controller
                 'message_type' => 'warning',
                 'message_body' => '儲存失敗'
             ]);
-            // $request->flash();
-            // $request->session()->flash('message_type', 'warning');
-            // $request->session()->flash('message_body', '儲存失敗');
-            // return redirect()
-            //         ->route('organise::activity::message::modify', [$activity, $message])
-            //         ->with([
-            //             'message_type' => 'warning',
-            //             'message_body' => '儲存失敗'
-            //         ]);
         }
     }
 

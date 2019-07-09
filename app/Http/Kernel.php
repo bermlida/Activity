@@ -50,6 +50,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
+        'check-session-existed' => \App\Http\Middleware\CheckSessionExisted::class,
         'exist-activity' => \App\Http\Middleware\ExistResource\Activity::class,
         'exist-log' => \App\Http\Middleware\ExistResource\Log::class,
         'exist-message' => \App\Http\Middleware\ExistResource\Message::class,

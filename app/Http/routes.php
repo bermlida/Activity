@@ -263,13 +263,19 @@ Route::group([
         'prefix' => '/payment',
         'as' => 'payment::'
     ], function () {
-        Route::get('/', 'StepController@showPayment')->name('confirm');
+        Route::get('/', 'StepController@showPayment')
+            ->middleware('check-session-existed:serial_number')
+            ->name('confirm');
 
-        Route::post('/', 'ActionController@postTransaction')->name('deal');
+        Route::post('/', 'ActionController@postTransaction')
+            ->middleware('check-session-existed:serial_number')
+            ->name('deal');
         Route::post('/deal-info', 'ActionController@savePaymentInfo')->name('deal-info');
         Route::post('/deal-result', 'ActionController@savePaymentResult')->name('deal-result');
         Route::post('/deal-result-delay', 'ActionController@savePaymentResultDelay')->name('deal-result-delay');
     });
     
-    Route::get('/confirm', 'StepController@showConfirm')->name('confirm');
+    Route::get('/confirm', 'StepController@showConfirm')
+        ->middleware('check-session-existed:serial_number')
+        ->name('confirm');
 });

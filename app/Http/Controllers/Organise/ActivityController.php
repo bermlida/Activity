@@ -126,25 +126,17 @@ class ActivityController extends Controller
         if ($organizer->activities()->save($activity)) {
             if ($this->storeBanner($activity, $request)) {
                 return redirect()
-                    ->route('organise::activity::modify', [$activity])
-                    ->with([
-                        'message_type' => 'success',
-                        'message_body' => '新增成功'
-                    ]);
+                        ->route('organise::activity::modify', [$activity])
+                        ->with([
+                            'message_type' => 'success',
+                            'message_body' => '新增成功'
+                        ]);
             }
         } else {
-            $request->flash();
-
-            $request->session()->flash('message_type', 'warning');
-
-            $request->session()->flash('message_body', '新增失敗');
-
-            $data = [
-                'orgznizer' => $organizer,
-                'page_method' => 'POST'
-            ];
-            
-            return view('organise.activity', $data);
+            return back()->withInput()->with([
+                        'message_type' => 'warning',
+                        'message_body' => '新增失敗'
+                    ]);
         }
 
     }
@@ -166,25 +158,16 @@ class ActivityController extends Controller
         
         if ($update_result && $store_banner_result) {
             return redirect()
-                ->route('organise::activity::modify', [$activity])
-                ->with([
-                    'message_type' => 'success',
-                    'message_body' => '更新成功'
-                ]);
+                    ->route('organise::activity::modify', [$activity])
+                    ->with([
+                        'message_type' => 'success',
+                        'message_body' => '更新成功'
+                    ]);
         } else {
-            $request->flash();
-
-            $request->session()->flash('message_type', 'warning');
-
-            $request->session()->flash('message_body', '更新失敗');
-
-            $data = [
-                'organizer' => $organizer,
-                'activity' => $activity,
-                'page_method' => 'PUT'
-            ];
-
-            return view('organise.activity', $data);
+            return back()->withInput()->with([
+                        'message_type' => 'warning',
+                        'message_body' => '更新失敗'
+                    ]);
         }
     }
 
