@@ -56,8 +56,8 @@
                 <form role="form" method="POST" action="{{ route('sign-up::payment::deal', [$order->activity]) }}">
                     {{ csrf_field() }}
                     
-                    <input type="text" name="apply_fee" value="{{ isset($apply_fee) ? $apply_fee : 0 }}">
-                    <input type="text" name="sponsorship_amount" value="{{ isset($sponsorship_amount) ? $sponsorship_amount : 0 }}">
+                    <input type="hidden" name="apply_fee" value="{{ isset($apply_fee) ? $apply_fee : 0 }}">
+                    <input type="hidden" name="sponsorship_amount" value="{{ isset($sponsorship_amount) ? $sponsorship_amount : 0 }}">
                     <button type="submit" class="btn btn-primary">
                         <i class="glyphicon glyphicon-usd" aria-hidden="true"></i>
                         付款
@@ -65,20 +65,13 @@
                 </form>
             </div>
         </div>
-        
-{{--
-                                    
-                                <p>繳費期限：{{ $transaction$transaction->->ExpireDate->vAccount->vAccount->payment }}</p>
---}}
 
         <hr>
 
         <!-- Footer -->
         <footer>
             <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
+                @include('partials.copyright-notice')
             </div>
         </footer>
 
