@@ -63,7 +63,7 @@
                     <label for="subject" class="col-sm-2 control-label">主旨</label>
 
                     <div class="col-sm-8">
-                        <input id="subject" type="text" class="form-control" name="subject" value="{{ $message->subject or old('subject') }}">
+                        <input id="subject" type="text" class="form-control" name="subject" value="{{ old('subject', ($message->subject ?? '')) }}">
                         @if ($errors->has('subject'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('subject') }}
@@ -76,7 +76,7 @@
                     <label for="content" class="col-sm-2 control-label">內容</label>
 
                     <div class="col-sm-8">
-                        <textarea id="content" class="form-control" name="content">{{ $message->content or old('content') }}</textarea>
+                        <textarea id="content" class="form-control" name="content">{{ old('content', ($message->content ?? '')) }}</textarea>
                         @if ($errors->has('content'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('content') }}
@@ -86,21 +86,13 @@
                 </div>
 
                 <div class="form-group">
-                    @if (isset($message->sending_method))
-                        @php
-                            $checked = [
-                                0 => in_array('email', $message->sending_method) ? 'checked' : '',
-                                1 => in_array('sms', $message->sending_method) ? 'checked' : ''
-                            ];
-                        @endphp
-                    @endif
                     <label class="col-sm-2 control-label">發送方式</label>
 
                     <label class="radio-inline">
-                        <input type="checkbox" name="sending_method[0]" value="email" {{ $checked[0] or '' }}>E-mail
+                        <input type="checkbox" name="sending_method[0]" value="email" {{ in_array('email', old('sending_method', ($message->sending_method ?? []))) ? 'checked' : ''}}>E-mail
                     </label>
                     <label class="radio-inline">
-                        <input type="checkbox" name="sending_method[1]" value="sms" {{ $checked[1] or '' }}>簡訊
+                        <input type="checkbox" name="sending_method[1]" value="sms" {{ in_array('sms', old('sending_method', ($message->sending_method ?? []))) ? 'checked' : ''}}>簡訊
                     </label>
                     @if ($errors->has('sending_method'))
                         <span class="help-block col-xs-offset-2" style="color:red">
@@ -110,25 +102,16 @@
                 </div>
 
                 <div class="form-group">
-                    @if (isset($message->sending_target) && is_array($message->sending_target))
-                        @php
-                            $checked = [
-                                0 => in_array(1, $message->sending_target) ? 'checked' : '',
-                                1 => in_array(0, $message->sending_target) ? 'checked' : '',
-                                2 => in_array(-1, $message->sending_target) ? 'checked' : ''
-                            ];
-                        @endphp
-                    @endif
                     <label class="col-sm-2 control-label">發送對象</label>
 
                     <label class="radio-inline">
-                        <input type="checkbox" name="sending_target[0]" value="1" {{ $checked[0] or '' }}>已完成報名
+                        <input type="checkbox" name="sending_target[0]" value="1" {{ in_array(1, old('sending_target', ($message->sending_target ?? []))) ? 'checked' : ''}}>已完成報名
                     </label>
                     <label class="radio-inline">
-                        <input type="checkbox" name="sending_target[1]" value="0" {{ $checked[1] or '' }}>未完成報名
+                        <input type="checkbox" name="sending_target[1]" value="0" {{ in_array(0, old('sending_target', ($message->sending_target ?? []))) ? 'checked' : ''}}>未完成報名
                     </label>
                     <label class="radio-inline">
-                        <input type="checkbox" name="sending_target[2]" value="-1"{{ $checked[2] or '' }}>已取消報名
+                        <input type="checkbox" name="sending_target[2]" value="-1"{{ in_array(-1, old('sending_target', ($message->sending_target ?? []))) ? 'checked' : ''}}>已取消報名
                     </label>
 {{--
                         <label class="radio-inline">

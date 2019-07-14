@@ -52,7 +52,7 @@
                     <label for="name" class="col-sm-2 control-label">活動名稱</label>
 
                     <div class="col-sm-8">
-                        <input id="name" type="text" class="form-control" name="name" value="{{ isset($activity->name) ? $activity->name : old('name') }}">
+                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name', ($activity->name ?? '')) }}">
                         @if ($errors->has('name'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('name') }}
@@ -65,7 +65,7 @@
                     <label for="start_time" class="col-sm-2 control-label">開始時間：</label>
 
                     <div class="col-sm-8">
-                        <input id="start_time" type="text" class="datetime-picker" name="start_time" value="{{ isset($activity->start_time) ? $activity->start_time : old('start_time') }}">
+                        <input id="start_time" type="text" class="datetime-picker" name="start_time" value="{{ old('start_time', ($activity->start_time ?? '')) }}">
                         @if ($errors->has('start_time'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('start_time') }}
@@ -78,7 +78,7 @@
                     <label for="end_time" class="col-sm-2 control-label">結束時間：</label>
 
                     <div class="col-sm-8">
-                        <input id="end_time" type="text" class="datetime-picker" name="end_time" value="{{ isset($activity->end_time) ? $activity->end_time : old('end_time') }}">
+                        <input id="end_time" type="text" class="datetime-picker" name="end_time" value="{{ old('end_time', ($activity->end_time ?? '')) }}">
                         @if ($errors->has('end_time'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('end_time') }}
@@ -91,7 +91,7 @@
                     <label for="venue" class="col-sm-2 control-label">地點：</label>
 
                     <div class="col-sm-8">
-                        <input id="venue" type="text" class="form-control" name="venue" value="{{ isset($activity->venue) ? $activity->venue : old('venue') }}">
+                        <input id="venue" type="text" class="form-control" name="venue" value="{{ old('venue', ($activity->venue ?? '')) }}">
                         @if ($errors->has('venue'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('venue') }}
@@ -104,7 +104,7 @@
                     <label for="venue_intro" class="col-sm-3 col-md-2 control-label">地點補充說明：</label>
 
                     <div class="col-sm-9 col-md-10">
-                        <textarea id="venue_intro" class="form-control" name="venue_intro">{{ isset($activity->venue_intro) ? $activity->venue_intro : old('venue_intro') }}</textarea>
+                        <textarea id="venue_intro" class="form-control" name="venue_intro">{{ old('venue_intro', ($activity->venue_intro ?? '')) }}</textarea>
                         @if ($errors->has('venue_intro'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('venue_intro') }}
@@ -117,7 +117,7 @@
                     <label for="summary" class="col-sm-2 control-label">活動概要：</label>
 
                     <div class="col-sm-8">
-                        <textarea id="summary" class="form-control" name="summary">{{ isset($activity->summary) ? $activity->summary : old('summary') }}</textarea>
+                        <textarea id="summary" class="form-control" name="summary">{{ old('summary', ($activity->summary ?? '')) }}</textarea>
                         @if ($errors->has('summary'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('summary') }}
@@ -130,7 +130,7 @@
                     <label for="apply_start_time" class="col-sm-3 col-md-2 control-label">報名開始時間：</label>
 
                     <div class="col-sm-9 col-md-10">
-                        <input id="apply_start_time" type="text" class="datetime-picker" name="apply_start_time" value="{{ isset($activity->apply_start_time) ? $activity->apply_start_time : old('apply_start_time') }}">
+                        <input id="apply_start_time" type="text" class="datetime-picker" name="apply_start_time" value="{{ old('apply_start_time', ($activity->apply_start_time ?? '')) }}">
                         @if ($errors->has('apply_start_time'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('apply_start_time') }}
@@ -143,7 +143,7 @@
                     <label for="apply_end_time" class="col-sm-3 col-md-2 control-label">報名結束時間：</label>
 
                     <div class="col-sm-9 col-md-10">
-                        <input id="apply_end_time" type="text" class="datetime-picker" name="apply_end_time" value="{{ isset($activity->apply_end_time) ? $activity->apply_end_time : old('apply_end_time') }}">
+                        <input id="apply_end_time" type="text" class="datetime-picker" name="apply_end_time" value="{{ old('apply_end_time', ($activity->apply_end_time ?? '')) }}">
                         @if ($errors->has('apply_end_time'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('apply_end_time') }}
@@ -208,7 +208,7 @@
                     <label for="intro" class="col-md-2 control-label">活動介紹：</label>
 
                     <div class="col-md-10">
-                        <textarea id="intro" class="form-control" name="intro">{{ isset($activity->intro) ? $activity->intro : old('intro') }}</textarea>
+                        <textarea id="intro" class="form-control" name="intro">{{ old('intro', ($activity->intro ?? '')) }}</textarea>
                         @if ($errors->has('intro'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('intro') }}

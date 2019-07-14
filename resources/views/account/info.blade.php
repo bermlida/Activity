@@ -30,7 +30,7 @@
                     <label for="name" class="col-sm-2 control-label">名稱</label>
 
                     <div class="col-sm-8">
-                        <input id="name" class="form-control" name="name" value="{{ isset($profile->name) ? $profile->name : old('name') }}">
+                        <input id="name" class="form-control" name="name" value="{{ old('name', ($profile->name ?? '')) }}">
 
                         @if ($errors->has('name'))
                             <span class="help-block">
@@ -73,7 +73,7 @@
                         <label for="address" class="col-sm-2 control-label">地址</label>
 
                         <div class="col-sm-8">
-                            <input id="address" class="form-control" name="address" value="{{ isset($profile->address) ? $profile->address : old('address') }}">
+                            <input id="address" class="form-control" name="address" value="{{ old('address', ($profile->address ?? '')) }}">
                                 
                             @if ($errors->has('address'))
                                 <span class="help-block">
@@ -87,7 +87,7 @@
                         <label for="phone" class="col-sm-2 control-label">電話</label>
 
                         <div class="col-sm-8">
-                            <input id="phone" class="form-control" name="phone" value="{{ isset($profile->phone) ? $profile->phone : old('phone') }}">
+                            <input id="phone" class="form-control" name="phone" value="{{ old('phone', ($profile->phone ?? '')) }}">
                                 
                             @if ($errors->has('phone'))
                                 <span class="help-block">
@@ -101,7 +101,7 @@
                         <label for="fax" class="col-sm-2 control-label">傳真</label>
 
                         <div class="col-sm-8">
-                            <input id="fax" class="form-control" name="fax" value="{{ isset($profile->fax) ? $profile->fax : old('fax') }}">
+                            <input id="fax" class="form-control" name="fax" value="{{ old('fax', ($profile->fax ?? '')) }}">
                                 
                             @if ($errors->has('fax'))
                                 <span class="help-block">
@@ -140,7 +140,7 @@
                         <label for="intro" class="col-sm-2 control-label">介紹</label>
                             
                         <div class="col-sm-8">
-                            <textarea id="intro" class="form-control" name="intro">{{ isset($profile->intro) ? $profile->intro : old('intro') }}</textarea>
+                            <textarea id="intro" class="form-control" name="intro">{{ old('intro', ($profile->intro ?? '')) }}</textarea>
                                 
                             @if ($errors->has('intro'))
                                 <span class="help-block">

@@ -31,7 +31,7 @@
         <label for="account_number" class="col-sm-3 control-label">帳號</label>
 
         <div class="col-sm-8">
-            <input id="account_number" class="form-control" name="account_number" value="{{ !is_null(old('account_number')) ? old('account_number') : (isset($financial_account) ? $financial_account->account_number : '') }}">
+            <input id="account_number" class="form-control" name="account_number" value="{{ old('account_number', ($financial_account->account_number ?? '')) }}">
             @if ($errors->has('account_number'))
                 <span class="help-block">
                     <strong>{{ $errors->first('account_number') }}</strong>

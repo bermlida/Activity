@@ -74,6 +74,16 @@
                 </form>
             </div>
         </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                @include('partials.copyright-notice')
+            </div>
+        </footer>
+        
     </div>
 
 @endsection
