@@ -10,15 +10,10 @@
                     <option value="" disabled selected>請選擇銀行代號</option>
                 @endif
                 @foreach ($taiwan_bank_codes as $bank_code)
-                    @if (!is_null(old('financial_institution_code')))
-                        <option value="{{ $bank_code['code'] }}" {{ old('financial_institution_code') == $bank_code['code'] ? 'selected' : '' }}">{{ $bank_code['code'] }} {{ $bank_code['name'] }}</option>
-                    @elseif (isset($financial_account))
-                        <option value="{{ $bank_code['code'] }}" {{ $financial_account->financial_institution_code == $bank_code['code'] ? 'selected' : '' }}">{{ $bank_code['code'] }} {{ $bank_code['name'] }}</option>
-                    @else
-                        <option value="{{ $bank_code['code'] }}">{{ $bank_code['code'] }} {{ $bank_code['name'] }}</option>
-                    @endif
+                    <option value="{{ $bank_code['code'] }}" {{ old('financial_institution_code', ($financial_account->financial_institution_code ?? '')) == $bank_code['code'] ? 'selected' : '' }}">{{ $bank_code['code'] }} {{ $bank_code['name'] }}</option>
                 @endforeach
             </select>
+
             @if ($errors->has('financial_institution_code'))
                 <span class="help-block">
                     <strong>{{ $errors->first('financial_institution_code') }}</strong>
@@ -32,6 +27,7 @@
 
         <div class="col-sm-8">
             <input id="account_number" class="form-control" name="account_number" value="{{ old('account_number', ($financial_account->account_number ?? '')) }}">
+            
             @if ($errors->has('account_number'))
                 <span class="help-block">
                     <strong>{{ $errors->first('account_number') }}</strong>

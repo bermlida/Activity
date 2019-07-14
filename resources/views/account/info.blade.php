@@ -48,16 +48,10 @@
                         <div class="col-sm-8">
                             <select class="form-control" name="mobile_country_calling_code">
                                 @foreach ($country_calling_codes as $code_key => $code_name)
-                                    @if (!is_null(old('mobile_country_calling_code')))
-                                        <option value="{{ $code_key }}" {{ old('mobile_country_calling_code') == $code_key ? 'selected' : '' }}>{{ $code_name }}</option>
-                                    @elseif (isset($profile->mobile_country_calling_code))
-                                        <option value="{{ $code_key }}" {{ $profile->mobile_country_calling_code == $code_key ? 'selected' : '' }}>{{ $code_name }}</option>
-                                    @else
-                                        <option value="{{ $code_key }}">{{ $code_name }}</option>
-                                    @endif
+                                    <option value="{{ $code_key }}" {{ old('mobile_country_calling_code', ($profile->mobile_country_calling_code ?? '')) == $code_key ? 'selected' : '' }}>{{ $code_name }}</option>
                                 @endforeach
                             </select>
-                            <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{ isset($profile->mobile_phone) ? $profile->mobile_phone : old('mobile_phone')}} ">
+                            <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{ old('mobile_phone', ($profile->mobile_phone ?? '')) }} ">
                                 
                             @if ($errors->has('mobile_phone'))
                                 <span class="help-block">
@@ -117,16 +111,10 @@
                         <div class="col-sm-8">
                             <select class="form-control" name="mobile_country_calling_code">
                                 @foreach ($country_calling_codes as $code_key => $code_name)
-                                    @if (!is_null(old('mobile_country_calling_code')))
-                                        <option value="{{ $code_key }}" {{ old('mobile_country_calling_code') == $code_key ? 'selected' : '' }}>{{ $code_name }}</option>
-                                    @elseif (isset($profile->mobile_country_calling_code))
-                                        <option value="{{ $code_key }}" {{ $profile->mobile_country_calling_code == $code_key ? 'selected' : '' }}>{{ $code_name }}</option>
-                                    @else
-                                        <option value="{{ $code_key }}">{{ $code_name }}</option>
-                                    @endif
+                                    <option value="{{ $code_key }}" {{ old('mobile_country_calling_code', ($profile->mobile_country_calling_code ?? '')) == $code_key ? 'selected' : '' }}>{{ $code_name }}</option>
                                 @endforeach
                             </select>
-                            <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{ isset($profile->mobile_phone) ? $profile->mobile_phone : old('mobile_phone')}} ">
+                            <input id="mobile_phone" class="form-control" name="mobile_phone" value="{{ old('mobile_phone', ($profile->mobile_phone ?? '')) }} ">
                                 
                             @if ($errors->has('mobile_phone'))
                                 <span class="help-block">

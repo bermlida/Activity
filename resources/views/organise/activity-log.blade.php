@@ -44,6 +44,7 @@
                     <label class="radio-inline">
                         <input type="radio" name="content_type" value="vlog" {{ old('content_type', (isset($log) ? $log->content_type : '')) == 'vlog' ? 'checked' : '' }}>影片
                     </label>
+
                     @if ($errors->has('content_type'))
                         <span class="help-block col-xs-offset-2" style="color:red">
                             {{ $errors->first('content_type') }}
@@ -56,6 +57,7 @@
 
                     <div class="col-sm-8">
                         <input id="title" type="text" class="form-control" name="title" value="{{ old('title', (isset($log) ? $log->title : '')) }}">
+                        
                         @if ($errors->has('title'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('title') }}

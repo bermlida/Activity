@@ -53,6 +53,7 @@
 
                     <div class="col-sm-8">
                         <input id="name" type="text" class="form-control" name="name" value="{{ old('name', ($activity->name ?? '')) }}">
+
                         @if ($errors->has('name'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('name') }}
@@ -66,6 +67,7 @@
 
                     <div class="col-sm-8">
                         <input id="start_time" type="text" class="datetime-picker" name="start_time" value="{{ old('start_time', ($activity->start_time ?? '')) }}">
+
                         @if ($errors->has('start_time'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('start_time') }}
@@ -79,6 +81,7 @@
 
                     <div class="col-sm-8">
                         <input id="end_time" type="text" class="datetime-picker" name="end_time" value="{{ old('end_time', ($activity->end_time ?? '')) }}">
+
                         @if ($errors->has('end_time'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('end_time') }}
@@ -92,6 +95,7 @@
 
                     <div class="col-sm-8">
                         <input id="venue" type="text" class="form-control" name="venue" value="{{ old('venue', ($activity->venue ?? '')) }}">
+
                         @if ($errors->has('venue'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('venue') }}
@@ -105,6 +109,7 @@
 
                     <div class="col-sm-9 col-md-10">
                         <textarea id="venue_intro" class="form-control" name="venue_intro">{{ old('venue_intro', ($activity->venue_intro ?? '')) }}</textarea>
+
                         @if ($errors->has('venue_intro'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('venue_intro') }}
@@ -118,6 +123,7 @@
 
                     <div class="col-sm-8">
                         <textarea id="summary" class="form-control" name="summary">{{ old('summary', ($activity->summary ?? '')) }}</textarea>
+
                         @if ($errors->has('summary'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('summary') }}
@@ -131,6 +137,7 @@
 
                     <div class="col-sm-9 col-md-10">
                         <input id="apply_start_time" type="text" class="datetime-picker" name="apply_start_time" value="{{ old('apply_start_time', ($activity->apply_start_time ?? '')) }}">
+
                         @if ($errors->has('apply_start_time'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('apply_start_time') }}
@@ -144,6 +151,7 @@
 
                     <div class="col-sm-9 col-md-10">
                         <input id="apply_end_time" type="text" class="datetime-picker" name="apply_end_time" value="{{ old('apply_end_time', ($activity->apply_end_time ?? '')) }}">
+
                         @if ($errors->has('apply_end_time'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('apply_end_time') }}
@@ -153,17 +161,15 @@
                 </div>
 
                 <div class="form-group">
-                    @php
-                        $is_free = isset($activity->is_free) ? $activity->is_free : old('is_free');
-                    @endphp
                     <label class="col-sm-3 col-md-2 control-label">是否為免費活動：</label>
 
                     <label class="radio-inline">
-                        <input type="radio" name="is_free" value="1" {{$is_free == 1 ? 'checked' : '' }}>是
+                        <input type="radio" name="is_free" value="1" {{ old('is_free', ($activity->is_free ?? '')) == 1 ? 'checked' : '' }}>是
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="is_free" value="0" {{$is_free === 0 ? 'checked' : '' }}>否
+                        <input type="radio" name="is_free" value="0" {{ old('is_free', ($activity->is_free ?? '')) === 0 ? 'checked' : '' }}>否
                     </label>
+
                     @if ($errors->has('is_free'))
                         <span class="help-block col-xs-offset-2" style="color:red">
                             {{ $errors->first('is_free') }}
@@ -175,8 +181,9 @@
                     <label for="apply_fee" class="col-sm-2 control-label">報名費用：</label>
 
                     <div class="col-sm-8">
-                        <input id="apply_fee" type="number" class="form-control" name="apply_fee" value="{{ isset($activity->apply_fee) ? ($activity->apply_fee > 0 ? $activity->apply_fee : '') : old('apply_fee') }}">
+                        <input id="apply_fee" type="number" class="form-control" name="apply_fee" value="{{ old('apply_fee', ((isset($activity->apply_fee) && $activity->apply_fee > 0) ? $activity->apply_fee : '')) }}" min="0">
                         <span class="help-block">(非免費活動必填)</span>
+
                         @if ($errors->has('apply_fee'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('apply_fee') }}
@@ -185,18 +192,16 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @php
-                        $can_sponsored = isset($activity->can_sponsored) ? $activity->can_sponsored : old('can_sponsored');
-                    @endphp
+                <div class="form-group">                    
                     <label class="col-sm-3 col-md-2 control-label">是否可付費贊助活動：</label>
 
                     <label class="radio-inline">
-                        <input type="radio" name="can_sponsored" value="1" {{ $can_sponsored == 1 ? 'checked' : '' }}>是
+                        <input type="radio" name="can_sponsored" value="1" {{ old('can_sponsored', ($activity->can_sponsored ?? '')) == 1 ? 'checked' : '' }}>是
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="can_sponsored" value="0" {{$can_sponsored === 0 ? 'checked' : '' }}>否
+                        <input type="radio" name="can_sponsored" value="0" {{ old('can_sponsored', ($activity->can_sponsored ?? '')) === 0 ? 'checked' : '' }}>否
                     </label>
+
                     @if ($errors->has('can_sponsored'))
                         <span class="help-block col-xs-offset-2" style="color:red">
                             {{ $errors->first('can_sponsored') }}
@@ -209,6 +214,7 @@
 
                     <div class="col-md-10">
                         <textarea id="intro" class="form-control" name="intro">{{ old('intro', ($activity->intro ?? '')) }}</textarea>
+
                         @if ($errors->has('intro'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('intro') }}
@@ -230,6 +236,7 @@
 
                     <div class="col-sm-8">
                         <input type="file" id="photo" class="form-control" name="photo">
+                        
                         @if ($errors->has('photo'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('photo') }}

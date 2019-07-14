@@ -64,6 +64,7 @@
 
                     <div class="col-sm-8">
                         <input id="subject" type="text" class="form-control" name="subject" value="{{ old('subject', ($message->subject ?? '')) }}">
+
                         @if ($errors->has('subject'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('subject') }}
@@ -77,6 +78,7 @@
 
                     <div class="col-sm-8">
                         <textarea id="content" class="form-control" name="content">{{ old('content', ($message->content ?? '')) }}</textarea>
+
                         @if ($errors->has('content'))
                             <span class="help-block" style="color:red">
                                 {{ $errors->first('content') }}
@@ -94,6 +96,7 @@
                     <label class="radio-inline">
                         <input type="checkbox" name="sending_method[1]" value="sms" {{ in_array('sms', old('sending_method', ($message->sending_method ?? []))) ? 'checked' : ''}}>簡訊
                     </label>
+
                     @if ($errors->has('sending_method'))
                         <span class="help-block col-xs-offset-2" style="color:red">
                             {{ $errors->first('sending_method') }}
@@ -145,38 +148,21 @@
                     </div>
 --}}
                 <div class="form-group">
-                    @if (isset($message->sending_time))
-                        @php
-                            $checked = [
-                                'no' => is_null($message->sending_time) ? 'checked' : '',
-                                'yes' => !is_null($message->sending_time) ? 'checked' : ''
-                            ];
-                        @endphp
-                    @elseif (!is_null(old('join_schedule')))
-                        @php
-                            $checked = [
-                                'no' => old('join_schedule') == 'no' ? 'checked' : '',
-                                'yes' => old('join_schedule') == 'yes' ? 'checked' : ''
-                            ];
-                        @endphp
-                    @endif
                     <label class="col-sm-2 control-label">發送排程</label>
-                        
+                    
                     <label class="radio-inline">
-                        <input type="radio" name="join_schedule" value="no" {{ $checked['no'] or '' }}>立刻發送
-                    </label>
-                        
+                        <input type="radio" name="join_schedule" value="no" {{ old('join_schedule', ((isset($message->sending_time) && !is_null($message->sending_time)) ? 'yes' : 'no')) == 'no' ? 'checked' : '' }}>立刻發送
+                    </label>                    
                     <label class="radio-inline">
-                        <input type="radio" name="join_schedule" value="yes" {{ $checked['yes'] or '' }}>特定時間
-                        <input id="sending_time" type="text" class="datetime-picker" name="sending_time" value="{{ $message->sending_time or old('sending_time') }}">
+                        <input type="radio" name="join_schedule" value="yes" {{ old('join_schedule', ((isset($message->sending_time) && !is_null($message->sending_time)) ? 'yes' : 'no')) == 'yes' ? 'checked' : '' }}>特定時間
+                        <input id="sending_time" type="text" class="datetime-picker" name="sending_time" value="{{ old('sending_time', ($message->sending_time ?? '')) }}">
                     </label>
-                        
+
                     @if ($errors->has('join_schedule'))
                         <span class="help-block col-xs-offset-2" style="color:red">
                             {{ $errors->first('join_schedule') }}
                         </span>
                     @endif
-
                     @if ($errors->has('sending_time'))
                         <span class="help-block col-xs-offset-2" style="color:red">
                             {{ $errors->first('sending_time') }}
