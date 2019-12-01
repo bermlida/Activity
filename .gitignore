@@ -4,4 +4,3 @@
 /public/storage
 .env
 app.yaml
-Procfile
