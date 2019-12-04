@@ -1,14 +1,9 @@
 {
   "private": true,
   "scripts": {
-    //"prod": "gulp --production",
-    //"dev": "gulp watch",
     "postinstall": "bower cache clean && bower install"
   },
   "devDependencies": {
-    //"gulp": "^3.9.1",
-    //"laravel-elixir": "^5.0.0",
-    //"bootstrap-sass": "^3.0.0",
     "bower": "^1.0.0"
   }
 }
