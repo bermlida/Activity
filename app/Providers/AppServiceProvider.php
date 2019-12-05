@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $protocol = Str::startsWith(config('app.url'), 'https://') ? 'https' : 'http';
+
+        URL::forceSchema($protocol);
     }
 
     /**
