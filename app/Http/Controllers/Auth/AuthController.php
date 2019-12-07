@@ -199,10 +199,10 @@ class AuthController extends Controller
      */
     public function askForLogin($social_provider, Request $request)
     {
-        print $request->url(); exit;
-
+        $redirect_url = url($request->path() . '/callback');
+        print $redirect_url; exit;
         return Socialite::driver($social_provider)
-                    ->redirectUrl($request->url() . '/callback')
+                    ->redirectUrl($redirect_url)
                     ->redirect();
     }
 
