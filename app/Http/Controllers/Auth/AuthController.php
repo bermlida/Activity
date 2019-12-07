@@ -187,8 +187,10 @@ class AuthController extends Controller
      */
     public function askForRegister($social_provider, Request $request)
     {
+        $redirect_url = url($request->path() . '/callback');
+        
         return Socialite::driver($social_provider)
-                    ->redirectUrl($request->url() . '/callback')
+                    ->redirectUrl($redirect_url)
                     ->redirect();
     }
 
@@ -200,7 +202,7 @@ class AuthController extends Controller
     public function askForLogin($social_provider, Request $request)
     {
         $redirect_url = url($request->path() . '/callback');
-        print $redirect_url; exit;
+        
         return Socialite::driver($social_provider)
                     ->redirectUrl($redirect_url)
                     ->redirect();
@@ -214,7 +216,7 @@ class AuthController extends Controller
     public function replyForRegister($social_provider, $role, Request $request)
     {
         $user = Socialite::driver($social_provider)
-                    ->redirectUrl($request->url())
+                    ->redirectUrl(url($request->path()))
                     ->user();
 
         if (Account::where('email', $user->getEmail())->count() == 0) {
@@ -279,7 +281,7 @@ class AuthController extends Controller
     public function replyForLogin($social_provider, Request $request)
     {
         $user = Socialite::driver($social_provider)
-                    ->redirectUrl($request->url())
+                    ->redirectUrl(url($request->path()))
                     ->user();
 
         $account = Account::where('email', $user->getEmail())->first();
