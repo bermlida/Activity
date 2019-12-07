@@ -199,6 +199,8 @@ class AuthController extends Controller
      */
     public function askForLogin($social_provider, Request $request)
     {
+        print $request->url(); exit;
+
         return Socialite::driver($social_provider)
                     ->redirectUrl($request->url() . '/callback')
                     ->redirect();
