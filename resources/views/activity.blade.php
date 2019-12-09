@@ -19,7 +19,7 @@
         <div class="row">
             <br>
             <div class="col-md-10 col-md-offset-1">
-                <img class="img-responsive" src="{{ !is_null($banner) ? asset('/storage/banners/' . $banner->name) : 'http://placehold.it/1050x450' }}" alt="{{ $info->name }}">
+                <img class="img-responsive" src="{{ !is_null($banner) ? asset('/storage/banners/' . $banner->name) : 'https://placehold.it/1050x450' }}" alt="{{ $info->name }}">
             </div>
         </div>
         <!-- /.row -->
@@ -85,7 +85,7 @@
                                 @endif
                             </h4>
                             <h4>活動地點：{{ $info->venue }}</h4>
-                            <iframe src="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $info->venue }}&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            <iframe src="https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $info->venue }}&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                             @if (!empty($info->venue_intro))
                                 <h4 style="text-align: center;">{{ $info->venue_intro }}</h4>
                             @endif

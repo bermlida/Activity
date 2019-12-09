@@ -26,7 +26,7 @@
 
                             $banner_path = !is_null($banner)
                                 ? asset('storage/banners/' . $banner->name)
-                                : 'http://placehold.it/750x450';
+                                : 'https://placehold.it/750x450';
                         @endphp
                         <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $organizer->name }}">
                     </a>
@@ -55,7 +55,7 @@
                     </p>
                     <p>
                         住址：
-                        <a href="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $organizer->address }}" target="view_window">
+                        <a href="https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $organizer->address }}" target="view_window">
                             {{ $organizer->address }}
                         </a>
                     </p>

@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": "~7.0.0",
+        "ext-gd": "*",
         "laravel/framework": "5.2.*",
         "doctrine/dbal": "^2.5",
         "symfony/psr-http-message-bridge": "^1.0",

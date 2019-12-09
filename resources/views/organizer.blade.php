@@ -12,7 +12,7 @@
         <div class="row">
             <br>
             <div class="col-md-10 col-md-offset-2">
-                <img class="img-responsive" src="{{ !is_null($banner) ? asset('storage/banners/' . $banner->name) : 'http://placehold.it/750x450' }}" alt="{{ $info->name }}">
+                <img class="img-responsive" src="{{ !is_null($banner) ? asset('storage/banners/' . $banner->name) : 'https://placehold.it/750x450' }}" alt="{{ $info->name }}">
             </div>
         </div>
         <!-- /.row -->
@@ -68,7 +68,7 @@
 
                                     $banner_path = !is_null($banner)
                                         ? asset('storage/banners/' . $banner->name)
-                                        : 'http://placehold.it/1050x450';
+                                        : 'https://placehold.it/1050x450';
                                 @endphp
                                 <a href="{{ route('visit::activity', [$activity]) }}">
                                         <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
@@ -117,7 +117,7 @@
 
                                     $banner_path = !is_null($banner)
                                         ? asset('storage/banners/' . $banner->name)
-                                        : 'http://placehold.it/1050x450';
+                                        : 'https://placehold.it/1050x450';
                                 @endphp
                                 <a href="{{ route('visit::activity', [$history]) }}">
                                     <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $history->name }}">
@@ -166,7 +166,7 @@
                             <h3>傳真：{{ $info->fax }}</h3>
                         @endif
                         <h3>住址：{{ $info->address }}</h3>
-                        <iframe src="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $info->address }}&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        <iframe src="https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $info->address }}&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>

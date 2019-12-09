@@ -28,7 +28,7 @@
 
                             $banner_path = !is_null($banner)
                                 ? asset('storage/banners/' . $banner->name)
-                                : 'http://placehold.it/1050x450';
+                                : 'https://placehold.it/1050x450';
                         @endphp
                         <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
                     </a>

@@ -23,7 +23,7 @@
 
                         $banner_path = !is_null($banner)
                             ? asset('storage/banners/' . $banner->name)
-                            : 'http://placehold.it/1050x450';
+                            : 'https://placehold.it/1050x450';
                     @endphp
                     <div class="fill" style="background-image:url('{{ $banner_path }}');"></div>
                     <div class="carousel-caption">
@@ -70,7 +70,7 @@
 
                             $banner_path = !is_null($banner)
                                             ? asset('storage/banners/' . $banner->name)
-                                            : 'http://placehold.it/1050x450';
+                                            : 'https://placehold.it/1050x450';
                         @endphp
                         <a href="{{ route('visit::activity', [$activity]) }}">
                             <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
@@ -120,7 +120,7 @@
 
                             $banner_path = !is_null($banner)
                                 ? asset('storage/banners/' . $banner->name)
-                                : 'http://placehold.it/750x450';
+                                : 'https://placehold.it/750x450';
                         @endphp
                         <a href="{{ route('visit::organizer', [$organizer]) }}">
                             <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $organizer->name }}">
@@ -146,7 +146,7 @@
                             </p>
                             <p>
                                 住址：
-                                <a href="http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $organizer->address }}" target="view_window">
+                                <a href="https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q={{ $organizer->address }}" target="view_window">
                                     {{ $organizer->address }}
                                 </a>
                             </p>
