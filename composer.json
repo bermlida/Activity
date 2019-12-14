@@ -20,7 +20,8 @@
         "simplesoftwareio/simple-sms": "^3.1",
         "chillerlan/php-qrcode": "^2.0",
         "flamelin/ecpay": "dev-master",
-        "wsmwason/taiwan-bank-code": "^0.1.2"
+        "wsmwason/taiwan-bank-code": "^0.1.2",
+        "carlosocarvalho/storage-cloudinary-laravel": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -157,6 +157,7 @@ return [
         Ixudra\Curl\CurlServiceProvider::class,
         SimpleSoftwareIO\SMS\SMSServiceProvider::class,
         flamelin\ECPay\EcpayServiceProvider::class,
+        CarlosOCarvalho\Providers\CloudinaryServiceProvider::class,
 
         /*
          * Application Service Providers...
