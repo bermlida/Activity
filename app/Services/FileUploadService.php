@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Mail;
 use SMS;
+use \Illuminate\Database\Eloquent\Model;
 use \Illuminate\Http\UploadedFile;
 
 use App\Models\Log;
@@ -32,20 +33,21 @@ class FileUploadService
     }
 
     /**
-     * Update the avatar for the given user.
+     * 上傳特定模型的宣傳橫幅檔案。
      *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param  \Illuminate\Http\UploadedFile  $file
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return void
      */
     public function uploadBanner(UploadedFile $file, Model $model)
     {
-        if (($model instanceof Organizer) || ($model instanceof Activity)) {
-            $filename = strtolower(get_class($model)) . '-' . $model->id;
-            $filename .= '.' . $file->getClientOriginalExtension();
+        if (($model instanceof Organizer) || ($model instanceof Activity)) {            
+            $stored_path = str_plural(strtolower(get_class($model))) . '/' . $model->id . '/';
+
+            $filename = 'banner.' . $file->getClientOriginalExtension();
 
             Storage::put(
-                'banners/' . $filename,
+                $stored_path . $filename,
                 file_get_contents($file->getRealPath())
             );
 
@@ -53,7 +55,7 @@ class FileUploadService
                 'name' => $filename,
                 'type' => $file->getMimeType(),
                 'size' => $file->getClientSize(),
-                'path' => 'banners/' . $filename,
+                'path' => $stored_path . $filename,
                 'category' => 'banner',
                 'description' => ''
             ];
@@ -69,19 +71,23 @@ class FileUploadService
     }
 
     /**
-     * 儲存單一活動訊息。
+     * 上傳單一活動影音日誌的內容。
      *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\UploadedFile  $file
+     * @param  \App\Models\Log
+     * @return void
      */
     public function uploadLog(UploadedFile $file, Log $log)
     {
         $stored_path = 'activities/' . $log->activity->id . '/' . $log->content_type . 's/';
 
+        $filename = $log->id . '.' . $file->getClientOriginalExtension();
+
         $data = [
-            'name' => $file->getClientOriginalName(),
+            'name' => $filename,
             'type' => $file->getMimeType(),
             'size' => $file->getClientSize(),
-            'path' => $stored_path . $file->getClientOriginalName(),
+            'path' => $stored_path . $filename,
             'category' => $log->content_type . '_content',
             'description' => ''
         ];
@@ -89,15 +95,16 @@ class FileUploadService
         $log->attachments()->create($data);
 
         Storage::put(
-            $stored_path . $file->getClientOriginalName(),
+            $stored_path . $filename,
             file_get_contents($file->getRealPath())
         );                    
     }
 
     /**
-     * 儲存單一活動訊息。
+     * 刪除單一活動影音日誌的內容。
      *
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Log
+     * @return void
      */
     public function deleteLog(Log $log)
     {
