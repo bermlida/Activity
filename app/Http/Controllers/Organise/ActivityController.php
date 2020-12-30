@@ -175,29 +175,31 @@ class ActivityController extends Controller
     {
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $file = $request->file('photo');
-            $stored_path = public_path('storage/banners/');
-            $stored_filename = 'activity-' . $activity->id . '.' . $file->getClientOriginalExtension();
 
-            $data = [
-                'name' => $stored_filename,
-                'type' => $file->getMimeType(),
-                'size' => $file->getClientSize(),
-                'path' => $stored_path . $stored_filename,
-                'category' => 'banner',
-                'description' => ''
-            ];
+            app(FileUploadService::class)->uploadBanner($file, $activity);
+            // $stored_path = public_path('storage/banners/');
+            // $stored_filename = 'activity-' . $activity->id . '.' . $file->getClientOriginalExtension();
+
+            // $data = [
+            //     'name' => $stored_filename,
+            //     'type' => $file->getMimeType(),
+            //     'size' => $file->getClientSize(),
+            //     'path' => $stored_path . $stored_filename,
+            //     'category' => 'banner',
+            //     'description' => ''
+            // ];
             
-            if ($activity->attachments()->where('category', 'banner')->count() > 0) {
-                $attachment = $activity->attachments()
-                    ->where('category', 'banner')
-                    ->first();
+            // if ($activity->attachments()->where('category', 'banner')->count() > 0) {
+            //     $attachment = $activity->attachments()
+            //         ->where('category', 'banner')
+            //         ->first();
 
-                $attachment->update($data);
-            } else {
-                $activity->attachments()->create($data);
-            }
+            //     $attachment->update($data);
+            // } else {
+            //     $activity->attachments()->create($data);
+            // }
 
-            $file->move($stored_path, $stored_filename);
+            // $file->move($stored_path, $stored_filename);
 
             return true;
         }

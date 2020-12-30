@@ -95,41 +95,22 @@ class ActivityLogController extends Controller
         if ($log->content_type == 'blog' || $request->hasFile('plog_content') || $request->hasFile('vlog_content')) {
             $result = DB::transaction(function () use ($activity, $log, $request) {
                 if ($log->attachments()->where('category', 'like', '%_content')->count() > 0) {
-                    unlink($log->attachments()->where('category', 'like', '%_content')->first()->path);
-
-                    $log->attachments()->where('category', 'like', '%_content')->first()->delete();
+                    app(FileUploadService::class)->deleteLog($log);
                 }
 
                 if ($log->content_type == 'plog' || $log->content_type == 'vlog') {
                     $upload_file = $request->file($log->content_type . '_content');
 
                     if (!is_null($upload_file)) {
-                        $stored_path = public_path('storage/' . $activity->id . '/' . $log->content_type . 's/');
+                        $activity->logs()->save($log->fill(['content' => null]));                        
 
-                        $activity->logs()->save($log->fill(['content' => null]));
-
-                        $log->attachments()->create([
-                            'name' => $upload_file->getClientOriginalName(),
-                            'type' => $upload_file->getMimeType(),
-                            'size' => $upload_file->getClientSize(),
-                            'path' => $stored_path . $upload_file->getClientOriginalName(),
-                            'category' => $log->content_type . '_content',
-                            'description' => ''
-                        ]);
-
-                        app(FileUploadService::class)->storeFile(
-                            $upload_file,
-                            $stored_path,
-                            $upload_file->getClientOriginalName()
-                        );
-
-                        return true;
+                        app(FileUploadService::class)->uploadLog($upload_file, $log);
                     }
                 } else {
                     $log->content = $request->input('blog_content');
-                }
 
-                $activity->logs()->save($log);
+                    $activity->logs()->save($log);
+                }
 
                 return true;
             });
