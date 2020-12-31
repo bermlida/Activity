@@ -46,7 +46,7 @@ class FileUploadService
 
             $filename = 'banner.' . $file->getClientOriginalExtension();
 
-            Storage::put(
+            Storage::update(
                 $stored_path . $filename,
                 file_get_contents($file->getRealPath())
             );
@@ -71,7 +71,7 @@ class FileUploadService
     }
 
     /**
-     * 上傳單一活動影音日誌的內容。
+     * 上傳單一活動日誌的內容。
      *
      * @param  \Illuminate\Http\UploadedFile  $file
      * @param  \App\Models\Log
@@ -94,25 +94,23 @@ class FileUploadService
 
         $log->attachments()->create($data);
 
-        Storage::put(
+        Storage::write(
             $stored_path . $filename,
             file_get_contents($file->getRealPath())
         );                    
     }
 
     /**
-     * 刪除單一活動影音日誌的內容。
+     * 刪除單一活動日誌的內容。
      *
      * @param  \App\Models\Log
      * @return void
      */
     public function deleteLog(Log $log)
     {
-        if ($log->attachments()->where('category', 'like', '%_content')->count() > 0) {
-            $attachment = $log->attachments()->where('category', 'like', '%_content')->first();
-
+        foreach ($log->attachments()->where('category', 'like', '%_content')->get() as $attachment) {
             Storage::delete($attachment->path);
-
+            
             $attachment->delete();
         }
     }

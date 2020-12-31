@@ -94,9 +94,7 @@ class ActivityLogController extends Controller
         
         if ($log->content_type == 'blog' || $request->hasFile('plog_content') || $request->hasFile('vlog_content')) {
             $result = DB::transaction(function () use ($activity, $log, $request) {
-                if ($log->attachments()->where('category', 'like', '%_content')->count() > 0) {
-                    app(FileUploadService::class)->deleteLog($log);
-                }
+                app(FileUploadService::class)->deleteLog($log);
 
                 if ($log->content_type == 'plog' || $log->content_type == 'vlog') {
                     $upload_file = $request->file($log->content_type . '_content');

@@ -124,14 +124,18 @@ class ActivityController extends Controller
         $activity = new Activity($request->all());
 
         if ($organizer->activities()->save($activity)) {
-            if ($this->storeBanner($activity, $request)) {
-                return redirect()
-                        ->route('organise::activity::modify', [$activity])
-                        ->with([
-                            'message_type' => 'success',
-                            'message_body' => '新增成功'
-                        ]);
+            if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+                $photo = $request->file('photo');
+
+                app(FileUploadService::class)->uploadBanner($photo, $activity);
             }
+
+            return redirect()
+                    ->route('organise::activity::modify', [$activity])
+                    ->with([
+                        'message_type' => 'success',
+                        'message_body' => '新增成功'
+                    ]);
         } else {
             return back()->withInput()->with([
                         'message_type' => 'warning',
@@ -152,11 +156,15 @@ class ActivityController extends Controller
 
         $activity = $organizer->activities()->find($activity);
 
-        $update_result = $activity->fill($request->all())->save();
-            
-        $store_banner_result = $this->storeBanner($activity, $request);
+        $result = $activity->fill($request->all())->save();
+
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $photo = $request->file('photo');
+
+            app(FileUploadService::class)->uploadBanner($photo, $activity);
+        }
         
-        if ($update_result && $store_banner_result) {
+        if ($result) {
             return redirect()
                     ->route('organise::activity::modify', [$activity])
                     ->with([
@@ -169,42 +177,6 @@ class ActivityController extends Controller
                         'message_body' => '更新失敗'
                     ]);
         }
-    }
-
-    protected function storeBanner(Activity $activity, $request)
-    {
-        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
-            $file = $request->file('photo');
-
-            app(FileUploadService::class)->uploadBanner($file, $activity);
-            // $stored_path = public_path('storage/banners/');
-            // $stored_filename = 'activity-' . $activity->id . '.' . $file->getClientOriginalExtension();
-
-            // $data = [
-            //     'name' => $stored_filename,
-            //     'type' => $file->getMimeType(),
-            //     'size' => $file->getClientSize(),
-            //     'path' => $stored_path . $stored_filename,
-            //     'category' => 'banner',
-            //     'description' => ''
-            // ];
-            
-            // if ($activity->attachments()->where('category', 'banner')->count() > 0) {
-            //     $attachment = $activity->attachments()
-            //         ->where('category', 'banner')
-            //         ->first();
-
-            //     $attachment->update($data);
-            // } else {
-            //     $activity->attachments()->create($data);
-            // }
-
-            // $file->move($stored_path, $stored_filename);
-
-            return true;
-        }
-
-        return !$request->hasFile('photo');
     }
 
     /**

@@ -62,7 +62,11 @@ class InfoController extends Controller
         if ($profile->save()) {
             if (!is_null($account->profile) || $profile->account()->save($account)) {
                 if ($account->role_id == 2) {
-                    $this->storeBanner($profile, $request);
+                    if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+                        $photo = $request->file('photo');
+
+                        app(FileUploadService::class)->uploadBanner($photo, $profile);
+                    }
                 }
 
                 return redirect()
@@ -78,46 +82,5 @@ class InfoController extends Controller
                     'message_type' => 'warning',
                     'message_body' => '儲存失敗'
                 ]);
-    }
-
-    /**
-     * 儲存主辦單位宣傳圖片
-     *
-     * @return \Illuminate\Http\Response
-     */
-    protected function storeBanner(Organizer $organizer, $request)
-    {
-        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
-            $file = $request->file('photo');
-
-            app(FileUploadService::class)->uploadBanner($file, $activity);
-            // $stored_path = public_path('storage/banners/');
-            // $stored_filename = 'organizer-' . $organizer->id . '.' . $file->getClientOriginalExtension();
-
-            // $data = [
-            //     'name' => $stored_filename,
-            //     'type' => $file->getMimeType(),
-            //     'size' => $file->getClientSize(),
-            //     'path' => $stored_path . $stored_filename,
-            //     'category' => 'banner',
-            //     'description' => ''
-            // ];
-            
-            // if ($organizer->attachments()->where('category', 'banner')->count() > 0) {
-            //     $attachment = $organizer->attachments()
-            //         ->where('category', 'banner')
-            //         ->first();
-
-            //     $attachment->update($data);
-            // } else {
-            //     $organizer->attachments()->create($data);
-            // }
-
-            // $file->move($stored_path, $stored_filename);
-
-            return true;
-        }
-
-        return !$request->hasFile('photo');
     }
 }
