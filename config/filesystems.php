@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'cloudinary',
+    'default' => env('FILESYSTEM_DRIVER', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'cloud' => 'cloudinary',
+    'cloud' => env('FILESYSTEM_DRIVER', 's3'),
 
     /*
     |--------------------------------------------------------------------------
@@ -60,6 +60,11 @@ return [
             'secret' => 'your-secret',
             'region' => 'your-region',
             'bucket' => 'your-bucket',
+        ],
+
+        'dropbox' => [
+            'driver' => 'dropbox',
+            'token'  => env('DROPBOX_TOKEN'),
         ],
 
         'cloudinary' => [
