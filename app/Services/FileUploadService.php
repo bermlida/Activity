@@ -3,70 +3,84 @@
 namespace App\Services;
 
 use Mail;
-use SMS;
-use \Illuminate\Database\Eloquent\Model;
+use Storage;
 use \Illuminate\Http\UploadedFile;
 
+use App\Models\Activity;
 use App\Models\Log;
-use App\Models\Message;
+use App\Models\Organizer;
 
 class FileUploadService
 {
     /**
-     * 將上傳的檔案儲存至指定路徑。
+     * 上傳特定模型的宣傳橫幅檔案。
      *
-     * @param \App\Models\User $recipient
-     * @param \App\Models\Message $message
+     * @param  \Illuminate\Http\UploadedFile  $file
+     * @param  \App\Models\Organizer  $organizer
      * @return void
      */
-    public function storeFile(UploadedFile $file, $path, $filename = null)
+    public function uploadOrganizerBanner(UploadedFile $file, Organizer $organizer)
     {
-        if ($file->isValid()) {
-            $filename = $filename ?? $file->getClientOriginalName();
+        $stored_path = 'organizers/' . $organizer->id . '/';
 
-            $file->move($path, $filename);
+        $filename = 'banner.' . $file->getClientOriginalExtension();
 
-            return true;
+        Storage::write($stored_path . $filename, file_get_contents($file->getRealPath()));
+
+        // var_dump(Storage::getAdapter()->getResource('app/models/organizers/1/banner.png'));
+        // print '987654'; exit;
+
+        $data = [
+            'name' => $filename,
+            'type' => $file->getMimeType(),
+            'size' => $file->getClientSize(),
+            'path' => $stored_path . $filename,
+            'category' => 'banner',
+            'description' => ''
+        ];
+
+        if ($organizer->attachments()->where('category', 'banner')->count() > 0) {
+            $attachment = $organizer->attachments()->where('category', 'banner')->first();
+
+            $attachment->update($data);
+        } else {
+            $organizer->attachments()->create($data);
         }
-
-        return false;
     }
 
     /**
      * 上傳特定模型的宣傳橫幅檔案。
      *
      * @param  \Illuminate\Http\UploadedFile  $file
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  \App\Models\Log  $activity
      * @return void
      */
-    public function uploadBanner(UploadedFile $file, Model $model)
+    public function uploadActivityBanner(UploadedFile $file, Activity $activity)
     {
-        if (($model instanceof Organizer) || ($model instanceof Activity)) {            
-            $stored_path = str_plural(strtolower(get_class($model))) . '/' . $model->id . '/';
+        $stored_path = 'activities/' . $model->id . '/';
 
-            $filename = 'banner.' . $file->getClientOriginalExtension();
+        $filename = 'banner.' . $file->getClientOriginalExtension();
 
-            Storage::update(
-                $stored_path . $filename,
-                file_get_contents($file->getRealPath())
-            );
+        Storage::write($stored_path . $filename, file_get_contents($file->getRealPath()));
 
-            $data = [
-                'name' => $filename,
-                'type' => $file->getMimeType(),
-                'size' => $file->getClientSize(),
-                'path' => $stored_path . $filename,
-                'category' => 'banner',
-                'description' => ''
-            ];
+            // var_dump(Storage::getAdapter()->getResource('app/models/organizers/1/banner.png'));
+            // print '987654'; exit;
 
-            if ($model->attachments()->where('category', 'banner')->count() > 0) {
-                $attachment = $model->attachments()->where('category', 'banner')->first();
+        $data = [
+            'name' => $filename,
+            'type' => $file->getMimeType(),
+            'size' => $file->getClientSize(),
+            'path' => $stored_path . $filename,
+            'category' => 'banner',
+            'description' => ''
+        ];
 
-                $attachment->update($data);
-            } else {
-                $model->attachments()->create($data);
-            }
+        if ($activity->attachments()->where('category', 'banner')->count() > 0) {
+            $attachment = $activity->attachments()->where('category', 'banner')->first();
+
+            $attachment->update($data);
+        } else {
+            $activity->attachments()->create($data);
         }
     }
 
@@ -74,7 +88,7 @@ class FileUploadService
      * 上傳單一活動日誌的內容。
      *
      * @param  \Illuminate\Http\UploadedFile  $file
-     * @param  \App\Models\Log
+     * @param  \App\Models\Log  $log
      * @return void
      */
     public function uploadLog(UploadedFile $file, Log $log)
@@ -103,7 +117,7 @@ class FileUploadService
     /**
      * 刪除單一活動日誌的內容。
      *
-     * @param  \App\Models\Log
+     * @param  \App\Models\Log  $log
      * @return void
      */
     public function deleteLog(Log $log)

@@ -12,6 +12,7 @@ use App\Http\Requests\StoreAccountInfoRequest;
 use App\Models\Account;
 use App\Models\Organizer;
 use App\Models\User;
+use App\Services\FileUploadService;
 
 class InfoController extends Controller
 {
