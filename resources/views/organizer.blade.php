@@ -12,7 +12,7 @@
         <div class="row">
             <br>
             <div class="col-md-10 col-md-offset-2">
-                <img class="img-responsive" src="{{ !is_null($banner) ? asset('storage/banners/' . $banner->name) : 'https://placehold.it/750x450' }}" alt="{{ $info->name }}">
+                <img class="img-responsive" src="{{ !is_null($banner) ? $banner->secure_url : 'https://placehold.it/750x450' }}" alt="{{ $info->name }}">
             </div>
         </div>
         <!-- /.row -->
@@ -67,7 +67,7 @@
                                     });
 
                                     $banner_path = !is_null($banner)
-                                        ? asset('storage/banners/' . $banner->name)
+                                        ? $banner->secure_url
                                         : 'https://placehold.it/1050x450';
                                 @endphp
                                 <a href="{{ route('visit::activity', [$activity]) }}">
@@ -116,7 +116,7 @@
                                     });
 
                                     $banner_path = !is_null($banner)
-                                        ? asset('storage/banners/' . $banner->name)
+                                        ? $banner->secure_url
                                         : 'https://placehold.it/1050x450';
                                 @endphp
                                 <a href="{{ route('visit::activity', [$history]) }}">

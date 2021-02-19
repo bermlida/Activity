@@ -22,7 +22,7 @@
             <div class="col-md-9">
                 <!-- First Blog Post -->
                 <a href="{{ route('organise::activity::modify', [$activity]) }}">
-                    <img class="img-responsive img-hover" style="width:900px; height:300px" src="{{ !is_null($activity_banner) ? asset('/storage/banners/' . $activity_banner->name) : 'https://placehold.it/900x300' }}" alt="{{ $activity->name }}">
+                    <img class="img-responsive img-hover" style="width:900px; height:300px" src="{{ !is_null($activity_banner) ? $activity_banner->secure_url : 'https://placehold.it/900x300' }}" alt="{{ $activity->name }}">
                 </a>
             </div>
 

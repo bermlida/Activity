@@ -250,7 +250,7 @@
                         <label class="col-sm-3 control-label">宣傳圖片預覽：</label>
                         
                         <div class="col-sm-9">
-                            <img class="img-responsive" src="{{ asset('storage/banners/' . $activity_banner->name) }}" alt="{{ $activity->name }}">
+                            <img class="img-responsive" src="{{ $activity_banner->secure_url }}" alt="{{ $activity->name }}">
                         </div>
                     </div>
                 @endif

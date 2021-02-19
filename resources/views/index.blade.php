@@ -22,7 +22,7 @@
                         });
 
                         $banner_path = !is_null($banner)
-                            ? asset('storage/banners/' . $banner->name)
+                            ? $banner->secure_url
                             : 'https://placehold.it/1050x450';
                     @endphp
                     <div class="fill" style="background-image:url('{{ $banner_path }}');"></div>
@@ -65,12 +65,12 @@
                     <div class="panel panel-default">
                         @php  
                             $banner = $activity->attachments->first(function ($key, $value) {
-                                            return $value->category == 'banner';
-                                        });
+                                return $value->category == 'banner';
+                            });
 
                             $banner_path = !is_null($banner)
-                                            ? asset('storage/banners/' . $banner->name)
-                                            : 'https://placehold.it/1050x450';
+                                ? $banner->secure_url
+                                : 'https://placehold.it/1050x450';
                         @endphp
                         <a href="{{ route('visit::activity', [$activity]) }}">
                             <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">
@@ -119,7 +119,7 @@
                             });
 
                             $banner_path = !is_null($banner)
-                                ? asset('storage/banners/' . $banner->name)
+                                ? $banner->secure_url
                                 : 'https://placehold.it/750x450';
                         @endphp
                         <a href="{{ route('visit::organizer', [$organizer]) }}">

@@ -27,7 +27,7 @@
                             });
 
                             $banner_path = !is_null($banner)
-                                ? asset('storage/banners/' . $banner->name)
+                                ? $banner->secure_url
                                 : 'https://placehold.it/1050x450';
                         @endphp
                         <img class="img-responsive img-hover" src="{{ $banner_path }}" alt="{{ $activity->name }}">

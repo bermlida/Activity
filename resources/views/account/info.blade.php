@@ -159,7 +159,7 @@
                             <label class="col-sm-3 control-label">宣傳圖片預覽</label>
 
                             <div class="col-sm-9">
-                                <img class="img-responsive" src="{{ asset('storage/banners/' . $banner->name) }}" alt="{{ $profile->name }}">
+                                <img class="img-responsive" src="{{ $banner->secure_url }}" alt="{{ $profile->name }}">
                             </div>
                         </div>
                     @endif

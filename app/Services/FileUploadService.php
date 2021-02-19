@@ -11,9 +11,9 @@ use App\Models\Log;
 use App\Models\Organizer;
 
 class FileUploadService
-{
+{    
     /**
-     * 上傳特定模型的宣傳橫幅檔案。
+     * 上傳單一主辦單位的宣傳橫幅檔案。
      *
      * @param  \Illuminate\Http\UploadedFile  $file
      * @param  \App\Models\Organizer  $organizer
@@ -25,16 +25,17 @@ class FileUploadService
 
         $filename = 'banner.' . $file->getClientOriginalExtension();
 
-        Storage::write($stored_path . $filename, file_get_contents($file->getRealPath()));
+        Storage::put($stored_path . $filename, file_get_contents($file->getRealPath()));
 
-        // var_dump(Storage::getAdapter()->getResource('app/models/organizers/1/banner.png'));
-        // print '987654'; exit;
+        $resource = Storage::getDriver()->getAdapter()->getResource($stored_path . $filename);
 
         $data = [
             'name' => $filename,
             'type' => $file->getMimeType(),
             'size' => $file->getClientSize(),
             'path' => $stored_path . $filename,
+            'url' => $resource['url'],
+            'secure_url' => $resource['secure_url'],
             'category' => 'banner',
             'description' => ''
         ];
@@ -49,7 +50,7 @@ class FileUploadService
     }
 
     /**
-     * 上傳特定模型的宣傳橫幅檔案。
+     * 上傳單一活動的宣傳橫幅檔案。
      *
      * @param  \Illuminate\Http\UploadedFile  $file
      * @param  \App\Models\Log  $activity
@@ -57,20 +58,21 @@ class FileUploadService
      */
     public function uploadActivityBanner(UploadedFile $file, Activity $activity)
     {
-        $stored_path = 'activities/' . $model->id . '/';
+        $stored_path = 'activities/' . $activity->id . '/';
 
         $filename = 'banner.' . $file->getClientOriginalExtension();
 
-        Storage::write($stored_path . $filename, file_get_contents($file->getRealPath()));
+        Storage::put($stored_path . $filename, file_get_contents($file->getRealPath()));
 
-            // var_dump(Storage::getAdapter()->getResource('app/models/organizers/1/banner.png'));
-            // print '987654'; exit;
+        $resource = Storage::getDriver()->getAdapter()->getResource($stored_path . $filename);
 
         $data = [
             'name' => $filename,
             'type' => $file->getMimeType(),
             'size' => $file->getClientSize(),
             'path' => $stored_path . $filename,
+            'url' => $resource['url'],
+            'secure_url' => $resource['secure_url'],
             'category' => 'banner',
             'description' => ''
         ];
@@ -97,21 +99,22 @@ class FileUploadService
 
         $filename = $log->id . '.' . $file->getClientOriginalExtension();
 
+        Storage::put($stored_path . $filename, file_get_contents($file->getRealPath()));
+
+        $resource = Storage::getDriver()->getAdapter()->getResource($stored_path . $filename);
+
         $data = [
             'name' => $filename,
             'type' => $file->getMimeType(),
             'size' => $file->getClientSize(),
             'path' => $stored_path . $filename,
+            'url' => $resource['url'],
+            'secure_url' => $resource['secure_url'],
             'category' => $log->content_type . '_content',
             'description' => ''
         ];
 
         $log->attachments()->create($data);
-
-        Storage::write(
-            $stored_path . $filename,
-            file_get_contents($file->getRealPath())
-        );                    
     }
 
     /**

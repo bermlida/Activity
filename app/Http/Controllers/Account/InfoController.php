@@ -66,7 +66,7 @@ class InfoController extends Controller
                     if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
                         $photo = $request->file('photo');
 
-                        app(FileUploadService::class)->uploadBanner($photo, $profile);
+                        app(FileUploadService::class)->uploadOrganizerBanner($photo, $profile);
                     }
                 }
 

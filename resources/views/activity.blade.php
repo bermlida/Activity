@@ -19,7 +19,7 @@
         <div class="row">
             <br>
             <div class="col-md-10 col-md-offset-1">
-                <img class="img-responsive" src="{{ !is_null($banner) ? asset('/storage/banners/' . $banner->name) : 'https://placehold.it/1050x450' }}" alt="{{ $info->name }}">
+                <img class="img-responsive" src="{{ !is_null($banner) ? $banner->secure_url : 'https://placehold.it/1050x450' }}" alt="{{ $info->name }}">
             </div>
         </div>
         <!-- /.row -->

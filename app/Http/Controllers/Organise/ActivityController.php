@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreActivityRequest;
 use App\Models\Activity;
+use App\Services\FileUploadService;
 
 class ActivityController extends Controller
 {
@@ -127,7 +128,7 @@ class ActivityController extends Controller
             if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
                 $photo = $request->file('photo');
 
-                app(FileUploadService::class)->uploadBanner($photo, $activity);
+                app(FileUploadService::class)->uploadActivityBanner($photo, $activity);
             }
 
             return redirect()
@@ -161,7 +162,7 @@ class ActivityController extends Controller
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $photo = $request->file('photo');
 
-            app(FileUploadService::class)->uploadBanner($photo, $activity);
+            app(FileUploadService::class)->uploadActivityBanner($photo, $activity);
         }
         
         if ($result) {

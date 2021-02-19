@@ -93,7 +93,7 @@
                         <label class="col-sm-2 control-label">圖片預覽</label>
                         
                         <div class="col-sm-10">
-                            <img class="img-responsive" src="{{ asset('storage/' . $log->activity->id . '/plogs/' . $log_content->name) }}" alt="{{ $log_content->name }}">
+                            <img class="img-responsive" src="{{ $log_content->secure_url }}" alt="{{ $log_content->name }}">
                         </div>
                     </div>
                 @endif

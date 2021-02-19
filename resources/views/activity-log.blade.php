@@ -14,7 +14,7 @@
                     @if ($log->content_type == 'blog')
                         {!! $log->content !!}
                     @elseif ($log->content_type == 'plog')
-                        <img class="img-responsive" src="{{ asset('storage/' . $log->activity->id . '/plogs/' . $log_content->name) }}" alt="{{ $log_content->name }}">
+                        <img class="img-responsive" src="{{ $log_content->secure_url }}" alt="{{ $log_content->name }}">
                     @elseif ($log->content_type == 'vlog')
                         <video src="{{ asset('storage/' . $log->activity->id . '/vlogs/' . $log_content->name) }}" controls autoplay>
                             您的瀏覽器並不支援預覽影片
