@@ -21,9 +21,8 @@
         "chillerlan/php-qrcode": "^2.0",
         "flamelin/ecpay": "dev-master",
         "wsmwason/taiwan-bank-code": "^0.1.2",
-        "carlosocarvalho/storage-cloudinary-laravel": "^1.0",
-        "enl/flysystem-cloudinary": "^1.3",
-        "benjamincrozat/laravel-dropbox-driver": "^2.0"
+        "benjamincrozat/laravel-dropbox-driver": "^2.0",
+        "carlosocarvalho/flysystem-cloudinary": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -99,7 +99,11 @@ class FileUploadService
 
         $filename = $log->id . '.' . $file->getClientOriginalExtension();
 
-        Storage::put($stored_path . $filename, file_get_contents($file->getRealPath()));
+        $stream = fopen($file->getRealPath(), 'r+');
+
+        Storage::put($stored_path . $filename, $stream);
+
+        fclose($stream);
 
         $resource = Storage::getDriver()->getAdapter()->getResource($stored_path . $filename);
 

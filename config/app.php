@@ -157,7 +157,7 @@ return [
         Ixudra\Curl\CurlServiceProvider::class,
         SimpleSoftwareIO\SMS\SMSServiceProvider::class,
         flamelin\ECPay\EcpayServiceProvider::class,
-        CarlosOCarvalho\Providers\CloudinaryServiceProvider::class,
+        // CarlosOCarvalho\Providers\CloudinaryServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -167,7 +167,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        // App\Providers\CloudinaryServiceProvider::class,
+        App\Providers\CloudinaryServiceProvider::class,
         App\Providers\TaiwanBankCodeServiceProvider::class,
     ],
 

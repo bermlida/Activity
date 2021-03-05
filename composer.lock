@@ -4,30 +4,87 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be21e2ab400d8e183f0e7e49c624fe35",
+    "content-hash": "1836828150f8eac50ac98a3a9e64520c",
     "packages": [
         {
-            "name": "carlosocarvalho/flysystem-cloudinary",
-            "version": "1.0.2",
+            "name": "benjamincrozat/laravel-dropbox-driver",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/carlosocarvalho/flysystem-cloudinary.git",
-                "reference": "a68fa388d200c2dd9e7e268140d544eda7490e49"
+                "url": "https://github.com/benjamincrozat/laravel-dropbox-driver.git",
+                "reference": "2c827f41fe3a12500ebcb1b096c67380525d7dbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carlosocarvalho/flysystem-cloudinary/zipball/a68fa388d200c2dd9e7e268140d544eda7490e49",
-                "reference": "a68fa388d200c2dd9e7e268140d544eda7490e49",
+                "url": "https://api.github.com/repos/benjamincrozat/laravel-dropbox-driver/zipball/2c827f41fe3a12500ebcb1b096c67380525d7dbb",
+                "reference": "2c827f41fe3a12500ebcb1b096c67380525d7dbb",
                 "shasum": ""
             },
             "require": {
-                "cloudinary/cloudinary_php": "^1.3",
-                "league/flysystem": "^1.0",
-                "php": ">=5.4.0"
+                "php": ">=7.0",
+                "spatie/flysystem-dropbox": "~1.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.3|~3.4|~3.5|~3.6",
+                "phpunit/phpunit": "^6.0|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BC\\Laravel\\DropboxDriver\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BC\\Laravel\\DropboxDriver\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Crozat",
+                    "email": "benjamin@croz.at"
+                }
+            ],
+            "description": "Dropbox driver for Laravel.",
+            "homepage": "https://github.com/benjamincrozat/laravel-dropbox-driver",
+            "keywords": [
+                "driver",
+                "dropbox",
+                "laravel"
+            ],
+            "time": "2018-02-12T13:47:22+00:00"
+        },
+        {
+            "name": "carlosocarvalho/flysystem-cloudinary",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/carlosocarvalho/flysystem-cloudinary.git",
+                "reference": "a5a56093b01762e4e945fbf5fdd9f441a30db275"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/carlosocarvalho/flysystem-cloudinary/zipball/a5a56093b01762e4e945fbf5fdd9f441a30db275",
+                "reference": "a5a56093b01762e4e945fbf5fdd9f441a30db275",
+                "shasum": ""
+            },
+            "require": {
+                "cloudinary/cloudinary_php": "^1.16",
+                "league/flysystem": "^1.0.66",
+                "php": ">=5.6.0"
             },
             "require-dev": {
                 "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "~4.0"
+                "phpunit/php-code-coverage": "^8.0.1",
+                "phpunit/phpunit": "9.0.*",
+                "symfony/var-dumper": "^3.4.39",
+                "vlucas/phpdotenv": "^4.1"
             },
             "type": "library",
             "autoload": {
@@ -43,47 +100,18 @@
             "authors": [
                 {
                     "name": "carlosocarvalho",
-                    "email": "carlosocarvalho.com.br@gmail.com"
+                    "email": "carlosocarvalho.com.br@gmail.com",
+                    "homepage": "https://carlosocarvalho.com.br",
+                    "role": "Owner"
                 }
             ],
             "description": "Flysystem adapter for Cloudinary",
-            "time": "2019-01-29T19:58:35+00:00"
-        },
-        {
-            "name": "carlosocarvalho/storage-cloudinary-laravel",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/carlosocarvalho/laravel-storage-cloudinary.git",
-                "reference": "4cd918168f0aa6c4889c892a5c6a1a3dfa77a93f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/carlosocarvalho/laravel-storage-cloudinary/zipball/4cd918168f0aa6c4889c892a5c6a1a3dfa77a93f",
-                "reference": "4cd918168f0aa6c4889c892a5c6a1a3dfa77a93f",
-                "shasum": ""
-            },
-            "require": {
-                "carlosocarvalho/flysystem-cloudinary": "^1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CarlosOCarvalho\\Providers\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
+            "homepage": "http://carlosocarvalho.github.io/flysystem-cloudinary",
+            "keywords": [
+                "Flysystem",
+                "cloudinary"
             ],
-            "authors": [
-                {
-                    "name": "Carlos O Carvalho",
-                    "email": "quenduk@yahoo.com.br"
-                }
-            ],
-            "description": "Provider for laravel for Cloudinary",
-            "time": "2016-02-02T21:26:38+00:00"
+            "time": "2020-04-01T23:41:14+00:00"
         },
         {
             "name": "chillerlan/php-qrcode",
@@ -244,16 +272,16 @@
         },
         {
             "name": "cloudinary/cloudinary_php",
-            "version": "1.16.0",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cloudinary/cloudinary_php.git",
-                "reference": "e33619e48ea8fa0350c007d640777091bfa4fdbc"
+                "reference": "2a8e6ed5bc6cf024022c6fcc03b69e1ce92ccaab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/e33619e48ea8fa0350c007d640777091bfa4fdbc",
-                "reference": "e33619e48ea8fa0350c007d640777091bfa4fdbc",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/2a8e6ed5bc6cf024022c6fcc03b69e1ce92ccaab",
+                "reference": "2a8e6ed5bc6cf024022c6fcc03b69e1ce92ccaab",
                 "shasum": ""
             },
             "require": {
@@ -262,6 +290,7 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
+                "ext-zip": "*",
                 "phpunit/phpunit": "4.8.*"
             },
             "type": "library",
@@ -292,7 +321,7 @@
                 "image management",
                 "sdk"
             ],
-            "time": "2019-11-28T15:57:33+00:00"
+            "time": "2021-01-13T18:40:23+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -802,49 +831,6 @@
                 "php"
             ],
             "time": "2019-06-08T11:03:04+00:00"
-        },
-        {
-            "name": "enl/flysystem-cloudinary",
-            "version": "1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/enl/flysystem-cloudinary.git",
-                "reference": "85a0911bafe0a81f7b262314960fee51ee24cfc9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/enl/flysystem-cloudinary/zipball/85a0911bafe0a81f7b262314960fee51ee24cfc9",
-                "reference": "85a0911bafe0a81f7b262314960fee51ee24cfc9",
-                "shasum": ""
-            },
-            "require": {
-                "cloudinary/cloudinary_php": "^1.8.0",
-                "ext-fileinfo": "*",
-                "league/flysystem": "^1.0.26",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^6",
-                "squizlabs/php_codesniffer": "^2.3.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Enl\\Flysystem\\Cloudinary\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alex Panshin",
-                    "email": "deadyaga@gmail.com"
-                }
-            ],
-            "description": "Cloudinary adapter for Flysystem.",
-            "time": "2020-08-20T11:45:49+00:00"
         },
         {
             "name": "flamelin/ecpay",
@@ -1706,16 +1692,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.61",
+            "version": "1.0.70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "4fb13c01784a6c9f165a351e996871488ca2d8c9"
+                "reference": "585824702f534f8d3cf7fab7225e8466cc4b7493"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/4fb13c01784a6c9f165a351e996871488ca2d8c9",
-                "reference": "4fb13c01784a6c9f165a351e996871488ca2d8c9",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/585824702f534f8d3cf7fab7225e8466cc4b7493",
+                "reference": "585824702f534f8d3cf7fab7225e8466cc4b7493",
                 "shasum": ""
             },
             "require": {
@@ -1726,8 +1712,8 @@
                 "league/flysystem-sftp": "<1.0.6"
             },
             "require-dev": {
-                "phpspec/phpspec": "^3.4",
-                "phpunit/phpunit": "^5.7.10"
+                "phpspec/phpspec": "^3.4 || ^4.0 || ^5.0 || ^6.0",
+                "phpunit/phpunit": "^5.7.26"
             },
             "suggest": {
                 "ext-fileinfo": "Required for MimeType",
@@ -1786,7 +1772,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-12-08T21:46:50+00:00"
+            "time": "2020-07-26T07:20:36+00:00"
         },
         {
             "name": "league/oauth1-client",
@@ -2756,6 +2742,114 @@
                 "zenvia"
             ],
             "time": "2017-03-19T22:12:45+00:00"
+        },
+        {
+            "name": "spatie/dropbox-api",
+            "version": "1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/dropbox-api.git",
+                "reference": "22f0d5b03781ef411d134b05aeb237c0eebde544"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/dropbox-api/zipball/22f0d5b03781ef411d134b05aeb237c0eebde544",
+                "reference": "22f0d5b03781ef411d134b05aeb237c0eebde544",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Dropbox\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Alex Vanderbist",
+                    "email": "alex.vanderbist@gmail.com",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A minimal implementation of Dropbox API v2",
+            "homepage": "https://github.com/spatie/dropbox-api",
+            "keywords": [
+                "Dropbox-API",
+                "api",
+                "dropbox",
+                "spatie",
+                "v2"
+            ],
+            "time": "2019-02-15T11:05:52+00:00"
+        },
+        {
+            "name": "spatie/flysystem-dropbox",
+            "version": "1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/flysystem-dropbox.git",
+                "reference": "8b6b072f217343b875316ca6a4203dd59f04207a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/flysystem-dropbox/zipball/8b6b072f217343b875316ca6a4203dd59f04207a",
+                "reference": "8b6b072f217343b875316ca6a4203dd59f04207a",
+                "shasum": ""
+            },
+            "require": {
+                "league/flysystem": "^1.0.20",
+                "php": "^7.0 || ^8.0",
+                "spatie/dropbox-api": "^1.1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5.14 || ^7.5.20 || ^8.5.11 || ^9.4.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\FlysystemDropbox\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Vanderbist",
+                    "email": "alex.vanderbist@gmail.com",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Flysystem Adapter for the Dropbox v2 API",
+            "homepage": "https://github.com/spatie/flysystem-dropbox",
+            "keywords": [
+                "Flysystem",
+                "api",
+                "dropbox",
+                "flysystem-dropbox",
+                "spatie",
+                "v2"
+            ],
+            "time": "2020-11-28T22:17:09+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4132,6 +4226,7 @@
                 "faker",
                 "fixtures"
             ],
+            "abandoned": true,
             "time": "2019-11-14T13:13:06+00:00"
         },
         {
@@ -4703,6 +4798,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2017-12-04T08:55:13+00:00"
         },
         {
@@ -5375,12 +5471,12 @@
             "version": "1.6.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "573381c0a64f155a0d9a23f4b0c797194805b925"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/573381c0a64f155a0d9a23f4b0c797194805b925",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/573381c0a64f155a0d9a23f4b0c797194805b925",
                 "reference": "573381c0a64f155a0d9a23f4b0c797194805b925",
                 "shasum": ""
             },
