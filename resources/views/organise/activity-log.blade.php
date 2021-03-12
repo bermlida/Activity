@@ -103,7 +103,7 @@
                         <label class="col-sm-2 control-label">影片預覽</label>
                         
                         <div class="col-sm-10">
-                            <video src="{{ asset('storage/' . $log->activity->id . '/vlogs/' . $log_content->name) }}" controls autoplay>
+                            <video src="{{ $log_content->secure_url }}" controls autoplay>
                                 您的瀏覽器並不支援預覽影片
                             </video>
                         </div>

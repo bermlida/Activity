@@ -5,6 +5,7 @@ namespace App\Services;
 use Mail;
 use Storage;
 use \Illuminate\Http\UploadedFile;
+use \League\Flysystem\Config;
 
 use App\Models\Activity;
 use App\Models\Log;
@@ -25,17 +26,15 @@ class FileUploadService
 
         $filename = 'banner.' . $file->getClientOriginalExtension();
 
-        Storage::put($stored_path . $filename, file_get_contents($file->getRealPath()));
-
-        $resource = Storage::getDriver()->getAdapter()->getResource($stored_path . $filename);
+        $result = $this->getUploadResult($file, $stored_path . $filename);
 
         $data = [
             'name' => $filename,
             'type' => $file->getMimeType(),
             'size' => $file->getClientSize(),
             'path' => $stored_path . $filename,
-            'url' => $resource['url'],
-            'secure_url' => $resource['secure_url'],
+            'url' => $result['url'],
+            'secure_url' => $result['secure_url'],
             'category' => 'banner',
             'description' => ''
         ];
@@ -62,17 +61,15 @@ class FileUploadService
 
         $filename = 'banner.' . $file->getClientOriginalExtension();
 
-        Storage::put($stored_path . $filename, file_get_contents($file->getRealPath()));
-
-        $resource = Storage::getDriver()->getAdapter()->getResource($stored_path . $filename);
+        $result = $this->getUploadResult($file, $stored_path . $filename);
 
         $data = [
             'name' => $filename,
             'type' => $file->getMimeType(),
             'size' => $file->getClientSize(),
             'path' => $stored_path . $filename,
-            'url' => $resource['url'],
-            'secure_url' => $resource['secure_url'],
+            'url' => $result['url'],
+            'secure_url' => $result['secure_url'],
             'category' => 'banner',
             'description' => ''
         ];
@@ -99,26 +96,45 @@ class FileUploadService
 
         $filename = $log->id . '.' . $file->getClientOriginalExtension();
 
-        $stream = fopen($file->getRealPath(), 'r+');
-
-        Storage::put($stored_path . $filename, $stream);
-
-        fclose($stream);
-
-        $resource = Storage::getDriver()->getAdapter()->getResource($stored_path . $filename);
+        $result = $this->getUploadResult($file, $stored_path . $filename);
 
         $data = [
             'name' => $filename,
             'type' => $file->getMimeType(),
             'size' => $file->getClientSize(),
             'path' => $stored_path . $filename,
-            'url' => $resource['url'],
-            'secure_url' => $resource['secure_url'],
+            'url' => $result['url'],
+            'secure_url' => $result['secure_url'],
             'category' => $log->content_type . '_content',
             'description' => ''
         ];
 
         $log->attachments()->create($data);
+    }
+
+    /**
+     * 取得上傳結果。
+     *
+     * @param  \Illuminate\Http\UploadedFile  $file
+     * @param  string  $path
+     * @param  array  $config
+     * @return array|false false on failure file meta data on success
+     */
+    protected function getUploadResult(UploadedFile $file, $path, array $config = [])
+    {
+        $adapter =  Storage::getDriver()->getAdapter();
+
+        $config = new Config($config);
+
+        $stream = fopen($file->getRealPath(), 'r+');
+
+        $result = $adapter->writeStream($path, $stream, $config);
+
+        if (is_resource($stream)) {
+            fclose($stream);
+        }
+
+        return $result;
     }
 
     /**
