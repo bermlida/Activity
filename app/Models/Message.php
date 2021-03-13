@@ -114,9 +114,9 @@ class Message extends Model
     public function scopeScheduled($query)
     {
         return $query
-                ->where('status', 1)
-                ->whereNotNull('sending_time')
-                ->where('sending_time', '>=', Carbon::now()->format('Y-m-d H:i'));
+            ->where('status', 1)
+            ->whereNotNull('sending_time')
+            ->where('sending_time', '>=', Carbon::now()->format('Y-m-d H:i'));
     }
 
     /**
@@ -127,12 +127,12 @@ class Message extends Model
     public function scopeSent($query)
     {
         return $query
-                ->where('status', 1)
-                ->whereNull('sending_time')
-                ->orWhere(function ($query) {
-                    $query
-                        ->whereNotNull('sending_time')
-                        ->where('sending_time', '<', Carbon::now()->format('Y-m-d H:i'));
-                });
+            ->where('status', 1)
+            ->whereNull('sending_time')
+            ->orWhere(function ($query) {
+                $query
+                    ->whereNotNull('sending_time')
+                    ->where('sending_time', '<', Carbon::now()->format('Y-m-d H:i'));
+            });
     }
 }

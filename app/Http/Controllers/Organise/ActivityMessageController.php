@@ -118,11 +118,11 @@ class ActivityMessageController extends Controller
             }
 
             return redirect()
-                    ->route('organise::activity::message::modify', [$activity, $message])
-                    ->with([
-                        'message_type' => 'success',
-                        'message_body' => '儲存成功'
-                    ]);
+                ->route('organise::activity::message::modify', [$activity, $message])
+                ->with([
+                    'message_type' => 'success',
+                    'message_body' => '儲存成功'
+                ]);
         } else {
             return back()->withInput()->with([
                 'message_type' => 'warning',

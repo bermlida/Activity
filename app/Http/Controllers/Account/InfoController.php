@@ -71,17 +71,17 @@ class InfoController extends Controller
                 }
 
                 return redirect()
-                        ->route('account::info')
-                        ->with([
-                            'message_type' => 'success',
-                            'message_body' => '儲存成功'
-                        ]);
+                    ->route('account::info')
+                    ->with([
+                        'message_type' => 'success',
+                        'message_body' => '儲存成功'
+                    ]);
             }
         }
 
         return back()->withInput()->with([
-                    'message_type' => 'warning',
-                    'message_body' => '儲存失敗'
-                ]);
+            'message_type' => 'warning',
+            'message_body' => '儲存失敗'
+        ]);
     }
 }

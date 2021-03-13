@@ -26,8 +26,8 @@ class ActivityController extends Controller
     public function index()
     {
         $data['activities'] = Activity::with('attachments')
-                                ->ofStatus(1)
-                                ->paginate(12);
+            ->ofStatus(1)
+            ->paginate(12);
         
         return view('activities', $data);
     }
@@ -64,9 +64,9 @@ class ActivityController extends Controller
         $data['log'] = $data['info']->logs()->find($log);
 
         $data['log_content'] = $data['log']
-                                    ->attachments()
-                                    ->ofCategory($data['log']->content_type . '_content')
-                                    ->first();
+            ->attachments()
+            ->ofCategory($data['log']->content_type . '_content')
+            ->first();
 
         return view('activity-log', $data);
     }

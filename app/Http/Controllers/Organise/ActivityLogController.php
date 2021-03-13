@@ -57,11 +57,14 @@ class ActivityLogController extends Controller
             $data['log'] = $data['activity']->logs()->find($log);
 
             $data['log_content'] = $data['log']
-                                    ->attachments()
-                                    ->ofCategory($data['log']->content_type . '_content')
-                                    ->first();
+                ->attachments()
+                ->ofCategory($data['log']->content_type . '_content')
+                ->first();
 
-            $data['form_action'] = route('organise::activity::log::update', ['activity' => $activity, 'log' => $log]);
+            $data['form_action'] = route(
+                'organise::activity::log::update',
+                ['activity' => $activity, 'log' => $log]
+            );
 
             $data['form_method'] = 'PUT';
 
@@ -89,8 +92,8 @@ class ActivityLogController extends Controller
         $activity = $organizer->activities()->find($activity);
 
         $log = !is_null($log)
-                ? $activity->logs()->find($log)->fill($request->all())
-                : new Log($request->all());
+            ? $activity->logs()->find($log)->fill($request->all())
+            : new Log($request->all());
         
         if ($log->content_type == 'blog' || $request->hasFile('plog_content') || $request->hasFile('vlog_content')) {
             $result = DB::transaction(function () use ($activity, $log, $request) {
@@ -118,11 +121,11 @@ class ActivityLogController extends Controller
 
         if ($result) {
             return redirect()
-                    ->route('organise::activity::log::modify', [$activity, $log])
-                    ->with([
-                        'message_type' => 'success',
-                        'message_body' => '儲存成功'
-                    ]);
+                ->route('organise::activity::log::modify', [$activity, $log])
+                ->with([
+                    'message_type' => 'success',
+                    'message_body' => '儲存成功'
+                ]);
         } else {
             return back()->withInput()->with([
                 'message_type' => 'warning',

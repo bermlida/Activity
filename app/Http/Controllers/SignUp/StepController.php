@@ -30,10 +30,10 @@ class StepController extends Controller
     public function showApply($activity, $record = null)
     {
         if (!is_null($record)) {
-            $order = Auth::user()
-                        ->profile->activities()
-                        ->wherePivot('serial_number', $record)
-                        ->first()->pivot;
+            $order = Auth::user()->profile
+                ->activities()
+                ->wherePivot('serial_number', $record)
+                ->first()->pivot;
 
             $data['activity'] = $order->activity;
 
@@ -64,10 +64,10 @@ class StepController extends Controller
     {
         $serial_number = session('serial_number');
 
-        $order = Auth::user()
-                    ->profile->activities()
-                    ->wherePivot('serial_number', $serial_number)
-                    ->first()->pivot;
+        $order = Auth::user()->profile
+            ->activities()
+            ->wherePivot('serial_number', $serial_number)
+            ->first()->pivot;
 
         $data = session()->all();
 
@@ -87,16 +87,16 @@ class StepController extends Controller
     {
         $serial_number = session('serial_number');
 
-        $data['order'] = Auth::user()
-                            ->profile->activities()
-                            ->wherePivot('serial_number', $serial_number)
-                            ->first()->pivot;
+        $data['order'] = Auth::user()->profile
+            ->activities()
+            ->wherePivot('serial_number', $serial_number)
+            ->first()->pivot;
 
         if (session()->has('transaction_serial_number')) {
             $data['transaction'] = $data['order']
-                                        ->transactions()
-                                        ->where('serial_number', session('transaction_serial_number'))
-                                        ->first();
+                ->transactions()
+                ->where('serial_number', session('transaction_serial_number'))
+                ->first();
         }
         
         return view('sign-up.confirm', $data);

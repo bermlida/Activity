@@ -46,11 +46,11 @@ class ActivityNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject($this->message->subject)
-                    ->view('notifications::activity-notification', [
-                        'subject' => $this->message->subject,
-                        'content' => $this->message->content
-                    ]);
+            ->subject($this->message->subject)
+            ->view('notifications::activity-notification', [
+                'subject' => $this->message->subject,
+                'content' => $this->message->content
+            ]);
     }
 
     /**
@@ -62,8 +62,8 @@ class ActivityNotification extends Notification
     public function toNexmo($notifiable)
     {
         return (new NexmoMessage)
-                    ->content('123456789')
-                    ->from('1234567890');
+            ->content('123456789')
+            ->from('1234567890');
     }
 
     /**

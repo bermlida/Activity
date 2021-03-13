@@ -38,14 +38,11 @@ class ActionController extends Controller
             $serial_number .= strtoupper(str_random(6));
         } while (Order::where('serial_number', $serial_number)->count() > 0);
 
-        $user->activities()->attach(
-            $activity->id,
-            [
-                'serial_number' => $serial_number,
-                'status' => ($payment_amount > 0 ? 0 : 1),
-                'status_info' => ($payment_amount > 0 ? '報名未完成' : '已完成報名')
-            ]
-        );
+        $user->activities()->attach($activity->id, [
+            'serial_number' => $serial_number,
+            'status' => ($payment_amount > 0 ? 0 : 1),
+            'status_info' => ($payment_amount > 0 ? '報名未完成' : '已完成報名')
+        ]);
         
         $data['serial_number'] = $serial_number;
         if ($payment_amount > 0) {
@@ -60,9 +57,7 @@ class ActionController extends Controller
             $route = 'sign-up::confirm';
         }
         
-        return redirect()
-                ->route($route, ['activity' => $activity->id])
-                ->with($data);
+        return redirect()->route($route, ['activity' => $activity->id])->with($data);
     }
 
     /**
@@ -92,9 +87,7 @@ class ActionController extends Controller
             $route = 'sign-up::confirm';
         }
         
-        return redirect()
-                ->route($route, ['activity' => $activity->id])
-                ->with($data);
+        return redirect()->route($route, ['activity' => $activity->id])->with($data);
     }
 
     /**
@@ -106,10 +99,10 @@ class ActionController extends Controller
     {
         $serial_number = session('serial_number');
         
-        $order = Auth::user()
-                    ->profile->activities()
-                    ->wherePivot('serial_number', $serial_number)
-                    ->first()->pivot;
+        $order = Auth::user()->profile
+            ->activities()
+            ->wherePivot('serial_number', $serial_number)
+            ->first()->pivot;
         
         $order->transactions()->delete();
 
@@ -144,11 +137,11 @@ class ActionController extends Controller
         $transaction->save();
 
         return redirect()
-                ->route('sign-up::confirm', ['activity' => $transaction->order->activity->id])
-                ->with([
-                    'serial_number' => $transaction->order->serial_number,
-                    'transaction_serial_number' => $serial_number
-                ]);
+            ->route('sign-up::confirm', ['activity' => $transaction->order->activity->id])
+            ->with([
+                'serial_number' => $transaction->order->serial_number,
+                'transaction_serial_number' => $serial_number
+            ]);
     }
 
     /**

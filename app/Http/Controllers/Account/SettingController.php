@@ -35,18 +35,18 @@ class SettingController extends Controller
     {
         if ($request->has('password')) {
             $result = $account = Auth::user()->fill([
-                            'password' => bcrypt($request->input('password'))
-                        ])->save();
+                'password' => bcrypt($request->input('password'))
+            ])->save();
         } else {
             $result = true;
         }
 
         return redirect()
-                ->route('account::setting')
-                ->with([
-                    'message_type' => $result ? 'success' : 'warning',
-                    'message_body' => $result ? '儲存成功' : '儲存失敗'
-                ]);
+            ->route('account::setting')
+            ->with([
+                'message_type' => $result ? 'success' : 'warning',
+                'message_body' => $result ? '儲存成功' : '儲存失敗'
+            ]);
     }
 
     /**

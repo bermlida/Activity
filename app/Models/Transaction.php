@@ -104,8 +104,8 @@ class Transaction extends Model
     public function scopeConnectPaymentFlow($query)
     {
         return $query
-                    ->whereNotNull('payment_info')
-                    ->orWhereNotNull('payment_result');
+            ->whereNotNull('payment_info')
+            ->orWhereNotNull('payment_result');
     }
 
     /**

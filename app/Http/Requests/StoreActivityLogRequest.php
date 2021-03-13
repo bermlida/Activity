@@ -23,8 +23,12 @@ class StoreActivityLogRequest extends Request
      */
     public function rules()
     {   
-        $plog_content_required = $this->isMethod('post') ? 'required_if:content_type,plog' : 'sometimes';
-        $vlog_content_required = $this->isMethod('post') ? 'required_if:content_type,vlog' : 'sometimes';
+        $plog_content_required = $this->isMethod('post')
+            ? 'required_if:content_type,plog'
+            : 'sometimes';
+        $vlog_content_required = $this->isMethod('post')
+            ? 'required_if:content_type,vlog'
+            : 'sometimes';
 
         return [
             'title' => 'required|string|max:255',

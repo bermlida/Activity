@@ -136,11 +136,11 @@ class RecordController extends Controller
         });
 
         return redirect()
-                ->route('participate::record::cancel::confirm', ['record' => $record])
-                ->with([
-                    'message_type' => $result ? 'success' : 'warning',
-                    'message_body' => $result ? '取消成功' : '取消失敗'
-                ]);
+            ->route('participate::record::cancel::confirm', ['record' => $record])
+            ->with([
+                'message_type' => $result ? 'success' : 'warning',
+                'message_body' => $result ? '取消成功' : '取消失敗'
+            ]);
     }
 
     /**
@@ -152,10 +152,11 @@ class RecordController extends Controller
     {
         $data['order'] = Order::where('serial_number', $record)->first();
 
-        $data['transaction'] = $data['order']->transactions()
-                                    ->ofStatus(-1)
-                                    ->whereNotNull('payment_result')
-                                    ->first();
+        $data['transaction'] = $data['order']
+            ->transactions()
+            ->ofStatus(-1)
+            ->whereNotNull('payment_result')
+            ->first();
 
         $data['financial_account'] = $data['transaction']->financial_account;
 
@@ -178,10 +179,10 @@ class RecordController extends Controller
         $result = $transaction->financial_account->fill($request->all())->save();
 
         return redirect()
-                ->route('participate::record::refund::confirm', ['record' => $record])
-                ->with([
-                    'message_type' => $result ? 'success' : 'warning',
+            ->route('participate::record::refund::confirm', ['record' => $record])
+            ->with([
+            'message_type' => $result ? 'success' : 'warning',
                     'message_body' => $result ? '儲存成功' : '儲存失敗'
-                ]);
+            ]);
     }
 }

@@ -132,16 +132,16 @@ class ActivityController extends Controller
             }
 
             return redirect()
-                    ->route('organise::activity::modify', [$activity])
-                    ->with([
-                        'message_type' => 'success',
-                        'message_body' => '新增成功'
-                    ]);
+                ->route('organise::activity::modify', [$activity])
+                ->with([
+                    'message_type' => 'success',
+                    'message_body' => '新增成功'
+                ]);
         } else {
             return back()->withInput()->with([
-                        'message_type' => 'warning',
-                        'message_body' => '新增失敗'
-                    ]);
+                'message_type' => 'warning',
+                'message_body' => '新增失敗'
+            ]);
         }
 
     }
@@ -167,16 +167,16 @@ class ActivityController extends Controller
         
         if ($result) {
             return redirect()
-                    ->route('organise::activity::modify', [$activity])
-                    ->with([
-                        'message_type' => 'success',
-                        'message_body' => '更新成功'
-                    ]);
+                ->route('organise::activity::modify', [$activity])
+                ->with([
+                    'message_type' => 'success',
+                    'message_body' => '更新成功'
+                ]);
         } else {
             return back()->withInput()->with([
-                        'message_type' => 'warning',
-                        'message_body' => '更新失敗'
-                    ]);
+                'message_type' => 'warning',
+                'message_body' => '更新失敗'
+            ]);
         }
     }
 
