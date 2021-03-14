@@ -141,14 +141,16 @@ class FileUploadService
      * 刪除單一活動日誌的內容。
      *
      * @param  \App\Models\Log  $log
-     * @return void
+     * @return bool
      */
     public function deleteLog(Log $log)
     {
+        $results = [];
+
         foreach ($log->attachments()->where('category', 'like', '%_content')->get() as $attachment) {
-            Storage::delete($attachment->path);
-            
-            $attachment->delete();
+            $results[] = Storage::delete($attachment->path) && $attachment->delete();
         }
+
+        return !in_array(false, $results);
     }
 }

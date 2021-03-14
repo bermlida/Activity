@@ -191,7 +191,7 @@ class ActivityLogController extends Controller
 
         $log = $activity->logs()->find($log);
 
-        $data['result'] = $log->delete();
+        $data['result'] = app(FileUploadService::class)->deleteLog($log) && $log->delete();
 
         $data['message'] = $data['result'] ? '刪除成功' : '刪除失敗';
 
