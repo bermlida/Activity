@@ -16,7 +16,7 @@
                     @elseif ($log->content_type == 'plog')
                         <img class="img-responsive" src="{{ $log_content->secure_url }}" alt="{{ $log_content->name }}">
                     @elseif ($log->content_type == 'vlog')
-                        <video src="{{ $log_content->secure_url }}" controls autoplay>
+                        <video src="{{ $log_content->secure_url }}" width="100%" height="100%" controls autoplay>
                             您的瀏覽器並不支援預覽影片
                         </video>
                     @endif

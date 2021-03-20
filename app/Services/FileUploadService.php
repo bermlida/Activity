@@ -148,7 +148,11 @@ class FileUploadService
         $results = [];
 
         foreach ($log->attachments()->where('category', 'like', '%_content')->get() as $attachment) {
-            $results[] = Storage::delete($attachment->path) && $attachment->delete();
+            $result = app('cloudinary.api')->deleteFile($attachment->path, [
+                'resource_type' => $attachment->category == 'vlog_content' ? 'video' : 'image'
+            ]);
+
+            $results[] = $result && $attachment->delete();
         }
 
         return !in_array(false, $results);
