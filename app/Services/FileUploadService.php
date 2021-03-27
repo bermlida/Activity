@@ -97,7 +97,7 @@ class FileUploadService
         $filename = $log->id . '.' . $file->getClientOriginalExtension();
 
         $result = $this->getUploadResult($file, $stored_path . $filename);
-
+var_dump($result); exit;
         $data = [
             'name' => $filename,
             'type' => $file->getMimeType(),
